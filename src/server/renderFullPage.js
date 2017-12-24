@@ -16,7 +16,7 @@ export default function renderFullPage(html, preloadedState) {
                 '\\u003c'
             )};
 			</script>
-			<script src="/bundle.js"></script>
+			<script src="/assets/bundle.js"></script>
 		</body>
 		</html>
 	`;
