@@ -21,8 +21,12 @@
   },
   "homepage": "https://github.com/tapesec/CITYZENS-WEBAPP#readme",
   "dependencies": {
+    "connect-ensure-login": "^0.1.1",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "material-components-web": "^0.27.0",
+    "passport": "^0.4.0",
+    "passport-auth0": "^0.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
