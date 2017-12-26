@@ -11,6 +11,7 @@ import {
     ToolbarTitle,
     ToolbarIcon
 } from 'rmwc/toolbar';
+import { Typography } from 'rmwc/Typography';
 
 export default function Dashboard(props) {
     return (
@@ -27,7 +28,10 @@ export default function Dashboard(props) {
                     </ToolbarSection>
                 </ToolbarRow>
             </Toolbar>
-            <h1>Here's the Dashboard</h1>
+            <h1>
+                <Typography use="title">Here's the Dashboard</Typography>
+            </h1>
+
             <Button>Go Johnny go !</Button>
             <Fab>favorite</Fab>
             <IconToggle
