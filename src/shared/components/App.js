@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import MainContainer from './MainContainer';
 import Dashboard from './dashboard/Dashboard';
 
-export default function App(props) {
+export default function App() {
     return (
         <MainContainer>
             <Switch>

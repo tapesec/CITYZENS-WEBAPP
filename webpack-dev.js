@@ -8,7 +8,7 @@ module.exports = {
     entry: ENTRY_PATH,
     output: {
         filename: 'bundle.js',
-        path: BUILD
+        path: BUILD,
     },
     devtool: 'eval-source-map',
     module: {
@@ -19,35 +19,35 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react']
-                    }
-                }
+                        presets: ['env', 'react'],
+                    },
+                },
             },
             {
-                test: /\.scss$/,
+                test: /\.s?css$/,
                 use: [
                     {
-                        loader: 'style-loader' // creates style nodes from JS strings
+                        loader: 'style-loader', // creates style nodes from JS strings
                     },
                     {
-                        loader: 'css-loader' // translates CSS into CommonJS
+                        loader: 'css-loader', // translates CSS into CommonJS
                     },
                     {
-                        loader: 'sass-loader' // compiles Sass to CSS
-                    }
-                ]
-            }
-        ]
+                        loader: 'sass-loader', // compiles Sass to CSS
+                    },
+                ],
+            },
+        ],
     },
     devServer: {
         contentBase: BUILD,
         hot: true,
         compress: true,
         port: 1234,
-        open: true
+        open: true,
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
     resolve: {
-        extensions: ['.js']
-    }
+        extensions: ['.js'],
+    },
 };

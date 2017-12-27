@@ -1,28 +1,19 @@
 const path = require('path');
-const fs = require('fs');
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BUILD = path.resolve(__dirname, 'build');
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'server', 'server.js');
-
-const nodeModules = {};
-fs
-    .readdirSync('node_modules')
-    .filter(function(x) {
-        return ['.bin'].indexOf(x) === -1;
-    })
-    .forEach(function(mod) {
-        nodeModules[mod] = 'commonjs ' + mod;
-    });
 
 module.exports = {
     entry: ENTRY_PATH,
     output: {
         filename: 'server.js',
-        path: BUILD
+        path: BUILD,
     },
     target: 'node',
-    externals: nodeModules,
+    externals: [nodeExternals()],
     devtool: 'eval-source-map',
     module: {
         rules: [
@@ -32,27 +23,27 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env', 'react']
-                    }
-                }
+                        presets: ['env', 'react'],
+                    },
+                },
             },
             {
-                test: /\.scss$/,
-                use: [
-                    {
-                        loader: 'style-loader' // creates style nodes from JS strings
-                    },
-                    {
-                        loader: 'css-loader' // translates CSS into CommonJS
-                    },
-                    {
-                        loader: 'sass-loader' // compiles Sass to CSS
-                    }
-                ]
-            }
-        ]
+                test: /\.s?css$/,
+                use: ExtractTextPlugin.extract({
+                    use: [
+                        {
+                            loader: 'css-loader',
+                        },
+                        {
+                            loader: 'sass-loader',
+                        },
+                    ],
+                }),
+            },
+        ],
     },
     resolve: {
-        extensions: ['.js']
-    }
+        extensions: ['.js'],
+    },
+    plugins: [new ExtractTextPlugin('styles.css')],
 };

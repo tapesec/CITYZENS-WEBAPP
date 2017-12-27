@@ -5,13 +5,14 @@ import {
     ToolbarSection,
     ToolbarMenuIcon,
     ToolbarTitle,
-    ToolbarIcon
+    ToolbarIcon,
 } from 'rmwc/toolbar';
+import './MainContainer.scss';
 import { Link } from 'react-router-dom';
 
 export default function MainContainer(props) {
     return (
-        <div>
+        <div className="MainContainer">
             <Toolbar style={{ color: 'red' }}>
                 <ToolbarRow>
                     <ToolbarSection alignStart>

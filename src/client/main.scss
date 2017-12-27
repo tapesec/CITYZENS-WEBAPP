@@ -3,3 +3,9 @@ $mdc-theme-secondary: #D0021B; // Orange A200
 $mdc-theme-background: #fff; // White
 
 @import '~@material/theme/mdc-theme';
+
+
+html, body {
+    height: 100%;
+    background-color: rgb(170, 170, 180);
+}
