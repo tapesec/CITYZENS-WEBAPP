@@ -1,17 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Dashboard from './Dashboard';
-import Login from './Login';
+import MainContainer from './MainContainer';
+import Dashboard from './dashboard/Dashboard';
 
 export default function App(props) {
     return (
-        <div>
-            does it works ?
+        <MainContainer>
             <Switch>
-                <Route exact path="/" component={Dashboard} />
-                <Route path="/register" component={Login} />
+                <Route path="/:city" component={Dashboard} />
             </Switch>
-        </div>
+        </MainContainer>
     );
 }
