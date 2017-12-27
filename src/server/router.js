@@ -1,20 +1,19 @@
-import { renderToString } from 'react-dom/server';
-import React from 'react';
-import { matchPath, StaticRouter } from 'react-router-dom';
-import App from './../shared/components/App';
+import { renderToString } from "react-dom/server";
+import React from "react";
+import { matchPath, StaticRouter } from "react-router-dom";
+import App from "./../shared/components/App";
+import renderFullPage from "./renderFullPage";
 
-import renderFullPage from './renderFullPage';
-const ROUTES = ['/', '/register', '/martignas/:hotspotSlug'];
+const ROUTES = ["/", "/register", "/martignas/:hotspotSlug"];
 
 export default function router(req, res) {
-
     const match = ROUTES.reduce(
         (acc, route) => matchPath(req.url, { path: route, exact: false }) || acc,
-        null
+        null,
     );
 
     if (!match) {
-        res.status(404).send('page not found');
+        res.status(404).send("page not found");
         return;
     }
 
@@ -24,7 +23,7 @@ export default function router(req, res) {
     const html = renderToString(
         <StaticRouter context={context} location={req.url}>
             <App />
-        </StaticRouter>
+        </StaticRouter>,
     );
     res.status(200).send(renderFullPage(html, initialStateFromServer));
 }

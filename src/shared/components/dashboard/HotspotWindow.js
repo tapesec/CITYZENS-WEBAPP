@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-export default function HotspotWindow(props) {
+export default function HotspotWindow() {
     return (
         <div>
             <h2>This is an hotspot window</h2>

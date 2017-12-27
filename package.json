@@ -8,7 +8,8 @@
     "client:build": "webpack --config webpack-dev.js --watch true",
     "server:build": "webpack --config webpack-server.js --watch true",
     "start": "webpack-dev-server --config webpack-dev.js",
-    "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"nodemon ./build/server.js\""
+    "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"nodemon ./build/server.js\"",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,12 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.3",
     "parallelshell": "^3.0.2",

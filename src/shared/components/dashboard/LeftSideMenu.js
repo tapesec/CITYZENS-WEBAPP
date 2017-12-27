@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-export default function LeftSideMenu(props) {
+export default function LeftSideMenu() {
     return (
         <div>
             <h1>Menu de gauche</h1>
