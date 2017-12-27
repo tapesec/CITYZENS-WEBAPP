@@ -2,9 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './../shared/store/';
+import reducer from './../shared/reducers/';
+import configureStore from './../shared/store/';
 import './main.scss';
 import App from './../shared/components/App';
+
+// eslint-disable-next-line no-undef
+const preloadedState = window.PRELOADED_STATE;
+const store = configureStore(reducer, preloadedState);
 
 hydrate(
     <Router>

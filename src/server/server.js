@@ -21,15 +21,14 @@ const strategy = new Auth0Strategy(
         clientSecret: '_zYuOp0VDjNjz4ivkKxsp1wYCWGWveRu4r6r1pJ9VMcIlE7n5C7v3L95uQf5yK_F',
         callbackURL: 'http://localhost:3000/callback',
     },
-    (accessToken, refreshToken, extraParams, profile, done) => {
-        return done(null, accessToken);
-    },
+    (accessToken, refreshToken, extraParams, profile, done) =>
+        done(null, { accessToken, refreshToken, profile }),
 );
 passport.use(strategy);
 
 // This can be used to keep a smaller payload
-passport.serializeUser((accessToken, done) => {
-    done(null, { accessToken });
+passport.serializeUser((userInfo, done) => {
+    done(null, userInfo);
 });
 
 passport.deserializeUser((user, done) => {

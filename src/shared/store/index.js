@@ -1,6 +1,4 @@
 import { createStore } from 'redux';
 
-
-export default createStore((state, action) => {
-    return state;
-});
+const configureStore = (reducer, preloadedState) => createStore(reducer, preloadedState);
+export default configureStore;
