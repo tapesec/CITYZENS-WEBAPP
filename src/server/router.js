@@ -4,11 +4,12 @@ import { matchPath, StaticRouter } from 'react-router-dom';
 import App from './../shared/components/App';
 
 import renderFullPage from './renderFullPage';
-const ROUTES = ['/', '/register'];
+const ROUTES = ['/', '/register', '/martignas/:hotspotSlug'];
 
 export default function router(req, res) {
+
     const match = ROUTES.reduce(
-        (acc, route) => matchPath(req.url, { path: route, exact: true }) || acc,
+        (acc, route) => matchPath(req.url, { path: route, exact: false }) || acc,
         null
     );
 

@@ -8,7 +8,7 @@ export default function App(props) {
     return (
         <MainContainer>
             <Switch>
-                <Route path="/:city" component={Dashboard} />
+                <Route path="/martignas" component={Dashboard} />
             </Switch>
         </MainContainer>
     );
