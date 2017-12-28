@@ -22,13 +22,10 @@ export default class LeftSideMenu extends React.Component {
                 <Fab mini onClick={() => this.setState({ open: !this.state.open })}>
                     favorite
                 </Fab>
-                <PersistentDrawer>
-                    <PersistentDrawerHeader
-                        open={this.state.open}
-                        onClose={() => this.setState({ open: false })}
-                        style={{ backgroundColor: 'blue' }}>
-                        PersistentDrawerHeader
-                    </PersistentDrawerHeader>
+                <PersistentDrawer
+                    open={this.state.open}
+                    onClose={() => this.setState({ open: false })}>
+                    <PersistentDrawerHeader>PersistentDrawerHeader</PersistentDrawerHeader>
                     <PersistentDrawerContent>
                         <ListItem>
                             <ListItemText>Cookies</ListItemText>
