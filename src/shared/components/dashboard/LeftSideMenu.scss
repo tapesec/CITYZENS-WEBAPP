@@ -1,0 +1,9 @@
+.LeftSideMenu {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 396px;
+    .mdc-persistent-drawer__drawer {
+        width: 396px;
+    }
+}

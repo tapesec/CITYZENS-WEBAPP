@@ -22,7 +22,13 @@ export default function router(req, res) {
 
     const data = {
         authorizedUser: {},
+        componentsVisibility: {
+            leftSideMenu: {
+                open: true,
+            },
+        },
     };
+
     if (req.user) {
         data.authorizedUser = req.user;
     }

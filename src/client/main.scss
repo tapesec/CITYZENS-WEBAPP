@@ -1,6 +1,7 @@
-$mdc-theme-primary: #ECECEC; // Purple 500
-$mdc-theme-secondary: #D0021B; // Orange A200
-$mdc-theme-background: #fff; // White
+$mdc-theme-primary: #ECECEC;
+$mdc-theme-secondary: #009688; // Orange A200
+$mdc-theme-background: #ffffff; // White
+$mdc-theme--text-icon-on-primary: #646464;
 
 @import '~@material/theme/mdc-theme';
 
@@ -9,5 +10,6 @@ html, body {
     height: 100%;
 }
 body {
-    margin: 0
+    margin: 0;
+    position: relative;
 }
