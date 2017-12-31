@@ -1,15 +1,15 @@
 import React from 'react';
-import { PersistentDrawer, PersistentDrawerContent } from 'rmwc/Drawer';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import LeftSideMenuHeader from './header/LeftSideMenuHeader';
+import Drawer from './../../lib/Drawer';
 import './LeftSideMenu.scss';
 
 const LeftSideMenu = props => (
-    <PersistentDrawer theme={['primary-dark-bg']} className="LeftSideMenu" open={props.open}>
-        <LeftSideMenuHeader />
-        <PersistentDrawerContent>{props.children}</PersistentDrawerContent>
-    </PersistentDrawer>
+    <Drawer in={props.open}>
+        <div className="LeftSideMenu">
+            <h1>Test</h1>
+        </div>
+    </Drawer>
 );
 
 LeftSideMenu.propTypes = {
