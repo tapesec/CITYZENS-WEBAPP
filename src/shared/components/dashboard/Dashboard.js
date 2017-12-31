@@ -1,8 +1,13 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import LeftSideMenu from './LeftSideMenu';
-import Map from './Map';
+import React, { Fragment } from 'react';
 
-export default function Dashboard({ match }) {
-    return [<LeftSideMenu />, <Map />];
+import LeftSideMenu from './LeftSideMenu/LeftSideMenu';
+import MapArea from './MapArea';
+
+export default function Dashboard({ props }) {
+    return (
+        <Fragment>
+            <LeftSideMenu />
+            <MapArea style={{ height: '100px' }} />
+        </Fragment>
+    );
 }

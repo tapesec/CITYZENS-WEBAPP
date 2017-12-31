@@ -7,7 +7,7 @@ const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'server', 'server.js');
 
 module.exports = {
-    entry: ENTRY_PATH,
+    entry: ['babel-polyfill', ENTRY_PATH],
     output: {
         filename: 'server.js',
         path: BUILD,
@@ -27,6 +27,7 @@ module.exports = {
             {
                 test: /\.s?css$/,
                 use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
                     use: [
                         {
                             loader: 'css-loader',
@@ -37,10 +38,32 @@ module.exports = {
                     ],
                 }),
             },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.svg/,
+                use: {
+                    loader: 'svg-url-loader',
+                    options: {
+                        noquotes: true,
+                        stripdeclarations: true,
+                        iesafe: true,
+                    },
+                },
+            },
         ],
     },
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.js', '.css', '.scss'],
     },
     plugins: [new ExtractTextPlugin('styles.css')],
 };

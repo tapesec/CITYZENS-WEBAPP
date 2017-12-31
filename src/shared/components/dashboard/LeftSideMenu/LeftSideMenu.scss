@@ -2,8 +2,12 @@
     height: 100%;
     position: absolute;
     top: 0;
-    width: 396px;
+    z-index: 0;
     .mdc-persistent-drawer__drawer {
         width: 396px;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+    }
+    div.mdc-persistent-drawer--open {
+        width: 396px
     }
 }

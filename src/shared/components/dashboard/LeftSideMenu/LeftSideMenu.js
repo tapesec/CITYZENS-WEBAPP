@@ -1,12 +1,13 @@
 import React from 'react';
-import { PersistentDrawer, PersistentDrawerHeader, PersistentDrawerContent } from 'rmwc/Drawer';
+import { PersistentDrawer, PersistentDrawerContent } from 'rmwc/Drawer';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import LeftSideMenuHeader from './header/LeftSideMenuHeader';
 import './LeftSideMenu.scss';
 
 const LeftSideMenu = props => (
-    <PersistentDrawer style={{ width: '400px' }} className="LeftSideMenu" open={props.open}>
-        <PersistentDrawerHeader>Cityzens</PersistentDrawerHeader>
+    <PersistentDrawer theme={['primary-dark-bg']} className="LeftSideMenu" open={props.open}>
+        <LeftSideMenuHeader />
         <PersistentDrawerContent>{props.children}</PersistentDrawerContent>
     </PersistentDrawer>
 );

@@ -1,15 +1,15 @@
 import React from 'react';
-import { Toolbar, ToolbarRow, ToolbarSection, ToolbarMenuIcon, ToolbarIcon } from 'rmwc/toolbar';
-import Fab from 'rmwc/Fab';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { Toolbar, ToolbarRow, ToolbarSection, ToolbarIcon } from 'rmwc/toolbar';
+import Fab from 'rmwc/Fab';
 import actions from './../../client/actions';
 import './MainContainer.scss';
 
 const MainContainer = props => (
     <div className="MainContainer">
-        <Toolbar>
+        <Toolbar className="Toolbar">
             <ToolbarRow>
                 <ToolbarSection alignStart>
                     <Fab

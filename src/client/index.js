@@ -4,7 +4,6 @@ import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import reducer from './../shared/reducers/';
 import configureStore from './../shared/store/';
-import './main.scss';
 import App from './../shared/components/App';
 
 // eslint-disable-next-line no-undef

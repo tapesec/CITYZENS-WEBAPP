@@ -5,7 +5,7 @@ const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'client', 'index.js');
 
 module.exports = {
-    entry: ENTRY_PATH,
+    entry: ['babel-polyfill', ENTRY_PATH],
     output: {
         filename: 'bundle.js',
         path: BUILD,
@@ -34,6 +34,17 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.svg/,
+                use: {
+                    loader: 'svg-url-loader',
+                    options: {
+                        noquotes: true,
+                        stripdeclarations: true,
+                        iesafe: true,
+                    },
+                },
+            },
         ],
     },
     devServer: {
@@ -45,6 +56,6 @@ module.exports = {
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.js', '.css', '.scss']
     },
 };

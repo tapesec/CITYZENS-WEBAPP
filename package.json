@@ -22,9 +22,11 @@
   },
   "homepage": "https://github.com/tapesec/CITYZENS-WEBAPP#readme",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "connect-ensure-login": "^0.1.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "google-map-react": "^0.26.0",
     "material-components-web": "^0.27.0",
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.0",
@@ -34,7 +36,8 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
-    "rmwc": "0.0.1-rc12"
+    "rmwc": "0.0.1-rc12",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -50,11 +53,14 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
     "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.3",
     "parallelshell": "^3.0.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
+    "svg-url-loader": "^2.3.1",
+    "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
     "webpack-node-externals": "^1.6.0"
