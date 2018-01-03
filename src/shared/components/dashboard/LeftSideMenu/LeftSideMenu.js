@@ -2,13 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Drawer from './../../lib/Drawer';
+import LeftSideMenuContainer from './LeftSideMenuContainer';
+import LeftSideMenuHeader from './header/LeftSideMenuHeader';
 import './LeftSideMenu.scss';
+
 
 const LeftSideMenu = props => (
     <Drawer in={props.open}>
-        <div className="LeftSideMenu">
-            <h1>Test</h1>
-        </div>
+        {(state) => (
+            <LeftSideMenuContainer state={state}>
+                <LeftSideMenuHeader/>
+            </LeftSideMenuContainer>
+        )}
     </Drawer>
 );
 
