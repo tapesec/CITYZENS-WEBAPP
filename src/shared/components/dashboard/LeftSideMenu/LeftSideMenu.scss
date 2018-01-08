@@ -9,6 +9,15 @@
     transition: left 300ms ease-in-out
 }
 
+.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {
+    padding-left: 50px;
+    box-sizing: border-box;
+}
+
+.mdc-text-field__bottom-line--active {
+    background-color:#f19D00;
+}
+
 .drawer-enter {
     left: 0px;
 }
