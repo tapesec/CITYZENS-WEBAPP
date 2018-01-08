@@ -22,9 +22,9 @@ const MainContainer = props => (
                         menu
                     </Fab>
                 </ToolbarSection>
-                <ToolbarSection alignEnd>
-                    <ToolbarIcon use="save" />
-                    <ToolbarIcon use="print" />
+                <ToolbarSection style={{ marginRight: '2rem' }} alignEnd>
+                    <ToolbarIcon use="contact_mail" theme={['text-icon-on-primary']} />
+                    <ToolbarIcon use="person_outline" theme={['text-icon-on-primary']} />
                 </ToolbarSection>
             </ToolbarRow>
         </Toolbar>

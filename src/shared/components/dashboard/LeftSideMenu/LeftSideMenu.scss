@@ -6,32 +6,17 @@
     z-index: 0;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
     top: 0;
-    transition: left 300ms ease-in-out
-}
+    transition: left 300ms ease-in-out;
 
-.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {
-    padding-left: 50px;
-    box-sizing: border-box;
-}
+    .mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {
+        padding-left: 50px;
+        box-sizing: border-box;
+    }
 
-.mdc-text-field__bottom-line--active {
-    background-color:#f19D00;
-}
-
-.drawer-enter {
-    left: 0px;
-}
-
-.drawer-enter.drawer-enter-active {
-    left: -394px;
-    transition: left 1000ms ease-in;
-}
-
-.drawer-exit {
-    left: -394px;
-}
-
-.drawer-exit.drawer-exit-active {
-    left: 0px;
-    transition: left 800ms ease-in;
+    .mdc-text-field__bottom-line--active {
+        background-color:#f19D00;
+    }
+    .inner-handle {
+        background-color: gray;
+    }
 }

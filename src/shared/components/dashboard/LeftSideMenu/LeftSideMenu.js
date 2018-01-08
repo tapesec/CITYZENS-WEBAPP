@@ -8,51 +8,104 @@ import {
     ListItemText,
     ListItemSecondaryText,
     ListItemStartDetail,
-    ListItemEndDetail,
     ListDivider,
-    ListGroup,
-    ListGroupSubheader
-  } from 'rmwc/List';
+} from 'rmwc/List';
+import CustomScroll from 'react-custom-scroll';
+import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 import Drawer from './../../lib/Drawer';
 import LeftSideMenuContainer from './LeftSideMenuContainer';
 import LeftSideMenuHeader from './header/LeftSideMenuHeader';
 import LeftSideMenuContent from './content/LeftSideMenuContent';
 import './LeftSideMenu.scss';
 
-
 const LeftSideMenu = props => (
     <Drawer in={props.open}>
-        {(state) => (
+        {state => (
             <LeftSideMenuContainer state={state}>
-                <LeftSideMenuHeader/>
+                <LeftSideMenuHeader />
                 <LeftSideMenuContent>
                     <TextField
-                    persistent
-                    fullwidth
-                    withLeadingIcon={
-                    <TextFieldIcon use="search"/>
-                    }
-                    label="Que cherchez vous ?" />
-                    <List twoLine avatarList>
-  <ListItem>
-    <ListItemStartDetail>star_border</ListItemStartDetail>
-    <ListItemText>Cookies</ListItemText>
-    <ListItemSecondaryText>Deuxieme ligne</ListItemSecondaryText>
-    <ListItemEndDetail>info</ListItemEndDetail>
-  </ListItem>
-
-  <ListItem>
-    <ListItemStartDetail>favorite_border</ListItemStartDetail>
-    <ListItemText>Pizza</ListItemText>
-    <ListItemEndDetail>info</ListItemEndDetail>
-  </ListItem>
-
-  <ListItem>
-    <ListItemStartDetail>mood</ListItemStartDetail>
-    <ListItemText>Icecream</ListItemText>
-    <ListItemEndDetail>info</ListItemEndDetail>
-  </ListItem>
-</List>
+                        persistent="true"
+                        fullwidth
+                        withLeadingIcon={<TextFieldIcon use="search" />}
+                        label="Que cherchez vous ?"
+                    />
+                    <div>
+                        {/* search result list */}
+                        <CustomScroll>
+                            <List twoLine avatarList style={{ maxHeight: '200px' }}>
+                                <ListItem>
+                                    <ListItemStartDetail>
+                                        <img
+                                            style={{
+                                                display: 'block',
+                                                height: '100%',
+                                                width: '100%',
+                                                borderRadius: '50%',
+                                            }}
+                                            alt="avatar"
+                                            src="https://dummyimage.com/300.png"
+                                        />
+                                    </ListItemStartDetail>
+                                    <ListItemText>
+                                        <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
+                                            Ecole Flora Tristan
+                                        </h3>
+                                        <ListItemSecondaryText>
+                                            12 rue des écoles de Charlemagne
+                                        </ListItemSecondaryText>
+                                    </ListItemText>
+                                </ListItem>
+                                <ListDivider />
+                                <ListItem>
+                                    <ListItemStartDetail>
+                                        <img
+                                            style={{
+                                                display: 'block',
+                                                height: '100%',
+                                                width: '100%',
+                                                borderRadius: '50%',
+                                            }}
+                                            alt="avatar"
+                                            src="https://randomuser.me/api/portraits/men/7.jpg"
+                                        />
+                                    </ListItemStartDetail>
+                                    <ListItemText>
+                                        <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
+                                            Eglise episcopal de Martignas
+                                        </h3>
+                                        <ListItemSecondaryText>
+                                            1 place de Clovis 1er
+                                        </ListItemSecondaryText>
+                                    </ListItemText>
+                                </ListItem>
+                                <ListDivider />
+                                <ListItem>
+                                    <ListItemStartDetail>
+                                        <img
+                                            style={{
+                                                display: 'block',
+                                                height: '100%',
+                                                width: '100%',
+                                                borderRadius: '50%',
+                                            }}
+                                            alt="avatar"
+                                            src="https://randomuser.me/api/portraits/women/7.jpg"
+                                        />
+                                    </ListItemStartDetail>
+                                    <ListItemText>
+                                        <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
+                                            Salle Gérard Philippe
+                                        </h3>
+                                        <ListItemSecondaryText>
+                                            4 rue des Martyrs de la Résistance
+                                        </ListItemSecondaryText>
+                                    </ListItemText>
+                                </ListItem>
+                                <ListDivider />
+                            </List>
+                        </CustomScroll>
+                    </div>
                 </LeftSideMenuContent>
             </LeftSideMenuContainer>
         )}
