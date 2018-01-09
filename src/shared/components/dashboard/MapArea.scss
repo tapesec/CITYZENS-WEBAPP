@@ -1,5 +1,5 @@
 .MapArea {
-    height: 100%;
+    height: calc(100% - 64px);
     position: fixed;
     width: 100%;
     z-index: -1;
