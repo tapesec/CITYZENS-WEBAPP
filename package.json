@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/tapesec/CITYZENS-WEBAPP#readme",
   "dependencies": {
+    "algoliasearch": "^3.24.9",
     "babel-polyfill": "^6.26.0",
     "connect-ensure-login": "^0.1.1",
     "express": "^4.16.2",
@@ -38,6 +39,7 @@
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
+    "redux-saga": "^0.16.0",
     "rmwc": "0.0.1-rc12",
     "webfontloader": "^1.6.28"
   },

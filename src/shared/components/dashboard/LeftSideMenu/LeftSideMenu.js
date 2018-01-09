@@ -11,6 +11,8 @@ import {
     ListDivider,
 } from 'rmwc/List';
 import CustomScroll from 'react-custom-scroll';
+import { bindActionCreators } from 'redux';
+import actions from './../../../../client/actions';
 import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 import Drawer from './../../lib/Drawer';
 import LeftSideMenuContainer from './LeftSideMenuContainer';
@@ -29,6 +31,10 @@ const LeftSideMenu = props => (
                         fullwidth
                         withLeadingIcon={<TextFieldIcon use="search" />}
                         label="Que cherchez vous ?"
+                        onChange={evt => {
+                            console.log(props.actions);
+                            props.actions.hotspotSearchKeyPress(evt.target.value);
+                        }}
                     />
                     <div>
                         {/* search result list */}
@@ -118,4 +124,8 @@ LeftSideMenu.propTypes = {
 
 const mapStateToProps = state => ({ open: state.componentsVisibility.leftSideMenu.open });
 
-export default connect(mapStateToProps)(LeftSideMenu);
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftSideMenu);
