@@ -1,23 +1,21 @@
-import { takeLatest, take } from 'redux-saga/effects';
+import { takeLatest, take, call, put } from 'redux-saga/effects';
 import algoliasearch from 'algoliasearch';
 import actionTypes from './../actions/actionTypes';
+import AlgoliaWrapper from './../services/AlgoliaWrapper';
+import actions from './../actions/';
 
 export function* initAlgolia() {
-    const client = algoliasearch('PRS3PO0GB2', '70ff404aa7da4a72ace6d2ea89ada561');
-    const index = client.initIndex('getstarted_actors');
+    const algolia = new AlgoliaWrapper(
+        algoliasearch('PRS3PO0GB2', '70ff404aa7da4a72ace6d2ea89ada561'),
+    );
+    algolia.initIndex('getstarted_actors');
 
     while (true) {
-        const action = yield take(actionTypes.HOTSPOT_SEARCH_KEY_PRESS);
-        index.search({ query: action.payload.searchValue }, (err, content) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-
-            for (var h in content.hits) {
-                console.log(`Hit(${content.hits[h].objectID}): ${content.hits[h].toString()}`);
-            }
-        });
+        const keyPressAction = yield take(actionTypes.HOTSPOT_SEARCH_KEY_PRESS);
+        try {
+            const prediction = yield call(algolia.search, keyPressAction.payload.searchValue);
+            yield put(actions.displayHits(prediction.hits));
+        } catch (err) {}
     }
 }
 
