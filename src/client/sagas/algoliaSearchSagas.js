@@ -8,14 +8,20 @@ export function* initAlgolia() {
     const algolia = new AlgoliaWrapper(
         algoliasearch('PRS3PO0GB2', '70ff404aa7da4a72ace6d2ea89ada561'),
     );
-    algolia.initIndex('getstarted_actors');
+    algolia.initIndex('dev_hotspots');
 
     while (true) {
         const keyPressAction = yield take(actionTypes.HOTSPOT_SEARCH_KEY_PRESS);
         try {
-            const prediction = yield call(algolia.search, keyPressAction.payload.searchValue);
-            yield put(actions.displayHits(prediction.hits));
-        } catch (err) {}
+            const prediction = yield call(
+                [algolia, algolia.search],
+                keyPressAction.payload.searchValue,
+            );
+            console.log(prediction);
+            yield put(actions.displayHits(prediction));
+        } catch (err) {
+            console.log(err);
+        }
     }
 }
 

@@ -15,10 +15,10 @@ const hotspotSearchKeyPress = searchValue => ({
     },
 });
 
-const displayHits = hits => ({
+const displayHits = prediction => ({
     type: actionTypes.DISPLAY_HITS,
     payload: {
-        hits,
+        prediction,
     },
 });
 

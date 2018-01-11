@@ -2,22 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { TextField, TextFieldIcon } from 'rmwc/TextField';
-import {
-    List,
-    ListItem,
-    ListItemText,
-    ListItemSecondaryText,
-    ListItemStartDetail,
-    ListDivider,
-} from 'rmwc/List';
-import CustomScroll from 'react-custom-scroll';
 import { bindActionCreators } from 'redux';
+import { getHits } from './../../../reducers/algolia';
 import actions from './../../../../client/actions';
 import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 import Drawer from './../../lib/Drawer';
 import LeftSideMenuContainer from './LeftSideMenuContainer';
 import LeftSideMenuHeader from './header/LeftSideMenuHeader';
 import LeftSideMenuContent from './content/LeftSideMenuContent';
+import SearchResult from './content/searchResult/SearchResult';
+
 import './LeftSideMenu.scss';
 
 class LeftSideMenu extends React.Component {
@@ -41,82 +35,7 @@ class LeftSideMenu extends React.Component {
                                     this.props.actions.hotspotSearchKeyPress(evt.target.value);
                                 }}
                             />
-                            <div>
-                                {/* search result list */}
-                                <CustomScroll>
-                                    <List twoLine avatarList style={{ maxHeight: '200px' }}>
-                                        <ListItem>
-                                            <ListItemStartDetail>
-                                                <img
-                                                    style={{
-                                                        display: 'block',
-                                                        height: '100%',
-                                                        width: '100%',
-                                                        borderRadius: '50%',
-                                                    }}
-                                                    alt="avatar"
-                                                    src="https://dummyimage.com/300.png"
-                                                />
-                                            </ListItemStartDetail>
-                                            <ListItemText>
-                                                <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
-                                                    Ecole Flora Tristan
-                                                </h3>
-                                                <ListItemSecondaryText>
-                                                    12 rue des écoles de Charlemagne
-                                                </ListItemSecondaryText>
-                                            </ListItemText>
-                                        </ListItem>
-                                        <ListDivider />
-                                        <ListItem>
-                                            <ListItemStartDetail>
-                                                <img
-                                                    style={{
-                                                        display: 'block',
-                                                        height: '100%',
-                                                        width: '100%',
-                                                        borderRadius: '50%',
-                                                    }}
-                                                    alt="avatar"
-                                                    src="https://randomuser.me/api/portraits/men/7.jpg"
-                                                />
-                                            </ListItemStartDetail>
-                                            <ListItemText>
-                                                <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
-                                                    Eglise episcopal de Martignas
-                                                </h3>
-                                                <ListItemSecondaryText>
-                                                    1 place de Clovis 1er
-                                                </ListItemSecondaryText>
-                                            </ListItemText>
-                                        </ListItem>
-                                        <ListDivider />
-                                        <ListItem>
-                                            <ListItemStartDetail>
-                                                <img
-                                                    style={{
-                                                        display: 'block',
-                                                        height: '100%',
-                                                        width: '100%',
-                                                        borderRadius: '50%',
-                                                    }}
-                                                    alt="avatar"
-                                                    src="https://randomuser.me/api/portraits/women/7.jpg"
-                                                />
-                                            </ListItemStartDetail>
-                                            <ListItemText>
-                                                <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
-                                                    Salle Gérard Philippe
-                                                </h3>
-                                                <ListItemSecondaryText>
-                                                    4 rue des Martyrs de la Résistance
-                                                </ListItemSecondaryText>
-                                            </ListItemText>
-                                        </ListItem>
-                                        <ListDivider />
-                                    </List>
-                                </CustomScroll>
-                            </div>
+                            <SearchResult hits={this.props.hits} />
                         </LeftSideMenuContent>
                     </LeftSideMenuContainer>
                 )}
@@ -129,7 +48,10 @@ LeftSideMenu.propTypes = {
     open: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({ open: state.componentsVisibility.leftSideMenu.open });
+const mapStateToProps = state => ({
+    open: state.componentsVisibility.leftSideMenu.open,
+    hits: getHits(state),
+});
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(actions, dispatch),

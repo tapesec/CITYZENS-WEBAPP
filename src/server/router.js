@@ -27,6 +27,7 @@ export default function router(req, res) {
                 open: true,
             },
         },
+        algolia: {},
     };
 
     if (req.user) {
