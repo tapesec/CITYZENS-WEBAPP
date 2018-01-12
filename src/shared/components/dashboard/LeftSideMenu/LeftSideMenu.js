@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { TextField, TextFieldIcon } from 'rmwc/TextField';
-import { bindActionCreators } from 'redux';
 import { getHits } from './../../../reducers/algolia';
 import actions from './../../../../client/actions';
 import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
@@ -16,7 +15,7 @@ import './LeftSideMenu.scss';
 
 class LeftSideMenu extends React.Component {
     componentDidMount() {
-        this.props.actions.leftSideMenuDidMount();
+        this.props.leftSideMenuDidMount();
     }
 
     render() {
@@ -32,7 +31,7 @@ class LeftSideMenu extends React.Component {
                                 withLeadingIcon={<TextFieldIcon use="search" />}
                                 label="Que cherchez vous ?"
                                 onChange={evt => {
-                                    this.props.actions.hotspotSearchKeyPress(evt.target.value);
+                                    this.props.hotspotSearchKeyPress(evt.target.value);
                                 }}
                             />
                             <SearchResult hits={this.props.hits} />
@@ -46,6 +45,13 @@ class LeftSideMenu extends React.Component {
 
 LeftSideMenu.propTypes = {
     open: PropTypes.bool.isRequired,
+    hits: PropTypes.arrayOf(PropTypes.object),
+    leftSideMenuDidMount: PropTypes.func.isRequired,
+    hotspotSearchKeyPress: PropTypes.func.isRequired,
+};
+
+LeftSideMenu.defaultProps = {
+    hits: [],
 };
 
 const mapStateToProps = state => ({
@@ -54,7 +60,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(actions, dispatch),
+    leftSideMenuDidMount: () => {
+        dispatch(actions.leftSideMenuDidMount());
+    },
+    hotspotSearchKeyPress: inputValue => {
+        dispatch(actions.hotspotSearchKeyPress(inputValue));
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftSideMenu);

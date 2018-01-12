@@ -14,8 +14,8 @@ const SearchResult = props => (
     <CustomScroll>
         <List twoLine avatarList style={{ maxHeight: '200px' }}>
             {props.hits.map(hit => (
-                <Fragment>
-                    <ListItem key={hit.objectID}>
+                <Fragment key={hit.objectID}>
+                    <ListItem>
                         <ListItemStartDetail>
                             <img
                                 style={{

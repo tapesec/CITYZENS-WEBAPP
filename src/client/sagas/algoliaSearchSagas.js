@@ -17,7 +17,6 @@ export function* initAlgolia() {
                 [algolia, algolia.search],
                 keyPressAction.payload.searchValue,
             );
-            console.log(prediction);
             yield put(actions.displayHits(prediction));
         } catch (err) {
             console.log(err);
