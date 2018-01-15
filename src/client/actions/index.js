@@ -22,11 +22,17 @@ const displayHits = prediction => ({
     },
 });
 
-const fetchHotspotsInArea = (lat, lng) => ({
+const algoliaError = () => ({
+    type: actionTypes.ALGOLIA_ERROR,
+});
+
+const fetchHotspotsInArea = (north, west, south, east) => ({
     type: actionTypes.FETCH_HOTSPOTS_IN_AREA,
     payload: {
-        lat,
-        lng,
+        north,
+        west,
+        south,
+        east,
     },
 });
 
@@ -42,6 +48,7 @@ export default {
     hotspotSearchKeyPress,
     leftSideMenuDidMount,
     displayHits,
+    algoliaError,
     fetchHotspotsInArea,
     fetchHotspotsInAreaSuccess,
 };

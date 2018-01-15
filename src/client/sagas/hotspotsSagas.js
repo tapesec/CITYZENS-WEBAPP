@@ -4,13 +4,21 @@ import actions from './../actions';
 import cityzensApi from './../../shared/services/CityzensApi';
 
 export function* fetchHotspots(action) {
-    if (action && action.payload && action.payload.lat && action.payload.lng) {
-        try {
-            const response = yield call([cityzensApi, cityzensApi.getPublicHotspots]);
-            const hotspots = yield response.json();
-            yield put(actions.fetchHotspotsInAreaSuccess(hotspots));
-        } catch (err) {}
+    let params;
+    if (action && action.payload && action.payload.north) {
+        params = {
+            north: action.payload.north,
+            west: action.payload.west,
+            south: action.payload.south,
+            east: action.payload.east,
+        };
     }
+    try {
+        const response = yield call([cityzensApi, cityzensApi.getPublicHotspots, params]);
+        const hotspots = yield response.json();
+        yield put(actions.fetchHotspotsInAreaSuccess(hotspots));
+    } catch (err) {}
+
 }
 
 export default function* hotspotsSagas() {

@@ -19,7 +19,7 @@ export function* initAlgolia() {
             );
             yield put(actions.displayHits(prediction));
         } catch (err) {
-            console.log(err);
+            yield put(actions.algoliaError());
         }
     }
 }
