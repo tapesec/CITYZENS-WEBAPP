@@ -22,9 +22,26 @@ const displayHits = prediction => ({
     },
 });
 
+const fetchHotspotsInArea = (lat, lng) => ({
+    type: actionTypes.FETCH_HOTSPOTS_IN_AREA,
+    payload: {
+        lat,
+        lng,
+    },
+});
+
+const fetchHotspotsInAreaSuccess = hotspots => ({
+    type: actionTypes.FETCH_HOTSPOTS_IN_AREA_SUCCESS,
+    payload: {
+        hotspots,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
     leftSideMenuDidMount,
     displayHits,
+    fetchHotspotsInArea,
+    fetchHotspotsInAreaSuccess,
 };

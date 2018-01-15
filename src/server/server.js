@@ -66,6 +66,6 @@ app.get(
 );
 app.get(['/', '/martignas', '/martignas/:hotspotSlug'], router);
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('ready to serve pages');
 });

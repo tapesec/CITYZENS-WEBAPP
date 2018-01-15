@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { TextField, TextFieldIcon } from 'rmwc/TextField';
-import { getHits } from './../../../reducers/algolia';
+import selectors from './../../../../client/selectors/';
 import actions from './../../../../client/actions';
 import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 import Drawer from './../../lib/Drawer';
@@ -34,7 +34,7 @@ class LeftSideMenu extends React.Component {
                                     this.props.hotspotSearchKeyPress(evt.target.value);
                                 }}
                             />
-                            <SearchResult hits={this.props.hits} />
+                            <SearchResult hotspotsList={this.props.hotspotsList} />
                         </LeftSideMenuContent>
                     </LeftSideMenuContainer>
                 )}
@@ -45,18 +45,18 @@ class LeftSideMenu extends React.Component {
 
 LeftSideMenu.propTypes = {
     open: PropTypes.bool.isRequired,
-    hits: PropTypes.arrayOf(PropTypes.object),
+    hotspotsList: PropTypes.arrayOf(PropTypes.object),
     leftSideMenuDidMount: PropTypes.func.isRequired,
     hotspotSearchKeyPress: PropTypes.func.isRequired,
 };
 
 LeftSideMenu.defaultProps = {
-    hits: [],
+    hotspotsList: []
 };
 
 const mapStateToProps = state => ({
     open: state.componentsVisibility.leftSideMenu.open,
-    hits: getHits(state),
+    hotspotsList: selectors.getHotspotsForSearchList(state)
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -10,4 +10,9 @@ export default function algolia(state = initialState, action) {
             return state;
     }
 }
-export const getHits = state => state.algolia.hits;
+export const getHits = state => {
+    if (state.algolia.query !== '') {
+        return state.algolia.hits;
+    }
+    return [];
+}

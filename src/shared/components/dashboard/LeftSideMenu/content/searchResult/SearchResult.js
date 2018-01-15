@@ -13,8 +13,8 @@ import CustomScroll from 'react-custom-scroll';
 const SearchResult = props => (
     <CustomScroll>
         <List twoLine avatarList style={{ maxHeight: '200px' }}>
-            {props.hits.map(hit => (
-                <Fragment key={hit.objectID}>
+            {props.hotspotsList.map(hit => (
+                <Fragment key={hit.id}>
                     <ListItem>
                         <ListItemStartDetail>
                             <img
@@ -32,7 +32,7 @@ const SearchResult = props => (
                             <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
                                 {hit.title}
                             </h3>
-                            <ListItemSecondaryText>{hit.address.name}</ListItemSecondaryText>
+                            <ListItemSecondaryText>{(hit.address.name || hit.address)}</ListItemSecondaryText>
                         </ListItemText>
                     </ListItem>
                     <ListDivider />
@@ -43,9 +43,9 @@ const SearchResult = props => (
 );
 
 SearchResult.propTypes = {
-    hits: PropTypes.arrayOf(PropTypes.object),
+    hotspotsList: PropTypes.arrayOf(PropTypes.object),
 };
 SearchResult.defaultProps = {
-    hits: [],
+    hotspotsList: [],
 };
 export default SearchResult;
