@@ -3,7 +3,7 @@ import fetch from 'cross-fetch';
 const HOTSPOTS_ENDPOINTS = '/hotspots';
 
 class CityzenApi {
-    constructor(fetchModule, url = 'http://localhost:3000') {
+    constructor(fetchModule, url = 'http://localhost:3001') {
         this.fetch = fetchModule;
         this.url = url;
     }
@@ -11,8 +11,9 @@ class CityzenApi {
     getPublicHotspots(params) {
         let queryStrings = '';
         if (params.north) {
-            queryStrings = `?north=${params.north}&west=${params.west}&south=${params.south}&east=${params.east}`;
-            console.log(queryStrings)
+            queryStrings = `?north=${params.north}&west=${params.west}&south=${params.south}&east=${
+                params.east
+            }`;
         } else if (params.insee) {
             queryStrings = `?insee=${params.insee}`;
         }

@@ -8,7 +8,7 @@
     "client:build": "webpack --config webpack-dev.js --watch true",
     "server:build": "webpack --config webpack-server.js --watch true",
     "start": "webpack-dev-server --config webpack-dev.js",
-    "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"nodemon ./build/server.js\"",
+    "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"nodemon --require dotenv/config ./build/server.js\"",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
   "repository": {
@@ -26,6 +26,7 @@
     "babel-polyfill": "^6.26.0",
     "connect-ensure-login": "^0.1.1",
     "cross-fetch": "^1.1.1",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "google-map-react": "^0.26.0",

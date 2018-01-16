@@ -18,7 +18,7 @@ class MapArea extends React.Component {
     render() {
         const defaultProps = {
             center: { lat: 44.8436051, lng: -0.7745152 },
-            zoom: 17,
+            zoom: 16,
         };
         return (
             <div className="MapArea">
@@ -29,6 +29,7 @@ class MapArea extends React.Component {
                     }}
                     defaultCenter={defaultProps.center}
                     defaultZoom={defaultProps.zoom}
+                    options={{ minZoom: 14 }}
                 />
             </div>
         );
@@ -39,7 +40,7 @@ MapArea.propTypes = {
     fetchHotspotsInArea: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => {};
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
     fetchHotspotsInArea: (north, west, south, east) => {

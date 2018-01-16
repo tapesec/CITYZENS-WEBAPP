@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
 import session from 'express-session';
+import config from './config';
 import router from './router';
 
 const app = express();
@@ -16,10 +17,10 @@ app.use(
 // Configure Passport to use Auth0
 const strategy = new Auth0Strategy(
     {
-        domain: 'cityzens.eu.auth0.com',
-        clientID: 'n131Yxuh4Z5pCHz8tj5ZZkWybvyqnJQd',
-        clientSecret: '_zYuOp0VDjNjz4ivkKxsp1wYCWGWveRu4r6r1pJ9VMcIlE7n5C7v3L95uQf5yK_F',
-        callbackURL: 'http://localhost:3000/callback',
+        domain: config.auth0.domain,
+        clientID: config.auth0.clientId,
+        clientSecret: config.auth0.secret,
+        callbackURL: config.auth0.callback,
     },
     (accessToken, refreshToken, extraParams, profile, done) =>
         done(null, { accessToken, refreshToken, profile }),
@@ -44,15 +45,15 @@ app.use('/assets', express.static('build'));
 app.get(
     '/login',
     passport.authenticate('auth0', {
-        clientID: 'n131Yxuh4Z5pCHz8tj5ZZkWybvyqnJQd',
-        domain: 'cityzens.eu.auth0.com',
-        redirectUri: 'http://localhost:3000/callback',
-        audience: 'https://cityzens.eu.auth0.com/userinfo',
+        clientID: config.auth0.clientId,
+        domain: config.auth0.domain,
+        redirectUri: config.auth0.redirect,
+        audience: config.auth0.audience,
         responseType: 'code',
         scope: 'openid profile',
     }),
     (req, res) => {
-        res.redirect('/');
+        res.redirect('/martignas');
     },
 );
 app.get(
@@ -61,11 +62,11 @@ app.get(
         failureRedirect: '/',
     }),
     (req, res) => {
-        res.redirect('/');
+        res.redirect('/martignas');
     },
 );
 app.get(['/', '/martignas', '/martignas/:hotspotSlug'], router);
 
-app.listen(3001, () => {
+app.listen(parseInt(config.http.port, 10), () => {
     console.log('ready to serve pages');
 });
