@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 const BUILD = path.resolve(__dirname, 'build');
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'client', 'index.js');
@@ -54,8 +55,16 @@ module.exports = {
         port: 1234,
         open: true,
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()],
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new Dotenv({
+            path: path.join(__dirname, '.env'), // load this now instead of the ones in '.env'
+            safe: false, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
+            systemvars: false, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+            silent: false, // hide any errors
+        }),
+    ],
     resolve: {
-        extensions: ['.js', '.css', '.scss']
+        extensions: ['.js', '.css', '.scss'],
     },
 };
