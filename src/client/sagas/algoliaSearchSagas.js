@@ -3,12 +3,13 @@ import algoliasearch from 'algoliasearch';
 import actionTypes from './../actions/actionTypes';
 import AlgoliaWrapper from './../services/AlgoliaWrapper';
 import actions from './../actions/';
+import config from './../../shared/config/';
 
 export function* initAlgolia() {
     const algolia = new AlgoliaWrapper(
-        algoliasearch('PRS3PO0GB2', '70ff404aa7da4a72ace6d2ea89ada561'),
+        algoliasearch(config.algolia.algoliaApplicationId, config.algolia.algoliaSearchApiKey),
     );
-    algolia.initIndex('dev_hotspots');
+    algolia.initIndex(config.algolia.algoliaHotspotsIndex);
 
     while (true) {
         const keyPressAction = yield take(actionTypes.HOTSPOT_SEARCH_KEY_PRESS);

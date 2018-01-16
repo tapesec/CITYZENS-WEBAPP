@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
+import config from './../../config/';
 import actions from './../../../client/actions';
 import './MapArea.scss';
 
@@ -24,7 +25,7 @@ class MapArea extends React.Component {
             <div className="MapArea">
                 <GoogleMapReact
                     bootstrapURLKeys={{
-                        key: 'AIzaSyD5y69pCi1sSbr6KbmPTDSJVkAjItU7w9c',
+                        key: config.google.mapApiKey,
                         language: 'fr',
                     }}
                     defaultCenter={defaultProps.center}
