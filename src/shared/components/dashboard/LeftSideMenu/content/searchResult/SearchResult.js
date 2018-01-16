@@ -14,7 +14,7 @@ const SearchResult = props => (
     <CustomScroll>
         <List twoLine avatarList style={{ maxHeight: '200px' }}>
             {props.hotspotsList.map(hit => (
-                <Fragment key={hit.id}>
+                <Fragment key={hit.objectID || hit.id}>
                     <ListItem>
                         <ListItemStartDetail>
                             <img
@@ -32,7 +32,9 @@ const SearchResult = props => (
                             <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
                                 {hit.title}
                             </h3>
-                            <ListItemSecondaryText>{(hit.address.name || hit.address)}</ListItemSecondaryText>
+                            <ListItemSecondaryText>
+                                {hit.address.name || hit.address}
+                            </ListItemSecondaryText>
                         </ListItemText>
                     </ListItem>
                     <ListDivider />

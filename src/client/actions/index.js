@@ -43,6 +43,10 @@ const fetchHotspotsInAreaSuccess = hotspots => ({
     },
 });
 
+const fetchHotspotsInAreaError = () => ({
+    type: actionTypes.FETCH_HOTSPOTS_IN_AREA_ERROR,
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -51,4 +55,5 @@ export default {
     algoliaError,
     fetchHotspotsInArea,
     fetchHotspotsInAreaSuccess,
+    fetchHotspotsInAreaError,
 };

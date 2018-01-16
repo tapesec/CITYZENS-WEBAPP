@@ -17,8 +17,9 @@ export function* fetchHotspots(action) {
         const response = yield call([cityzensApi, cityzensApi.getPublicHotspots, params]);
         const hotspots = yield response.json();
         yield put(actions.fetchHotspotsInAreaSuccess(hotspots));
-    } catch (err) {}
-
+    } catch (err) {
+        yield put(actions.fetchHotspotsInAreaError());
+    }
 }
 
 export default function* hotspotsSagas() {
