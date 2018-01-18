@@ -26,25 +26,22 @@ const algoliaError = () => ({
     type: actionTypes.ALGOLIA_ERROR,
 });
 
-const fetchHotspotsInArea = (north, west, south, east) => ({
-    type: actionTypes.FETCH_HOTSPOTS_IN_AREA,
+const fetchHotspotsByCity = cityId => ({
+    type: actionTypes.FETCH_HOTSPOTS_BY_CITY,
     payload: {
-        north,
-        west,
-        south,
-        east,
+        cityId,
     },
 });
 
-const fetchHotspotsInAreaSuccess = hotspots => ({
-    type: actionTypes.FETCH_HOTSPOTS_IN_AREA_SUCCESS,
+const fetchHotspotsByCitySuccess = hotspots => ({
+    type: actionTypes.FETCH_HOTSPOTS_BY_CITY_SUCCESS,
     payload: {
         hotspots,
     },
 });
 
-const fetchHotspotsInAreaError = () => ({
-    type: actionTypes.FETCH_HOTSPOTS_IN_AREA_ERROR,
+const fetchHotspotsByCityError = () => ({
+    type: actionTypes.FETCH_HOTSPOTS_BY_CITY_ERROR,
 });
 
 export default {
@@ -53,7 +50,7 @@ export default {
     leftSideMenuDidMount,
     displayHits,
     algoliaError,
-    fetchHotspotsInArea,
-    fetchHotspotsInAreaSuccess,
-    fetchHotspotsInAreaError,
+    fetchHotspotsByCity,
+    fetchHotspotsByCitySuccess,
+    fetchHotspotsByCityError,
 };

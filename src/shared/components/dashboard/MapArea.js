@@ -4,16 +4,24 @@ import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 import config from './../../config/';
 import actions from './../../../client/actions';
+import selectors from './../../../client/selectors';
+import Marker from './Map/Marker';
 import './MapArea.scss';
 
 class MapArea extends React.Component {
     componentDidMount() {
-        this.props.fetchHotspotsInArea({
-            north: 44.84966239,
-            west: -0.79135895,
-            south: 44.83216522,
-            east: -0.75003147,
-        });
+        this.props.fetchHotspotsByCity('33273');
+    }
+
+    displayHotspots() {
+        return this.props.hotspots.map(hotspot => (
+            <Marker
+                lat={hotspot.position.latitude}
+                lng={hotspot.position.longitude}
+                text={hotspot.title}
+                key={hotspot.id}
+            />
+        ));
     }
 
     render() {
@@ -30,22 +38,30 @@ class MapArea extends React.Component {
                     }}
                     defaultCenter={defaultProps.center}
                     defaultZoom={defaultProps.zoom}
-                    options={{ minZoom: 14 }}
-                />
+                    options={{ minZoom: 14 }}>
+                    {this.displayHotspots()}
+                </GoogleMapReact>
             </div>
         );
     }
 }
 
 MapArea.propTypes = {
-    fetchHotspotsInArea: PropTypes.func.isRequired,
+    fetchHotspotsByCity: PropTypes.func.isRequired,
+    hotspots: PropTypes.arrayOf(PropTypes.object),
 };
 
-const mapStateToProps = () => ({});
+MapArea.defaultProps = {
+    hotspots: [],
+};
+
+const mapStateToProps = state => ({
+    hotspots: selectors.getHotspotsForMap(state),
+});
 
 const mapDispatchToProps = dispatch => ({
-    fetchHotspotsInArea: (north, west, south, east) => {
-        dispatch(actions.fetchHotspotsInArea(north, west, south, east));
+    fetchHotspotsByCity: cityId => {
+        dispatch(actions.fetchHotspotsByCity(cityId));
     },
 });
 

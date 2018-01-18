@@ -10,7 +10,7 @@ class Hotspots {
             const hotspots = await response.json();
             return keyBy(hotspots, 'id');
         } catch (err) {
-            console.log(err);
+            return Promise.reject();
         }
     }
 }

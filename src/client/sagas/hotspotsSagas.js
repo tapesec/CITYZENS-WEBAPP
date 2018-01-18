@@ -5,12 +5,9 @@ import cityzensApi from './../../shared/services/CityzensApi';
 
 export function* fetchHotspots(action) {
     let params;
-    if (action && action.payload && action.payload.north) {
+    if (action && action.payload && action.payload.cityId) {
         params = {
-            north: action.payload.north,
-            west: action.payload.west,
-            south: action.payload.south,
-            east: action.payload.east,
+            insee: action.payload.cityId,
         };
     }
     try {
@@ -23,5 +20,5 @@ export function* fetchHotspots(action) {
 }
 
 export default function* hotspotsSagas() {
-    yield [takeLatest(actionTypes.FETCH_HOTSPOTS_IN_AREA, fetchHotspots)];
+    yield [takeLatest(actionTypes.FETCH_HOTSPOTS_BY_CITY, fetchHotspots)];
 }

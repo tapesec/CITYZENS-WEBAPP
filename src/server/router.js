@@ -37,10 +37,7 @@ export default (async function router(req, res) {
             networkError: false,
         },
         hotspots: await hotspots.getPublicHotspots({
-            north: 44.84966239,
-            west: -0.79135895,
-            south: 44.83216522,
-            east: -0.75003147,
+            insee: '33273',
         }),
     };
 
