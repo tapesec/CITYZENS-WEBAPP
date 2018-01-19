@@ -1,4 +1,5 @@
 import React from 'react';
+import wallHotspotIcon from './../../../../server/assets/WallHotspotMarker.svg';
 
 const Marker = props => {
     const style = {
@@ -11,7 +12,11 @@ const Marker = props => {
         style.height = '160px';
         style.width = '160px';
     }
-    return <div style={style}>{props.text}</div>;
+    return (
+    <div style={style}>
+        <img src={wallHotspotIcon} alt="Icone d'un point d'interêt" />
+        </div>
+    );
 };
 
 export default Marker;

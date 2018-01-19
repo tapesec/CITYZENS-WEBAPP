@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { TextField, TextFieldIcon } from 'rmwc/TextField';
 import selectors from './../../../../client/selectors/';
 import actions from './../../../../client/actions';
-import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 import Drawer from './../../lib/Drawer';
 import LeftSideMenuContainer from './LeftSideMenuContainer';
 import LeftSideMenuHeader from './header/LeftSideMenuHeader';
 import LeftSideMenuContent from './content/LeftSideMenuContent';
 import SearchResult from './content/searchResult/SearchResult';
+import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 
 import './LeftSideMenu.scss';
 
