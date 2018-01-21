@@ -9,7 +9,13 @@ const getHotspotsForSearchList = state => {
 
 const getHotspotsForMap = state => Object.values(state.hotspots);
 
+const getHotspotById = (state, id) => state.hotspots[id];
+
+const getMarkerTooltipState = state => state.componentsState.map.markerTooltip;
+
 export default {
     getHotspotsForSearchList,
     getHotspotsForMap,
+    getHotspotById,
+    getMarkerTooltipState,
 };

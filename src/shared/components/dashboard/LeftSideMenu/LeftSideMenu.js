@@ -33,8 +33,12 @@ class LeftSideMenu extends React.Component {
                                 onChange={evt => {
                                     this.props.hotspotSearchKeyPress(evt.target.value);
                                 }}
+                                id="hotspot-search-input-id"
                             />
-                            <SearchResult hotspotsList={this.props.hotspotsList} />
+                            <SearchResult
+                                hotspotsList={this.props.hotspotsList}
+                                focusHotspot={this.props.focusHotspot}
+                            />
                         </LeftSideMenuContent>
                     </LeftSideMenuContainer>
                 )}
@@ -48,15 +52,16 @@ LeftSideMenu.propTypes = {
     hotspotsList: PropTypes.arrayOf(PropTypes.object),
     leftSideMenuDidMount: PropTypes.func.isRequired,
     hotspotSearchKeyPress: PropTypes.func.isRequired,
+    focusHotspot: PropTypes.func.isRequired,
 };
 
 LeftSideMenu.defaultProps = {
-    hotspotsList: []
+    hotspotsList: [],
 };
 
 const mapStateToProps = state => ({
-    open: state.componentsVisibility.leftSideMenu.open,
-    hotspotsList: selectors.getHotspotsForSearchList(state)
+    open: state.componentsState.leftSideMenu.open,
+    hotspotsList: selectors.getHotspotsForSearchList(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -65,6 +70,9 @@ const mapDispatchToProps = dispatch => ({
     },
     hotspotSearchKeyPress: inputValue => {
         dispatch(actions.hotspotSearchKeyPress(inputValue));
+    },
+    focusHotspot: (lat, lng) => {
+        dispatch(actions.focusHotspotInSearchList(lat, lng));
     },
 });
 

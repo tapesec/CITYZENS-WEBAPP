@@ -26,9 +26,12 @@ export default (async function router(req, res) {
 
     const data = {
         authorizedUser: {},
-        componentsVisibility: {
+        componentsState: {
             leftSideMenu: {
                 open: true,
+            },
+            map: {
+                markerTooltip: {},
             },
         },
         algolia: {
@@ -39,6 +42,12 @@ export default (async function router(req, res) {
         hotspots: await hotspots.getPublicHotspots({
             insee: '33273',
         }),
+        map: {
+            center: {
+                lat: 44.84032108,
+                lng: -0.77510476,
+            },
+        },
     };
 
     if (req.user) {

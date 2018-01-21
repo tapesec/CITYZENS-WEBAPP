@@ -15,7 +15,13 @@ const SearchResult = props => (
         <List twoLine avatarList style={{ maxHeight: '200px' }}>
             {props.hotspotsList.map(hit => (
                 <Fragment key={hit.objectID || hit.id}>
-                    <ListItem>
+                    <ListItem
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                            setTimeout(() => {
+                                props.focusHotspot(hit.objectID || hit.id);
+                            }, 50);
+                        }}>
                         <ListItemStartDetail>
                             <img
                                 style={{

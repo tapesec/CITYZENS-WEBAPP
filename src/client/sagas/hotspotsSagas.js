@@ -4,18 +4,17 @@ import actions from './../actions';
 import cityzensApi from './../../shared/services/CityzensApi';
 
 export function* fetchHotspots(action) {
-    let params;
     if (action && action.payload && action.payload.cityId) {
-        params = {
+        const params = {
             insee: action.payload.cityId,
         };
-    }
-    try {
-        const response = yield call([cityzensApi, cityzensApi.getPublicHotspots, params]);
-        const hotspots = yield response.json();
-        yield put(actions.fetchHotspotsInAreaSuccess(hotspots));
-    } catch (err) {
-        yield put(actions.fetchHotspotsInAreaError());
+        try {
+            const response = yield call([cityzensApi, cityzensApi.getPublicHotspots], params);
+            const hotspots = yield response.json();
+            yield put(actions.fetchHotspotsByCitySuccess(hotspots));
+        } catch (err) {
+            yield put(actions.fetchHotspotsByCityError());
+        }
     }
 }
 

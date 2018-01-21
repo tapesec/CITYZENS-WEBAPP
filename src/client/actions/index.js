@@ -44,6 +44,43 @@ const fetchHotspotsByCityError = () => ({
     type: actionTypes.FETCH_HOTSPOTS_BY_CITY_ERROR,
 });
 
+const focusHotspotInSearchList = hotspotId => ({
+    type: actionTypes.FOCUS_HOTSPOT_IN_SEARCH_LIST,
+    payload: {
+        hotspotId,
+    },
+});
+
+const focusHotspotInMap = hotspotId => ({
+    type: actionTypes.FOCUS_HOTSPOT_IN_MAP,
+    payload: {
+        hotspotId,
+    },
+});
+
+const unfocusHotspotInMap = hotspotId => ({
+    type: actionTypes.UNFOCUS_HOTSPOT_IN_MAP,
+    payload: {
+        hotspotId,
+    },
+});
+
+const centerMapToPosition = (lat, lng) => ({
+    type: actionTypes.CENTER_MAP_TO_POSITION,
+    payload: {
+        lat,
+        lng,
+    },
+});
+
+const mapMoved = (lat, lng) => ({
+    type: actionTypes.MAP_MOVED,
+    payload: {
+        lat,
+        lng,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -53,4 +90,9 @@ export default {
     fetchHotspotsByCity,
     fetchHotspotsByCitySuccess,
     fetchHotspotsByCityError,
+    focusHotspotInSearchList,
+    focusHotspotInMap,
+    unfocusHotspotInMap,
+    centerMapToPosition,
+    mapMoved,
 };

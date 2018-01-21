@@ -20,13 +20,19 @@ class MapArea extends React.Component {
                 lng={hotspot.position.longitude}
                 text={hotspot.title}
                 key={hotspot.id}
+                id={hotspot.id}
+                tooltipOpen={
+                    !!this.props.tooltipOpen.hotspotId &&
+                    this.props.tooltipOpen.hotspotId === hotspot.id
+                }
+                focusHotspotMarker={this.props.focusHotspotMarker}
+                unfocusHotspotMarker={this.props.unfocusHotspotMarker}
             />
         ));
     }
 
     render() {
         const defaultProps = {
-            center: { lat: 44.8436051, lng: -0.7745152 },
             zoom: 16,
         };
         return (
@@ -36,7 +42,10 @@ class MapArea extends React.Component {
                         key: config.google.mapApiKey,
                         language: 'fr',
                     }}
-                    defaultCenter={defaultProps.center}
+                    onChange={evt => {
+                        this.props.notifyMapMoved(evt.center.lat, evt.center.lng);
+                    }}
+                    center={this.props.map.center}
                     defaultZoom={defaultProps.zoom}
                     options={{ minZoom: 14 }}>
                     {this.displayHotspots()}
@@ -48,7 +57,27 @@ class MapArea extends React.Component {
 
 MapArea.propTypes = {
     fetchHotspotsByCity: PropTypes.func.isRequired,
-    hotspots: PropTypes.arrayOf(PropTypes.object),
+    hotspots: PropTypes.arrayOf(
+        PropTypes.shape({
+            position: PropTypes.object,
+            title: PropTypes.string,
+            id: PropTypes.string,
+        }),
+    ),
+    notifyMapMoved: PropTypes.func.isRequired,
+    focusHotspotMarker: PropTypes.func.isRequired,
+    unfocusHotspotMarker: PropTypes.func.isRequired,
+    map: PropTypes.shape({
+        center: PropTypes.shape({
+            lat: PropTypes.isRequired,
+            lng: PropTypes.isRequired,
+            forceRefresh: PropTypes.bool,
+        }),
+    }).isRequired,
+    tooltipOpen: PropTypes.shape({
+        hotspotId: PropTypes.string,
+        show: PropTypes.bool,
+    }).isRequired,
 };
 
 MapArea.defaultProps = {
@@ -57,11 +86,22 @@ MapArea.defaultProps = {
 
 const mapStateToProps = state => ({
     hotspots: selectors.getHotspotsForMap(state),
+    map: state.map,
+    tooltipOpen: selectors.getMarkerTooltipState(state),
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchHotspotsByCity: cityId => {
         dispatch(actions.fetchHotspotsByCity(cityId));
+    },
+    notifyMapMoved: (lat, lng) => {
+        dispatch(actions.mapMoved(lat, lng));
+    },
+    focusHotspotMarker: hotspotId => {
+        dispatch(actions.focusHotspotInMap(hotspotId));
+    },
+    unfocusHotspotMarker: hotspotId => {
+        dispatch(actions.unfocusHotspotInMap(hotspotId));
     },
 });
 
