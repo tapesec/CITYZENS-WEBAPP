@@ -33,6 +33,9 @@ export default (async function router(req, res) {
             map: {
                 markerTooltip: {},
             },
+            hotspotModal: {
+                open: true,
+            },
         },
         algolia: {
             hits: [],

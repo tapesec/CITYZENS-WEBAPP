@@ -81,6 +81,13 @@ const mapMoved = (lat, lng) => ({
     },
 });
 
+const redirectTo = path => ({
+    type: actionTypes.REDIRECT_TO,
+    payload: {
+        path,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -95,4 +102,5 @@ export default {
     unfocusHotspotInMap,
     centerMapToPosition,
     mapMoved,
+    redirectTo,
 };

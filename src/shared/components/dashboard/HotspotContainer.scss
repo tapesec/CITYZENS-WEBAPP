@@ -1,0 +1,40 @@
+.HotspotContainer-backdrop {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.41);
+    z-index: 1;
+}
+@media all and (min-width: 1280px) {
+   .HotspotContainer {
+        height: 100%;
+        background-color: white;
+        position: fixed;
+        width: 750px;
+        right: 200px;
+    }
+}
+
+@media all and (min-width: 1024px) and (max-width: 1400px) {
+    .HotspotContainer {
+        height: 100%;
+        background-color: white;
+        position: fixed;
+        width: 750px;
+        right: 0;
+    }
+}
+
+@media all and (max-width: 1024px) {
+    .HotspotContainer {
+        height: 100%;
+        background-color: white;
+        position: fixed;
+        width: 100%;
+        right: 0;
+    }
+}
+
+
+
