@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
     List,
     ListItem,
@@ -36,7 +37,7 @@ const SearchResult = props => (
                         </ListItemStartDetail>
                         <ListItemText>
                             <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
-                                {hit.title}
+                                <Link to="/martignas/mairie">{hit.title}</Link>
                             </h3>
                             <ListItemSecondaryText>
                                 {hit.address.name || hit.address}

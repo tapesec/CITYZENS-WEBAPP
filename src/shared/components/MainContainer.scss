@@ -10,3 +10,12 @@
         }
     }
 }
+.fade-enter {
+    top: 0;
+    background-color: 'red'
+}
+
+.fade-enter.fade-enter-active {
+    top: 1000px;
+    background-color: 'red'
+}

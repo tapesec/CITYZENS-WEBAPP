@@ -1,4 +1,5 @@
 import React from 'react';
+import { GatewayDest, GatewayProvider } from 'react-gateway';
 import { Route, Switch } from 'react-router-dom';
 import './../../../node_modules/material-components-web/dist/material-components-web.css';
 import './../../client/main.scss';
@@ -7,10 +8,13 @@ import Dashboard from './dashboard/Dashboard';
 
 export default function App() {
     return (
-        <MainContainer>
-            <Switch>
-                <Route path="/martignas" component={Dashboard} />
-            </Switch>
-        </MainContainer>
+        <GatewayProvider>
+            <MainContainer>
+                <Switch>
+                    <Route path="/martignas" component={Dashboard} />
+                </Switch>
+            </MainContainer>
+            <GatewayDest name="modal" className="modal-container" />
+        </GatewayProvider>
     );
 }
