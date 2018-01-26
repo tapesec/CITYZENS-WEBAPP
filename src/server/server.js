@@ -2,8 +2,18 @@ import express from 'express';
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
 import session from 'express-session';
+import fetch from 'cross-fetch';
 import config from './config';
 import router from './router';
+
+import Hotspots from './services/Hotspots';
+import Cities from './services/Cities';
+import cityzenApi from './../shared/services/CityzensApi';
+import InitialState from './InitialState';
+
+const hotspots = new Hotspots(cityzenApi);
+const cities = new Cities(fetch, config.http.apiUrl);
+const initialState = new InitialState(hotspots, cities);
 
 const app = express();
 app.use(
@@ -65,7 +75,12 @@ app.get(
         res.redirect('/martignas');
     },
 );
-app.get(['/', '/:citySlug', '/:citySlug/:hotspotSlug'], router);
+
+app.get(
+    ['/:citySlug', '/:citySlug/:hotspotSlug'],
+    initialState.defaultState.bind(initialState),
+    router,
+);
 
 app.listen(parseInt(config.http.port, 10), () => {
     console.log('ready to serve pages');
