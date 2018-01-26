@@ -4,6 +4,7 @@ import componentsState from './componentsState';
 import hotspots from './hotspots';
 import algolia from './algolia';
 import map from './map';
+import city from './city';
 
 export default combineReducers({
     authorizedUser,
@@ -11,4 +12,5 @@ export default combineReducers({
     algolia,
     hotspots,
     map,
+    city,
 });

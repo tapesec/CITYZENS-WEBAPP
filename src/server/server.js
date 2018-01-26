@@ -65,7 +65,7 @@ app.get(
         res.redirect('/martignas');
     },
 );
-app.get(['/', '/martignas', '/martignas/:hotspotSlug'], router);
+app.get(['/', '/:citySlug', '/:citySlug/:hotspotSlug'], router);
 
 app.listen(parseInt(config.http.port, 10), () => {
     console.log('ready to serve pages');

@@ -13,9 +13,12 @@ const getHotspotById = (state, id) => state.hotspots[id];
 
 const getMarkerTooltipState = state => state.componentsState.map.markerTooltip;
 
+const getCitySlug = state => state.city.slug;
+
 export default {
     getHotspotsForSearchList,
     getHotspotsForMap,
     getHotspotById,
     getMarkerTooltipState,
+    getCitySlug,
 };

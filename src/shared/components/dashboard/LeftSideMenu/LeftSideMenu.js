@@ -38,6 +38,7 @@ class LeftSideMenu extends React.Component {
                             <SearchResult
                                 hotspotsList={this.props.hotspotsList}
                                 focusHotspot={this.props.focusHotspot}
+                                city={this.props.city}
                             />
                         </LeftSideMenuContent>
                     </LeftSideMenuContainer>
@@ -49,6 +50,15 @@ class LeftSideMenu extends React.Component {
 
 LeftSideMenu.propTypes = {
     open: PropTypes.bool.isRequired,
+    city: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        insee: PropTypes.string.isRequired,
+        position2D: PropTypes.shape({
+            latitude: PropTypes.number.isRequired,
+            longitude: PropTypes.number.isRequired
+        }),
+        slug: PropTypes.string.isRequired,
+    }).isRequired,
     hotspotsList: PropTypes.arrayOf(PropTypes.object),
     leftSideMenuDidMount: PropTypes.func.isRequired,
     hotspotSearchKeyPress: PropTypes.func.isRequired,
@@ -61,6 +71,7 @@ LeftSideMenu.defaultProps = {
 
 const mapStateToProps = state => ({
     open: state.componentsState.leftSideMenu.open,
+    city: state.city,
     hotspotsList: selectors.getHotspotsForSearchList(state),
 });
 

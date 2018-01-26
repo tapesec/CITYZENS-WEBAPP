@@ -3,13 +3,17 @@ import React from 'react';
 import { matchPath, StaticRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import fetch from 'cross-fetch';
+import config from './config';
 import cityzenApi from './../shared/services/CityzensApi';
 import Hotspots from './services/Hotspots';
+import Cities from './services/Cities';
 import reducer from './../shared/reducers';
 import App from './../shared/components/App';
 import renderFullPage from './renderFullPage';
 
 const hotspots = new Hotspots(cityzenApi);
+const cities = new Cities(fetch, config.http.apiUrl);
 
 const ROUTES = ['/', '/register', '/martignas/:hotspotSlug'];
 
@@ -51,6 +55,7 @@ export default (async function router(req, res) {
                 lng: -0.77510476,
             },
         },
+        city: await cities.getCity(req.params.citySlug),
     };
 
     if (req.user) {

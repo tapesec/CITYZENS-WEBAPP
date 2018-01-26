@@ -17,7 +17,7 @@ const SearchResult = props => (
         <List twoLine avatarList style={{ maxHeight: '200px' }}>
             {props.hotspotsList.map(hit => (
                 <Fragment key={hit.objectID || hit.id}>
-                    <ListItem style={{ cursor: 'pointer' }}>
+                    <ListItem>
                         <ListItemGraphic style={{ marginRight: '10px', flexBasis: 'min-content' }}>
                             <img
                                 style={{
@@ -30,9 +30,10 @@ const SearchResult = props => (
                                 src="https://dummyimage.com/300.png"
                             />
                         </ListItemGraphic>
-                        <ListItemText style={{ flexBasis: '240px', maxWidth: '240px', overflow: 'hidden' }}>
+                        <ListItemText
+                            style={{ flexBasis: '240px', maxWidth: '240px', overflow: 'hidden' }}>
                             <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
-                                <Link className="itemTitle" to="/martignas/mairie">
+                                <Link className="itemTitle" to={`/${props.city.slug}/${hit.slug}`}>
                                     {hit.title}
                                 </Link>
                             </h3>
@@ -41,7 +42,7 @@ const SearchResult = props => (
                             </ListItemSecondaryText>
                         </ListItemText>
                         <ListItemMeta
-                            style={{ flexBasis: 'min-content', alignItems: 'right' }}
+                            style={{ flexBasis: 'min-content', alignItems: 'right', cursor: 'pointer' }}
                             onClick={() => {
                                 setTimeout(() => {
                                     props.focusHotspot(hit.objectID || hit.id);
@@ -59,6 +60,9 @@ const SearchResult = props => (
 
 SearchResult.propTypes = {
     hotspotsList: PropTypes.arrayOf(PropTypes.object),
+    city: PropTypes.shape({
+        slug: PropTypes.string.isRequired,
+    }).isRequired,
 };
 SearchResult.defaultProps = {
     hotspotsList: [],

@@ -12,7 +12,7 @@ export default function App() {
             <Fragment>
                 <MainContainer>
                     <Switch>
-                        <Route path="/martignas" component={Dashboard} />
+                        <Route path="/:citySlug" component={Dashboard} />
                     </Switch>
                 </MainContainer>
                 <GatewayDest name="modal" className="modal-container" />
