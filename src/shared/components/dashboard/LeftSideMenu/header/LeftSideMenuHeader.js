@@ -1,5 +1,5 @@
 import React from 'react';
-import { PersistentDrawerHeader } from 'rmwc/Drawer';
+import { DrawerHeader } from 'rmwc/Drawer';
 import logoSvg from './../../../../../server/assets/logo-cityzens.svg';
 import './LeftSideMenuHeader.scss';
 const style = {
@@ -10,9 +10,9 @@ const style = {
 };
 
 const LeftSideMenuHeader = () => (
-    <PersistentDrawerHeader className="LeftSideMenuHeader">
+    <DrawerHeader className="LeftSideMenuHeader">
         <img alt="logo de Cityzens" style={style} src={logoSvg} />
-    </PersistentDrawerHeader>
+    </DrawerHeader>
 );
 
 export default LeftSideMenuHeader;

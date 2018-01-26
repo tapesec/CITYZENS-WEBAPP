@@ -47,7 +47,7 @@
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
-    "rmwc": "0.0.1-rc12",
+    "rmwc": "1.1.0",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

@@ -6,7 +6,8 @@ import {
     ListItem,
     ListItemText,
     ListItemSecondaryText,
-    ListItemStartDetail,
+    ListItemGraphic,
+    ListItemMeta,
     ListDivider,
 } from 'rmwc/List';
 import CustomScroll from 'react-custom-scroll';
@@ -16,33 +17,38 @@ const SearchResult = props => (
         <List twoLine avatarList style={{ maxHeight: '200px' }}>
             {props.hotspotsList.map(hit => (
                 <Fragment key={hit.objectID || hit.id}>
-                    <ListItem
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => {
-                            setTimeout(() => {
-                                props.focusHotspot(hit.objectID || hit.id);
-                            }, 50);
-                        }}>
-                        <ListItemStartDetail>
+                    <ListItem style={{ cursor: 'pointer' }}>
+                        <ListItemGraphic style={{ marginRight: '10px', flexBasis: 'min-content' }}>
                             <img
                                 style={{
                                     display: 'block',
-                                    height: '100%',
-                                    width: '100%',
+                                    height: '55px',
+                                    width: '55px',
                                     borderRadius: '50%',
                                 }}
                                 alt="avatar"
                                 src="https://dummyimage.com/300.png"
                             />
-                        </ListItemStartDetail>
-                        <ListItemText>
+                        </ListItemGraphic>
+                        <ListItemText style={{ flexBasis: '240px', maxWidth: '240px', overflow: 'hidden' }}>
                             <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
-                                <Link to="/martignas/mairie">{hit.title}</Link>
+                                <Link className="itemTitle" to="/martignas/mairie">
+                                    {hit.title}
+                                </Link>
                             </h3>
                             <ListItemSecondaryText>
                                 {hit.address.name || hit.address}
                             </ListItemSecondaryText>
                         </ListItemText>
+                        <ListItemMeta
+                            style={{ flexBasis: 'min-content', alignItems: 'right' }}
+                            onClick={() => {
+                                setTimeout(() => {
+                                    props.focusHotspot(hit.objectID || hit.id);
+                                }, 50);
+                            }}>
+                            search
+                        </ListItemMeta>
                     </ListItem>
                     <ListDivider />
                 </Fragment>

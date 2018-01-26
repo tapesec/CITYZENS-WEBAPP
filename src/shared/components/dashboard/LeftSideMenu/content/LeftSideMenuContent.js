@@ -1,10 +1,6 @@
 import React from 'react';
-import { PersistentDrawerContent } from 'rmwc/Drawer';
+import { DrawerContent } from 'rmwc/Drawer';
 
-const LeftSideMenuContent = ({ children }) => (
-    <PersistentDrawerContent>
-        {children}
-    </PersistentDrawerContent>
-);
+const LeftSideMenuContent = ({ children }) => <DrawerContent>{children}</DrawerContent>;
 
 export default LeftSideMenuContent;

@@ -2,7 +2,6 @@ import React from 'react';
 import { Gateway } from 'react-gateway';
 import ReactModal2 from 'react-modal2';
 import { connect } from 'react-redux';
-import { CSSTransitionGroup } from 'react-transition-group';
 import './HotspotContainer.scss';
 
 const HotspotContainer = ({ history }) => (
