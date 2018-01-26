@@ -15,7 +15,7 @@ import renderFullPage from './renderFullPage';
 const hotspots = new Hotspots(cityzenApi);
 const cities = new Cities(fetch, config.http.apiUrl);
 
-const ROUTES = ['/', '/register', '/martignas/:hotspotSlug'];
+const ROUTES = ['/', '/register', '/:citySlug/:hotspotSlug'];
 
 export default (async function router(req, res) {
     const match = ROUTES.reduce(
