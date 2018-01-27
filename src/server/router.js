@@ -10,6 +10,7 @@ import renderFullPage from './renderFullPage';
 const ROUTES = ['/', '/register', '/:citySlug/:hotspotSlug'];
 
 export default (async function router(req, res) {
+
     const match = ROUTES.reduce(
         (acc, route) => matchPath(req.url, { path: route, exact: false }) || acc,
         null,

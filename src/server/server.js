@@ -76,9 +76,14 @@ app.get(
     },
 );
 
+app.get('/favicon.ico', (req, res, next) => { res.send('nada')});
+
+app.get('/:citySlug', initialState.defaultState.bind(initialState), router);
+
 app.get(
-    ['/:citySlug', '/:citySlug/:hotspotSlug'],
+    '/:citySlug/:hotspotSlug',
     initialState.defaultState.bind(initialState),
+    InitialState.readHotspot,
     router,
 );
 

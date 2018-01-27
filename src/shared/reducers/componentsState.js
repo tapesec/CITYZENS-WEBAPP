@@ -2,7 +2,9 @@ import actionTypes from './../../client/actions/actionTypes';
 
 const initialState = {};
 
-export default function componentState(state = initialState, action) {
+export default function componentsState(state = initialState, action) {
+    let hotspotModal;
+
     switch (action.type) {
         case actionTypes.TOGGLE_LEFT_SIDE_MENU_VISIBILITY:
             return { ...state, leftSideMenu: { open: !state.leftSideMenu.open } };
@@ -23,6 +25,34 @@ export default function componentState(state = initialState, action) {
                 map: {
                     markerTooltip: {},
                 },
+            };
+        case actionTypes.OPEN_HOTSPOT:
+            return {
+                ...state,
+                hotspotModal: {
+                    contentIsLoading: true,
+                    networkError: false,
+                    currentHotspotSlug: action.payload.slug,
+                },
+            };
+        /* case actionTypes.FETCH_HOTSPOT_SUCCEDED:
+            return {
+                ...state,
+                hotspotModal: {
+                    contentIsLoading: false,
+                    networkError: false,
+                    currentHotspot: action.payload.hotspot,
+                },
+            }; */
+        case actionTypes.FETCH_HOTSPOT_FAILED:
+            hotspotModal = {
+                ...state.hotspotModal,
+                contentIsLoading: false,
+                networkError: true,
+            };
+            return {
+                ...state,
+                hotspotModal,
             };
         default:
             return state;

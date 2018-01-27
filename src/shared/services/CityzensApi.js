@@ -24,5 +24,14 @@ class CityzenApi {
             },
         });
     }
+
+    getPublicHotspot(id) {
+        return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
 }
 export default new CityzenApi(fetch);

@@ -73,6 +73,27 @@ const centerMapToPosition = (lat, lng) => ({
     },
 });
 
+const openHotspot = slug => ({
+    type: actionTypes.OPEN_HOTSPOT,
+    payload: {
+        slug,
+    },
+});
+
+const fetchHotspotSucceded = hotspot => ({
+    type: actionTypes.FETCH_HOTSPOT_SUCCEDED,
+    payload: {
+        hotspot,
+    },
+});
+
+const fetchHotspotFailed = (err) => ({
+    type: actionTypes.FETCH_HOTSPOT_FAILED,
+    payload: {
+        err
+    }
+});
+
 const mapMoved = (lat, lng) => ({
     type: actionTypes.MAP_MOVED,
     payload: {
@@ -101,6 +122,9 @@ export default {
     focusHotspotInMap,
     unfocusHotspotInMap,
     centerMapToPosition,
+    openHotspot,
+    fetchHotspotSucceded,
+    fetchHotspotFailed,
     mapMoved,
     redirectTo,
 };
