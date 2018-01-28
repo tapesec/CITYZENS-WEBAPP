@@ -5,6 +5,7 @@ import hotspots from './hotspots';
 import algolia from './algolia';
 import map from './map';
 import city from './city';
+import messages from './messages';
 
 export default combineReducers({
     authorizedUser,
@@ -13,4 +14,5 @@ export default combineReducers({
     hotspots,
     map,
     city,
+    messages,
 });

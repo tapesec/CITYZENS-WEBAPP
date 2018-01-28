@@ -1,12 +1,12 @@
 import keyBy from 'lodash.keyby';
 
-class Hotspots {
+class Messages {
     constructor(api) {
         this.api = api;
     }
-    async getPublicHotspots(params) {
+    async getMessages(hotspotId) {
         try {
-            const response = await this.api.getPublicHotspots(params);
+            const response = await this.api.getMessages(hotspotId);
             const jsonResponse = await response.json();
             if (response.status !== 200) return Promise.reject(jsonResponse.message);
             return keyBy(jsonResponse, 'id');
@@ -15,4 +15,4 @@ class Hotspots {
         }
     }
 }
-export default Hotspots;
+export default Messages;

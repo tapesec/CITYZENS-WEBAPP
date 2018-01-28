@@ -1,4 +1,9 @@
 import { getHits } from './../../shared/reducers/algolia';
+const HOTSPOT_TYPES = {
+    WallMessage: 'WallMessage',
+    Event: 'Event',
+    Alert: 'Alert',
+};
 
 const getHotspotsForSearchList = state => {
     if (getHits(state) && getHits(state).length > 0) {
@@ -10,6 +15,9 @@ const getHotspotsForSearchList = state => {
 const getHotspotsForMap = state => Object.values(state.hotspots);
 
 const getHotspotById = (state, id) => state.hotspots[id];
+
+const getMessagesByHotspotId = (state, hotspotId) =>
+    Object.values(state.messages).filter(message => message.hotspotId === hotspotId);
 
 const getHotspotBySlug = (state, slug) =>
     Object.values(state.hotspots)
@@ -25,7 +33,11 @@ const getCurrentHotspotSlug = state => state.componentsState.hotspotModal.curren
 
 const getReadableHotspot = state => {
     const hotspotSlug = getCurrentHotspotSlug(state);
-    return getHotspotBySlug(state, hotspotSlug);
+    let hotspot = getHotspotBySlug(state, hotspotSlug);
+    if (hotspot && hotspot.type === HOTSPOT_TYPES.WallMessage) {
+        hotspot = { ...hotspot, messages: getMessagesByHotspotId(state, hotspot.id)};
+    }
+    return hotspot;
 };
 
 export default {

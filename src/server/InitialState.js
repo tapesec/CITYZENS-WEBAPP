@@ -1,7 +1,13 @@
+const getHotspotBySlug = (state, slug) =>
+    Object.values(state.hotspots)
+        .filter(hotspot => hotspot.slug === slug)
+        .pop();
+
 class InitialState {
-    constructor(hotspotsService, citiesService) {
+    constructor(hotspotsService, citiesService, messagesService) {
         this.hotspotsService = hotspotsService;
         this.citiesService = citiesService;
+        this.messagesService = messagesService;
     }
 
     static dataTree() {
@@ -61,11 +67,20 @@ class InitialState {
         }
     }
 
-    static readHotspot(req, res, next) {
+    async readHotspot(req, res, next) {
         if (req.params && req.params.hotspotSlug) {
-            req.initialState.componentsState.hotspotModal.open = true;
-            req.initialState.componentsState.hotspotModal.currentHotspotSlug = req.params.hotspotSlug;
-            next();
+            try {
+                const { hotspotSlug } = req.params;
+                const hotspot = getHotspotBySlug(req.initialState, hotspotSlug);
+                const messages = await this.messagesService.getMessages(hotspot.id);
+                req.initialState.messages = messages;
+                req.initialState.componentsState.hotspotModal.open = true;
+                req.initialState.componentsState.hotspotModal.currentHotspotSlug =
+                    req.params.hotspotSlug;
+                next();
+            } catch (error) {
+                next(error);
+            }
         } else {
             next('Invalid request parameter');
         }

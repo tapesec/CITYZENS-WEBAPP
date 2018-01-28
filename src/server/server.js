@@ -8,12 +8,14 @@ import router from './router';
 
 import Hotspots from './services/Hotspots';
 import Cities from './services/Cities';
+import Messages from './services/Messages';
 import cityzenApi from './../shared/services/CityzensApi';
 import InitialState from './InitialState';
 
 const hotspots = new Hotspots(cityzenApi);
+const messages = new Messages(cityzenApi);
 const cities = new Cities(fetch, config.http.apiUrl);
-const initialState = new InitialState(hotspots, cities);
+const initialState = new InitialState(hotspots, cities, messages);
 
 const app = express();
 app.use(
@@ -76,14 +78,14 @@ app.get(
     },
 );
 
-app.get('/favicon.ico', (req, res, next) => { res.send('nada')});
+app.get('/favicon.ico', (req, res) => { res.send('nada')});
 
 app.get('/:citySlug', initialState.defaultState.bind(initialState), router);
 
 app.get(
     '/:citySlug/:hotspotSlug',
     initialState.defaultState.bind(initialState),
-    InitialState.readHotspot,
+    initialState.readHotspot.bind(initialState),
     router,
 );
 

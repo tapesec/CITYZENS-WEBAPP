@@ -1,6 +1,7 @@
 import fetch from 'cross-fetch';
 
 const HOTSPOTS_ENDPOINTS = '/hotspots';
+const MESSAGES_ENDPOINTS = '/messages';
 
 class CityzenApi {
     constructor(fetchModule, url = 'http://localhost:3001') {
@@ -27,6 +28,15 @@ class CityzenApi {
 
     getPublicHotspot(id) {
         return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
+
+    getMessages(hotspotId) {
+        return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}/${MESSAGES_ENDPOINTS}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

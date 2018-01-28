@@ -7,11 +7,11 @@
 }
 @media all and (min-width: 1280px) {
    .HotspotContainer {
-        padding: 10px;
+        padding: 30px;
         height: 100%;
         background-color: white;
         position: fixed;
-        width: 750px;
+        width: 588px;
         right: 200px;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
     }
@@ -19,11 +19,11 @@
 
 @media all and (min-width: 1024px) and (max-width: 1400px) {
     .HotspotContainer {
-        padding: 10px;
+        padding: 30px;
         height: 100%;
         background-color: white;
         position: fixed;
-        width: 750px;
+        width: 588px;
         right: 0;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
     }
@@ -31,7 +31,7 @@
 
 @media all and (max-width: 1024px) {
     .HotspotContainer {
-        padding: 10px;
+        padding: 30px;
         height: 100%;
         background-color: white;
         position: fixed;

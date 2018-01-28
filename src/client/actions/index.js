@@ -87,11 +87,25 @@ const fetchHotspotSucceded = hotspot => ({
     },
 });
 
-const fetchHotspotFailed = (err) => ({
+const fetchHotspotFailed = err => ({
     type: actionTypes.FETCH_HOTSPOT_FAILED,
     payload: {
-        err
-    }
+        err,
+    },
+});
+
+const fetchMessagesSucceded = messages => ({
+    type: actionTypes.FETCH_MESSAGES_SUCCEDED,
+    payload: {
+        messages,
+    },
+});
+
+const fetchMessagesFailed = err => ({
+    type: actionTypes.FETCH_MESSAGES_FAILED,
+    payload: {
+        err,
+    },
 });
 
 const mapMoved = (lat, lng) => ({
@@ -125,6 +139,8 @@ export default {
     openHotspot,
     fetchHotspotSucceded,
     fetchHotspotFailed,
+    fetchMessagesSucceded,
+    fetchMessagesFailed,
     mapMoved,
     redirectTo,
 };
