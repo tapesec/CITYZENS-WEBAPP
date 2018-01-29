@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from 'rmwc/Typography';
 import CustomScroll from 'react-custom-scroll';
+import { Fab } from 'rmwc/Fab';
+import { Icon } from 'rmwc/Icon';
 
 import DateFormater from './../../../lib/DateFormater';
 import './HotspotContent.scss';
 
 const HotspotContent = ({ hotspot }) => (
     <section className="HotspotContent">
-        <header style={{ marginBottom: 30 }}>
+        <header style={{ marginBottom: 30, display: 'flex', justifyContent: 'space-between'  }}>
             <h1>{hotspot.title}</h1>
+            <Icon strategy="component" style={{lineHeight: 1.6}}>lock_open</Icon>
+            <Fab mini theme={['primary-bg', 'text-icon-on-primary']}>clear</Fab>
         </header>
         <CustomScroll>
             <div style={{height: 350 }}>
