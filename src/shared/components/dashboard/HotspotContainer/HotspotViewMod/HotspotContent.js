@@ -10,13 +10,17 @@ import './HotspotContent.scss';
 
 const HotspotContent = ({ hotspot }) => (
     <section className="HotspotContent">
-        <header style={{ marginBottom: 30, display: 'flex', justifyContent: 'space-between'  }}>
-            <h1>{hotspot.title}</h1>
-            <Icon strategy="component" style={{lineHeight: 1.6}}>lock_open</Icon>
-            <Fab mini theme={['primary-bg', 'text-icon-on-primary']}>clear</Fab>
+        <header style={{ marginBottom: 30, display: 'flex', justifyContent: 'space-between' }}>
+            <h1 style={{ lineHeight: 1.6, flex: '2 0 0' }}>{hotspot.title}</h1>
+            <Icon strategy="component" style={{ lineHeight: 2.3, flex: '0.2 0 0' }}>
+                lock_open
+            </Icon>
+            <Fab mini theme={['primary-bg', 'text-icon-on-primary']}>
+                clear
+            </Fab>
         </header>
         <CustomScroll>
-            <div style={{height: 350 }}>
+            <div>
                 {hotspot.messages.map(message => (
                     <article key={message.id} className="Messages">
                         <header>
@@ -55,6 +59,7 @@ const HotspotContent = ({ hotspot }) => (
                 ))}
             </div>
         </CustomScroll>
+        
     </section>
 );
 

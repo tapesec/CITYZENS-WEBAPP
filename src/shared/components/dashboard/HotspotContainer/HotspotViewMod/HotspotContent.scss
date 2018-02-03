@@ -1,6 +1,8 @@
 @import './../../../../../client/main.scss';
 
 section.HotspotContent {
+    flex-grow: 1;
+    margin: 30px;
     h1 {
         font-family: 'Amaranth', sans-serif;
         font-size: 2.1em;
@@ -10,6 +12,9 @@ section.HotspotContent {
 
     .custom-scroll {
         margin-right: 13px;
+        .inner-handle {
+            background-color: gray;
+        }
     }
 
     article.Messages {

@@ -1,3 +1,5 @@
+@import './../../../../client/main.scss';
+
 .HotspotContainer-backdrop {
     height: 100%;
     width: 100%;
@@ -5,40 +7,50 @@
     background-color: rgba(255, 255, 255, 0);
     z-index: 1;
 }
+
+.HotspotContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+    position: fixed;
+    background-color: white;
+}
 @media all and (min-width: 1280px) {
    .HotspotContainer {
-        padding: 30px;
-        padding-right: 20px;
-        height: 100%;
-        background-color: white;
-        position: fixed;
         width: 588px;
         right: 200px;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
     }
 }
 
 @media all and (min-width: 1024px) and (max-width: 1400px) {
     .HotspotContainer {
-        padding: 30px;
-        padding-right: 20px;
-        height: 100%;
-        background-color: white;
-        position: fixed;
         width: 588px;
         right: 0;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
     }
 }
 
 @media all and (max-width: 1024px) {
     .HotspotContainer {
-        padding: 30px;
-        padding-right: 20px;
-        height: 100%;
-        background-color: white;
-        position: fixed;
         width: 100%;
         right: 0;
+    }
+}
+
+.HotspotContainerFooter {
+    border-top: 1px solid rgba(0, 0, 0, 0.377);
+    padding: 10px;
+    display: flex;
+    div {
+        &:first-child {
+            margin-left: 25px;
+        }
+        margin-right: 30px;
+        display: flex;
+        justify-content: center;
+        i {
+            color: $mdc-theme--text-icon-on-primary;
+            margin-right: 5px;
+        }
     }
 }

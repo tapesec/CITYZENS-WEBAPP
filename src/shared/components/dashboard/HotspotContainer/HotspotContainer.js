@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Gateway } from 'react-gateway';
 import ReactModal2 from 'react-modal2';
 import { connect } from 'react-redux';
+import Typography from 'rmwc/Typography';
+import { Icon } from 'rmwc/Icon';
 import actions from './../../../../client/actions';
 import HotspotContent from './HotspotViewMod/HotspotContent';
+import HotspotVisitorActionBar from './HotspotViewMod/HotspotVisitorActionBar';
 import selectors from '../../../../client/selectors';
 import './HotspotContainer.scss';
 
@@ -26,7 +29,12 @@ class HotspotContainer extends React.Component {
         if (!readableHotspot) {
             return <p>Loading …</p>;
         }
-        return <HotspotContent loading={contentIsLoading} hotspot={readableHotspot} />;
+        return (
+            <Fragment>
+                <HotspotVisitorActionBar />
+                <HotspotContent loading={contentIsLoading} hotspot={readableHotspot} />
+            </Fragment>
+        );
     }
 
     render() {
@@ -46,6 +54,20 @@ class HotspotContainer extends React.Component {
                     backdropClassName="HotspotContainer-backdrop"
                     modalClassName="HotspotContainer">
                     {this.displayContent()}
+                    <Typography theme="primary-bg text-primary-on-background" className="HotspotContainerFooter" use="caption" tag="footer">
+                        <div>
+                            <Icon strategy="component">mouse</Icon>
+                            <span>129 vues</span>
+                        </div>
+                        <div>
+                            <Icon strategy="component">accessibility</Icon>
+                            <span>3 abonnés</span>
+                        </div>
+                        <div>
+                            <Icon strategy="component">group</Icon>
+                            <span>2 membres</span>
+                        </div>
+                    </Typography>
                 </ReactModal2>
             </Gateway>
         );
