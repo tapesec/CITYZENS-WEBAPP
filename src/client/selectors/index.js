@@ -21,7 +21,7 @@ const getMessagesByHotspotId = (state, hotspotId) =>
 
 const getHotspotBySlug = (state, slug) =>
     Object.values(state.hotspots)
-        .filter(hotspot => hotspot.slug === slug)
+        .filter(hotspot => hotspot.slug === slug && hotspot.type !== HOTSPOT_TYPES.Alert)
         .pop();
 
 const getMarkerTooltipState = state => state.componentsState.map.markerTooltip;
