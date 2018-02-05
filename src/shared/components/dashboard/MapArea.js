@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ActionsPanel from './Map/ActionsPanel/ActionsPanel';
 import GoogleMapReact from 'google-map-react';
 import config from './../../config/';
 import actions from './../../../client/actions';
@@ -37,6 +38,7 @@ class MapArea extends React.Component {
         };
         return (
             <div className="MapArea">
+                <ActionsPanel />
                 <GoogleMapReact
                     bootstrapURLKeys={{
                         key: config.google.mapApiKey,
