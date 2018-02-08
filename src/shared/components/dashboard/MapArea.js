@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ActionsPanel from './Map/ActionsPanel/ActionsPanel';
 import GoogleMapReact from 'google-map-react';
+import helper from './../../helpers';
+import ActionsPanel from './Map/ActionsPanel/ActionsPanel';
 import config from './../../config/';
 import actions from './../../../client/actions';
 import selectors from './../../../client/selectors';
@@ -19,9 +20,10 @@ class MapArea extends React.Component {
             <Marker
                 lat={hotspot.position.latitude}
                 lng={hotspot.position.longitude}
-                text={hotspot.title}
+                text={helper.generateTitleForMarker(hotspot)}
                 key={hotspot.id}
                 id={hotspot.id}
+                iconType={hotspot.iconType}
                 tooltipOpen={
                     !!this.props.tooltipOpen.hotspotId &&
                     this.props.tooltipOpen.hotspotId === hotspot.id

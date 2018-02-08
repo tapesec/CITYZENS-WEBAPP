@@ -3,9 +3,25 @@ import PropTypes from 'prop-types';
 import { Tooltip } from 'react-tippy';
 import { Typography } from 'rmwc/Typography';
 import './../../../../../node_modules/react-tippy/dist/tippy.css';
-import wallHotspotIcon from './../../../../server/assets/WallHotspotMarker.svg';
+import WallIcon from './../../../../server/assets/WallHotspotMarker.svg';
+import EventIcon from './../../../../server/assets/EventHotspotMarker.svg';
+import AccidentIcon from './../../../../server/assets/AlertHotspotMarkerCar.svg';
+import DeteriorationIcon from './../../../../server/assets/AlertHotspotMarkerDestruct.svg';
+import HandicapIcon from './../../../../server/assets/AlertHotspotMarkerHandicap.svg';
 
 class Marker extends React.Component {
+
+    static mapIconWithIconType(iconType) {
+        const iconTypes = {
+            WallIcon,
+            EventIcon,
+            AccidentIcon,
+            DeteriorationIcon,
+            HandicapIcon,
+        };
+        return iconTypes[iconType];
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +34,7 @@ class Marker extends React.Component {
             open: nextProps.tooltipOpen,
         });
     }
+
     render() {
         const MARKER_WIDTH = 52;
         const MARKER_HEIGHT = 83;
@@ -60,7 +77,7 @@ class Marker extends React.Component {
                             </p>
                         </div>
                     }>
-                    <img style={style} src={wallHotspotIcon} alt="Icone d'un point d'interêt" />
+                    <img style={style} src={Marker.mapIconWithIconType(this.props.iconType)} alt="Icone d'un point d'interêt" />
                 </Tooltip>
             </div>
         );
@@ -71,6 +88,7 @@ Marker.propTypes = {
     tooltipOpen: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    iconType: PropTypes.string.isRequired,
     focusHotspotMarker: PropTypes.func.isRequired,
     unfocusHotspotMarker: PropTypes.func.isRequired,
 };

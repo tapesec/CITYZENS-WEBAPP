@@ -11,10 +11,11 @@ import {
     ListDivider,
 } from 'rmwc/List';
 import CustomScroll from 'react-custom-scroll';
+import helper from './../../../../../../shared/helpers';
 
 const SearchResult = props => (
     <CustomScroll>
-        <List twoLine avatarList style={{ maxHeight: '200px' }}>
+        <List twoLine avatarList style={{ maxHeight: '285px' }}>
             {props.hotspotsList.map(hit => (
                 <Fragment key={hit.objectID || hit.id}>
                     <ListItem>
@@ -34,7 +35,7 @@ const SearchResult = props => (
                             style={{ flexBasis: '240px', maxWidth: '240px', overflow: 'hidden' }}>
                             <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
                                 <Link className="itemTitle" to={`/${props.city.slug}/${hit.slug}`}>
-                                    {hit.title}
+                                    {helper.generateTitleForMarker(hit)}
                                 </Link>
                             </h3>
                             <ListItemSecondaryText>
