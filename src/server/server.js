@@ -65,7 +65,7 @@ app.get(
         scope: 'openid profile',
     }),
     (req, res) => {
-        res.redirect('/martignas');
+        res.redirect('/Martignas-sur-Jalle');
     },
 );
 app.get(
@@ -74,7 +74,7 @@ app.get(
         failureRedirect: '/',
     }),
     (req, res) => {
-        res.redirect('/martignas');
+        res.redirect('/Martignas-sur-Jalle');
     },
 );
 
