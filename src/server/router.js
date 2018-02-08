@@ -10,7 +10,7 @@ import renderFullPage from './renderFullPage';
 const ROUTES = ['/', '/register', '/:citySlug/:hotspotSlug'];
 
 export default (async function router(req, res) {
-    console.log('accessToken -->', req.user.accessToken);
+    if (req.user) console.log('accessToken -->', req.user.accessToken);
 
     const match = ROUTES.reduce(
         (acc, route) => matchPath(req.url, { path: route, exact: false }) || acc,
