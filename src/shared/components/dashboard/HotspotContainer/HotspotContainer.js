@@ -5,10 +5,13 @@ import ReactModal2 from 'react-modal2';
 import { connect } from 'react-redux';
 import Typography from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
+import { Fab } from 'rmwc/Fab';
+import constant from './../../../constants';
 import actions from './../../../../client/actions';
-import HotspotContent from './HotspotViewMod/HotspotContent';
-import HotspotVisitorActionBar from './HotspotViewMod/HotspotVisitorActionBar';
 import selectors from '../../../../client/selectors';
+import WallHotspot from './HotspotViewMod/WallHotspot';
+import EventHotspot from './HotspotViewMod/EventHotspot';
+import HotspotVisitorActionBar from './HotspotViewMod/HotspotVisitorActionBar';
 import './HotspotContainer.scss';
 
 class HotspotContainer extends React.Component {
@@ -26,13 +29,23 @@ class HotspotContainer extends React.Component {
 
     displayContent() {
         const { readableHotspot, contentIsLoading } = this.props;
+        const { HOTSPOT } = constant;
         if (!readableHotspot) {
             return <p>Loading …</p>;
         }
+        if (readableHotspot.type === HOTSPOT.TYPE.EVENT) {
+            return (
+                <Fragment>
+                    <HotspotVisitorActionBar />
+                    <EventHotspot loading={contentIsLoading} hotspot={readableHotspot} />
+                </Fragment>
+            );
+        }
+        // HOTSPOT.TYPE.WALL_MESSAGE
         return (
             <Fragment>
                 <HotspotVisitorActionBar />
-                <HotspotContent loading={contentIsLoading} hotspot={readableHotspot} />
+                <WallHotspot loading={contentIsLoading} hotspot={readableHotspot} />
             </Fragment>
         );
     }
@@ -53,8 +66,15 @@ class HotspotContainer extends React.Component {
                     closeOnBackdropClick
                     backdropClassName="HotspotContainer-backdrop"
                     modalClassName="HotspotContainer">
+                    <Fab className="closeModal" mini theme={['primary-bg', 'text-icon-on-primary']}>
+                        clear
+                    </Fab>
                     {this.displayContent()}
-                    <Typography theme="primary-bg text-primary-on-background" className="HotspotContainerFooter" use="caption" tag="footer">
+                    <Typography
+                        theme="primary-bg text-primary-on-background"
+                        className="HotspotContainerFooter"
+                        use="caption"
+                        tag="footer">
                         <div>
                             <Icon strategy="component">mouse</Icon>
                             <span>129 vues</span>
