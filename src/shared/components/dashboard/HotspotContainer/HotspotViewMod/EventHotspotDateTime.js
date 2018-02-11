@@ -7,11 +7,11 @@ import './EventHotspotDateTime.scss';
 
 const EventHotspotDateTime = ({ date }) => (
     <header className="EventHotspotTimeArea">
-        <div className="iconContainer">
+        <Typography tag="div" theme="text-icon-on-primary" className="iconContainer">
             <Icon strategy="component">
                 today
             </Icon>
-        </div>
+        </Typography>
         <Typography use="headline" tag="div" theme="secondary">
             <DateFormater date={date} />
         </Typography>

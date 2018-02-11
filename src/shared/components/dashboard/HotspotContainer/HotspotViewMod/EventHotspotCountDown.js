@@ -28,10 +28,10 @@ class EventHotspotCountDown extends React.Component {
     render() {
         return (
             <header className="EventHotspotTimeArea">
-                <div className="iconContainer">
+                <Typography tag="div" className="iconContainer" theme="text-icon-on-primary">
                     <Icon strategy="component">alarm_on</Icon>
-                </div>
-                <Typography tag="header" use="headline" theme="primary-dark">
+                </Typography>
+                <Typography tag="header" use="headline" theme="secondary">
                     <DateFormater countdown date={this.state.dateEnd} />
                 </Typography>
             </header>
