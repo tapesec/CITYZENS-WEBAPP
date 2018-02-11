@@ -15,14 +15,14 @@ class EventHotspotCountDown extends React.Component {
 
     componentDidMount() {
         let newDate;
-        this.state.interval = setInterval(() => {
+        this.state.intervalId = setInterval(() => {
             newDate = this.state.dateEnd;
             this.setState({ dateEnd: newDate });
         }, 1000);
     }
 
     componentWillUnmount() {
-        this.state.interval.clearInterval();
+        clearInterval(this.state.intervalId);
     }
 
     render() {

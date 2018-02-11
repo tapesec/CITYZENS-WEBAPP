@@ -66,7 +66,7 @@ class HotspotContainer extends React.Component {
                     closeOnBackdropClick
                     backdropClassName="HotspotContainer-backdrop"
                     modalClassName="HotspotContainer">
-                    <Fab className="closeModal" mini theme={['primary-bg', 'text-icon-on-primary']}>
+                    <Fab onClick={() => {history.push(`/${citySlug}`);}} className="closeModal" mini theme={['primary-bg', 'text-icon-on-primary']}>
                         clear
                     </Fab>
                     {this.displayContent()}
