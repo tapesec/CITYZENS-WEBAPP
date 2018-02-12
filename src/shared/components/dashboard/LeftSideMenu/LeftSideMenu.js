@@ -39,6 +39,7 @@ class LeftSideMenu extends React.Component {
                                 hotspotsList={this.props.hotspotsList}
                                 focusHotspot={this.props.focusHotspot}
                                 city={this.props.city}
+                                openHotspotInModal={this.props.openHotspotInModal}
                             />
                         </LeftSideMenuContent>
                     </LeftSideMenuContainer>
@@ -63,6 +64,7 @@ LeftSideMenu.propTypes = {
     leftSideMenuDidMount: PropTypes.func.isRequired,
     hotspotSearchKeyPress: PropTypes.func.isRequired,
     focusHotspot: PropTypes.func.isRequired,
+    openHotspotInModal: PropTypes.func.isRequired,
 };
 
 LeftSideMenu.defaultProps = {
@@ -85,6 +87,9 @@ const mapDispatchToProps = dispatch => ({
     focusHotspot: (lat, lng) => {
         dispatch(actions.focusHotspotInSearchList(lat, lng));
     },
+    openHotspotInModal: (hotspotId) => {
+        dispatch(actions.openHotspotInModal(hotspotId));
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftSideMenu);

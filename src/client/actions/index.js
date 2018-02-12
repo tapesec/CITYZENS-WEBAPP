@@ -80,6 +80,17 @@ const openHotspot = slug => ({
     },
 });
 
+const openHotspotInModal = (hotspotId) => ({
+    type: actionTypes.OPEN_HOTSPOT_IN_MODAL,
+    payload: {
+        hotspotId
+    }
+});
+
+const closeHotspotModal = () => ({
+    type: actionTypes.CLOSE_HOTSPOT_MODAL,
+});
+
 const fetchHotspotSucceded = hotspot => ({
     type: actionTypes.FETCH_HOTSPOT_SUCCEDED,
     payload: {
@@ -137,6 +148,8 @@ export default {
     unfocusHotspotInMap,
     centerMapToPosition,
     openHotspot,
+    openHotspotInModal,
+    closeHotspotModal,
     fetchHotspotSucceded,
     fetchHotspotFailed,
     fetchMessagesSucceded,

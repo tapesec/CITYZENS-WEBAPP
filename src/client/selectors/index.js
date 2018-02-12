@@ -1,9 +1,14 @@
 import { getHits } from './../../shared/reducers/algolia';
+
 const HOTSPOT_TYPES = {
     WallMessage: 'WallMessage',
     Event: 'Event',
     Alert: 'Alert',
 };
+
+// components state
+
+const modalIsOpen = state => state.componentsState.hotspotModal.open;
 
 const getHotspotsForSearchList = state => {
     if (getHits(state) && getHits(state).length > 0) {
@@ -35,7 +40,7 @@ const getReadableHotspot = state => {
     const hotspotSlug = getCurrentHotspotSlug(state);
     let hotspot = getHotspotBySlug(state, hotspotSlug);
     if (hotspot && hotspot.type === HOTSPOT_TYPES.WallMessage) {
-        hotspot = { ...hotspot, messages: getMessagesByHotspotId(state, hotspot.id)};
+        hotspot = { ...hotspot, messages: getMessagesByHotspotId(state, hotspot.id) };
     }
     return hotspot;
 };
@@ -49,4 +54,6 @@ export default {
     getCitySlug,
     getHotspotContentLoading,
     getReadableHotspot,
+    // components state
+    modalIsOpen
 };

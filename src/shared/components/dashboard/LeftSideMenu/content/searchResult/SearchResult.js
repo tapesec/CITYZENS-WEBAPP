@@ -11,6 +11,7 @@ import {
     ListDivider,
 } from 'rmwc/List';
 import CustomScroll from 'react-custom-scroll';
+import constants from './../../../../../../shared/constants';
 import helper from './../../../../../../shared/helpers';
 
 const SearchResult = props => (
@@ -33,17 +34,32 @@ const SearchResult = props => (
                         </ListItemGraphic>
                         <ListItemText
                             style={{ flexBasis: '240px', maxWidth: '240px', overflow: 'hidden' }}>
-                            <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
-                                <Link className="itemTitle" to={`/${props.city.slug}/${hit.slug}`}>
+                            {hit.type === constants.HOTSPOT.TYPE.ALERT ? (
+                                <h3
+                                    onClick={() => props.openHotspotInModal(hit.objectID || hit.id)}
+                                    className="mdc-typography--subheading2 mdc-theme--secondary">
                                     {helper.generateTitleForMarker(hit)}
-                                </Link>
-                            </h3>
+                                </h3>
+                            ) : (
+                                <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
+                                    <Link
+                                        className="itemTitle"
+                                        to={`/${props.city.slug}/${hit.slug}`}>
+                                        {helper.generateTitleForMarker(hit)}
+                                    </Link>
+                                </h3>
+                            )}
+
                             <ListItemSecondaryText>
                                 {hit.address.name || hit.address}
                             </ListItemSecondaryText>
                         </ListItemText>
                         <ListItemMeta
-                            style={{ flexBasis: 'min-content', alignItems: 'right', cursor: 'pointer' }}
+                            style={{
+                                flexBasis: 'min-content',
+                                alignItems: 'right',
+                                cursor: 'pointer',
+                            }}
                             onClick={() => {
                                 setTimeout(() => {
                                     props.focusHotspot(hit.objectID || hit.id);
@@ -64,6 +80,7 @@ SearchResult.propTypes = {
     city: PropTypes.shape({
         slug: PropTypes.string.isRequired,
     }).isRequired,
+    openHotspotInModal: PropTypes.func.isRequired,
 };
 SearchResult.defaultProps = {
     hotspotsList: [],
