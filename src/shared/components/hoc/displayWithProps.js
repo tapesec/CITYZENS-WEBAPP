@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     closeModal: () => {
-        dispatch(actions.closeHotspotModal());
+        dispatch(actions.closeHotspotInSPAModal());
     },
 });
 

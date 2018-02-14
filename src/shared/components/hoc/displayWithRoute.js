@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    closeModal: () => {
-        dispatch(actions.closeHotspotModal());
+    closeModalInUniversalModal: () => {
+        dispatch(actions.closeHotspotInUniversalModal());
     },
 });
 
@@ -17,6 +17,7 @@ const displayWithRoutes = ComponentToWrap =>
     connect(mapStateToProps, mapDispatchToProps)(props => {
         const closeModal = () => {
             props.history.push(`/${props.citySlug}`);
+            props.closeModalInUniversalModal();
         };
         return <ComponentToWrap {...props} closeModal={closeModal} />;
     });

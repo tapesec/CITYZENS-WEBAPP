@@ -8,8 +8,8 @@ import { Icon } from 'rmwc/Icon';
 import { Fab } from 'rmwc/Fab';
 import WallHotspot from './HotspotViewMod/WallHotspot';
 import EventHotspot from './HotspotViewMod/EventHotspot';
+import AlertHotspot from './HotspotViewMod/AlertHotspot';
 import constant from './../../../constants';
-import actions from './../../../../client/actions';
 import selectors from '../../../../client/selectors';
 import HotspotVisitorActionBar from './HotspotViewMod/HotspotVisitorActionBar';
 import './HotspotContainer.scss';
@@ -38,11 +38,18 @@ class HotspotContainer extends React.Component {
                 </Fragment>
             );
         }
-        // HOTSPOT.TYPE.WALL_MESSAGE
+        if (readableHotspot.type === HOTSPOT.TYPE.WALL_MESSAGE) {
+            return (
+                <Fragment>
+                    <HotspotVisitorActionBar />
+                    <WallHotspot loading={contentIsLoading} hotspot={readableHotspot} />
+                </Fragment>
+            );
+        }
         return (
             <Fragment>
                 <HotspotVisitorActionBar />
-                <WallHotspot loading={contentIsLoading} hotspot={readableHotspot} />
+                <AlertHotspot loading={contentIsLoading} hotspot={readableHotspot} />
             </Fragment>
         );
     }
@@ -95,7 +102,6 @@ class HotspotContainer extends React.Component {
 
 HotspotContainer.propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
-
 };
 
 const mapStateToProps = state => ({
@@ -103,10 +109,4 @@ const mapStateToProps = state => ({
     readableHotspot: selectors.getReadableHotspot(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    openHotspot: slug => {
-        dispatch(actions.openHotspot(slug));
-    },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HotspotContainer);
+export default connect(mapStateToProps)(HotspotContainer);

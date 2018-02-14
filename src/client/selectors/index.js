@@ -35,10 +35,18 @@ const getCitySlug = state => state.city.slug;
 
 const getHotspotContentLoading = state => state.componentsState.hotspotModal.contentIsLoading;
 const getCurrentHotspotSlug = state => state.componentsState.hotspotModal.currentHotspotSlug;
+const getCurrentHotspotId = state => state.componentsState.hotspotModal.currentHotspotId;
 
 const getReadableHotspot = state => {
+    let hotspot;
     const hotspotSlug = getCurrentHotspotSlug(state);
-    let hotspot = getHotspotBySlug(state, hotspotSlug);
+    const hotspotId = getCurrentHotspotId(state);
+    if (hotspotSlug) {
+        hotspot = getHotspotBySlug(state, hotspotSlug);
+    }
+    if (hotspotId) {
+        hotspot = getHotspotById(state, hotspotId);
+    }
     if (hotspot && hotspot.type === HOTSPOT_TYPES.WallMessage) {
         hotspot = { ...hotspot, messages: getMessagesByHotspotId(state, hotspot.id) };
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Toolbar, ToolbarRow, ToolbarSection, ToolbarIcon } from 'rmwc/toolbar';
+import { Toolbar, ToolbarRow, ToolbarSection, ToolbarIcon } from 'rmwc/Toolbar';
 import Fab from 'rmwc/Fab';
 import actions from './../../client/actions';
 import './MainContainer.scss';

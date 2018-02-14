@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { TextField, TextFieldIcon } from 'rmwc/TextField';
-import selectors from './../../../../client/selectors/';
-import actions from './../../../../client/actions';
-import Drawer from './../../lib/Drawer';
 import LeftSideMenuContainer from './LeftSideMenuContainer';
 import LeftSideMenuHeader from './header/LeftSideMenuHeader';
 import LeftSideMenuContent from './content/LeftSideMenuContent';
 import SearchResult from './content/searchResult/SearchResult';
+import selectors from './../../../../client/selectors/';
+import actions from './../../../../client/actions';
+import Drawer from './../../lib/Drawer';
 import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 
 import './LeftSideMenu.scss';
@@ -39,7 +39,7 @@ class LeftSideMenu extends React.Component {
                                 hotspotsList={this.props.hotspotsList}
                                 focusHotspot={this.props.focusHotspot}
                                 city={this.props.city}
-                                openHotspotInModal={this.props.openHotspotInModal}
+                                openHotspotInSPAModal={this.props.openHotspotInSPAModal}
                             />
                         </LeftSideMenuContent>
                     </LeftSideMenuContainer>
@@ -64,7 +64,7 @@ LeftSideMenu.propTypes = {
     leftSideMenuDidMount: PropTypes.func.isRequired,
     hotspotSearchKeyPress: PropTypes.func.isRequired,
     focusHotspot: PropTypes.func.isRequired,
-    openHotspotInModal: PropTypes.func.isRequired,
+    openHotspotInSPAModal: PropTypes.func.isRequired,
 };
 
 LeftSideMenu.defaultProps = {
@@ -87,8 +87,8 @@ const mapDispatchToProps = dispatch => ({
     focusHotspot: (lat, lng) => {
         dispatch(actions.focusHotspotInSearchList(lat, lng));
     },
-    openHotspotInModal: (hotspotId) => {
-        dispatch(actions.openHotspotInModal(hotspotId));
+    openHotspotInSPAModal: (hotspotId) => {
+        dispatch(actions.openHotspotInSPAModal (hotspotId));
     }
 });
 

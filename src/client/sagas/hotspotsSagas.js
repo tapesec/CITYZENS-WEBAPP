@@ -20,23 +20,30 @@ export function* fetchHotspots(action) {
 }
 
 export function* fetchHotspot(action) {
-    if (action && action.payload && action.payload.slug) {
-        try {
+    try {
+        let hotspotId;
+        if (action && action.payload && action.payload.slug) {
             const hotspot = yield select(selectors.getHotspotBySlug, action.payload.slug);
-            const response = yield call([cityzensApi, cityzensApi.getPublicHotspot], hotspot.id);
-            const syncedHotspot = yield response.json();
-            yield put(actions.fetchHotspotSucceded(syncedHotspot));
-        } catch (err) {
-            let errorPayload;
-            if (err.message) errorPayload = err.message;
-            yield put(actions.fetchHotspotFailed(errorPayload));
+            hotspotId = hotspot.id;
         }
+        if (action && action.payload && action.payload.hotspotId) {
+            // eslint-disable-next-line
+            hotspotId = action.payload.hotspotId;
+        }
+        const response = yield call([cityzensApi, cityzensApi.getPublicHotspot], hotspotId);
+        const syncedHotspot = yield response.json();
+        yield put(actions.fetchHotspotSucceded(syncedHotspot));
+    } catch (err) {
+        let errorPayload;
+        if (err.message) errorPayload = err.message;
+        yield put(actions.fetchHotspotFailed(errorPayload));
     }
 }
 
 export default function* hotspotsSagas() {
     yield [
         takeLatest(actionTypes.FETCH_HOTSPOTS_BY_CITY, fetchHotspots),
-        takeLatest(actionTypes.OPEN_HOTSPOT, fetchHotspot),
+        takeLatest(actionTypes.OPEN_HOTSPOT_IN_SPA_MODAL, fetchHotspot),
+        takeLatest(actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL, fetchHotspot),
     ];
 }

@@ -36,6 +36,6 @@ export function* fetchMessages(action) {
 
 export default function* messagesSagas() {
     yield [
-        takeLatest(actionTypes.OPEN_HOTSPOT, fetchMessages),
+        takeLatest(actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL, fetchMessages),
     ];
 }

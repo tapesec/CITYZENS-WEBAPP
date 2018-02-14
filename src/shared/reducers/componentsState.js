@@ -26,7 +26,28 @@ export default function componentsState(state = initialState, action) {
                     markerTooltip: {},
                 },
             };
-        case actionTypes.OPEN_HOTSPOT:
+        case actionTypes.OPEN_HOTSPOT_IN_SPA_MODAL:
+            return {
+                ...state,
+                hotspotModal: {
+                    contentIsLoading: true,
+                    networkError: false,
+                    currentHotspotId: action.payload.hotspotId,
+                    open: true,
+                },
+            };
+        case actionTypes.CLOSE_HOTSPOT_IN_SPA_MODAL:
+            hotspotModal = {
+                ...state.hotspotModal,
+                currentHotspotId: undefined,
+                networkError: false,
+                open: false,
+            };
+            return {
+                ...state,
+                hotspotModal,
+            };
+        case actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL:
             return {
                 ...state,
                 hotspotModal: {
@@ -35,20 +56,31 @@ export default function componentsState(state = initialState, action) {
                     currentHotspotSlug: action.payload.slug,
                 },
             };
-        /* case actionTypes.FETCH_HOTSPOT_SUCCEDED:
+        case actionTypes.CLOSE_HOTSPOT_IN_UNIVERSAL_MODAL:
+            hotspotModal = {
+                ...state.hotspotModal,
+                currentHotspotSlug: undefined,
+                networkError: false,
+            };
             return {
                 ...state,
-                hotspotModal: {
-                    contentIsLoading: false,
-                    networkError: false,
-                    currentHotspot: action.payload.hotspot,
-                },
-            }; */
+                hotspotModal,
+            };
         case actionTypes.FETCH_HOTSPOT_FAILED:
             hotspotModal = {
                 ...state.hotspotModal,
                 contentIsLoading: false,
                 networkError: true,
+            };
+            return {
+                ...state,
+                hotspotModal,
+            };
+        case actionTypes.FETCH_HOTSPOT_SUCCEDED:
+            hotspotModal = {
+                ...state.hotspotModal,
+                contentIsLoading: false,
+                networkError: false,
             };
             return {
                 ...state,

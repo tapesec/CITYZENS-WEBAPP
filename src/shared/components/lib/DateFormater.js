@@ -13,7 +13,7 @@ const DateFormater = ({ labelPrefix, date, duration, countdown }) => {
         let dateFormated = labelPrefix? `${labelPrefix} `: '';
         if (days >= 1 || months >= 1 || years >= 1) {
             dateFormated += `${prefixDate} `;
-            dateFormated = eventDate.toLocaleString({
+            dateFormated += eventDate.toLocaleString({
                 weekday: 'long',
                 month: 'long',
                 day: '2-digit',

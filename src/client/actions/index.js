@@ -73,22 +73,26 @@ const centerMapToPosition = (lat, lng) => ({
     },
 });
 
-const openHotspot = slug => ({
-    type: actionTypes.OPEN_HOTSPOT,
+const openHotspotInSPAModal = hotspotId => ({
+    type: actionTypes.OPEN_HOTSPOT_IN_SPA_MODAL,
     payload: {
-        slug,
+        hotspotId,
     },
 });
 
-const openHotspotInModal = (hotspotId) => ({
-    type: actionTypes.OPEN_HOTSPOT_IN_MODAL,
+const closeHotspotInSPAModal = () => ({
+    type: actionTypes.CLOSE_HOTSPOT_IN_SPA_MODAL,
+});
+
+const openHotspotInUniversalModal = slug => ({
+    type: actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL,
     payload: {
-        hotspotId
+        slug
     }
 });
 
-const closeHotspotModal = () => ({
-    type: actionTypes.CLOSE_HOTSPOT_MODAL,
+const closeHotspotInUniversalModal = () => ({
+    type: actionTypes.CLOSE_HOTSPOT_IN_UNIVERSAL_MODAL,
 });
 
 const fetchHotspotSucceded = hotspot => ({
@@ -147,9 +151,10 @@ export default {
     focusHotspotInMap,
     unfocusHotspotInMap,
     centerMapToPosition,
-    openHotspot,
-    openHotspotInModal,
-    closeHotspotModal,
+    openHotspotInSPAModal,
+    closeHotspotInSPAModal,
+    openHotspotInUniversalModal,
+    closeHotspotInUniversalModal,
     fetchHotspotSucceded,
     fetchHotspotFailed,
     fetchMessagesSucceded,
