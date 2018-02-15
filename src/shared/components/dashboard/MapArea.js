@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 import helper from './../../helpers';
@@ -16,20 +17,32 @@ class MapArea extends React.Component {
     }
 
     displayHotspots() {
+        const {
+            citySlug,
+            openHotspotInSPAModal,
+            unfocusHotspotMarker,
+            focusHotspotMarker,
+            history,
+        } = this.props;
         return this.props.hotspots.map(hotspot => (
             <Marker
                 lat={hotspot.position.latitude}
                 lng={hotspot.position.longitude}
                 text={helper.generateTitleForMarker(hotspot)}
                 key={hotspot.id}
-                id={hotspot.id}
+                hotspotId={hotspot.id}
+                hotspotSlug={hotspot.slug}
+                type={hotspot.type}
                 iconType={hotspot.iconType}
+                citySlug={citySlug}
+                history={history}
+                openHotspotInSPAModal={openHotspotInSPAModal}
                 tooltipOpen={
                     !!this.props.tooltipOpen.hotspotId &&
                     this.props.tooltipOpen.hotspotId === hotspot.id
                 }
-                focusHotspotMarker={this.props.focusHotspotMarker}
-                unfocusHotspotMarker={this.props.unfocusHotspotMarker}
+                focusHotspotMarker={focusHotspotMarker}
+                unfocusHotspotMarker={unfocusHotspotMarker}
             />
         ));
     }
@@ -60,6 +73,8 @@ class MapArea extends React.Component {
 }
 
 MapArea.propTypes = {
+    // eslint-disable-next-line
+    history: ReactRouterPropTypes.history.isRequired,
     fetchHotspotsByCity: PropTypes.func.isRequired,
     hotspots: PropTypes.arrayOf(
         PropTypes.shape({
@@ -71,6 +86,8 @@ MapArea.propTypes = {
     notifyMapMoved: PropTypes.func.isRequired,
     focusHotspotMarker: PropTypes.func.isRequired,
     unfocusHotspotMarker: PropTypes.func.isRequired,
+    citySlug: PropTypes.string.isRequired,
+    openHotspotInSPAModal: PropTypes.func.isRequired,
     map: PropTypes.shape({
         center: PropTypes.shape({
             lat: PropTypes.isRequired,
@@ -92,6 +109,7 @@ const mapStateToProps = state => ({
     hotspots: selectors.getHotspotsForMap(state),
     map: state.map,
     tooltipOpen: selectors.getMarkerTooltipState(state),
+    citySlug: selectors.getCitySlug(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -107,6 +125,9 @@ const mapDispatchToProps = dispatch => ({
     unfocusHotspotMarker: hotspotId => {
         dispatch(actions.unfocusHotspotInMap(hotspotId));
     },
+    openHotspotInSPAModal: (hotspotId) => {
+        dispatch(actions.openHotspotInSPAModal (hotspotId));
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapArea);

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Proptypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Route } from 'react-router-dom';
 import HotspotContainer from './HotspotContainer/HotspotContainer';
 import displayWithProps from './../hoc/displayWithProps';
@@ -9,13 +9,13 @@ import isLoading from './../hoc/isLoading';
 import LeftSideMenu from './LeftSideMenu/LeftSideMenu';
 import MapArea from './MapArea';
 
-export default function Dashboard({ match }) {
+export default function Dashboard({ match, history }) {
     const AlertHotspotContainer = displayWithProps(isLoading(HotspotContainer));
 
     return (
         <Fragment>
             <LeftSideMenu />
-            <MapArea />
+            <MapArea history={history} />
             <AlertHotspotContainer />
             <Route
                 path={`${match.url}/:hotspotSlug`}
@@ -26,7 +26,8 @@ export default function Dashboard({ match }) {
 }
 
 Dashboard.propTypes = {
-    match: Proptypes.shape({
-        url: Proptypes.string.isRequired,
-    }).isRequired,
+    /* eslint-disable react/no-typos */
+    match: ReactRouterPropTypes.match.isRequired,
+    history: ReactRouterPropTypes.history.isRequired,
+    /* eslint-enable react/no-typos */
 };

@@ -44,6 +44,7 @@
     "react-modal2": "^5.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-router-prop-types": "0.0.3",
     "react-tippy": "^1.2.2",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
