@@ -1,0 +1,19 @@
+@import './../../../../client/main.scss';
+
+.marker-tooltip {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    span {
+        margin-right: 10px;
+    }
+    i {
+        color: $mdc-theme--text-icon-on-primary;
+    }
+    &:hover {
+        span, i {
+            color: $mdc-theme-secondary;
+        }
+
+    }
+}
