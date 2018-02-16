@@ -9,12 +9,12 @@ import './MainContainer.scss';
 
 const MainContainer = props => (
     <div className="MainContainer">
-        <Toolbar className="Toolbar">
+        <Toolbar className="Toolbar" theme="primary-bg">
             <ToolbarRow>
                 <ToolbarSection alignStart>
                     <Fab
                         style={{ left: '20px', color: 'red' }}
-                        theme={['primary-bg', 'text-icon-on-primary']}
+                        theme="primary-bg text-icon-on-primary"
                         onClick={() => {
                             props.actions.toggleLeftSideMenuVisibility();
                         }}
@@ -23,8 +23,8 @@ const MainContainer = props => (
                     </Fab>
                 </ToolbarSection>
                 <ToolbarSection style={{ marginRight: '2rem' }} alignEnd>
-                    <ToolbarIcon use="contact_mail" theme={['text-icon-on-primary']} />
-                    <ToolbarIcon use="person_outline" theme={['text-icon-on-primary']} />
+                    <ToolbarIcon use="contact_mail" theme="text-icon-on-primary" />
+                    <ToolbarIcon use="person_outline" theme="text-icon-on-primary" />
                 </ToolbarSection>
             </ToolbarRow>
         </Toolbar>
