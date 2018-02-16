@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
-// import GoogleMapReact from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
 import helper from './../../helpers';
 import ActionsPanel from './Map/ActionsPanel/ActionsPanel';
 import config from './../../config/';
@@ -10,8 +10,6 @@ import actions from './../../../client/actions';
 import selectors from './../../../client/selectors';
 import Marker from './Map/Marker';
 import './MapArea.scss';
-
-const GoogleMapReact = require('google-map-react').default; //ie11 compatibility
 
 class MapArea extends React.Component {
     componentDidMount() {

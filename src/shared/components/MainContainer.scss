@@ -1,6 +1,7 @@
 .MainContainer {
     height: 100%;
-    position: fixed;
+    position: absolute;
+    z-index: 1;
     width: 100%;
     .Toolbar {
         display: flex;
