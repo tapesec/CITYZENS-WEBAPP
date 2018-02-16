@@ -24,15 +24,18 @@ div.ActionsPanel {
     div.row {
         margin-left: -145px;
         display: flex;
+        display: -webkit-flex;
         left: 0;
         height: 80px;
         transition: margin-left 0.2s linear;
+        -webkit-transition: margin-left 0.2s linear;
     }
 
     div.column {
         display: flex;
         flex-direction: column;
         height: 80px;
+        transition: height 0.2s linear;
         -webkit-transition: height 0.2s linear;
         overflow: hidden;
         &:nth-child(3):hover {

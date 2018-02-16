@@ -31,6 +31,11 @@ module.exports = {
                     use: [
                         {
                             loader: 'css-loader',
+                            options: { importLoaders: 1 },
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            // prefix css properties
                         },
                         {
                             loader: 'sass-loader',
