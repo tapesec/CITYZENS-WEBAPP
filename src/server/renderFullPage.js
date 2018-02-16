@@ -9,7 +9,7 @@ export default function renderFullPage(html, preloadedState) {
 			<link href="/assets/styles.css" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		</head>
-		<body>
+		<body ondragstart="return false;">
 			<div id="root">${html}</div>
 			<script>
 			window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')};

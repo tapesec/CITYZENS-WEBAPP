@@ -28,6 +28,7 @@
     "cross-fetch": "^1.1.1",
     "dotenv": "^4.0.0",
     "dotenv-webpack": "^1.5.4",
+    "es6-shim": "^0.35.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "google-map-react": "^0.26.0",
