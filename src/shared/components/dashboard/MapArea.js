@@ -58,6 +58,7 @@ class MapArea extends React.Component {
                     bootstrapURLKeys={{
                         key: config.google.mapApiKey,
                         language: 'fr',
+                        v: '3.30'
                     }}
                     onChange={evt => {
                         this.props.notifyMapMoved(evt.center.lat, evt.center.lng);
