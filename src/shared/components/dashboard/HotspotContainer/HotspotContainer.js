@@ -59,12 +59,8 @@ class HotspotContainer extends React.Component {
         return (
             <Gateway into="modal">
                 <ReactModal2
-                    // A callback that gets called whenever the `esc` key is pressed, or the
-                    // backdrop is clicked.
                     onClose={closeModal}
-                    // Enable/Disable calling `onClose` when the `esc` key is pressed.
                     closeOnEsc
-                    // Enable/Disable calling `onClose` when the backdrop is clicked.
                     closeOnBackdropClick
                     backdropClassName="HotspotContainer-backdrop"
                     modalClassName="HotspotContainer">
@@ -101,7 +97,17 @@ class HotspotContainer extends React.Component {
 }
 
 HotspotContainer.propTypes = {
-    // eslint-disable-next-line react/forbid-prop-types
+    closeModal: PropTypes.func.isRequired,
+    loadHotspot: PropTypes.func,
+    contentIsLoading: PropTypes.bool.isRequired,
+    readableHotspot: PropTypes.shape({
+        type: PropTypes.string.isRequired,
+    }),
+};
+
+HotspotContainer.defaultProps = {
+    readableHotspot: undefined,
+    loadHotspot: undefined,
 };
 
 const mapStateToProps = state => ({

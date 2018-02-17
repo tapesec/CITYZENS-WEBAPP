@@ -15,7 +15,6 @@ import './../../../../../node_modules/react-tippy/dist/tippy.css';
 import './Marker.scss';
 
 class Marker extends React.Component {
-
     static mapIconWithIconType(iconType) {
         const iconTypes = {
             WallIcon,
@@ -33,6 +32,7 @@ class Marker extends React.Component {
             open: props.tooltipOpen,
         };
         this.openHotspot = this.openHotspot.bind(this);
+        this.focusHotspotMarker = this.focusHotspotMarker.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -43,19 +43,18 @@ class Marker extends React.Component {
 
     openHotspot() {
         const { HOTSPOT } = constants;
-        const {
-            type,
-            openHotspotInSPAModal,
-            citySlug,
-            hotspotSlug,
-            hotspotId,
-        } = this.props;
+        const { type, openHotspotInSPAModal, citySlug, hotspotSlug, hotspotId } = this.props;
         if (type === HOTSPOT.TYPE.ALERT) {
             openHotspotInSPAModal(hotspotId);
             return;
         }
         this.props.history.push(`/${citySlug}/${hotspotSlug}`);
+    }
 
+    focusHotspotMarker() {
+        setTimeout(() => {
+            this.props.focusHotspotMarker(this.props.hotspotId);
+        }, 50);
     }
 
     render() {
@@ -75,12 +74,11 @@ class Marker extends React.Component {
 
         return (
             <div
+                tabIndex={0}
+                role="button"
                 style={{ width: 30, height: 30 }}
-                onClick={() => {
-                    setTimeout(() => {
-                        this.props.focusHotspotMarker(this.props.hotspotId);
-                    }, 50);
-                }}>
+                onClick={this.focusHotspotMarker}
+                onKeyDown={this.focusHotspotMarker}>
                 <Tooltip
                     position="top"
                     arrow="true"
@@ -95,12 +93,21 @@ class Marker extends React.Component {
                         this.props.unfocusHotspotMarker(this.props.hotspotId);
                     }}
                     html={
-                        <Typography className="marker-tooltip" theme="text-primary-on-light" use="body1" tag="p" onClick={this.openHotspot}>
+                        <Typography
+                            className="marker-tooltip"
+                            theme="text-primary-on-light"
+                            use="body1"
+                            tag="p"
+                            onClick={this.openHotspot}>
                             <span>{this.props.text}</span>
                             <Icon strategy="component">visibility</Icon>
                         </Typography>
                     }>
-                    <img style={style} src={Marker.mapIconWithIconType(this.props.iconType)} alt="Icone d'un point d'interêt" />
+                    <img
+                        style={style}
+                        src={Marker.mapIconWithIconType(this.props.iconType)}
+                        alt="Icone d'un point d'interêt"
+                    />
                 </Tooltip>
             </div>
         );
@@ -117,9 +124,13 @@ Marker.propTypes = {
     type: PropTypes.string.isRequired,
     openHotspotInSPAModal: PropTypes.func.isRequired,
     citySlug: PropTypes.string.isRequired,
-    hotspotSlug: PropTypes.string.isRequired,
+    hotspotSlug: PropTypes.string,
     // eslint-disable-next-line
     history: ReactRouterPropTypes.history.isRequired,
+};
+
+Marker.defaultProps = {
+    hotspotSlug: undefined,
 };
 
 export default Marker;

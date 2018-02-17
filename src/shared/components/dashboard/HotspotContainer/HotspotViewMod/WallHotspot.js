@@ -13,7 +13,7 @@ const WallHotspot = ({ hotspot }) => (
         <CustomScroll heightRelativeToParent="100%">
             <HotspotMessagesWall>
                 {hotspot.messages.map(message => (
-                    <HotspotMessage message={message} key={message.id}/>
+                    <HotspotMessage message={message} key={message.id} />
                 ))}
             </HotspotMessagesWall>
         </CustomScroll>
@@ -21,7 +21,10 @@ const WallHotspot = ({ hotspot }) => (
 );
 
 WallHotspot.propTypes = {
-    hotspot: PropTypes.object.isRequired,
+    hotspot: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        messages: PropTypes.array.isRequired,
+    }).isRequired,
 };
 
 export default WallHotspot;

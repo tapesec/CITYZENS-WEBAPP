@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Icon } from 'rmwc/Icon';
 import { Typography } from 'rmwc/Typography';
 import DateFormater from './../../../lib/DateFormater';
@@ -31,7 +32,7 @@ const AlertHotspot = props => (
             </Typography>
         </article>
         <Typography tag="p" use="headline" className="question-label" theme="secondary">
-            Il y a t'il toujours quelque chose ?
+            Il y a t&apos;il toujours quelque chose ?
         </Typography>
         <Typography tag="div" className="thumb-container" theme="text-icon-on-primary">
             <div>
@@ -43,4 +44,14 @@ const AlertHotspot = props => (
         </Typography>
     </section>
 );
+
+AlertHotspot.propTypes = {
+    hotspot: PropTypes.shape({
+        message: PropTypes.shape({
+            updatedAt: PropTypes.string,
+            content: PropTypes.string.isRequired
+        })
+    }).isRequired
+}
+
 export default AlertHotspot;

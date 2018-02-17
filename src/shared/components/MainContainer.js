@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
 import { Toolbar, ToolbarRow, ToolbarSection, ToolbarIcon } from 'rmwc/Toolbar';
 import Fab from 'rmwc/Fab';
 import actions from './../../client/actions';
@@ -36,6 +36,7 @@ MainContainer.propTypes = {
     actions: PropTypes.shape({
         toggleLeftSideMenuVisibility: PropTypes.func.isRequired,
     }).isRequired,
+    children: PropTypes.node.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

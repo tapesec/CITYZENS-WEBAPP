@@ -67,9 +67,9 @@ const ActionsPanel = () => (
                                     Accident de voie publique
                                 </Typography>
                                 <Typography tag="p" use="body2">
-                                    Vous constatez un accident de la circulation, d'un véhicule ou
-                                    piéton ou même une perturbation de la circulation, signalez le
-                                    avec un court message.
+                                    Vous constatez un accident de la circulation, d&apo;un véhicule
+                                    ou piéton ou même une perturbation de la circulation, signalez
+                                    le avec un court message.
                                 </Typography>
                             </div>
                         }
@@ -105,7 +105,7 @@ const ActionsPanel = () => (
                                 </Typography>
                                 <Typography tag="p" use="body2">
                                     Signalez sur la carte les équipements (rampe, place de parking
-                                    ..) facilitant l'accès aux personnes à mobilité réduite.
+                                    ..) facilitant l&apo;accès aux personnes à mobilité réduite.
                                 </Typography>
                             </div>
                         }

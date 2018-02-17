@@ -13,13 +13,22 @@ const EventHotspot = ({ hotspot }) => (
         <EventHotspotDateTime date={hotspot.dateEnd} />
         <EventHotspotCountDown dateEnd={hotspot.dateEnd} />
         <CustomScroll heightRelativeToParent="100%">
-            <EventHotspotDescription description={hotspot.description} author={hotspot.author} dateEnd={hotspot.dateEnd} />
+            <EventHotspotDescription
+                description={hotspot.description}
+                author={hotspot.author}
+                dateEnd={hotspot.dateEnd}
+            />
         </CustomScroll>
     </section>
 );
 
 EventHotspot.propTypes = {
-    hotspot: PropTypes.object.isRequired,
+    hotspot: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        dateEnd: PropTypes.string.isRequired,
+        description: PropTypes.object.isRequired,
+        author: PropTypes.object.isRequired,
+    }).isRequired,
 };
 
 export default EventHotspot;

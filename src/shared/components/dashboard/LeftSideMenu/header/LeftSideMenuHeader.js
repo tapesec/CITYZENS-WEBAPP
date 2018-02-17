@@ -1,7 +1,9 @@
 import React from 'react';
 import { DrawerHeader } from 'rmwc/Drawer';
 import logoSvg from './../../../../../server/assets/logo-cityzens.svg';
+
 import './LeftSideMenuHeader.scss';
+
 const style = {
     display: 'block',
     width: '123px',

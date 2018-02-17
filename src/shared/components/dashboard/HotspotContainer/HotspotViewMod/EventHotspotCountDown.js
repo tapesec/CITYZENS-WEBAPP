@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
@@ -38,4 +39,9 @@ class EventHotspotCountDown extends React.Component {
         );
     }
 }
+
+EventHotspotCountDown.propTypes = {
+    dateEnd: PropTypes.string.isRequired,
+};
+
 export default EventHotspotCountDown;

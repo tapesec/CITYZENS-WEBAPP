@@ -35,10 +35,18 @@ const SearchResult = props => (
                         <ListItemText
                             style={{ flexBasis: '240px', maxWidth: '240px', overflow: 'hidden' }}>
                             {hit.type === constants.HOTSPOT.TYPE.ALERT ? (
-                                <h3
-                                    onClick={() => props.openHotspotInSPAModal(hit.objectID || hit.id)}
-                                    className="mdc-typography--subheading2 mdc-theme--secondary itemTitle">
-                                    {helper.generateTitleForMarker(hit)}
+                                <h3 className="mdc-typography--subheading2 mdc-theme--secondary itemTitle">
+                                    <span
+                                        tabIndex={0}
+                                        onClick={() =>
+                                            props.openHotspotInSPAModal(hit.objectID || hit.id)
+                                        }
+                                        onKeyDown={() =>
+                                            props.openHotspotInSPAModal(hit.objectID || hit.id)
+                                        }
+                                        role="link">
+                                        {helper.generateTitleForMarker(hit)}
+                                    </span>
                                 </h3>
                             ) : (
                                 <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
@@ -80,7 +88,6 @@ SearchResult.propTypes = {
     city: PropTypes.shape({
         slug: PropTypes.string.isRequired,
     }).isRequired,
-    openHotspotInSPAModal: PropTypes.func.isRequired,
 };
 SearchResult.defaultProps = {
     hotspotsList: [],
