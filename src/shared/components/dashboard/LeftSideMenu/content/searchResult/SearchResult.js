@@ -10,17 +10,24 @@ import {
     ListItemMeta,
     ListDivider,
 } from 'rmwc/List';
+import Typography from 'rmwc/Typography';
 import CustomScroll from 'react-custom-scroll';
 import constants from './../../../../../../shared/constants';
 import helper from './../../../../../../shared/helpers';
 
 const SearchResult = props => (
     <CustomScroll>
-        <List twoLine avatarList style={{ maxHeight: '285px' }}>
+        <List twoLine avatarList style={{ maxHeight: '285px', margin: '0 10px 10px 10px' }}>
             {props.hotspotsList.map(hit => (
                 <Fragment key={hit.objectID || hit.id}>
                     <ListItem>
-                        <ListItemGraphic style={{ marginRight: '10px', flexBasis: 'min-content' }}>
+                        <ListItemGraphic
+                            style={{
+                                marginRight: '25px',
+                                flexBasis: 'min-content',
+                                width: '40px',
+                                height: '55px',
+                            }}>
                             <img
                                 style={{
                                     display: 'block',
@@ -35,27 +42,28 @@ const SearchResult = props => (
                         <ListItemText
                             style={{ flexBasis: '240px', maxWidth: '240px', overflow: 'hidden' }}>
                             {hit.type === constants.HOTSPOT.TYPE.ALERT ? (
-                                <h3 className="mdc-typography--subheading2 mdc-theme--secondary itemTitle">
-                                    <span
-                                        tabIndex={0}
-                                        onClick={() =>
-                                            props.openHotspotInSPAModal(hit.objectID || hit.id)
-                                        }
-                                        onKeyDown={() =>
-                                            props.openHotspotInSPAModal(hit.objectID || hit.id)
-                                        }
-                                        role="link">
-                                        {helper.generateTitleForMarker(hit)}
-                                    </span>
-                                </h3>
+                                <Typography
+                                    tag="h3"
+                                    theme="secondary"
+                                    className="itemTitle mdc-typography--subheading2"
+                                    tabIndex={0}
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        props.openHotspotInSPAModal(hit.objectID || hit.id);
+                                    }}
+                                    onKeyDown={() =>
+                                        props.openHotspotInSPAModal(hit.objectID || hit.id)
+                                    }>
+                                    {helper.generateTitleForMarker(hit)}
+                                </Typography>
                             ) : (
-                                <h3 className="mdc-typography--subheading2 mdc-theme--secondary">
+                                <Typography tag="h3" theme="secondary">
                                     <Link
-                                        className="itemTitle"
+                                        className="itemTitle mdc-typography--subheading2"
                                         to={`/${props.city.slug}/${hit.slug}`}>
                                         {helper.generateTitleForMarker(hit)}
                                     </Link>
-                                </h3>
+                                </Typography>
                             )}
 
                             <ListItemSecondaryText>

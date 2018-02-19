@@ -8,7 +8,7 @@
     "client:build": "webpack --config webpack-dev.js --watch true",
     "server:build": "webpack --config webpack-server.js --watch true",
     "start": "webpack-dev-server --config webpack-dev.js",
-    "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"nodemon --require dotenv/config ./build/server.js\"",
+    "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"node --require dotenv/config ./build/server.js\"",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
   },
   "repository": {
@@ -33,7 +33,7 @@
     "google-map-react": "^0.26.0",
     "lodash.keyby": "^4.6.0",
     "luxon": "^0.3.1",
-    "material-components-web": "^0.27.0",
+    "material-components-web": "^0.30.0",
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.0",
     "prop-types": "^15.6.0",
@@ -49,7 +49,7 @@
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
-    "rmwc": "1.1.0",
+    "rmwc": "^1.2.0",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

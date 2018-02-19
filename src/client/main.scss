@@ -1,9 +1,14 @@
-$mdc-theme-primary: white;
-$mdc-theme-secondary: #009688; // Orange A200
-$mdc-theme-background: white; // White
-$mdc-theme--text-icon-on-primary: #646464;
 
+@import './variables.scss'; // add before mdc-theme to overide theme color
 @import '~@material/theme/mdc-theme';
+@import '~@material/typography/dist/mdc.typography.min';
+@import '~@material/toolbar/dist/mdc.toolbar.min';
+@import '~@material/menu/dist/mdc.menu.min';
+@import '~@material/button/dist/mdc.button.min';
+@import '~@material/fab/dist/mdc.fab.min';
+@import '~@material/drawer/dist/mdc.drawer.min';
+@import '~@material/textfield/dist/mdc.textfield.min';
+@import '~@material/list/dist/mdc.list.min';
 @import url('https://fonts.googleapis.com/css?family=Amaranth');
 
 /*
@@ -120,4 +125,8 @@ body {
 }
 #root {
     height: 100%;
+}
+// hacks for ie and edge duno why rmwc v1.2.0 and material web component 0.30 …
+.material-icons.mdc-fab__icon {
+    display: inherit;
 }

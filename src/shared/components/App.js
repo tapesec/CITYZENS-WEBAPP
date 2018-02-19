@@ -1,16 +1,21 @@
 import React, { Fragment } from 'react';
 import { GatewayDest, GatewayProvider } from 'react-gateway';
 import { Route, Switch } from 'react-router-dom';
-import './../../../node_modules/material-components-web/dist/material-components-web.css';
-import './../../client/main.scss';
+import authConnector from './hoc/authConnector';
 import MainContainer from './MainContainer';
 import Dashboard from './dashboard/Dashboard';
+import MainToolbar from './toolbar/MainToolbar';
 
-export default function App() {
+import './../../client/main.scss';
+// import './../../../node_modules/material-components-web/dist/material-components-web.min.css';
+
+const App = () => {
+    const Nav = authConnector(MainToolbar);
     return (
         <GatewayProvider>
             <Fragment>
                 <MainContainer>
+                    <Nav />
                     <Switch>
                         <Route path="/:citySlug" component={Dashboard} />
                     </Switch>
@@ -20,3 +25,5 @@ export default function App() {
         </GatewayProvider>
     );
 }
+
+export default App;

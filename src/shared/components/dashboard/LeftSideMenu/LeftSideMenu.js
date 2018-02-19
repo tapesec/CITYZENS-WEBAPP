@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { TextField, TextFieldIcon } from 'rmwc/TextField';
+import { TextField } from 'rmwc/TextField';
+
 import LeftSideMenuContainer from './LeftSideMenuContainer';
 import LeftSideMenuHeader from './header/LeftSideMenuHeader';
 import LeftSideMenuContent from './content/LeftSideMenuContent';
@@ -9,8 +10,8 @@ import SearchResult from './content/searchResult/SearchResult';
 import selectors from './../../../../client/selectors/';
 import actions from './../../../../client/actions';
 import Drawer from './../../lib/Drawer';
-import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 
+import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css';
 import './LeftSideMenu.scss';
 
 class LeftSideMenu extends React.Component {
@@ -28,8 +29,9 @@ class LeftSideMenu extends React.Component {
                             <TextField
                                 persistent="true"
                                 fullwidth
-                                withLeadingIcon={<TextFieldIcon use="search" />}
+                                withLeadingIcon="search"
                                 label="Que cherchez vous ?"
+                                theme="text-on-primary-background"
                                 onChange={evt => {
                                     this.props.hotspotSearchKeyPress(evt.target.value);
                                 }}
@@ -56,7 +58,7 @@ LeftSideMenu.propTypes = {
         insee: PropTypes.string.isRequired,
         position2D: PropTypes.shape({
             latitude: PropTypes.number.isRequired,
-            longitude: PropTypes.number.isRequired
+            longitude: PropTypes.number.isRequired,
         }),
         slug: PropTypes.string.isRequired,
     }).isRequired,
@@ -87,9 +89,9 @@ const mapDispatchToProps = dispatch => ({
     focusHotspot: (lat, lng) => {
         dispatch(actions.focusHotspotInSearchList(lat, lng));
     },
-    openHotspotInSPAModal: (hotspotId) => {
-        dispatch(actions.openHotspotInSPAModal (hotspotId));
-    }
+    openHotspotInSPAModal: hotspotId => {
+        dispatch(actions.openHotspotInSPAModal(hotspotId));
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftSideMenu);

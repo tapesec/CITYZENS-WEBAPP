@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import authorizedUser from './authorizedUser';
+import authenticatedCityzen from './authenticatedCityzen';
 import componentsState from './componentsState';
 import hotspots from './hotspots';
 import algolia from './algolia';
@@ -8,7 +8,7 @@ import city from './city';
 import messages from './messages';
 
 export default combineReducers({
-    authorizedUser,
+    authenticatedCityzen,
     componentsState,
     algolia,
     hotspots,

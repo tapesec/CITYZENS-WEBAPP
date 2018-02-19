@@ -14,5 +14,6 @@ module.exports = {
         'react/jsx-filename-extension': 'off',
         'jsx-a11y/anchor-is-valid': 'off',
         'linebreak-style': 'off',
+        'import/no-extraneous-dependencies': 'off',
     },
 };

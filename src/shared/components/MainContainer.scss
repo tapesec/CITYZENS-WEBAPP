@@ -1,3 +1,5 @@
+@import './../../client/variables.scss';
+
 .MainContainer {
     height: 100%;
     position: absolute;
@@ -11,12 +13,21 @@
         }
     }
 }
-.fade-enter {
-    top: 0;
-    background-color: 'red'
+
+a.user-disconnected {
+    // margin-top: 10px;
+    padding: 3px 10px 3px 10px;
+    border: 2px solid $mdc-theme--text-on-primary-light;
+    color: $mdc-theme--text-on-primary-light;
+    border-radius: 100px;
+    font-weight: bold;
+    &:hover {
+        cursor: pointer;
+        color: $mdc-theme-secondary;
+        border: 2px solid $mdc-theme-secondary;
+    }
 }
 
-.fade-enter.fade-enter-active {
-    top: 1000px;
-    background-color: 'red'
+span.user-connected {
+    margin-top: 14px;
 }

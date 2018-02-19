@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BUILD = path.resolve(__dirname, 'build');
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'client', 'index.js');
@@ -28,21 +29,22 @@ module.exports = {
             },
             {
                 test: /\.s?css$/,
-                use: [
-                    {
-                        loader: 'style-loader', // creates style nodes from JS strings
-                    },
-                    {
-                        loader: 'css-loader', // translates CSS into CommonJS
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: { importLoaders: 1 }, // prefix css properties
-                    },
-                    {
-                        loader: 'sass-loader', // compiles Sass to CSS
-                    },
-                ],
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: { importLoaders: 1 },
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            // prefix css properties
+                        },
+                        {
+                            loader: 'sass-loader',
+                        },
+                    ],
+                }),
             },
             {
                 test: /\.svg/,
@@ -72,6 +74,7 @@ module.exports = {
             systemvars: false, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
             silent: false, // hide any errors
         }),
+        new ExtractTextPlugin('styles.css'),
     ],
     resolve: {
         extensions: ['.js', '.css', '.scss'],

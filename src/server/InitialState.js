@@ -12,7 +12,7 @@ class InitialState {
 
     static dataTree() {
         return {
-            authorizedUser: {},
+            authenticatedCityzen: {},
             componentsState: {
                 leftSideMenu: {
                     open: true,
@@ -46,7 +46,7 @@ class InitialState {
                     insee: city.insee,
                 });
                 if (req.user) {
-                    dataTree.authorizedUser = req.user;
+                    dataTree.authenticatedCityzen = req.user;
                 }
                 dataTree.city = city;
                 dataTree.map.center = {
