@@ -1,7 +1,10 @@
 # CITYZENS-WEBAPP
 
 
-## USED VSCODE EXTENSIONS
+## VSCODE
+
+
+### USED VSCODE EXTENSIONS
 
 * DotENV
 * ESLint
@@ -12,3 +15,21 @@
 * line-counter
 * move-imports
 * VS Code Redis
+
+### launch.json
+
+```json
+"configurations": [
+    {
+        "type": "node",
+        "request": "launch",
+        "name": "debug",
+        "program": "${workspaceFolder}\\build\\server.js",
+        "runtimeArgs": [
+            "--require",
+            "dotenv/config"
+        ]
+    }
+
+]
+```

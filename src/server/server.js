@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
 import session from 'express-session';
+import sessionFileStore from 'session-file-store';
 import fetch from 'cross-fetch';
 import config from './config';
 import router from './router';
@@ -18,9 +19,12 @@ const cities = new Cities(fetch, config.http.apiUrl);
 const initialState = new InitialState(hotspots, cities, messages);
 
 const app = express();
+const FileStore = sessionFileStore(session);
+
 app.use(
     session({
         secret: 'keyboard cat',
+        store: new FileStore(),
         resave: false,
         saveUninitialized: false,
         cookie: {},
@@ -78,7 +82,9 @@ app.get(
     },
 );
 
-app.get('/favicon.ico', (req, res) => { res.send('nada')});
+app.get('/favicon.ico', (req, res) => {
+    res.send('nada');
+});
 
 app.get('/:citySlug', initialState.defaultState.bind(initialState), router);
 
