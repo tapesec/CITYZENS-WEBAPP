@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Route } from 'react-router-dom';
+import MarkerDraggablePreview from './Map/ActionsPanel/MarkerDraggablePreview';
 import HotspotContainer from './HotspotContainer/HotspotContainer';
 import displayWithProps from './../hoc/displayWithProps';
 import displayWithRoutes from './../hoc/displayWithRoute';
@@ -21,6 +22,7 @@ export default function Dashboard({ match, history }) {
                 path={`${match.url}/:hotspotSlug`}
                 component={displayWithRoutes(loadWithSlug(isLoading(HotspotContainer)))}
             />
+            <MarkerDraggablePreview />
         </Fragment>
     );
 }

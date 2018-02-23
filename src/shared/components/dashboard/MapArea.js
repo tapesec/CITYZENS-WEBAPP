@@ -3,17 +3,56 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
-import helper from './../../helpers';
+import Marker from './Map/Marker';
 import ActionsPanel from './Map/ActionsPanel/ActionsPanel';
+import helper from './../../helpers';
 import config from './../../config/';
 import actions from './../../../client/actions';
 import selectors from './../../../client/selectors';
-import Marker from './Map/Marker';
 import './MapArea.scss';
 
 class MapArea extends React.Component {
+    static onGoogleApiLoaded({ map, maps }) {
+        maps.event.addListener(map, 'mousemove', () => {
+            // console.log(evt.latLng.lat());
+        });
+    }
+
     componentDidMount() {
+        let dragging = false;
+        let markerPreview;
+        // eslint-disable-next-line
+        if (window && window.document) {
+            // eslint-disable-next-line
+            markerPreview = window.document.getElementById('markerDraggablePreview');
+        }
         this.props.fetchHotspotsByCity('33273');
+        this.rootElement.addEventListener('mousemove', evt => {
+            evt.preventDefault();
+            if (dragging) {
+                const x = evt.pageX;
+                const y = evt.pageY;
+                markerPreview.style.transform = `translate(${x + 30}px,${y}px)`;
+            }
+        });
+        this.rootElement.addEventListener('mousedown', evt => {
+            if (evt.target.getAttribute('data-type') === 'draggablePawnMarker') {
+                dragging = true;
+                const x = evt.pageX;
+                const y = evt.pageY;
+                markerPreview.style.transform = `translate(${x + 30}px,${y}px)`;
+                markerPreview.style.display = 'inline';
+                markerPreview.src = evt.target.getAttribute('data-img') || evt.target.src;
+            }
+        });
+        this.rootElement.addEventListener('mouseup', () => {
+            // eslint-disable-next-line
+            if (dragging) {
+                // console.log(evt, 'mouseup');
+                dragging = false;
+                // markerPreview.style.display = 'none';
+            }
+        });
     }
 
     displayHotspots() {
@@ -51,18 +90,24 @@ class MapArea extends React.Component {
         const defaultProps = {
             zoom: 16,
         };
+
         return (
-            <div className="MapArea">
+            <div
+                className="MapArea"
+                ref={elem => {
+                    this.rootElement = elem;
+                }}>
                 <ActionsPanel />
                 <GoogleMapReact
                     bootstrapURLKeys={{
                         key: config.google.mapApiKey,
                         language: 'fr',
-                        v: '3.30'
+                        v: '3.30',
                     }}
                     onChange={evt => {
                         this.props.notifyMapMoved(evt.center.lat, evt.center.lng);
                     }}
+                    onGoogleApiLoaded={MapArea.onGoogleApiLoaded}
                     center={this.props.map.center}
                     defaultZoom={defaultProps.zoom}
                     options={{ minZoom: 14 }}>
@@ -126,9 +171,12 @@ const mapDispatchToProps = dispatch => ({
     unfocusHotspotMarker: hotspotId => {
         dispatch(actions.unfocusHotspotInMap(hotspotId));
     },
-    openHotspotInSPAModal: (hotspotId) => {
-        dispatch(actions.openHotspotInSPAModal (hotspotId));
-    }
+    openHotspotInSPAModal: hotspotId => {
+        dispatch(actions.openHotspotInSPAModal(hotspotId));
+    },
+    displayMarkerPreview: (img, x, y) => {
+        dispatch(actions.displayMarkerDraggablePreview(img, x, y));
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapArea);

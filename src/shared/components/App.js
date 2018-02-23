@@ -8,22 +8,25 @@ import MainToolbar from './toolbar/MainToolbar';
 
 import './../../client/main.scss';
 // import './../../../node_modules/material-components-web/dist/material-components-web.min.css';
+/* eslint-disable */
 
-const App = () => {
-    const Nav = authConnector(MainToolbar);
-    return (
-        <GatewayProvider>
-            <Fragment>
-                <MainContainer>
-                    <Nav />
-                    <Switch>
-                        <Route path="/:citySlug" component={Dashboard} />
-                    </Switch>
-                </MainContainer>
-                <GatewayDest name="modal" className="modal-container" />
-            </Fragment>
-        </GatewayProvider>
-    );
+class App extends React.Component {
+    render() {
+        const Nav = authConnector(MainToolbar);
+        return (
+            <GatewayProvider>
+                <Fragment>
+                    <MainContainer>
+                        <Nav />
+                        <Switch>
+                            <Route path="/:citySlug" component={Dashboard} />
+                        </Switch>
+                    </MainContainer>
+                    <GatewayDest name="modal" className="modal-container" />
+                </Fragment>
+            </GatewayProvider>
+        );
+    }
 }
-
+/* eslint-enable */
 export default App;

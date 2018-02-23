@@ -87,8 +87,8 @@ const closeHotspotInSPAModal = () => ({
 const openHotspotInUniversalModal = slug => ({
     type: actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL,
     payload: {
-        slug
-    }
+        slug,
+    },
 });
 
 const closeHotspotInUniversalModal = () => ({

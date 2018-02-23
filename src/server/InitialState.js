@@ -25,6 +25,12 @@ class InitialState {
                     contentIsLoading: false,
                     networkError: false,
                 },
+                draggableMarkerPreview: {
+                    display: false,
+                    x: 0,
+                    y: 0,
+                    img: undefined,
+                }
             },
             algolia: {
                 hits: [],

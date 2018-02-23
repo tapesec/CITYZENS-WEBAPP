@@ -4,6 +4,7 @@ const initialState = {};
 
 export default function componentsState(state = initialState, action) {
     let hotspotModal;
+    let draggableMarkerPreview;
 
     switch (action.type) {
         case actionTypes.TOGGLE_LEFT_SIDE_MENU_VISIBILITY:
@@ -86,7 +87,51 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 hotspotModal,
             };
+        case actionTypes.DISPLAY_MARKER_DRAGGABLE_PREVIEW:
+            draggableMarkerPreview = {
+                display: true,
+                x: action.payload.x,
+                y: action.payload.y,
+                img: action.payload.img,
+            };
+            return {
+                ...state,
+                draggableMarkerPreview,
+            };
+        case actionTypes.MOVE_MARKER_DRAGGABLE_PREVIEW:
+            draggableMarkerPreview = {
+                ...state.draggableMarkerPreview,
+                x: action.payload.x,
+                y: action.payload.y,
+            };
+            return {
+                ...state,
+                draggableMarkerPreview,
+            };
+        case actionTypes.MASK_MARKER_DRAGGABLE_PREVIEW:
+            draggableMarkerPreview = {
+                display: false,
+                x: 0,
+                y: 0,
+                img: undefined,
+            };
+            return {
+                ...state,
+                draggableMarkerPreview,
+            };
         default:
             return state;
     }
 }
+
+export const getDraggableMarkerPreview = state => state.componentsState.draggableMarkerPreview;
+export const isVisibleDraggableMarkerPreview = state => getDraggableMarkerPreview(state).display;
+
+export const draggableMarkerPreview = {
+    isVisible: state => getDraggableMarkerPreview(state).display,
+    getPosition: state => ({
+        x: getDraggableMarkerPreview(state).x,
+        y: getDraggableMarkerPreview(state).y,
+    }),
+    getImg: state => getDraggableMarkerPreview(state).img,
+};
