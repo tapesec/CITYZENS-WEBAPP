@@ -131,6 +131,14 @@ const mapMoved = (lat, lng) => ({
     },
 });
 
+const newMarkerDropped = (lat, lng) => ({
+    type: actionTypes.NEW_MARKER_DROPPED,
+    payload: {
+        lat,
+        lng,
+    },
+});
+
 const redirectTo = path => ({
     type: actionTypes.REDIRECT_TO,
     payload: {
@@ -160,5 +168,6 @@ export default {
     fetchMessagesSucceded,
     fetchMessagesFailed,
     mapMoved,
+    newMarkerDropped,
     redirectTo,
 };

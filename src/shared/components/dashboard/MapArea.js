@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
+import mojs from 'mo-js';
 import Marker from './Map/Marker';
 import ActionsPanel from './Map/ActionsPanel/ActionsPanel';
 import helper from './../../helpers';
@@ -12,10 +13,13 @@ import selectors from './../../../client/selectors';
 import './MapArea.scss';
 
 class MapArea extends React.Component {
-    static onGoogleApiLoaded({ map, maps }) {
-        maps.event.addListener(map, 'mousemove', () => {
-            // console.log(evt.latLng.lat());
-        });
+    constructor() {
+        super();
+        this.googleMouseCoords = {
+            lat: 0,
+            lng: 0,
+        };
+        this.onGoogleApiLoaded = this.onGoogleApiLoaded.bind(this);
     }
 
     componentDidMount() {
@@ -24,7 +28,7 @@ class MapArea extends React.Component {
         // eslint-disable-next-line
         if (window && window.document) {
             // eslint-disable-next-line
-            markerPreview = window.document.getElementById('markerDraggablePreview');
+            markerPreview = window.document.getElementById('markerPreviewArea');
         }
         this.props.fetchHotspotsByCity('33273');
         this.rootElement.addEventListener('mousemove', evt => {
@@ -32,7 +36,7 @@ class MapArea extends React.Component {
             if (dragging) {
                 const x = evt.pageX;
                 const y = evt.pageY;
-                markerPreview.style.transform = `translate(${x + 30}px,${y}px)`;
+                markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
             }
         });
         this.rootElement.addEventListener('mousedown', evt => {
@@ -40,18 +44,35 @@ class MapArea extends React.Component {
                 dragging = true;
                 const x = evt.pageX;
                 const y = evt.pageY;
-                markerPreview.style.transform = `translate(${x + 30}px,${y}px)`;
+                markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
                 markerPreview.style.display = 'inline';
-                markerPreview.src = evt.target.getAttribute('data-img') || evt.target.src;
+                markerPreview.firstChild.src = evt.target.getAttribute('data-img') || evt.target.src;
             }
         });
         this.rootElement.addEventListener('mouseup', () => {
             // eslint-disable-next-line
             if (dragging) {
-                // console.log(evt, 'mouseup');
                 dragging = false;
+                // eslint-disable-next-line
+                if (window) {
+                    const burst = new mojs.Burst({
+                        parent: '#markerPreviewArea',
+                    });
+                    burst.play();
+                }
+                this.props.newMarkerDropped(this.googleMouseCoords.lat, this.googleMouseCoords.lng);
                 // markerPreview.style.display = 'none';
             }
+        });
+    }
+
+    onGoogleApiLoaded({ map, maps }) {
+        maps.event.addListener(map, 'mousemove', evt => {
+            // console.log(evt.latLng.lat());
+            this.googleMouseCoords = {
+                lat: evt.latLng.lat(),
+                lng: evt.latLng.lng(),
+            };
         });
     }
 
@@ -107,7 +128,7 @@ class MapArea extends React.Component {
                     onChange={evt => {
                         this.props.notifyMapMoved(evt.center.lat, evt.center.lng);
                     }}
-                    onGoogleApiLoaded={MapArea.onGoogleApiLoaded}
+                    onGoogleApiLoaded={this.onGoogleApiLoaded}
                     center={this.props.map.center}
                     defaultZoom={defaultProps.zoom}
                     options={{ minZoom: 14 }}>
@@ -134,6 +155,7 @@ MapArea.propTypes = {
     unfocusHotspotMarker: PropTypes.func.isRequired,
     citySlug: PropTypes.string.isRequired,
     openHotspotInSPAModal: PropTypes.func.isRequired,
+    newMarkerDropped: PropTypes.func.isRequired,
     map: PropTypes.shape({
         center: PropTypes.shape({
             lat: PropTypes.isRequired,
@@ -176,6 +198,9 @@ const mapDispatchToProps = dispatch => ({
     },
     displayMarkerPreview: (img, x, y) => {
         dispatch(actions.displayMarkerDraggablePreview(img, x, y));
+    },
+    newMarkerDropped: (lat, lng) => {
+        dispatch(actions.newMarkerDropped(lat, lng));
     },
 });
 

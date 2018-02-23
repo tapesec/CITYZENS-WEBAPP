@@ -34,6 +34,7 @@
     "lodash.keyby": "^4.6.0",
     "luxon": "^0.3.1",
     "material-components-web": "^0.30.0",
+    "mo-js": "^0.288.2",
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.0",
     "prop-types": "^15.6.0",

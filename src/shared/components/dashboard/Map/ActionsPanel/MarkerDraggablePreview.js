@@ -3,7 +3,7 @@ import React from 'react';
 import './MarkerDraggablePreview.scss';
 
 const MarkerDraggablePreview = () => (
-    <img id="markerDraggablePreview" className="draggable-preview" src="#" alt="PawnPreview" />
+    <div id="markerPreviewArea" style={{ display: 'none', width: '43px', height: '75px'}}><img id="markerDraggablePreview" className="draggable-preview" src="#" alt="PawnPreview" /></div>
 );
 
 export default MarkerDraggablePreview;
