@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
-import mojs from 'mo-js';
 import Marker from './Map/Marker';
 import ActionsPanel from './Map/ActionsPanel/ActionsPanel';
 import helper from './../../helpers';
@@ -26,7 +25,8 @@ class MapArea extends React.Component {
         let dragging = false;
         let markerPreview;
         // eslint-disable-next-line
-        if (window && window.document) {
+        const mojs = require('mo-js');
+        if (typeof window !== 'undefined') {
             // eslint-disable-next-line
             markerPreview = window.document.getElementById('markerPreviewArea');
         }
@@ -53,8 +53,7 @@ class MapArea extends React.Component {
             // eslint-disable-next-line
             if (dragging) {
                 dragging = false;
-                // eslint-disable-next-line
-                if (window) {
+                if (typeof window !== 'undefined') {
                     const burst = new mojs.Burst({
                         parent: '#markerPreviewArea',
                     });
@@ -120,6 +119,7 @@ class MapArea extends React.Component {
                 }}>
                 <ActionsPanel />
                 <GoogleMapReact
+                style={{userSelect: 'none'}}
                     bootstrapURLKeys={{
                         key: config.google.mapApiKey,
                         language: 'fr',

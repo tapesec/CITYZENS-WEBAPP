@@ -28,9 +28,13 @@ const PawnMarker = props => {
                 <span data-type="draggablePawnMarker" data-img={img}>
                     <img
                         src={img}
+                        onDragStart={e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return false;
+                        }}
                         className="pawn-img"
                         data-type="draggablePawnMarker"
-                        style={{}}
                         alt={title}
                     />
                 </span>
