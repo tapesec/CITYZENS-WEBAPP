@@ -4,7 +4,7 @@ const initialState = {};
 
 export default function componentsState(state = initialState, action) {
     let hotspotModal;
-    let draggableMarkerPreview;
+    let geocodeModal;
 
     switch (action.type) {
         case actionTypes.TOGGLE_LEFT_SIDE_MENU_VISIBILITY:
@@ -67,6 +67,15 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 hotspotModal,
             };
+        case actionTypes.OPEN_HOSTPOT_ADDRESS_MODAL:
+            geocodeModal = {
+                ...state.geocodeModal,
+                open: true,
+            };
+            return {
+                ...state,
+                geocodeModal,
+            };
         case actionTypes.FETCH_HOTSPOT_FAILED:
             hotspotModal = {
                 ...state.hotspotModal,
@@ -87,38 +96,6 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 hotspotModal,
             };
-        case actionTypes.DISPLAY_MARKER_DRAGGABLE_PREVIEW:
-            draggableMarkerPreview = {
-                display: true,
-                x: action.payload.x,
-                y: action.payload.y,
-                img: action.payload.img,
-            };
-            return {
-                ...state,
-                draggableMarkerPreview,
-            };
-        case actionTypes.MOVE_MARKER_DRAGGABLE_PREVIEW:
-            draggableMarkerPreview = {
-                ...state.draggableMarkerPreview,
-                x: action.payload.x,
-                y: action.payload.y,
-            };
-            return {
-                ...state,
-                draggableMarkerPreview,
-            };
-        case actionTypes.MASK_MARKER_DRAGGABLE_PREVIEW:
-            draggableMarkerPreview = {
-                display: false,
-                x: 0,
-                y: 0,
-                img: undefined,
-            };
-            return {
-                ...state,
-                draggableMarkerPreview,
-            };
         default:
             return state;
     }
@@ -135,3 +112,5 @@ export const draggableMarkerPreview = {
     }),
     getImg: state => getDraggableMarkerPreview(state).img,
 };
+
+export const isOpenHotspotAddressModal = state => state.componentsState.geocodeModal.open;

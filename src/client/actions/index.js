@@ -95,6 +95,14 @@ const closeHotspotInUniversalModal = () => ({
     type: actionTypes.CLOSE_HOTSPOT_IN_UNIVERSAL_MODAL,
 });
 
+const openHotspotAddressModal = () => ({
+    type: actionTypes.OPEN_HOSTPOT_ADDRESS_MODAL,
+});
+
+const closeHotspotAddressModal = () => ({
+    type: actionTypes.CLOSE_HOSTPOT_ADDRESS_MODAL,
+});
+
 const fetchHotspotSucceded = hotspot => ({
     type: actionTypes.FETCH_HOTSPOT_SUCCEDED,
     payload: {
@@ -163,6 +171,8 @@ export default {
     closeHotspotInSPAModal,
     openHotspotInUniversalModal,
     closeHotspotInUniversalModal,
+    openHotspotAddressModal,
+    closeHotspotAddressModal,
     fetchHotspotSucceded,
     fetchHotspotFailed,
     fetchMessagesSucceded,
