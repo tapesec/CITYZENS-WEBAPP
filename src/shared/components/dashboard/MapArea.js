@@ -46,11 +46,11 @@ class MapArea extends React.Component {
                 const y = evt.pageY;
                 markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
                 markerPreview.style.display = 'inline';
-                markerPreview.firstChild.src = evt.target.getAttribute('data-img') || evt.target.src;
+                markerPreview.firstChild.src =
+                    evt.target.getAttribute('data-img') || evt.target.src;
             }
         });
         this.rootElement.addEventListener('mouseup', () => {
-            // eslint-disable-next-line
             if (dragging) {
                 dragging = false;
                 if (typeof window !== 'undefined') {
@@ -60,6 +60,7 @@ class MapArea extends React.Component {
                     burst.play();
                 }
                 this.props.newMarkerDropped(this.googleMouseCoords.lat, this.googleMouseCoords.lng);
+                this.props.openHotspotAddressModal();
                 // markerPreview.style.display = 'none';
             }
         });
@@ -67,7 +68,6 @@ class MapArea extends React.Component {
 
     onGoogleApiLoaded({ map, maps }) {
         maps.event.addListener(map, 'mousemove', evt => {
-            // console.log(evt.latLng.lat());
             this.googleMouseCoords = {
                 lat: evt.latLng.lat(),
                 lng: evt.latLng.lng(),
@@ -119,7 +119,7 @@ class MapArea extends React.Component {
                 }}>
                 <ActionsPanel />
                 <GoogleMapReact
-                style={{userSelect: 'none'}}
+                    style={{ userSelect: 'none' }}
                     bootstrapURLKeys={{
                         key: config.google.mapApiKey,
                         language: 'fr',
@@ -156,6 +156,7 @@ MapArea.propTypes = {
     citySlug: PropTypes.string.isRequired,
     openHotspotInSPAModal: PropTypes.func.isRequired,
     newMarkerDropped: PropTypes.func.isRequired,
+    openHotspotAddressModal: PropTypes.func.isRequired,
     map: PropTypes.shape({
         center: PropTypes.shape({
             lat: PropTypes.isRequired,
@@ -201,6 +202,9 @@ const mapDispatchToProps = dispatch => ({
     },
     newMarkerDropped: (lat, lng) => {
         dispatch(actions.newMarkerDropped(lat, lng));
+    },
+    openHotspotAddressModal: () => {
+        dispatch(actions.openHotspotAddressModal());
     },
 });
 

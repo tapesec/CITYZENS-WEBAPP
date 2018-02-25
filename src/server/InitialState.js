@@ -27,6 +27,8 @@ class InitialState {
                 },
                 geocodeModal: {
                     open: false,
+                    contentIsLoading: false,
+                    networkError: false,
                 },
             },
             algolia: {
@@ -37,6 +39,10 @@ class InitialState {
             hotspots: [],
             map: {},
             city: {},
+            edition: {
+                hotspot: {}
+            },
+            form: {}
         };
     }
 

@@ -76,6 +76,44 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 geocodeModal,
             };
+        case actionTypes.CLOSE_HOSTPOT_ADDRESS_MODAL:
+        case actionTypes.DISMISS_HOSTPOT_ADDRESS_MODAL:
+            geocodeModal = {
+                open: false,
+                contentIsLoading: false,
+                networkError: false,
+            };
+            return {
+                ...state,
+                geocodeModal,
+            };
+        case actionTypes.GEOCODING_STARTED:
+            geocodeModal = {
+                ...state.geocodeModal,
+                contentIsLoading: true,
+            };
+            return {
+                ...state,
+                geocodeModal,
+            };
+        case actionTypes.GEOCODING_SUCCEDED:
+            geocodeModal = {
+                ...state.geocodeModal,
+                contentIsLoading: false,
+            };
+            return {
+                ...state,
+                geocodeModal,
+            };
+        case actionTypes.GEOCODING_FAILED:
+            geocodeModal = {
+                ...state.geocodeModal,
+                networkError: true,
+            };
+            return {
+                ...state,
+                geocodeModal,
+            };
         case actionTypes.FETCH_HOTSPOT_FAILED:
             hotspotModal = {
                 ...state.hotspotModal,
@@ -101,16 +139,14 @@ export default function componentsState(state = initialState, action) {
     }
 }
 
-export const getDraggableMarkerPreview = state => state.componentsState.draggableMarkerPreview;
-export const isVisibleDraggableMarkerPreview = state => getDraggableMarkerPreview(state).display;
+const getHotspotAddressModalState = state => state.componentsState.geocodeModal;
+const isOpenHotspotAddressModal = state => getHotspotAddressModalState(state).open;
+const hasNetworkError = state => getHotspotAddressModalState(state).networkError;
+const isLoading = state => getHotspotAddressModalState(state).contentIsLoading;
 
-export const draggableMarkerPreview = {
-    isVisible: state => getDraggableMarkerPreview(state).display,
-    getPosition: state => ({
-        x: getDraggableMarkerPreview(state).x,
-        y: getDraggableMarkerPreview(state).y,
-    }),
-    getImg: state => getDraggableMarkerPreview(state).img,
+export const hotspotAddressModalState = {
+    getHotspotAddressModalState,
+    isOpenHotspotAddressModal,
+    hasNetworkError,
+    isLoading,
 };
-
-export const isOpenHotspotAddressModal = state => state.componentsState.geocodeModal.open;

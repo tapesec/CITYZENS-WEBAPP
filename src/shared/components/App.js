@@ -22,7 +22,7 @@ class App extends React.Component {
                             <Route path="/:citySlug" component={Dashboard} />
                         </Switch>
                     </MainContainer>
-                    <GatewayDest name="modal" className="modal-container" />
+                    <GatewayDest name="HotspotModal" className="modal-container" />
                 </Fragment>
             </GatewayProvider>
         );

@@ -7,11 +7,11 @@ const geocode = (api, geocodeType, value) => {
             if (status === 'OK') {
                 if (results[0]) {
                     // eslint-disable-next-line
-                    const address = results[0];
+                    const address = results[0].address_components;
                     // eslint-disable-next-line
-                    console.log(address.formatted_address);
+                    console.log(address);
                     // results[1].formatted_address
-                    resolve(address.formatted_address);
+                    resolve(`${address[0].long_name} ${address[1].long_name} ${address[2].long_name}`);
                 } else {
                     resolve(NOT_FOUND_MESSAGE);
                 }

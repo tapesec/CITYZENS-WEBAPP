@@ -41,8 +41,6 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-custom-scroll": "^2.0.2",
-    "react-dnd": "^2.5.4",
-    "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.2.0",
     "react-gateway": "^3.0.0",
     "react-modal2": "^5.0.0",
@@ -52,8 +50,9 @@
     "react-tippy": "^1.2.2",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
+    "redux-form": "^7.2.3",
     "redux-saga": "^0.16.0",
-    "rmwc": "^1.2.0",
+    "rmwc": "^1.2.1",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

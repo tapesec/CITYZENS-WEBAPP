@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Gateway } from 'react-gateway';
-import ReactModal2 from 'react-modal2';
 import { connect } from 'react-redux';
 import Typography from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
@@ -9,6 +7,7 @@ import { Fab } from 'rmwc/Fab';
 import WallHotspot from './HotspotViewMod/WallHotspot';
 import EventHotspot from './HotspotViewMod/EventHotspot';
 import AlertHotspot from './HotspotViewMod/AlertHotspot';
+import Modal from './../../lib/Modal';
 import constant from './../../../constants';
 import selectors from '../../../../client/selectors';
 import HotspotVisitorActionBar from './HotspotViewMod/HotspotVisitorActionBar';
@@ -57,41 +56,38 @@ class HotspotContainer extends React.Component {
     render() {
         const { closeModal } = this.props;
         return (
-            <Gateway into="modal">
-                <ReactModal2
-                    onClose={closeModal}
-                    closeOnEsc
-                    closeOnBackdropClick
-                    backdropClassName="HotspotContainer-backdrop"
-                    modalClassName="HotspotContainer">
-                    <Fab
-                        onClick={closeModal}
-                        className="closeModal"
-                        mini
-                        theme={['primary-bg', 'text-icon-on-primary']}>
-                        clear
-                    </Fab>
-                    {this.displayContent()}
-                    <Typography
-                        theme="primary-bg text-primary-on-background"
-                        className="HotspotContainerFooter"
-                        use="caption"
-                        tag="footer">
-                        <div>
-                            <Icon strategy="component">mouse</Icon>
-                            <span>129 vues</span>
-                        </div>
-                        <div>
-                            <Icon strategy="component">accessibility</Icon>
-                            <span>3 abonnés</span>
-                        </div>
-                        <div>
-                            <Icon strategy="component">group</Icon>
-                            <span>2 membres</span>
-                        </div>
-                    </Typography>
-                </ReactModal2>
-            </Gateway>
+            <Modal
+                gateway="HotspotModal"
+                onClose={closeModal}
+                modalClass="HotspotContainer"
+                backdropClass="HotspotContainer-backdrop">
+                <Fab
+                    onClick={closeModal}
+                    className="closeModal"
+                    mini
+                    theme={['primary-bg', 'text-icon-on-primary']}>
+                    clear
+                </Fab>
+                {this.displayContent()}
+                <Typography
+                    theme="primary-bg text-primary-on-background"
+                    className="HotspotContainerFooter"
+                    use="caption"
+                    tag="footer">
+                    <div>
+                        <Icon strategy="component">mouse</Icon>
+                        <span>129 vues</span>
+                    </div>
+                    <div>
+                        <Icon strategy="component">accessibility</Icon>
+                        <span>3 abonnés</span>
+                    </div>
+                    <div>
+                        <Icon strategy="component">group</Icon>
+                        <span>2 membres</span>
+                    </div>
+                </Typography>
+            </Modal>
         );
     }
 }

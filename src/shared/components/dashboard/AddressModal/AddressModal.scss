@@ -1,0 +1,64 @@
+@import './../../../../client/main.scss';
+
+.AddressModal {
+    width: 600px;
+    height: 300px;
+    position: fixed;
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+}
+
+.AddressModal-backdrop {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; // needed to pass above tippy tooltip …
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.AddressContainer {
+    display: flex;
+    flex-direction: column;
+    margin:30px;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+
+    .AddressForm {
+        width: 100%;
+        div.mdc-text-field {
+            width: 100%;
+            label {
+                @extend .mdc-typography--subheading2;
+            }
+        }
+        .submitArea {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            button {
+                margin-right: 20px;
+            }
+        }
+    }
+
+    div.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {
+        padding-left: 50px;
+        box-sizing: border-box;
+    }
+
+    .mdc-text-field:not(.mdc-text-field--disabled) {
+        .mdc-text-field__label--float-above {
+            color: $mdc-theme--text-on-primary-background;
+        }
+    }
+
+    div.mdc-line-ripple.mdc-line-ripple--active {
+        background-color: $mdc-theme-tertiary;
+    }
+}

@@ -99,8 +99,19 @@ const openHotspotAddressModal = () => ({
     type: actionTypes.OPEN_HOSTPOT_ADDRESS_MODAL,
 });
 
+const submitHotspotAddressModal = formData => ({
+    type: actionTypes.SUBMIT_HOSTPOT_ADDRESS_MODAL,
+    payload: {
+        formData,
+    },
+});
+
 const closeHotspotAddressModal = () => ({
     type: actionTypes.CLOSE_HOSTPOT_ADDRESS_MODAL,
+});
+
+const dismissHotspotAddressModal = () => ({
+    type: actionTypes.DISMISS_HOSTPOT_ADDRESS_MODAL,
 });
 
 const fetchHotspotSucceded = hotspot => ({
@@ -172,7 +183,9 @@ export default {
     openHotspotInUniversalModal,
     closeHotspotInUniversalModal,
     openHotspotAddressModal,
+    submitHotspotAddressModal,
     closeHotspotAddressModal,
+    dismissHotspotAddressModal,
     fetchHotspotSucceded,
     fetchHotspotFailed,
     fetchMessagesSucceded,
