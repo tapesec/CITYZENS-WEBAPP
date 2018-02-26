@@ -130,3 +130,20 @@ body {
 .material-icons.mdc-fab__icon {
     display: inherit;
 }
+
+// cityzen form
+
+form.cityzen-form {
+    .mdc-text-field {
+        width: 100%;
+        label {
+            @extend .mdc-typography--subheading2;
+        }
+        .mdc-text-field__label--float-above {
+            color: $mdc-theme--text-on-primary-background;
+        }
+    }
+    div.mdc-line-ripple.mdc-line-ripple--active {
+        background-color: $mdc-theme-tertiary;
+    }
+}
