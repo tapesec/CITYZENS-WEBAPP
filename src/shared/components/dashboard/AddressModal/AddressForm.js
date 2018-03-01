@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import { Button } from 'rmwc/Button';
-import ValidationMessages from './../../lib/form/ValidationMessage';
 import VALIDATION from './../../../constants/dataValidation';
 import { renderCustomTextField } from './../../lib/form/customComponents';
 
@@ -25,10 +24,7 @@ const warn = values => {
 
 const AddressForm = ({ handleSubmit, dismissModal }) => (
     <form className="AddressForm cityzen-form" onSubmit={handleSubmit}>
-        <Field
-            name="address"
-            component={renderCustomTextField('Modifiez là si nécessaire', ValidationMessages)}
-        />
+        <Field name="address" label="test label" component={renderCustomTextField} />
         <div className="submitArea">
             <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                 {"C'est bon !"}

@@ -4,7 +4,6 @@ import { Button } from 'rmwc/Button';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import { Typography } from 'rmwc/Typography';
-import ValidationMessages from './../../lib/form/ValidationMessage';
 import VALIDATION from './../../../constants/dataValidation';
 import {
     renderCustomTextField,
@@ -32,29 +31,20 @@ const WallHotspotForm = ({ handleSubmit, dismissModal }) => (
             theme="text-on-primary-background">
             {"Création de votre nouveau point d'interêt"}
         </Typography>
-        <Field
-            name="title"
-            component={renderCustomTextField('Choisissez bien le titre:)', ValidationMessages)}
-        />
+        <Field name="title" label="Choisissez bien le titre:)" component={renderCustomTextField} />
         <Field
             name="scope"
-            component={renderCustomSwitch(
-                ['Privée', 'Public'],
-                ValidationMessages,
-                'scope-switch-input',
-            )}
+            labelOn="Privée"
+            labelOff="Public"
+            cssClass="scope-switch-input"
+            component={renderCustomSwitch}
         />
         <Field
             name="messageTitle"
-            component={renderCustomTextField(
-                'Le titre de votre premier message',
-                ValidationMessages,
-            )}
+            label="Le titre de votre premier message"
+            component={renderCustomTextField}
         />
-        <Field
-            name="messageBody"
-            component={renderCustomTextArea('Exprimez vous …', ValidationMessages)}
-        />
+        <Field name="messageBody" label="Exprimez vous …" component={renderCustomTextArea} />
         <div className="submitArea">
             <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                 {"C'est bon !"}

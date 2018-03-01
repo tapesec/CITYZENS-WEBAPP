@@ -32,8 +32,8 @@ const ValidationMessage = ({ touched, error, warning }) => {
 
 ValidationMessage.propTypes = {
     touched: PropTypes.bool.isRequired,
-    error: PropTypes.shape({}).isRequired,
-    warning: PropTypes.shape({}).isRequired,
+    error: PropTypes.string,
+    warning: PropTypes.string,
 };
 
 export default ValidationMessage;
