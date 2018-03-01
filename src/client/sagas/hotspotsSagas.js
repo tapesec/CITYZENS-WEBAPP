@@ -2,6 +2,9 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import actionTypes from './../actions/actionTypes';
 import actions from './../actions';
 import cityzensApi from './../../shared/services/CityzensApi';
+import { hotspotEdition } from './../../shared/reducers/edition';
+import { getCityId, getCityName } from './../../shared/reducers/city';
+import WallHotspotPayload from './../services/payloads/WallHotspotPayload';
 import selectors from './../selectors';
 
 export function* fetchHotspots(action) {
@@ -40,10 +43,42 @@ export function* fetchHotspot(action) {
     }
 }
 
+export function* buildPayload(edition) {
+    try {
+        const cityId = yield select(getCityId);
+        const cityName = yield select(getCityName);
+        const payload = yield new WallHotspotPayload();
+        payload.type = edition.type;
+        payload.cityId = cityId;
+        payload.title = edition.title;
+        payload.scope = edition.scope;
+        payload.position = edition.position;
+        payload.address = { name: edition.address, city: cityName };
+        payload.iconType = edition.iconType;
+        payload.valid();
+        return payload;
+    } catch (error) {
+        throw new Error('invalid payload');
+    }
+}
+
+export function* persistHotspot(action) {
+    try {
+        const edition = yield select(hotspotEdition.getCurrentHotspotEdition);
+        const payload = yield call(buildPayload, edition);
+        yield console.log(payload, '--', action); // eslint-disable-line
+        yield put(actions.clearHotspotEdition());
+    } catch(err) {
+        console.log(err.message) // eslint-disable-line
+    }
+    // TODO post payload
+}
+
 export default function* hotspotsSagas() {
     yield [
         takeLatest(actionTypes.FETCH_HOTSPOTS_BY_CITY, fetchHotspots),
         takeLatest(actionTypes.OPEN_HOTSPOT_IN_SPA_MODAL, fetchHotspot),
         takeLatest(actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL, fetchHotspot),
+        takeLatest(actionTypes.POST_SETTING_UP_HOTSPOT_FORM_DATA, persistHotspot),
     ];
 }

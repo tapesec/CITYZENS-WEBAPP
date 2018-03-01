@@ -15,14 +15,16 @@ const displayAddressModalContent = (
     hasNetworkError,
     initialValues,
     dismissModal,
-    onSubmitForm,
+    submitForm,
     closeModal,
+    openSettingUpHotspotModal,
 ) => {
     if (isLoading) return <div>Chargement …</div>;
     if (hasNetworkError) return <div>Une erreur est survenue …</div>;
     const handleSubmit = values => {
-        onSubmitForm(values);
         closeModal();
+        submitForm(values);
+        openSettingUpHotspotModal();
     };
     return (
         <Fragment>
@@ -45,7 +47,8 @@ const AddressModal = ({
     isLoading,
     hasNetworkError,
     initialValues,
-    onSubmitForm,
+    submitForm,
+    openSettingUpHotspotModal,
 }) => (
     <Modal
         open={open}
@@ -62,8 +65,9 @@ const AddressModal = ({
                 hasNetworkError,
                 initialValues,
                 dismissModal,
-                onSubmitForm,
+                submitForm,
                 closeModal,
+                openSettingUpHotspotModal,
             )}
         </div>
     </Modal>
@@ -78,7 +82,8 @@ AddressModal.propTypes = {
     }).isRequired,
     closeModal: PropTypes.func.isRequired,
     dismissModal: PropTypes.func.isRequired,
-    onSubmitForm: PropTypes.func.isRequired,
+    submitForm: PropTypes.func.isRequired,
+    openSettingUpHotspotModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -94,10 +99,13 @@ const mapActionToProps = dispatch => ({
     },
     dismissModal: () => {
         dispatch(actions.closeHotspotAddressModal());
-        dispatch(actions.dismissHotspotAddressModal());
+        dispatch(actions.clearHotspotEdition());
     },
-    onSubmitForm: formData => {
+    submitForm: formData => {
         dispatch(actions.submitHotspotAddressModal(formData));
+    },
+    openSettingUpHotspotModal: () => {
+        dispatch(actions.openSettingUpHotspotModal());
     },
 });
 

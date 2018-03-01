@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React /* , { Fragment } */ from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
-import { TextField } from 'rmwc/TextField';
+import reduxForm from 'redux-form/lib/reduxForm';
+import Field from 'redux-form/lib/Field';
 import { Button } from 'rmwc/Button';
 import ValidationMessages from './../../lib/form/ValidationMessage';
 import VALIDATION from './../../../constants/dataValidation';
+import { renderCustomTextField } from './../../lib/form/customComponents';
 
 const validate = values => {
     const errors = {};
@@ -22,20 +23,12 @@ const warn = values => {
     return warnings;
 };
 
-const renderCustomInput = withValidationMessages => field => (
-    <Fragment>
-        <TextField
-            theme="text-on-primary-background"
-            label="Modifiez là si nécessaire"
-            {...field.input}
-        />
-        {withValidationMessages({ ...field.meta })}
-    </Fragment>
-);
-
 const AddressForm = ({ handleSubmit, dismissModal }) => (
     <form className="AddressForm cityzen-form" onSubmit={handleSubmit}>
-        <Field name="address" component={renderCustomInput(ValidationMessages)} />
+        <Field
+            name="address"
+            component={renderCustomTextField('Modifiez là si nécessaire', ValidationMessages)}
+        />
         <div className="submitArea">
             <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                 {"C'est bon !"}
@@ -62,4 +55,5 @@ export default reduxForm({
     form: 'addressHotspot',
     validate,
     warn,
+    shouldError: ({ props }) => props.invalids, // Prevent invalid form submission …
 })(AddressForm);

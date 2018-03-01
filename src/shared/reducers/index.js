@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { reducer } from 'redux-form';
+import { reducer as formReducer } from 'redux-form';
 import authenticatedCityzen from './authenticatedCityzen';
 import componentsState from './componentsState';
 import hotspots from './hotspots';
@@ -18,5 +18,5 @@ export default combineReducers({
     city,
     messages,
     edition,
-    form: reducer,
+    form: formReducer,
 });

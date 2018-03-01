@@ -110,8 +110,30 @@ const closeHotspotAddressModal = () => ({
     type: actionTypes.CLOSE_HOSTPOT_ADDRESS_MODAL,
 });
 
-const dismissHotspotAddressModal = () => ({
-    type: actionTypes.DISMISS_HOSTPOT_ADDRESS_MODAL,
+const openSettingUpHotspotModal = () => ({
+    type: actionTypes.OPEN_SETTING_UP_HOTSPOT_MODAL,
+});
+
+const saveInStateSettingUpHotspotFormData = formData => ({
+    type: actionTypes.SAVE_IN_STATE_SETTING_UP_HOTSPOT_FORM_DATA,
+    payload: {
+        formData,
+    },
+});
+
+const postSettingUpHotspotFormData = settingUpMode => ({
+    type: actionTypes.POST_SETTING_UP_HOTSPOT_FORM_DATA,
+    payload: {
+        settingUpMode,
+    },
+});
+
+const closeSettingUpHotspotModal = () => ({
+    type: actionTypes.CLOSE_SETTING_UP_HOTSPOT_MODAL,
+});
+
+const clearHotspotEdition = () => ({
+    type: actionTypes.CLEAR_HOTSPOT_EDITION,
 });
 
 const fetchHotspotSucceded = hotspot => ({
@@ -150,11 +172,12 @@ const mapMoved = (lat, lng) => ({
     },
 });
 
-const newMarkerDropped = (lat, lng) => ({
+const newMarkerDropped = (position, type, iconType) => ({
     type: actionTypes.NEW_MARKER_DROPPED,
     payload: {
-        lat,
-        lng,
+        position,
+        type,
+        iconType,
     },
 });
 
@@ -185,7 +208,11 @@ export default {
     openHotspotAddressModal,
     submitHotspotAddressModal,
     closeHotspotAddressModal,
-    dismissHotspotAddressModal,
+    openSettingUpHotspotModal,
+    saveInStateSettingUpHotspotFormData,
+    postSettingUpHotspotFormData,
+    closeSettingUpHotspotModal,
+    clearHotspotEdition,
     fetchHotspotSucceded,
     fetchHotspotFailed,
     fetchMessagesSucceded,

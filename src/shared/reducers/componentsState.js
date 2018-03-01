@@ -5,6 +5,7 @@ const initialState = {};
 export default function componentsState(state = initialState, action) {
     let hotspotModal;
     let geocodeModal;
+    let settingUpHotspotModal;
 
     switch (action.type) {
         case actionTypes.TOGGLE_LEFT_SIDE_MENU_VISIBILITY:
@@ -77,7 +78,6 @@ export default function componentsState(state = initialState, action) {
                 geocodeModal,
             };
         case actionTypes.CLOSE_HOSTPOT_ADDRESS_MODAL:
-        case actionTypes.DISMISS_HOSTPOT_ADDRESS_MODAL:
             geocodeModal = {
                 open: false,
                 contentIsLoading: false,
@@ -114,6 +114,25 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 geocodeModal,
             };
+
+        case actionTypes.OPEN_SETTING_UP_HOTSPOT_MODAL:
+            settingUpHotspotModal = {
+                ...state.settingUpHotspotModal,
+                open: true,
+            };
+            return {
+                ...state,
+                settingUpHotspotModal,
+            };
+        case actionTypes.CLOSE_SETTING_UP_HOTSPOT_MODAL:
+            settingUpHotspotModal = {
+                ...state.settingUpHotspotModal,
+                open: false,
+            };
+            return {
+                ...state,
+                settingUpHotspotModal,
+            };
         case actionTypes.FETCH_HOTSPOT_FAILED:
             hotspotModal = {
                 ...state.hotspotModal,
@@ -149,4 +168,12 @@ export const hotspotAddressModalState = {
     isOpenHotspotAddressModal,
     hasNetworkError,
     isLoading,
+};
+
+const getSettingUpHotspotModalState = state => state.componentsState.settingUpHotspotModal;
+const isOpenSettingUpHotspotModal = state => getSettingUpHotspotModalState(state).open;
+
+export const settingUpHotspotModalState = {
+    getSettingUpHotspotModalState,
+    isOpenSettingUpHotspotModal,
 };

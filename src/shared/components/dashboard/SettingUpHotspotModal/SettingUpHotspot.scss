@@ -1,0 +1,22 @@
+section.SettingUpHotspotContainer {
+    display: flex;
+    flex-direction: column;
+    margin:30px;
+    align-items: center;
+    flex: 1;
+
+    form.WallHotspotForm {
+        width: 100%;
+        .scope-switch-input {
+            margin-top: 10px;
+        }
+        .submitArea {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            button {
+                margin-right: 20px;
+            }
+        }
+    }
+}

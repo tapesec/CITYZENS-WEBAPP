@@ -8,6 +8,7 @@
 @import '~@material/fab/dist/mdc.fab.min';
 @import '~@material/drawer/dist/mdc.drawer.min';
 @import '~@material/textfield/dist/mdc.textfield.min';
+@import '~@material/switch/dist/mdc.switch.min';
 @import '~@material/list/dist/mdc.list.min';
 @import url('https://fonts.googleapis.com/css?family=Amaranth');
 
@@ -143,7 +144,16 @@ form.cityzen-form {
             color: $mdc-theme--text-on-primary-background;
         }
     }
+    .mdc-text-field--textarea .mdc-text-field__input {
+        padding-top: 38px;
+    }
     div.mdc-line-ripple.mdc-line-ripple--active {
         background-color: $mdc-theme-tertiary;
+    }
+    .mdc-form-field {
+        @extend .mdc-typography--subheading2;
+        label {
+            margin-left: 5px;
+        }
     }
 }

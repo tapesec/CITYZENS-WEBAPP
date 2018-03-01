@@ -1,0 +1,85 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'rmwc/Button';
+import reduxForm from 'redux-form/lib/reduxForm';
+import Field from 'redux-form/lib/Field';
+import { Typography } from 'rmwc/Typography';
+import ValidationMessages from './../../lib/form/ValidationMessage';
+import VALIDATION from './../../../constants/dataValidation';
+import {
+    renderCustomTextField,
+    renderCustomSwitch,
+    renderCustomTextArea,
+} from './../../lib/form/customComponents';
+
+const validate = values => {
+    const errors = {};
+    if (!values.title) {
+        errors.title = VALIDATION.HOTSPOT.ALL.LABEL.ERROR;
+    }
+    if (values.title && values.title.length > VALIDATION.HOTSPOT.TITLE.MAX_LENGTH) {
+        errors.title = VALIDATION.HOTSPOT.TITLE.LABEL.ERROR;
+    }
+    return errors;
+};
+
+const WallHotspotForm = ({ handleSubmit, dismissModal }) => (
+    <form className="WallHotspotForm cityzen-form" onSubmit={handleSubmit}>
+        <Typography
+            style={{ textAlign: 'center' }}
+            tag="h2"
+            use="headline"
+            theme="text-on-primary-background">
+            {"Création de votre nouveau point d'interêt"}
+        </Typography>
+        <Field
+            name="title"
+            component={renderCustomTextField('Choisissez bien le titre:)', ValidationMessages)}
+        />
+        <Field
+            name="scope"
+            component={renderCustomSwitch(
+                ['Privée', 'Public'],
+                ValidationMessages,
+                'scope-switch-input',
+            )}
+        />
+        <Field
+            name="messageTitle"
+            component={renderCustomTextField(
+                'Le titre de votre premier message',
+                ValidationMessages,
+            )}
+        />
+        <Field
+            name="messageBody"
+            component={renderCustomTextArea('Exprimez vous …', ValidationMessages)}
+        />
+        <div className="submitArea">
+            <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
+                {"C'est bon !"}
+            </Button>
+            <Button
+                type="button"
+                onClick={dismissModal}
+                raised
+                theme="secondary-bg text-primary-on-secondary">
+                {'Annuler'}
+            </Button>
+        </div>
+    </form>
+);
+
+WallHotspotForm.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    dismissModal: PropTypes.func.isRequired,
+};
+
+export default reduxForm({
+    enableReinitialize: true,
+    keepDirtyOnReinitialize: true,
+    forceUnregisterOnUnmount: false,
+    form: 'wallHotspotForm',
+    shouldError: ({ props }) => props.invalid,
+    validate,
+})(WallHotspotForm);

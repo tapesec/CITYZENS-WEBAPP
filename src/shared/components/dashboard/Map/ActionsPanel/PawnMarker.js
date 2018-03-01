@@ -6,10 +6,14 @@ import PropTypes from 'prop-types';
 import './PawnMarker.scss';
 
 const PawnMarker = props => {
-    const { title, text, img } = props;
+    const { title, text, img, type, iconType } = props;
 
     return (
-        <div data-type="draggablePawnMarker" data-img={img}>
+        <div
+            data-type="draggablePawnMarker"
+            data-icon-type={iconType}
+            data-hotspot-type={type}
+            data-img={img}>
             <Tooltip
                 arrow
                 html={
@@ -25,7 +29,11 @@ const PawnMarker = props => {
                 theme="light"
                 position="bottom"
                 trigger="mouseenter">
-                <span data-type="draggablePawnMarker" data-img={img}>
+                <span
+                    data-type="draggablePawnMarker"
+                    data-icon-type={iconType}
+                    data-hotspot-type={type}
+                    data-img={img}>
                     <img
                         src={img}
                         onDragStart={e => {
@@ -35,6 +43,8 @@ const PawnMarker = props => {
                         }}
                         className="pawn-img"
                         data-type="draggablePawnMarker"
+                        data-icon-type={iconType}
+                        data-hotspot-type={type}
                         alt={title}
                     />
                 </span>
@@ -47,6 +57,8 @@ PawnMarker.propTypes = {
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    iconType: PropTypes.string.isRequired,
 };
 
 export default PawnMarker;

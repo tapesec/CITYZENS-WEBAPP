@@ -24,6 +24,8 @@ class MapArea extends React.Component {
     componentDidMount() {
         let dragging = false;
         let markerPreview;
+        let markerHotspotType;
+        let markerIconType;
         // eslint-disable-next-line
         const mojs = require('mo-js');
         if (typeof window !== 'undefined') {
@@ -48,6 +50,8 @@ class MapArea extends React.Component {
                 markerPreview.style.display = 'inline';
                 markerPreview.firstChild.src =
                     evt.target.getAttribute('data-img') || evt.target.src;
+                markerHotspotType = evt.target.getAttribute('data-hotspot-type');
+                markerIconType = evt.target.getAttribute('data-icon-type');
             }
         });
         this.rootElement.addEventListener('mouseup', () => {
@@ -59,7 +63,14 @@ class MapArea extends React.Component {
                     });
                     burst.play();
                 }
-                this.props.newMarkerDropped(this.googleMouseCoords.lat, this.googleMouseCoords.lng);
+                this.props.newMarkerDropped(
+                    {
+                        latitude: this.googleMouseCoords.lat,
+                        longitude: this.googleMouseCoords.lng,
+                    },
+                    markerHotspotType,
+                    markerIconType,
+                );
                 this.props.openHotspotAddressModal();
                 // markerPreview.style.display = 'none';
             }
@@ -200,8 +211,11 @@ const mapDispatchToProps = dispatch => ({
     displayMarkerPreview: (img, x, y) => {
         dispatch(actions.displayMarkerDraggablePreview(img, x, y));
     },
-    newMarkerDropped: (lat, lng) => {
-        dispatch(actions.newMarkerDropped(lat, lng));
+    newMarkerDropped: (position, type, iconType) => {
+        dispatch(actions.newMarkerDropped(position, type, iconType));
+    },
+    setNewHotspotType: type => {
+        dispatch(actions.setNewHotspotType(type));
     },
     openHotspotAddressModal: () => {
         dispatch(actions.openHotspotAddressModal());

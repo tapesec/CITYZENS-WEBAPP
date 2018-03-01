@@ -10,6 +10,7 @@ import isLoading from './../hoc/isLoading';
 import LeftSideMenu from './LeftSideMenu/LeftSideMenu';
 import MapArea from './MapArea';
 import AddressModal from './AddressModal/AddressModal';
+import SettingUpHotspotModal from './SettingUpHotspotModal/SettingUpHotspot';
 
 export default function Dashboard({ match, history }) {
     const AlertHotspotContainer = displayWithProps(isLoading(HotspotContainer));
@@ -20,6 +21,7 @@ export default function Dashboard({ match, history }) {
             <MapArea history={history} />
             <AlertHotspotContainer />
             <AddressModal />
+            <SettingUpHotspotModal />
             <Route
                 path={`${match.url}/:hotspotSlug`}
                 component={displayWithRoutes(loadWithSlug(isLoading(HotspotContainer)))}

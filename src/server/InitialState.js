@@ -30,6 +30,11 @@ class InitialState {
                     contentIsLoading: false,
                     networkError: false,
                 },
+                settingUpHotspotModal: {
+                    open: false,
+                    contentIsLoading: false,
+                    networkError: false,
+                },
             },
             algolia: {
                 hits: [],
@@ -40,9 +45,9 @@ class InitialState {
             map: {},
             city: {},
             edition: {
-                hotspot: {}
+                mode: 'TURNED_OFF',
+                hotspot: {},
             },
-            form: {}
         };
     }
 
