@@ -8,6 +8,7 @@ class CityzenApi {
         this.fetch = fetchModule;
         this.url = url;
     }
+    // hotspots
 
     getPublicHotspots(params) {
         let queryStrings = '';
@@ -34,6 +35,19 @@ class CityzenApi {
             },
         });
     }
+
+    postHotspots(accessToken, payload) {
+        return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `bearer ${accessToken}`,
+            },
+            body: payload,
+        });
+    }
+
+    // messages
 
     getMessages(hotspotId) {
         return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}/${MESSAGES_ENDPOINTS}`, {

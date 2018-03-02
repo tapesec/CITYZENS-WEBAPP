@@ -6,6 +6,7 @@ import { hotspotEdition } from './../../shared/reducers/edition';
 import { getCityId, getCityName } from './../../shared/reducers/city';
 import WallHotspotPayload from './../services/payloads/WallHotspotPayload';
 import selectors from './../selectors';
+import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
 
 export function* fetchHotspots(action) {
     if (action && action.payload && action.payload.cityId) {
@@ -66,12 +67,15 @@ export function* persistHotspot(action) {
     try {
         const edition = yield select(hotspotEdition.getCurrentHotspotEdition);
         const payload = yield call(buildPayload, edition);
-        yield console.log(payload, '--', action); // eslint-disable-line
+        const accessToken = yield select(getCityzenAccessToken);
+        const response = yield call([cityzensApi, cityzensApi.postHotspots], accessToken, JSON.stringify(payload));
+        const newHotspot = yield response.json();
+        yield console.log(newHotspot, 'new hotspot', action); // eslint-disable-line
         yield put(actions.clearHotspotEdition());
-    } catch(err) {
-        console.log(err.message) // eslint-disable-line
+    } catch (err) {
+        // TODO
+        console.log(err.message); // eslint-disable-line
     }
-    // TODO post payload
 }
 
 export default function* hotspotsSagas() {
