@@ -48,16 +48,16 @@ export function* buildPayload(edition) {
     try {
         const cityId = yield select(getCityId);
         const cityName = yield select(getCityName);
-        const payload = yield new WallHotspotPayload();
-        payload.type = edition.type;
-        payload.cityId = cityId;
-        payload.title = edition.title;
-        payload.scope = edition.scope;
-        payload.position = edition.position;
-        payload.address = { name: edition.address, city: cityName };
-        payload.iconType = edition.iconType;
-        payload.valid();
-        return payload;
+        const wallHotspotPayload = yield new WallHotspotPayload();
+        wallHotspotPayload.type = edition.type;
+        wallHotspotPayload.cityId = cityId;
+        wallHotspotPayload.title = edition.title;
+        wallHotspotPayload.scope = edition.scope;
+        wallHotspotPayload.position = edition.position;
+        wallHotspotPayload.address = { name: edition.address, city: cityName };
+        wallHotspotPayload.iconType = edition.iconType;
+        wallHotspotPayload.valid();
+        return wallHotspotPayload.payload;
     } catch (error) {
         throw new Error('invalid payload');
     }
@@ -66,12 +66,17 @@ export function* buildPayload(edition) {
 export function* persistHotspot(action) {
     try {
         const edition = yield select(hotspotEdition.getCurrentHotspotEdition);
-        const payload = yield call(buildPayload, edition);
+        const hotspotPayload = yield call(buildPayload, edition);
         const accessToken = yield select(getCityzenAccessToken);
-        const response = yield call([cityzensApi, cityzensApi.postHotspots], accessToken, JSON.stringify(payload));
+        const response = yield call(
+            [cityzensApi, cityzensApi.postHotspots],
+            accessToken,
+            JSON.stringify(hotspotPayload),
+        );
         const newHotspot = yield response.json();
         yield console.log(newHotspot, 'new hotspot', action); // eslint-disable-line
         yield put(actions.clearHotspotEdition());
+        yield put({ type: actionTypes.NEW_HOTSPOT_SAVED, payload: { hotspot: newHotspot } });
     } catch (err) {
         // TODO
         console.log(err.message); // eslint-disable-line

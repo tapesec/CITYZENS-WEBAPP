@@ -1,11 +1,11 @@
-import fetch from 'cross-fetch';
+import fetchWrapper from './FetchWrapper';
 
 const HOTSPOTS_ENDPOINTS = '/hotspots';
 const MESSAGES_ENDPOINTS = '/messages';
 
 class CityzenApi {
-    constructor(fetchModule, url = 'http://localhost:3001') {
-        this.fetch = fetchModule;
+    constructor(requestService, url = 'http://localhost:3001') {
+        this.http = requestService;
         this.url = url;
     }
     // hotspots
@@ -19,7 +19,7 @@ class CityzenApi {
         } else if (params.insee) {
             queryStrings = `?insee=${params.insee}`;
         }
-        return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}${queryStrings}`, {
+        return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}${queryStrings}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ class CityzenApi {
     }
 
     getPublicHotspot(id) {
-        return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}/${id}`, {
+        return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ class CityzenApi {
     }
 
     postHotspots(accessToken, payload) {
-        return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}`, {
+        return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ class CityzenApi {
     // messages
 
     getMessages(hotspotId) {
-        return this.fetch(`${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}/${MESSAGES_ENDPOINTS}`, {
+        return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}/${MESSAGES_ENDPOINTS}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,4 +58,4 @@ class CityzenApi {
         });
     }
 }
-export default new CityzenApi(fetch);
+export default new CityzenApi(fetchWrapper);

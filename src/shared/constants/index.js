@@ -12,6 +12,10 @@ export default {
             DESTRUCTION: 'DeteriorationIcon',
             HANDICAP: 'HandicapIcon',
         },
+        SCOPE: {
+            PRIVATE: 'private',
+            PUBLIC: 'public',
+        },
     },
     MARKER: {
         LABEL: {

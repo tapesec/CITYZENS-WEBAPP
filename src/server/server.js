@@ -66,7 +66,7 @@ app.get(
         redirectUri: config.auth0.redirect,
         audience: config.auth0.audience,
         responseType: 'code',
-        scope: 'openid profile',
+        scope: 'openid profile email name',
     }),
     (req, res) => {
         res.redirect('/Martignas-sur-Jalle');

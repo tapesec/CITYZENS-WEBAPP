@@ -38,7 +38,6 @@ class HotspotPayload {
 
     set iconType(iconType) {
         this.payload.iconType = iconType;
-        return this;
     }
 
     valid() {

@@ -1,4 +1,7 @@
 import HotspotPayload from './HotspotPayload';
+import constant from './../../../shared/constants';
+
+const { HOTSPOT } = constant;
 
 class WallHotspotPayload extends HotspotPayload {
     constructor() {
@@ -8,12 +11,10 @@ class WallHotspotPayload extends HotspotPayload {
 
     set title(title) {
         this.payload.title = title;
-        return this;
     }
 
     set scope(scope) {
-        this.payload.scope = scope;
-        return this;
+        this.payload.scope = scope ? HOTSPOT.SCOPE.PRIVATE : HOTSPOT.SCOPE.PUBLIC;
     }
 }
 
