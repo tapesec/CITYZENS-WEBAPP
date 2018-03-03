@@ -10,6 +10,17 @@ class CityzenApi {
     }
     // hotspots
 
+    static baseHeader(accessToken) {
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        if (accessToken)
+            headers.Authorization = `bearer ${accessToken}`;
+
+        return headers;
+    }
+
     getPublicHotspots(params) {
         let queryStrings = '';
         if (params.north) {
@@ -27,12 +38,10 @@ class CityzenApi {
         });
     }
 
-    getPublicHotspot(id) {
+    getHotspot(accessToken, id) {
         return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}/${id}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: CityzenApi.baseHeader(accessToken),
         });
     }
 

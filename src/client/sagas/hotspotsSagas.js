@@ -34,7 +34,12 @@ export function* fetchHotspot(action) {
             // eslint-disable-next-line
             hotspotId = action.payload.hotspotId;
         }
-        const response = yield call([cityzensApi, cityzensApi.getPublicHotspot], hotspotId);
+        const accessToken = yield select(getCityzenAccessToken);
+        const response = yield call(
+            [cityzensApi, cityzensApi.getHotspot],
+            accessToken,
+            hotspotId,
+        );
         const syncedHotspot = yield response.json();
         yield put(actions.fetchHotspotSucceded(syncedHotspot));
     } catch (err) {
@@ -75,7 +80,9 @@ export function* persistHotspot() {
         );
         const newHotspot = yield response.json();
         yield put(actions.clearHotspotEdition());
-        yield put(actions.saveNewHotspotMessage(newHotspot.id, edition.messageTitle, edition.messageBody));
+        yield put(
+            actions.saveNewHotspotMessage(newHotspot.id, edition.messageTitle, edition.messageBody),
+        );
         yield put({ type: actionTypes.NEW_HOTSPOT_SAVED, payload: { hotspot: newHotspot } });
     } catch (err) {
         // TODO
