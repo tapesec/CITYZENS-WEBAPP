@@ -59,11 +59,11 @@ export function* buildPayload(edition) {
         wallHotspotPayload.valid();
         return wallHotspotPayload.payload;
     } catch (error) {
-        throw new Error('invalid payload');
+        throw new Error('invalid Hotspot payload');
     }
 }
 
-export function* persistHotspot(action) {
+export function* persistHotspot() {
     try {
         const edition = yield select(hotspotEdition.getCurrentHotspotEdition);
         const hotspotPayload = yield call(buildPayload, edition);
@@ -74,8 +74,8 @@ export function* persistHotspot(action) {
             JSON.stringify(hotspotPayload),
         );
         const newHotspot = yield response.json();
-        yield console.log(newHotspot, 'new hotspot', action); // eslint-disable-line
         yield put(actions.clearHotspotEdition());
+        yield put(actions.saveNewHotspotMessage(newHotspot.id, edition.messageTitle, edition.messageBody));
         yield put({ type: actionTypes.NEW_HOTSPOT_SAVED, payload: { hotspot: newHotspot } });
     } catch (err) {
         // TODO

@@ -164,6 +164,15 @@ const fetchMessagesFailed = err => ({
     },
 });
 
+const saveNewHotspotMessage = (hotspotId, title, body) => ({
+    type: actionTypes.SAVE_NEW_HOTSPOT_MESSAGE,
+    payload: {
+        hotspotId,
+        title,
+        body,
+    },
+});
+
 const mapMoved = (lat, lng) => ({
     type: actionTypes.MAP_MOVED,
     payload: {
@@ -217,6 +226,7 @@ export default {
     fetchHotspotFailed,
     fetchMessagesSucceded,
     fetchMessagesFailed,
+    saveNewHotspotMessage,
     mapMoved,
     newMarkerDropped,
     redirectTo,

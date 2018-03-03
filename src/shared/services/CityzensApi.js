@@ -57,5 +57,16 @@ class CityzenApi {
             },
         });
     }
+
+    postMessages(hotspotId, accessToken, payload) {
+        return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `bearer ${accessToken}`,
+            },
+            body: payload,
+        });
+    }
 }
 export default new CityzenApi(fetchWrapper);
