@@ -14,7 +14,12 @@ export function* fetchHotspots(action) {
             insee: action.payload.cityId,
         };
         try {
-            const response = yield call([cityzensApi, cityzensApi.getPublicHotspots], params);
+            const accessToken = yield select(getCityzenAccessToken);
+            const response = yield call(
+                [cityzensApi, cityzensApi.getHotspots],
+                accessToken,
+                params,
+            );
             const hotspots = yield response.json();
             yield put(actions.fetchHotspotsByCitySuccess(hotspots));
         } catch (err) {
@@ -35,11 +40,7 @@ export function* fetchHotspot(action) {
             hotspotId = action.payload.hotspotId;
         }
         const accessToken = yield select(getCityzenAccessToken);
-        const response = yield call(
-            [cityzensApi, cityzensApi.getHotspot],
-            accessToken,
-            hotspotId,
-        );
+        const response = yield call([cityzensApi, cityzensApi.getHotspot], accessToken, hotspotId);
         const syncedHotspot = yield response.json();
         yield put(actions.fetchHotspotSucceded(syncedHotspot));
     } catch (err) {

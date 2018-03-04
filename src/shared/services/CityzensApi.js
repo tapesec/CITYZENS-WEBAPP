@@ -15,13 +15,12 @@ class CityzenApi {
             'Content-Type': 'application/json',
         };
 
-        if (accessToken)
-            headers.Authorization = `bearer ${accessToken}`;
+        if (accessToken) headers.Authorization = `bearer ${accessToken}`;
 
         return headers;
     }
 
-    getPublicHotspots(params) {
+    getHotspots(accessToken, params) {
         let queryStrings = '';
         if (params.north) {
             queryStrings = `?north=${params.north}&west=${params.west}&south=${params.south}&east=${
@@ -32,9 +31,7 @@ class CityzenApi {
         }
         return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}${queryStrings}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: CityzenApi.baseHeader(accessToken),
         });
     }
 
@@ -59,23 +56,29 @@ class CityzenApi {
     // messages
 
     getMessages(hotspotId) {
-        return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}/${MESSAGES_ENDPOINTS}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
+        return this.http.request(
+            `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}/${MESSAGES_ENDPOINTS}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             },
-        });
+        );
     }
 
-    postMessages(hotspotId, accessToken, payload) {
-        return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `bearer ${accessToken}`,
+    postMessages(accessToken, hotspotId, payload) {
+        return this.http.request(
+            `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${accessToken}`,
+                },
+                body: payload,
             },
-            body: payload,
-        });
+        );
     }
 }
 export default new CityzenApi(fetchWrapper);

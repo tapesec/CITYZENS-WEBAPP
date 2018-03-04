@@ -56,7 +56,8 @@ class InitialState {
             try {
                 const dataTree = { ...InitialState.dataTree() };
                 const city = await this.citiesService.getCity(req.params.citySlug);
-                const hotspots = await this.hotspotsService.getPublicHotspots({
+                const accessToken = req.user ? req.user.accessToken : undefined;
+                const hotspots = await this.hotspotsService.getHotspots(accessToken, {
                     insee: city.insee,
                 });
                 if (req.user) {

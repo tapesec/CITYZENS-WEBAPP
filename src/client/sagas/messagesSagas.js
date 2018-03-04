@@ -6,21 +6,6 @@ import actions from './../actions';
 import cityzensApi from './../../shared/services/CityzensApi';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
 
-export function* fetchHotspots(action) {
-    if (action && action.payload && action.payload.cityId) {
-        const params = {
-            insee: action.payload.cityId,
-        };
-        try {
-            const response = yield call([cityzensApi, cityzensApi.getPublicHotspots], params);
-            const hotspots = yield response.json();
-            yield put(actions.fetchHotspotsByCitySuccess(hotspots));
-        } catch (err) {
-            yield put(actions.fetchHotspotsByCityError());
-        }
-    }
-}
-
 export function* fetchMessages(action) {
     if (action && action.payload && action.payload.slug) {
         try {
@@ -55,8 +40,8 @@ export function* persistMessage(action) {
         const accessToken = yield select(getCityzenAccessToken);
         const response = yield call(
             [cityzensApi, cityzensApi.postMessages],
-            hotspotId,
             accessToken,
+            hotspotId,
             JSON.stringify(messagePayload),
         );
         const newMessage = response.json();
