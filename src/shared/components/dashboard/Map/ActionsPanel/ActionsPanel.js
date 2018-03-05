@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Fab } from 'rmwc/Fab';
+import { isAuthenticated } from './../../../../reducers/authenticatedCityzen';
 import constant from './../../../../constants';
 import PawnMarker from './PawnMarker';
 import wallHotspotIcon from './../../../../../server/assets/WallHotspotMarker.svg';
@@ -12,11 +15,20 @@ import './ActionsPanel.scss';
 
 const { HOTSPOT } = constant;
 
-const ActionsPanel = () => (
-    <Fragment>
+const toggleActionsPanelButton = visible =>
+    visible ? (
         <Fab className="addHotspotAction">
             location_on<strong>+</strong>
         </Fab>
+    ) : (
+        <Fab className="addHotspotAction" exited>
+            location_on<strong>+</strong>
+        </Fab>
+    );
+
+const ActionsPanel = ({ actionsPanelButtonVisible }) => (
+    <Fragment>
+        {toggleActionsPanelButton(actionsPanelButtonVisible)}
         <div className="ActionsPanel">
             <div className="row">
                 <div className="column">
@@ -73,4 +85,12 @@ const ActionsPanel = () => (
     </Fragment>
 );
 
-export default ActionsPanel;
+ActionsPanel.propTypes = {
+    actionsPanelButtonVisible: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ({
+    actionsPanelButtonVisible: isAuthenticated(state),
+});
+
+export default connect(mapStateToProps)(ActionsPanel);
