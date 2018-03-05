@@ -153,6 +153,22 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 hotspotModal,
             };
+        case actionTypes.DISPLAY_MESSAGE_TO_SCREEN:
+            return {
+                ...state,
+                snackbar: {
+                    visible: true,
+                    level: action.payload.level,
+                    message: action.payload.message,
+                },
+            };
+        case actionTypes.MESSAGE_TO_SCREEN_ON_DISAPEAR:
+            return {
+                ...state,
+                snackbar: {
+                    visible: false,
+                },
+            };
         default:
             return state;
     }
@@ -177,3 +193,9 @@ export const settingUpHotspotModalState = {
     getSettingUpHotspotModalState,
     isOpenSettingUpHotspotModal,
 };
+
+export const displaySnackbar = state => state.componentsState.snackbar.visible;
+export const snackbarMessage = state => ({
+    message: state.componentsState.snackbar.message,
+    level: state.componentsState.snackbar.level,
+});

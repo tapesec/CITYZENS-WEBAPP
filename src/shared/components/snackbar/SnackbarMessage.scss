@@ -1,0 +1,10 @@
+.SnackbarMessage {
+    div {
+        display: flex;
+        align-items: center;
+        span.message-content {
+            color: white;
+            margin-left: 20px;
+        }
+    }
+}

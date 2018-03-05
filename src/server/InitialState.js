@@ -35,6 +35,11 @@ class InitialState {
                     contentIsLoading: false,
                     networkError: false,
                 },
+                snackbar: {
+                    visible: false,
+                    level: 'info',
+                    message: '',
+                },
             },
             algolia: {
                 hits: [],

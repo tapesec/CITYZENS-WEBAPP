@@ -5,6 +5,8 @@ import actionTypes from './../actions/actionTypes';
 import actions from './../actions';
 import cityzensApi from './../../shared/services/CityzensApi';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
+import { SNACKBAR } from './../wording';
+import { NOTIFICATION_MESSAGE } from './../constants';
 
 export function* fetchMessages(action) {
     if (action && action.payload && action.payload.slug) {
@@ -47,7 +49,12 @@ export function* persistMessage(action) {
         const newMessage = response.json();
         yield put({ type: actionTypes.NEW_MESSAGE_SAVED, payload: { message: newMessage } });
     } catch (err) {
-        // TODO
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.ERROR.SAVING_MESSAGE_FAILED,
+                NOTIFICATION_MESSAGE.LEVEL.ERROR,
+            ),
+        );
         console.log(err.message); // eslint-disable-line
     }
 }

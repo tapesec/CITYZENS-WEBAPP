@@ -197,6 +197,18 @@ const redirectTo = path => ({
     },
 });
 
+const displayMessageToScreen = (message, level) => ({
+    type: actionTypes.DISPLAY_MESSAGE_TO_SCREEN,
+    payload: {
+        message,
+        level,
+    },
+});
+
+const messageToScreenOnDisapear = () => ({
+    type: actionTypes.MESSAGE_TO_SCREEN_ON_DISAPEAR,
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -230,4 +242,6 @@ export default {
     mapMoved,
     newMarkerDropped,
     redirectTo,
+    displayMessageToScreen,
+    messageToScreenOnDisapear,
 };

@@ -7,6 +7,8 @@ import { getCityId, getCityName } from './../../shared/reducers/city';
 import WallHotspotPayload from './../services/payloads/WallHotspotPayload';
 import selectors from './../selectors';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
+import { SNACKBAR } from './../wording';
+import { NOTIFICATION_MESSAGE } from './../constants';
 
 export function* fetchHotspots(action) {
     if (action && action.payload && action.payload.cityId) {
@@ -85,9 +87,19 @@ export function* persistHotspot() {
             actions.saveNewHotspotMessage(newHotspot.id, edition.messageTitle, edition.messageBody),
         );
         yield put({ type: actionTypes.NEW_HOTSPOT_SAVED, payload: { hotspot: newHotspot } });
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.INFO.HOTSPOT_SAVED_SUCCESSFULLY,
+                NOTIFICATION_MESSAGE.LEVEL.INFO,
+            ),
+        );
     } catch (err) {
-        // TODO
-        console.log(err.message); // eslint-disable-line
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.ERROR.SAVING_HOTSPOT_FAILED,
+                NOTIFICATION_MESSAGE.LEVEL.ERROR,
+            ),
+        );
     }
 }
 
