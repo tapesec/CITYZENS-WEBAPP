@@ -24,7 +24,10 @@ const EMPTY_MESSAGE_WORDING = {
     body: DEFAULT_HOTSPOT_MESSAGES_WORDING_BODY,
 };
 
-const WallHotspot = ({ hotspot }) => (
+const isAuthor = (isAuthenticated, cityzenId, messageAuthorId) =>
+    isAuthenticated && messageAuthorId === cityzenId;
+
+const WallHotspot = ({ hotspot, isAuthenticated, cityzenId }) => (
     <section className="HotspotContent">
         <HotspotTitle title={hotspot.title} />
         <CustomScroll heightRelativeToParent="100%">
@@ -33,7 +36,15 @@ const WallHotspot = ({ hotspot }) => (
                     <HotspotMessage message={EMPTY_MESSAGE_WORDING} key={EMPTY_MESSAGE_KEY} />
                 ) : (
                     hotspot.messages.map(message => (
-                        <HotspotMessage message={message} key={message.id} />
+                        <HotspotMessage
+                            cityzenIsAuthor={isAuthor(
+                                isAuthenticated,
+                                cityzenId,
+                                message.author.id,
+                            )}
+                            message={message}
+                            key={message.id}
+                        />
                     ))
                 )}
             </HotspotMessagesWall>

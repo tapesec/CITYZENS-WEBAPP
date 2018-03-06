@@ -6,7 +6,23 @@ article.HotspotMessage {
     margin-right: 20px;
     margin-bottom: 20px;
     background-color: #FAFAFA;
+    position: relative;
     p {
         margin-bottom: 20px;
+    }
+    header {
+        .edit-icon {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size: 1em;
+            border-radius: 50%;
+            background-color: darken($mdc-theme-background, 8%);
+            &:hover {
+                background-color: darken($mdc-theme-background, 15%);
+            }
+            padding: 10px;
+            cursor: pointer;
+        }
     }
 }

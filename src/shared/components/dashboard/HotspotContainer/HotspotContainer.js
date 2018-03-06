@@ -11,6 +11,8 @@ import Modal from './../../lib/Modal';
 import constant from './../../../constants';
 import selectors from '../../../../client/selectors';
 import HotspotVisitorActionBar from './HotspotViewMod/HotspotVisitorActionBar';
+import { getCityzenId, isAuthenticated } from './../../../reducers/authenticatedCityzen';
+
 import './HotspotContainer.scss';
 
 class HotspotContainer extends React.Component {
@@ -24,7 +26,7 @@ class HotspotContainer extends React.Component {
     }
 
     displayContent() {
-        const { readableHotspot, contentIsLoading } = this.props;
+        const { readableHotspot, contentIsLoading, cityzenIsAuthenticated, cityzenId } = this.props;
         const { HOTSPOT } = constant;
         if (!readableHotspot) {
             return <p>Loading …</p>;
@@ -41,7 +43,12 @@ class HotspotContainer extends React.Component {
             return (
                 <Fragment>
                     <HotspotVisitorActionBar />
-                    <WallHotspot loading={contentIsLoading} hotspot={readableHotspot} />
+                    <WallHotspot
+                        isAuthenticated={cityzenIsAuthenticated}
+                        cityzenId={cityzenId}
+                        loading={contentIsLoading}
+                        hotspot={readableHotspot}
+                    />
                 </Fragment>
             );
         }
@@ -109,6 +116,8 @@ HotspotContainer.defaultProps = {
 const mapStateToProps = state => ({
     citySlug: selectors.getCitySlug(state),
     readableHotspot: selectors.getReadableHotspot(state),
+    cityzenId: getCityzenId(state),
+    cityzenIsAuthenticated: isAuthenticated(state),
 });
 
 export default connect(mapStateToProps)(HotspotContainer);
