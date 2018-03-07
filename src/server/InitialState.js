@@ -1,3 +1,7 @@
+/* import constant from './../shared/constants';
+
+const { EDITION_MODE } = constant; */
+
 const getHotspotBySlug = (state, slug) =>
     Object.values(state.hotspots)
         .filter(hotspot => hotspot.slug === slug)
@@ -52,6 +56,7 @@ class InitialState {
             edition: {
                 mode: 'TURNED_OFF',
                 hotspot: {},
+                message: {},
             },
         };
     }

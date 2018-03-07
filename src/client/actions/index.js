@@ -128,6 +128,34 @@ const postSettingUpHotspotFormData = settingUpMode => ({
     },
 });
 
+const editMessageHotspot = (id, title, body, pinned) => ({
+    type: actionTypes.EDIT_HOTSPOT_MESSAGE,
+    payload: {
+        id,
+        title,
+        body,
+        pinned,
+    },
+});
+
+const saveInStateEditionMessageFormData = formData => ({
+    type: actionTypes.SAVE_IN_STATE_EDITION_MESSAGE_FORM_DATA,
+    payload: {
+        formData,
+    },
+});
+
+const postEditionMessageFormData = settingUpMode => ({
+    type: actionTypes.POST_EDITION_MESSAGE_FORM_DATA,
+    payload: {
+        settingUpMode,
+    },
+});
+
+const clearHotspotMessageEdition = () => ({
+    type: actionTypes.CLEAR_HOTSPOT_MESSAGE_EDITION,
+});
+
 const closeSettingUpHotspotModal = () => ({
     type: actionTypes.CLOSE_SETTING_UP_HOTSPOT_MODAL,
 });
@@ -231,7 +259,11 @@ export default {
     closeHotspotAddressModal,
     openSettingUpHotspotModal,
     saveInStateSettingUpHotspotFormData,
+    saveInStateEditionMessageFormData,
     postSettingUpHotspotFormData,
+    postEditionMessageFormData,
+    editMessageHotspot,
+    clearHotspotMessageEdition,
     closeSettingUpHotspotModal,
     clearHotspotEdition,
     fetchHotspotSucceded,

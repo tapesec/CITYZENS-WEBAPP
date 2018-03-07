@@ -8,6 +8,7 @@ const initialState = {};
 
 export default function edition(state = initialState, action) {
     let hotspot;
+    let message;
 
     switch (action.type) {
         case actionTypes.TOGGLE_EDITION_MODE:
@@ -60,6 +61,27 @@ export default function edition(state = initialState, action) {
                 ...state,
                 hotspot,
             };
+        case actionTypes.EDIT_HOTSPOT_MESSAGE:
+            return {
+                ...state,
+                message: action.payload,
+                mode: EDITION,
+            };
+        case actionTypes.SAVE_IN_STATE_EDITION_MESSAGE_FORM_DATA:
+            message = {
+                ...state.message,
+                ...action.payload.formData,
+            };
+            return {
+                ...state,
+                message,
+            };
+        case actionTypes.CLEAR_HOTSPOT_MESSAGE_EDITION:
+            return {
+                ...state,
+                message: {},
+                mode: TURNED_OFF,
+            };
         default:
             return state;
     }
@@ -70,6 +92,13 @@ export const currentHotspotEdition = state => state.edition.hotspot;
 export const hotspotEdition = {
     getCurrentHotspotEdition: state => currentHotspotEdition(state),
     getAddress: state => currentHotspotEdition(state).address,
+};
+
+export const currentMessageEdition = state => state.edition.message;
+
+export const messageEdition = {
+    getCurrentMessageEdition: state => currentMessageEdition(state),
+    isInProgress: state => !!currentMessageEdition(state).id,
 };
 
 export const getSettingUpMode = state => state.edition.mode;

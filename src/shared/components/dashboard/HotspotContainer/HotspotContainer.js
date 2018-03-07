@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Typography from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 import { Fab } from 'rmwc/Fab';
+import actions from './../../../../client/actions';
+import { messageEdition } from './../../../reducers/edition';
 import WallHotspot from './HotspotViewMod/WallHotspot';
 import EventHotspot from './HotspotViewMod/EventHotspot';
 import AlertHotspot from './HotspotViewMod/AlertHotspot';
@@ -11,7 +13,6 @@ import Modal from './../../lib/Modal';
 import constant from './../../../constants';
 import selectors from '../../../../client/selectors';
 import HotspotVisitorActionBar from './HotspotViewMod/HotspotVisitorActionBar';
-import { getCityzenId, isAuthenticated } from './../../../reducers/authenticatedCityzen';
 
 import './HotspotContainer.scss';
 
@@ -19,6 +20,7 @@ class HotspotContainer extends React.Component {
     constructor() {
         super();
         this.displayContent.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount() {
@@ -26,7 +28,7 @@ class HotspotContainer extends React.Component {
     }
 
     displayContent() {
-        const { readableHotspot, contentIsLoading, cityzenIsAuthenticated, cityzenId } = this.props;
+        const { readableHotspot, contentIsLoading, clearHotspotMessageEdition } = this.props;
         const { HOTSPOT } = constant;
         if (!readableHotspot) {
             return <p>Loading …</p>;
@@ -44,10 +46,9 @@ class HotspotContainer extends React.Component {
                 <Fragment>
                     <HotspotVisitorActionBar />
                     <WallHotspot
-                        isAuthenticated={cityzenIsAuthenticated}
-                        cityzenId={cityzenId}
                         loading={contentIsLoading}
                         hotspot={readableHotspot}
+                        clearHotspotMessageEdition={clearHotspotMessageEdition}
                     />
                 </Fragment>
             );
@@ -60,16 +61,27 @@ class HotspotContainer extends React.Component {
         );
     }
 
+    closeModal() {
+        const {
+            closeModal,
+            hotspotMessageEditionIsInProgress,
+            clearHotspotMessageEdition,
+        } = this.props;
+        if (hotspotMessageEditionIsInProgress) {
+            clearHotspotMessageEdition();
+        }
+        closeModal();
+    }
+
     render() {
-        const { closeModal } = this.props;
         return (
             <Modal
                 gateway="HotspotModal"
-                onClose={closeModal}
+                onClose={this.closeModal}
                 modalClass="HotspotContainer"
                 backdropClass="HotspotContainer-backdrop">
                 <Fab
-                    onClick={closeModal}
+                    onClick={this.closeModal}
                     className="closeModal"
                     mini
                     theme={['primary-bg', 'text-icon-on-primary']}>
@@ -106,6 +118,8 @@ HotspotContainer.propTypes = {
     readableHotspot: PropTypes.shape({
         type: PropTypes.string.isRequired,
     }),
+    hotspotMessageEditionIsInProgress: PropTypes.bool.isRequired,
+    clearHotspotMessageEdition: PropTypes.func.isRequired,
 };
 
 HotspotContainer.defaultProps = {
@@ -116,8 +130,13 @@ HotspotContainer.defaultProps = {
 const mapStateToProps = state => ({
     citySlug: selectors.getCitySlug(state),
     readableHotspot: selectors.getReadableHotspot(state),
-    cityzenId: getCityzenId(state),
-    cityzenIsAuthenticated: isAuthenticated(state),
+    hotspotMessageEditionIsInProgress: messageEdition.isInProgress(state),
 });
 
-export default connect(mapStateToProps)(HotspotContainer);
+const mapDispatchToProps = dispatch => ({
+    clearHotspotMessageEdition: () => {
+        dispatch(actions.clearHotspotMessageEdition());
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HotspotContainer);

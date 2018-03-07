@@ -24,4 +24,9 @@ export default {
             HANDICAP: 'Equipements accessibles aux personnes à mobilités réduites',
         },
     },
+    EDITION_MODE: {
+        TURNED_OFF: 'TURNED_OFF',
+        EDITION: 'EDITION',
+        SETTING_UP: 'SETTING_UP',
+    },
 };
