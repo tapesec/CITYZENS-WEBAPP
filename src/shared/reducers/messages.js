@@ -8,7 +8,7 @@ export default function messages(state = initialState, action) {
         case actionTypes.FETCH_MESSAGES_SUCCEDED:
             return { ...state, ...keyby(action.payload.messages, 'id') };
         case actionTypes.NEW_MESSAGE_SAVED:
-            return { ...state, ...keyby(action.payload.message, 'id') };
+            return { ...state, [action.payload.message.id]: action.payload.message };
         default:
             return state;
     }

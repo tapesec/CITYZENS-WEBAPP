@@ -57,7 +57,7 @@ class CityzenApi {
 
     getMessages(hotspotId) {
         return this.http.request(
-            `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}/${MESSAGES_ENDPOINTS}`,
+            `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}`,
             {
                 method: 'GET',
                 headers: {

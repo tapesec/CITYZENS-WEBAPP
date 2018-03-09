@@ -8,7 +8,6 @@ const initialState = {};
 
 export default function edition(state = initialState, action) {
     let hotspot;
-    let message;
 
     switch (action.type) {
         case actionTypes.TOGGLE_EDITION_MODE:
@@ -66,15 +65,6 @@ export default function edition(state = initialState, action) {
                 ...state,
                 message: action.payload,
                 mode: EDITION,
-            };
-        case actionTypes.SAVE_IN_STATE_EDITION_MESSAGE_FORM_DATA:
-            message = {
-                ...state.message,
-                ...action.payload.formData,
-            };
-            return {
-                ...state,
-                message,
             };
         case actionTypes.CLEAR_HOTSPOT_MESSAGE_EDITION:
             return {

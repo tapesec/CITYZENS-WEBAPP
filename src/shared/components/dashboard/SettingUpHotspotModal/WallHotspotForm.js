@@ -14,7 +14,7 @@ import {
 const validate = values => {
     const errors = {};
     if (!values.title) {
-        errors.title = VALIDATION.HOTSPOT.ALL.LABEL.ERROR;
+        errors.title = VALIDATION.ALL.LABEL.ERROR;
     }
     if (values.title && values.title.length > VALIDATION.HOTSPOT.TITLE.MAX_LENGTH) {
         errors.title = VALIDATION.HOTSPOT.TITLE.LABEL.ERROR;

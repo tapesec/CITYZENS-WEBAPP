@@ -1,10 +1,10 @@
 const VALIDATION = {
-    HOTSPOT: {
-        ALL: {
-            LABEL: {
-                ERROR: 'Ce champ doit être renseigné',
-            },
+    ALL: {
+        LABEL: {
+            ERROR: 'Ce champ doit être renseigné',
         },
+    },
+    HOTSPOT: {
         ADDRESS: {
             MAX_LENGTH: 50,
             LABEL: {
@@ -13,6 +13,14 @@ const VALIDATION = {
                     'Vous pouvez toujours mettre un adresse approximative si vous le souhaitez',
             },
         },
+        TITLE: {
+            MAX_LENGTH: 100,
+            LABEL: {
+                ERROR: `Pas plus de 100 caractères`,
+            },
+        },
+    },
+    MESSAGE: {
         TITLE: {
             MAX_LENGTH: 100,
             LABEL: {

@@ -138,17 +138,15 @@ const editMessageHotspot = (id, title, body, pinned) => ({
     },
 });
 
-const saveInStateEditionMessageFormData = formData => ({
-    type: actionTypes.SAVE_IN_STATE_EDITION_MESSAGE_FORM_DATA,
-    payload: {
-        formData,
-    },
-});
-
-const postEditionMessageFormData = settingUpMode => ({
+const postEditionMessageFormData = (settingUpMode, formData) => ({
     type: actionTypes.POST_EDITION_MESSAGE_FORM_DATA,
     payload: {
         settingUpMode,
+        hotspotId: formData.hotspotId,
+        messageId: formData.id,
+        title: formData.title,
+        body: formData.body,
+        pinned: formData.pinned,
     },
 });
 
@@ -192,9 +190,10 @@ const fetchMessagesFailed = err => ({
     },
 });
 
-const saveNewHotspotMessage = (hotspotId, title, body) => ({
+const saveNewHotspotMessage = (settingUpMode, hotspotId, title, body) => ({
     type: actionTypes.SAVE_NEW_HOTSPOT_MESSAGE,
     payload: {
+        settingUpMode,
         hotspotId,
         title,
         body,
@@ -259,7 +258,6 @@ export default {
     closeHotspotAddressModal,
     openSettingUpHotspotModal,
     saveInStateSettingUpHotspotFormData,
-    saveInStateEditionMessageFormData,
     postSettingUpHotspotFormData,
     postEditionMessageFormData,
     editMessageHotspot,

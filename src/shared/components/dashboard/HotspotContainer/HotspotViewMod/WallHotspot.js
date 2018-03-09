@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CustomScroll from 'react-custom-scroll';
-import actions from './../../../../../client/actions';
-import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
 import HotspotTitle from './HotspotTitle';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
 import HotspotMessageForm from './HotspotMessage/MessageForm';
+import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
+import actions from './../../../../../client/actions';
 import {
     DEFAULT_HOTSPOT_MESSAGES_WORDING_BODY,
     DEFAULT_HOTSPOT_MESSAGES_WORDING_TITLE,
@@ -43,7 +43,11 @@ const WallHotspot = ({
     submitForm,
 }) => {
     const handleSubmit = values => {
-        submitForm(settingUpMode, values);
+        const payload = {
+            ...values,
+            hotspotId: hotspot.id,
+        };
+        submitForm(settingUpMode, payload);
     };
 
     return (
@@ -59,7 +63,7 @@ const WallHotspot = ({
                                 messageEditionData.id === message.id ? (
                                     <HotspotMessageForm
                                         initialValues={messageEditionData}
-                                        key={messageEdition.id}
+                                        key={hotspot.id}
                                         onSubmit={handleSubmit}
                                         clearHotspotMessageEdition={clearHotspotMessageEdition}
                                     />
@@ -109,8 +113,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(actions.editMessageHotspot(id, title, body, pinned));
     },
     submitForm: (settingUpMode, formData) => {
-        dispatch(actions.postEditionMessageFormData(settingUpMode));
-        dispatch(actions.saveInStateEditionMessageFormData(formData));
+        dispatch(actions.postEditionMessageFormData(settingUpMode, formData));
     },
 });
 

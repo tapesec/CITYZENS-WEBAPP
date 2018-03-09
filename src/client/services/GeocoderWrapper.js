@@ -11,7 +11,7 @@ const geocode = (api, geocodeType, value) => {
                     // eslint-disable-next-line
                     console.log(address);
                     // results[1].formatted_address
-                    resolve(`${address[0].long_name} ${address[1].long_name} ${address[2].long_name}`);
+                    resolve(`${address[0].long_name} ${address[1].long_name}`);
                 } else {
                     resolve(NOT_FOUND_MESSAGE);
                 }

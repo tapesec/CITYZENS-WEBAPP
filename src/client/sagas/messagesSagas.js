@@ -5,12 +5,11 @@ import actionTypes from './../actions/actionTypes';
 import actions from './../actions';
 import cityzensApi from './../../shared/services/CityzensApi';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
-import { getSettingUpMode } from './../../shared/reducers/edition';
 import { SNACKBAR } from './../wording';
 import { NOTIFICATION_MESSAGE } from './../constants';
 import sharedConstant from './../../shared/constants';
 
-const { EDITION_MODE, SETTING_UP } = sharedConstant;
+const { EDITION, SETTING_UP } = sharedConstant.EDITION_MODE;
 
 export function* fetchMessages(action) {
     if (action && action.payload && action.payload.slug) {
@@ -27,7 +26,7 @@ export function* fetchMessages(action) {
     }
 }
 
-export const buildMessagePayload = messageData => {
+export const buildNewMessagePayload = messageData => {
     try {
         const messagePayload = new MessagePayload();
         messagePayload.title = messageData.title;
@@ -39,19 +38,55 @@ export const buildMessagePayload = messageData => {
     }
 };
 
-export function* createMessage(action) {
+export const buildEditMessagePayload = messageData => {
     try {
-        const { hotspotId } = action.payload;
-        const messagePayload = yield call(buildMessagePayload, action.payload);
+        const messagePayload = new MessagePayload();
+        messagePayload.title = messageData.title;
+        messagePayload.body = messageData.body;
+        messagePayload.pinned = messageData.pinned;
+        messagePayload.valid();
+        return messagePayload.payload;
+    } catch (error) {
+        throw new Error('Invalid message payload');
+    }
+};
+
+export function* persistMessage(action) {
+    const { settingUpMode } = action.payload;
+    try {
         const accessToken = yield select(getCityzenAccessToken);
-        const response = yield call(
-            [cityzensApi, cityzensApi.postMessages],
-            accessToken,
-            hotspotId,
-            JSON.stringify(messagePayload),
-        );
-        const newMessage = response.json();
-        yield put({ type: actionTypes.NEW_MESSAGE_SAVED, payload: { message: newMessage } });
+        if (settingUpMode === EDITION) {
+            const { messageId, hotspotId } = action.payload;
+            const messagePayload = yield call(buildEditMessagePayload, action.payload);
+            const response = yield call(
+                [cityzensApi, cityzensApi.patchMessages],
+                accessToken,
+                hotspotId,
+                messageId,
+                JSON.stringify(messagePayload),
+            );
+            const newMessage = yield response.json();
+            yield put(actions.clearHotspotMessageEdition());
+            yield put({ type: actionTypes.NEW_MESSAGE_SAVED, payload: { message: newMessage } });
+            yield put(
+                actions.displayMessageToScreen(
+                    SNACKBAR.INFO.MESSAGE_SAVED_SUCCESSFULLY,
+                    NOTIFICATION_MESSAGE.LEVEL.INFO,
+                ),
+            );
+        }
+        if (settingUpMode === SETTING_UP) {
+            const { hotspotId } = action.payload;
+            const messagePayload = yield call(buildNewMessagePayload, action.payload);
+            const response = yield call(
+                [cityzensApi, cityzensApi.postMessages],
+                accessToken,
+                hotspotId,
+                JSON.stringify(messagePayload),
+            );
+            const newMessage = response.json();
+            yield put({ type: actionTypes.NEW_MESSAGE_SAVED, payload: { message: newMessage } });
+        }
     } catch (err) {
         yield put(
             actions.displayMessageToScreen(
@@ -63,54 +98,10 @@ export function* createMessage(action) {
     }
 }
 
-export function* persistMessage(action) {
-    const settingUpMode = yield select(getSettingUpMode);
-    try {
-        const { hotspotId } = action.payload;
-        const messagePayload = yield call(buildMessagePayload, action.payload);
-        const accessToken = yield select(getCityzenAccessToken);
-        if (settingUpMode === EDITION_MODE) {
-            const { id } = action.payload;
-            const response = yield call(
-                [cityzensApi, cityzensApi.patchMessages],
-                accessToken,
-                hotspotId,
-                id,
-                JSON.stringify(messagePayload),
-            );
-            const newMessage = response.json();
-            yield put(actions.clearHotspotEdition());
-            yield put({ type: actionTypes.NEW_MESSAGE_SAVED, payload: { message: newMessage } });
-        }
-        if (settingUpMode === SETTING_UP) {
-            const response = yield call(
-                [cityzensApi, cityzensApi.postMessages],
-                accessToken,
-                hotspotId,
-                JSON.stringify(messagePayload),
-            );
-            const newMessage = response.json();
-            yield put({ type: actionTypes.NEW_MESSAGE_SAVED, payload: { message: newMessage } });
-        }
-    } catch (err) {
-        if (settingUpMode === SETTING_UP) {
-            yield put(
-                actions.displayMessageToScreen(
-                    SNACKBAR.ERROR.SAVING_MESSAGE_FAILED,
-                    NOTIFICATION_MESSAGE.LEVEL.ERROR,
-                ),
-            );
-        }
-        if (settingUpMode === EDITION_MODE) {
-            // TODO
-        }
-        console.log(err.message); // eslint-disable-line
-    }
-}
-
 export default function* messagesSagas() {
     yield [
         takeLatest(actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL, fetchMessages),
         takeLatest(actionTypes.SAVE_NEW_HOTSPOT_MESSAGE, persistMessage),
+        takeLatest(actionTypes.POST_EDITION_MESSAGE_FORM_DATA, persistMessage),
     ];
 }

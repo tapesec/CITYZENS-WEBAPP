@@ -9,6 +9,9 @@ import selectors from './../selectors';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
 import { SNACKBAR } from './../wording';
 import { NOTIFICATION_MESSAGE } from './../constants';
+import sharedConstants from './../../shared/constants';
+
+const { SETTING_UP } = sharedConstants.EDITION_MODE;
 
 export function* fetchHotspots(action) {
     if (action && action.payload && action.payload.cityId) {
@@ -82,11 +85,19 @@ export function* persistHotspot() {
             JSON.stringify(hotspotPayload),
         );
         const newHotspot = yield response.json();
-        yield put(actions.clearHotspotEdition());
         yield put(
-            actions.saveNewHotspotMessage(newHotspot.id, edition.messageTitle, edition.messageBody),
+            actions.saveNewHotspotMessage(
+                SETTING_UP,
+                newHotspot.id,
+                edition.messageTitle,
+                edition.messageBody,
+            ),
         );
-        yield put({ type: actionTypes.NEW_HOTSPOT_SAVED, payload: { hotspot: newHotspot } });
+        yield put({
+            type: actionTypes.NEW_HOTSPOT_SAVED,
+            payload: { hotspot: newHotspot, settingUpMode: SETTING_UP },
+        });
+        yield put(actions.clearHotspotEdition());
         yield put(
             actions.displayMessageToScreen(
                 SNACKBAR.INFO.HOTSPOT_SAVED_SUCCESSFULLY,
