@@ -76,7 +76,7 @@ const mapDispatchToProps = dispatch => ({
     },
     dismissModal: () => {
         dispatch(actions.closeSettingUpHotspotModal());
-        dispatch(actions.cancelHotspotSettingUp());
+        dispatch(actions.clearHotspotEdition());
     },
     submitForm: (settingUpMode, formData) => {
         dispatch(actions.saveInStateSettingUpHotspotFormData(formData));
