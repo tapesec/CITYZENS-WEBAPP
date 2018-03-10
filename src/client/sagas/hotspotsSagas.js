@@ -10,6 +10,7 @@ import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCity
 import { SNACKBAR } from './../wording';
 import { NOTIFICATION_MESSAGE } from './../constants';
 import sharedConstants from './../../shared/constants';
+import { persistMessage } from './messagesSagas';
 
 const { SETTING_UP } = sharedConstants.EDITION_MODE;
 
@@ -85,14 +86,15 @@ export function* persistHotspot() {
             JSON.stringify(hotspotPayload),
         );
         const newHotspot = yield response.json();
-        yield put(
-            actions.saveNewHotspotMessage(
-                SETTING_UP,
-                newHotspot.id,
-                edition.messageTitle,
-                edition.messageBody,
-            ),
-        );
+        const persistMessageParams = {
+            payload: {
+                settingUpMode: SETTING_UP,
+                hotspotId: newHotspot.id,
+                title: edition.messageTitle,
+                body: edition.messageBody,
+            },
+        };
+        yield call(persistMessage, persistMessageParams);
         yield put({
             type: actionTypes.NEW_HOTSPOT_SAVED,
             payload: { hotspot: newHotspot, settingUpMode: SETTING_UP },

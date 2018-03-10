@@ -66,6 +66,11 @@ export default function edition(state = initialState, action) {
                 message: action.payload,
                 mode: EDITION,
             };
+        case actionTypes.DISPLAY_SETTING_UP_HOTSPOT_MESSAGE_FORM:
+            return {
+                ...state,
+                mode: SETTING_UP,
+            };
         case actionTypes.CLEAR_HOTSPOT_MESSAGE_EDITION:
             return {
                 ...state,

@@ -154,6 +154,10 @@ const clearHotspotMessageEdition = () => ({
     type: actionTypes.CLEAR_HOTSPOT_MESSAGE_EDITION,
 });
 
+const displaySettingUpHotspotMessageForm = () => ({
+    type: actionTypes.DISPLAY_SETTING_UP_HOTSPOT_MESSAGE_FORM,
+});
+
 const closeSettingUpHotspotModal = () => ({
     type: actionTypes.CLOSE_SETTING_UP_HOTSPOT_MODAL,
 });
@@ -187,16 +191,6 @@ const fetchMessagesFailed = err => ({
     type: actionTypes.FETCH_MESSAGES_FAILED,
     payload: {
         err,
-    },
-});
-
-const saveNewHotspotMessage = (settingUpMode, hotspotId, title, body) => ({
-    type: actionTypes.SAVE_NEW_HOTSPOT_MESSAGE,
-    payload: {
-        settingUpMode,
-        hotspotId,
-        title,
-        body,
     },
 });
 
@@ -262,13 +256,13 @@ export default {
     postEditionMessageFormData,
     editMessageHotspot,
     clearHotspotMessageEdition,
+    displaySettingUpHotspotMessageForm,
     closeSettingUpHotspotModal,
     clearHotspotEdition,
     fetchHotspotSucceded,
     fetchHotspotFailed,
     fetchMessagesSucceded,
     fetchMessagesFailed,
-    saveNewHotspotMessage,
     mapMoved,
     newMarkerDropped,
     redirectTo,

@@ -10,9 +10,12 @@ import {
 } from './../../../../lib/form/customComponents';
 import { MESSAGE_FORM } from './../../../../../wording';
 import VALIDATION from './../../../../../constants/dataValidation';
+import constants from './../../../../../constants';
 
 import './HotspotMessage.scss';
 import './MessageForm.scss';
+
+const { EDITION_MODE } = constants;
 
 const validate = values => {
     const errors = {};
@@ -22,10 +25,13 @@ const validate = values => {
     if (values.title && values.title.length > VALIDATION.MESSAGE.TITLE.MAX_LENGTH) {
         errors.title = VALIDATION.MESSAGE.TITLE.LABEL.ERROR;
     }
+    if (!values.body) {
+        errors.body = VALIDATION.ALL.LABEL.ERROR;
+    }
     return errors;
 };
 
-const HotspotForm = ({ clearHotspotMessageEdition, handleSubmit }) => (
+const MessageForm = ({ clearHotspotMessageEdition, handleSubmit, editionMode }) => (
     <article className="HotspotMessage WallHotspotMessageForm">
         <form className="cityzen-form" onSubmit={handleSubmit}>
             <Field
@@ -47,7 +53,9 @@ const HotspotForm = ({ clearHotspotMessageEdition, handleSubmit }) => (
             />
             <div className="submitArea">
                 <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
-                    {MESSAGE_FORM.EDITION.SUBMIT.LABEL}
+                    {editionMode === EDITION_MODE.SETTING_UP
+                        ? MESSAGE_FORM.CREATION.SUBMIT.LABEL
+                        : MESSAGE_FORM.EDITION.SUBMIT.LABEL}
                 </Button>
                 <Button
                     type="button"
@@ -61,9 +69,10 @@ const HotspotForm = ({ clearHotspotMessageEdition, handleSubmit }) => (
     </article>
 );
 
-HotspotForm.propTypes = {
+MessageForm.propTypes = {
     clearHotspotMessageEdition: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
+    editionMode: PropTypes.string.isRequired,
 };
 
 const withReduxForm = reduxForm({
@@ -73,6 +82,6 @@ const withReduxForm = reduxForm({
     form: 'hotspotMessageForm',
     shouldError: ({ props }) => props.invalid,
     validate,
-})(HotspotForm);
+})(MessageForm);
 
 export default withReduxForm;

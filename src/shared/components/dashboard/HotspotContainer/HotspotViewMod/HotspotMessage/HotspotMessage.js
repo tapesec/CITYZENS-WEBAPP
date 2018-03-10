@@ -24,13 +24,13 @@ const HotspotMessage = ({ message, cityzenIsAuthor, edit }) => {
                 <Typography style={{ marginBottom: 10 }} use="headline" tag="h2" theme="secondary">
                     {message.title}
                 </Typography>
-                <Typography style={{ marginBottom: 10 }} use="caption" tag="p" theme="primary-dark">
+                <Typography style={{ marginBottom: 10 }} use="body1" tag="p" theme="primary-dark">
                     Rédigé par <strong>{message.author.pseudo}</strong>{' '}
                     <DateFormater duration date={message.createdAt} />.{' '}
                     <DateFormater duration labelPrefix="Mis à jour" date={message.updatedAt} />
                 </Typography>
             </header>
-            <Typography use="body1" tag="p">
+            <Typography use="subheading2" tag="p">
                 {message.body}
             </Typography>
         </article>

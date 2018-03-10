@@ -2,16 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CustomScroll from 'react-custom-scroll';
+import { Typography } from 'rmwc/Typography';
+import { Icon } from 'rmwc/Icon';
 import HotspotTitle from './HotspotTitle';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
 import HotspotMessageForm from './HotspotMessage/MessageForm';
 import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
 import actions from './../../../../../client/actions';
+import constants from './../../../../constants';
 import {
     DEFAULT_HOTSPOT_MESSAGES_WORDING_BODY,
     DEFAULT_HOTSPOT_MESSAGES_WORDING_TITLE,
     CITYZEN_ADMIN_NAME,
+    WALLHOTSPOT,
 } from './../../../../wording';
 import { messageEdition, getSettingUpMode } from './../../../../reducers/edition';
 
@@ -41,6 +45,7 @@ const WallHotspot = ({
     settingUpMode,
     clearHotspotMessageEdition,
     submitForm,
+    displayHotspotMessageForm,
 }) => {
     const handleSubmit = values => {
         const payload = {
@@ -50,11 +55,42 @@ const WallHotspot = ({
         submitForm(settingUpMode, payload);
     };
 
+    const handleNewMessageButton = () => {
+        displayHotspotMessageForm();
+    };
+
+    const displayNewMessageControl = () => {
+        if (cityzenIsAuthenticated && hotspot.author.id === cityzenId) {
+            return settingUpMode !== constants.EDITION_MODE.SETTING_UP ? (
+                <Typography
+                    onClick={handleNewMessageButton}
+                    tag="div"
+                    use="subheading2"
+                    className="add-message-button"
+                    theme="text-primary-on-background">
+                    <Icon strategy="ligature">add_circle_outline</Icon>
+                    <span>{WALLHOTSPOT.BUTTON_ADD_MESSAGE}</span>
+                </Typography>
+            ) : (
+                <HotspotMessageForm
+                    initialValues={messageEditionData}
+                    key={hotspot.id}
+                    onSubmit={handleSubmit}
+                    editionMode={settingUpMode}
+                    clearHotspotMessageEdition={clearHotspotMessageEdition}
+                />
+            );
+        }
+        return null;
+    };
+
     return (
         <section className="HotspotContent">
             <HotspotTitle title={hotspot.title} />
             <CustomScroll heightRelativeToParent="100%">
                 <HotspotMessagesWall>
+                    {displayNewMessageControl()}
+
                     {hotspot.messages.length === 0 ? (
                         <HotspotMessage message={EMPTY_MESSAGE_WORDING} key={EMPTY_MESSAGE_KEY} />
                     ) : (
@@ -65,6 +101,7 @@ const WallHotspot = ({
                                         initialValues={messageEditionData}
                                         key={hotspot.id}
                                         onSubmit={handleSubmit}
+                                        editionMode={settingUpMode}
                                         clearHotspotMessageEdition={clearHotspotMessageEdition}
                                     />
                                 ) : (
@@ -99,6 +136,7 @@ WallHotspot.propTypes = {
     settingUpMode: PropTypes.string.isRequired,
     clearHotspotMessageEdition: PropTypes.func.isRequired,
     submitForm: PropTypes.func.isRequired,
+    displayHotspotMessageForm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -114,6 +152,9 @@ const mapDispatchToProps = dispatch => ({
     },
     submitForm: (settingUpMode, formData) => {
         dispatch(actions.postEditionMessageFormData(settingUpMode, formData));
+    },
+    displayHotspotMessageForm: () => {
+        dispatch(actions.displaySettingUpHotspotMessageForm());
     },
 });
 

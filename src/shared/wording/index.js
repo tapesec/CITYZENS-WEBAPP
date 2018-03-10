@@ -7,10 +7,17 @@ Aucun message n'a encore été rédigé pour ce centre d'interet...
 `;
 export const CITYZEN_ADMIN_NAME = "L'équipe Cityzens";
 
+export const WALLHOTSPOT = {
+    BUTTON_ADD_MESSAGE: 'Nouveau message',
+};
+
 export const MESSAGE_FORM = {
     CREATION: {
         TITLE: {
             LABEL: 'Le titre de votre premier message',
+        },
+        SUBMIT: {
+            LABEL: 'VALIDEZ',
         },
     },
     EDITION: {

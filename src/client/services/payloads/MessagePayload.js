@@ -15,7 +15,7 @@ class MessagePayload {
     }
 
     set pinned(pinned) {
-        this.payload.pinned = pinned;
+        if (pinned !== undefined) this.payload.pinned = pinned;
     }
 
     valid() {

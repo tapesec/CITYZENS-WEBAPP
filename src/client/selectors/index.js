@@ -24,6 +24,12 @@ const getHotspotById = (state, id) => state.hotspots[id];
 const getMessagesByHotspotId = (state, hotspotId) =>
     Object.values(state.messages).filter(message => message.hotspotId === hotspotId);
 
+const sortMessagesByDate = messagesList =>
+    messagesList.sort((a, b) => {
+        if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+
 const getHotspotBySlug = (state, slug) =>
     Object.values(state.hotspots)
         .filter(hotspot => hotspot.slug === slug && hotspot.type !== HOTSPOT_TYPES.Alert)
@@ -48,7 +54,10 @@ const getReadableHotspot = state => {
         hotspot = getHotspotById(state, hotspotId);
     }
     if (hotspot && hotspot.type === HOTSPOT_TYPES.WallMessage) {
-        hotspot = { ...hotspot, messages: getMessagesByHotspotId(state, hotspot.id) };
+        hotspot = {
+            ...hotspot,
+            messages: sortMessagesByDate(getMessagesByHotspotId(state, hotspot.id)),
+        };
     }
     return hotspot;
 };
@@ -63,5 +72,5 @@ export default {
     getHotspotContentLoading,
     getReadableHotspot,
     // components state
-    modalIsOpen
+    modalIsOpen,
 };
