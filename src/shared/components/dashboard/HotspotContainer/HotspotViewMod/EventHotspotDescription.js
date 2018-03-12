@@ -15,15 +15,6 @@ const EventHotspotDescription = ({ description, author }) => (
         <Typography use="body1" tag="p">
             {description.content}
         </Typography>
-        <Typography use="body1" tag="p">
-            Voici encore du texte pour voir ce que ça donne le test de différentes polices de
-            caractères. Nous avons besoins aussi d&apo;une friteuse et d&apo;une machine à barbapapa.
-        </Typography>
-        <Typography use="body1" tag="p">
-            Il était une fois un marchand de foie qui vendait du foie dans la ville de Foix Il se
-            dit mafois c&apo;est bien la première et la dernière fois que je vendrai du foie dans la
-            ville de Foix. Nous avons besoins aussi d&apo;une friteuse et d&apo;une machine à barbapapa.
-        </Typography>
     </article>
 );
 

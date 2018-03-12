@@ -4,11 +4,13 @@ import { Button } from 'rmwc/Button';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import { Typography } from 'rmwc/Typography';
+
 import VALIDATION from './../../../constants/dataValidation';
 import {
     renderCustomTextField,
     renderCustomSwitch,
     renderCustomTextArea,
+    renderCustomDateTimePicker,
 } from './../../lib/form/customComponents';
 
 const validate = values => {
@@ -19,10 +21,29 @@ const validate = values => {
     if (values.title && values.title.length > VALIDATION.HOTSPOT.TITLE.MAX_LENGTH) {
         errors.title = VALIDATION.HOTSPOT.TITLE.LABEL.ERROR;
     }
+    if (!values.dateEnd || values.dateEnd === '') errors.dateEnd = VALIDATION.ALL.LABEL.ERROR;
     return errors;
 };
 
-const WallHotspotForm = ({ handleSubmit, dismissModal }) => (
+/* {
+    "cityId": "33273",
+    "position": {
+      "latitude": 22.12342,
+      "longitude": -1.12312
+    },
+    "address": {
+      "city": "Martignas sur Jalles",
+      "name": "12 place de l'Eglise"
+    },
+    "type": "Event",
+    "iconType": "EventIcon",
+    "title": "Les 10km du moulin Bidon",
+    "scope": "private",
+    "dateEnd": "2017-12-15T07:39:15.490Z",
+    "description": "Les dossards sont à retirer la veille. La course commence à 9h00"
+  }, */
+
+const EventHotspotForm = ({ handleSubmit, dismissModal }) => (
     <form className="HotspotForm cityzen-form" onSubmit={handleSubmit}>
         <Typography
             style={{ textAlign: 'center' }}
@@ -39,12 +60,14 @@ const WallHotspotForm = ({ handleSubmit, dismissModal }) => (
             cssClass="scope-switch-input"
             component={renderCustomSwitch}
         />
+
         <Field
-            name="messageTitle"
-            label="Le titre de votre premier message"
-            component={renderCustomTextField}
+            name="dateEnd"
+            label="Renseignez l'heure, par exemple 14:30 ou 09:45"
+            component={renderCustomDateTimePicker}
         />
-        <Field name="messageBody" label="Exprimez vous …" component={renderCustomTextArea} />
+
+        <Field name="description" label="Exprimez vous …" component={renderCustomTextArea} />
         <div className="submitArea">
             <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                 {"C'est bon !"}
@@ -60,7 +83,7 @@ const WallHotspotForm = ({ handleSubmit, dismissModal }) => (
     </form>
 );
 
-WallHotspotForm.propTypes = {
+EventHotspotForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     dismissModal: PropTypes.func.isRequired,
 };
@@ -72,4 +95,4 @@ export default reduxForm({
     form: 'wallHotspotForm',
     shouldError: ({ props }) => props.invalid,
     validate,
-})(WallHotspotForm);
+})(EventHotspotForm);

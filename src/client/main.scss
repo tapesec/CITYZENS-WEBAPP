@@ -157,4 +157,29 @@ form.cityzen-form {
             margin-left: 5px;
         }
     }
+    .m-input-moment {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        background-color: white;
+
+    }
+    .DayPickerInput {
+        width: 100%;
+        border-bottom: 1px solid $mdc-theme--text-on-primary-light;
+        margin-bottom: 10px;
+        input{
+            &:focus {
+                outline: none;
+            }
+            &:first-child {
+                border: none;
+                padding: 5px 0 5px 0;
+                width: 100%;
+                color: $mdc-theme--text-on-primary-light;
+                @extend .mdc-typography--subheading2;
+            }
+        }
+    }
 }

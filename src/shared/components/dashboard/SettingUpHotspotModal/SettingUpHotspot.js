@@ -3,19 +3,38 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Modal from './../../lib/Modal';
 import WallHotspotForm from './WallHotspotForm';
+import EventHotspotForm from './EventHotspotForm';
 import actions from './../../../../client/actions';
 import { getSettingUpMode, hotspotEdition } from './../../../reducers/edition';
 import { settingUpHotspotModalState } from './../../../reducers/componentsState';
+import constants from './../../../constants';
 
 import './SettingUpHotspot.scss';
 
-const displayFormForSelectedHotspotType = ({ initialValues, handleSubmit, dismissModal }) => (
-    <WallHotspotForm
-        initialValues={initialValues}
-        dismissModal={dismissModal}
-        onSubmit={handleSubmit}
-    />
-);
+const { HOTSPOT } = constants;
+
+const displayFormForSelectedHotspotType = ({ initialValues, handleSubmit, dismissModal }) => {
+    const hotspotType = initialValues.type;
+    if (hotspotType === HOTSPOT.TYPE.WALL_MESSAGE) {
+        return (
+            <WallHotspotForm
+                initialValues={initialValues}
+                dismissModal={dismissModal}
+                onSubmit={handleSubmit}
+            />
+        );
+    }
+    if (hotspotType === HOTSPOT.TYPE.EVENT) {
+        return (
+            <EventHotspotForm
+                initialValues={initialValues}
+                dismissModal={dismissModal}
+                onSubmit={handleSubmit}
+            />
+        );
+    }
+    return null;
+};
 
 displayFormForSelectedHotspotType.propTypes = {
     initialValues: PropTypes.shape({}).isRequired,

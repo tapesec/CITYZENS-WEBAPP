@@ -11,11 +11,13 @@ import sharedConstant from './../../shared/constants';
 
 const { EDITION, SETTING_UP } = sharedConstant.EDITION_MODE;
 
-export function* fetchMessages(action) {
-    if (action && action.payload && action.payload.slug) {
+export function* fetchMessages(params) {
+    if (params && params.payload && params.payload.hotspotId) {
         try {
-            const hotspot = yield select(selectors.getHotspotBySlug, action.payload.slug);
-            const response = yield call([cityzensApi, cityzensApi.getMessages], hotspot.id);
+            const response = yield call(
+                [cityzensApi, cityzensApi.getMessages],
+                params.payload.hotspotId,
+            );
             const syncedHotspot = yield response.json();
             yield put(actions.fetchMessagesSucceded(syncedHotspot));
         } catch (err) {
@@ -86,8 +88,5 @@ export function* persistMessage(action) {
 }
 
 export default function* messagesSagas() {
-    yield [
-        takeLatest(actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL, fetchMessages),
-        takeLatest(actionTypes.POST_EDITION_MESSAGE_FORM_DATA, persistMessage),
-    ];
+    yield [takeLatest(actionTypes.POST_EDITION_MESSAGE_FORM_DATA, persistMessage)];
 }
