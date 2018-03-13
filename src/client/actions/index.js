@@ -138,10 +138,10 @@ const editMessageHotspot = (id, title, body, pinned) => ({
     },
 });
 
-const editEventHotspot = hotspotId => ({
-    type: actionTypes.EDIT_EVENT_HOTSPOT,
+const editEventHotspot = fieldsEditable => ({
+    type: actionTypes.EDIT_HOTSPOT,
     payload: {
-        hotspotId,
+        fieldsEditable,
     },
 });
 

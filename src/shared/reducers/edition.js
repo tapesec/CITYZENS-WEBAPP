@@ -66,6 +66,12 @@ export default function edition(state = initialState, action) {
                 message: action.payload,
                 mode: EDITION,
             };
+        case actionTypes.EDIT_HOTSPOT:
+            return {
+                ...state,
+                hotspot: action.payload.fieldsEditable,
+                mode: EDITION,
+            };
         case actionTypes.DISPLAY_SETTING_UP_HOTSPOT_MESSAGE_FORM:
             return {
                 ...state,

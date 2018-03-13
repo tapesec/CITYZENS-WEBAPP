@@ -13,7 +13,12 @@ import './SettingUpHotspot.scss';
 
 const { HOTSPOT } = constants;
 
-const displayFormForSelectedHotspotType = ({ initialValues, handleSubmit, dismissModal }) => {
+const displayFormForSelectedHotspotType = ({
+    initialValues,
+    handleSubmit,
+    dismissModal,
+    settingUpMode,
+}) => {
     const hotspotType = initialValues.type;
     if (hotspotType === HOTSPOT.TYPE.WALL_MESSAGE) {
         return (
@@ -27,6 +32,7 @@ const displayFormForSelectedHotspotType = ({ initialValues, handleSubmit, dismis
     if (hotspotType === HOTSPOT.TYPE.EVENT) {
         return (
             <EventHotspotForm
+                settingUpMode={settingUpMode}
                 initialValues={initialValues}
                 dismissModal={dismissModal}
                 onSubmit={handleSubmit}
@@ -40,6 +46,7 @@ displayFormForSelectedHotspotType.propTypes = {
     initialValues: PropTypes.shape({}).isRequired,
     handleSubmit: PropTypes.func.isRequired,
     dismissModal: PropTypes.func.isRequired,
+    settingUpMode: PropTypes.string.isRequired,
 };
 
 const SettingUpHotspotModal = ({

@@ -24,7 +24,13 @@ const EventHotspot = ({
             return (
                 <ActionsToolbar
                     editAction={() => {
-                        editEventHotspot(hotspot);
+                        editEventHotspot({
+                            hotspotId: hotspot.id,
+                            description: hotspot.description.content,
+                            dateEnd: hotspot.dateEnd,
+                            scope: hotspot.scope,
+                            type: hotspot.type,
+                        });
                         openSettingUpHotspotModal();
                     }}
                 />

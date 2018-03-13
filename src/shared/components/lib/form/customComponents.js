@@ -97,6 +97,7 @@ export class renderCustomDateTimePicker extends React.Component {
                     theme="text-on-primary-background"
                     label="Date de l'évenement ?"
                     value={this.state.value}
+                    onChange={() => {}}
                 />
                 <ValidationMessage {...this.props.meta} />
                 {this.state.isOpen ? (

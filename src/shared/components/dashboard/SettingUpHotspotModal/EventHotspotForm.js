@@ -4,7 +4,6 @@ import { Button } from 'rmwc/Button';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import { Typography } from 'rmwc/Typography';
-
 import VALIDATION from './../../../constants/dataValidation';
 import {
     renderCustomTextField,
@@ -12,6 +11,9 @@ import {
     renderCustomTextArea,
     renderCustomDateTimePicker,
 } from './../../lib/form/customComponents';
+import constants from './../../../../shared/constants';
+
+const { EDITION_MODE } = constants;
 
 const validate = values => {
     const errors = {};
@@ -43,7 +45,7 @@ const validate = values => {
     "description": "Les dossards sont à retirer la veille. La course commence à 9h00"
   }, */
 
-const EventHotspotForm = ({ handleSubmit, dismissModal }) => (
+const EventHotspotForm = ({ handleSubmit, dismissModal, settingUpMode }) => (
     <form className="HotspotForm cityzen-form" onSubmit={handleSubmit}>
         <Typography
             style={{ textAlign: 'center' }}
@@ -52,7 +54,14 @@ const EventHotspotForm = ({ handleSubmit, dismissModal }) => (
             theme="text-on-primary-background">
             {"Création de votre nouveau point d'interêt"}
         </Typography>
-        <Field name="title" label="Choisissez bien le titre:)" component={renderCustomTextField} />
+        {settingUpMode !== EDITION_MODE.EDITION ? (
+            <Field
+                name="title"
+                label="Choisissez bien le titre:)"
+                component={renderCustomTextField}
+            />
+        ) : null}
+
         <Field
             name="scope"
             labelOn="Privée"
@@ -86,13 +95,14 @@ const EventHotspotForm = ({ handleSubmit, dismissModal }) => (
 EventHotspotForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     dismissModal: PropTypes.func.isRequired,
+    settingUpMode: PropTypes.string.isRequired,
 };
 
 export default reduxForm({
     enableReinitialize: true,
     keepDirtyOnReinitialize: true,
     forceUnregisterOnUnmount: false,
-    form: 'wallHotspotForm',
+    form: 'eventHotspotForm',
     shouldError: ({ props }) => props.invalid,
     validate,
 })(EventHotspotForm);
