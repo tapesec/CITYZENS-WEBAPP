@@ -16,7 +16,7 @@
     max-height: 100%;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
     position: fixed;
-    background-color: white;
+    background-color: #f9f9f9;
 
     .closeModal {
         position: absolute;
@@ -24,16 +24,23 @@
         top: 30px;
     }
 }
-@media all and (min-width: 1280px) {
+@media all and (min-width: 1680px) {
+    .HotspotContainer {
+         width: 35%;
+         right: 150px;
+     }
+ }
+
+@media all and (min-width: 1400px) and (max-width: 1680px) {
    .HotspotContainer {
-        width: 588px;
-        right: 200px;
+        width: 40%;
+        right: 150px;
     }
 }
 
 @media all and (min-width: 1024px) and (max-width: 1400px) {
     .HotspotContainer {
-        width: 588px;
+        width: 50%;
         right: 0;
     }
 }
@@ -59,6 +66,19 @@
         i {
             color: $mdc-theme--text-icon-on-primary;
             margin-right: 5px;
+        }
+    }
+}
+
+.HotspotContainerToolbar {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .377);
+    div {
+        margin-left: 15px;
+        cursor: pointer;
+        &:hover {
+            color: $mdc-theme--text-on-primary-background;
         }
     }
 }
