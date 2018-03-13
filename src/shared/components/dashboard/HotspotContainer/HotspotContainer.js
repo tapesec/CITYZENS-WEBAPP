@@ -12,7 +12,6 @@ import AlertHotspot from './HotspotViewMod/AlertHotspot';
 import Modal from './../../lib/Modal';
 import constant from './../../../constants';
 import selectors from '../../../../client/selectors';
-import HotspotVisitorActionBar from './HotspotViewMod/HotspotVisitorActionBar';
 
 import './HotspotContainer.scss';
 
@@ -34,31 +33,18 @@ class HotspotContainer extends React.Component {
             return <p>Loading …</p>;
         }
         if (readableHotspot.type === HOTSPOT.TYPE.EVENT) {
-            return (
-                <Fragment>
-                    <HotspotVisitorActionBar />
-                    <EventHotspot loading={contentIsLoading} hotspot={readableHotspot} />
-                </Fragment>
-            );
+            return <EventHotspot loading={contentIsLoading} hotspot={readableHotspot} />;
         }
         if (readableHotspot.type === HOTSPOT.TYPE.WALL_MESSAGE) {
             return (
-                <Fragment>
-                    <HotspotVisitorActionBar />
-                    <WallHotspot
-                        loading={contentIsLoading}
-                        hotspot={readableHotspot}
-                        clearHotspotMessageEdition={clearHotspotMessageEdition}
-                    />
-                </Fragment>
+                <WallHotspot
+                    loading={contentIsLoading}
+                    hotspot={readableHotspot}
+                    clearHotspotMessageEdition={clearHotspotMessageEdition}
+                />
             );
         }
-        return (
-            <Fragment>
-                <HotspotVisitorActionBar />
-                <AlertHotspot loading={contentIsLoading} hotspot={readableHotspot} />
-            </Fragment>
-        );
+        return <AlertHotspot loading={contentIsLoading} hotspot={readableHotspot} />;
     }
 
     closeModal() {
@@ -80,32 +66,6 @@ class HotspotContainer extends React.Component {
                 onClose={this.closeModal}
                 modalClass="HotspotContainer"
                 backdropClass="HotspotContainer-backdrop">
-                <Typography
-                    theme="primary-bg text-icon-on-background"
-                    className="HotspotContainerToolbar"
-                    use="caption"
-                    tag="header">
-                    <div>
-                        <Icon strategy="component" title="editer">
-                            mode_edit
-                        </Icon>
-                    </div>
-                    <div>
-                        <Icon strategy="component" title="Supprimez le point d'interet">
-                            delete_forever
-                        </Icon>
-                    </div>
-                    <div>
-                        <Icon strategy="component" title="Passez en mode privée">
-                            lock_open
-                        </Icon>
-                    </div>
-                    <div>
-                        <Icon strategy="component" title="Fermez">
-                            clear
-                        </Icon>
-                    </div>
-                </Typography>
                 <Fab
                     onClick={this.closeModal}
                     className="closeModal"

@@ -138,6 +138,13 @@ const editMessageHotspot = (id, title, body, pinned) => ({
     },
 });
 
+const editEventHotspot = hotspotId => ({
+    type: actionTypes.EDIT_EVENT_HOTSPOT,
+    payload: {
+        hotspotId,
+    },
+});
+
 const postEditionMessageFormData = (settingUpMode, formData) => ({
     type: actionTypes.POST_EDITION_MESSAGE_FORM_DATA,
     payload: {
@@ -255,6 +262,7 @@ export default {
     postSettingUpHotspotFormData,
     postEditionMessageFormData,
     editMessageHotspot,
+    editEventHotspot,
     clearHotspotMessageEdition,
     displaySettingUpHotspotMessageForm,
     closeSettingUpHotspotModal,

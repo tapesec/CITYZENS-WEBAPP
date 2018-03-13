@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CustomScroll from 'react-custom-scroll';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 import HotspotTitle from './HotspotTitle';
+import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
 import HotspotMessageForm from './HotspotMessage/MessageForm';
@@ -85,42 +86,48 @@ const WallHotspot = ({
     };
 
     return (
-        <section className="HotspotContent">
-            <HotspotTitle title={hotspot.title} />
-            <CustomScroll heightRelativeToParent="100%">
-                <HotspotMessagesWall>
-                    {displayNewMessageControl()}
+        <Fragment>
+            <ActionsToolbar />
+            <section className="HotspotContent">
+                <HotspotTitle title={hotspot.title} />
+                <CustomScroll heightRelativeToParent="100%">
+                    <HotspotMessagesWall>
+                        {displayNewMessageControl()}
 
-                    {hotspot.messages.length === 0 ? (
-                        <HotspotMessage message={EMPTY_MESSAGE_WORDING} key={EMPTY_MESSAGE_KEY} />
-                    ) : (
-                        hotspot.messages.map(
-                            message =>
-                                messageEditionData.id === message.id ? (
-                                    <HotspotMessageForm
-                                        initialValues={messageEditionData}
-                                        key={hotspot.id}
-                                        onSubmit={handleSubmit}
-                                        editionMode={settingUpMode}
-                                        clearHotspotMessageEdition={clearHotspotMessageEdition}
-                                    />
-                                ) : (
-                                    <HotspotMessage
-                                        cityzenIsAuthor={isAuthor(
-                                            cityzenIsAuthenticated,
-                                            cityzenId,
-                                            message.author.id,
-                                        )}
-                                        message={message}
-                                        key={message.id}
-                                        edit={edit}
-                                    />
-                                ),
-                        )
-                    )}
-                </HotspotMessagesWall>
-            </CustomScroll>
-        </section>
+                        {hotspot.messages.length === 0 ? (
+                            <HotspotMessage
+                                message={EMPTY_MESSAGE_WORDING}
+                                key={EMPTY_MESSAGE_KEY}
+                            />
+                        ) : (
+                            hotspot.messages.map(
+                                message =>
+                                    messageEditionData.id === message.id ? (
+                                        <HotspotMessageForm
+                                            initialValues={messageEditionData}
+                                            key={hotspot.id}
+                                            onSubmit={handleSubmit}
+                                            editionMode={settingUpMode}
+                                            clearHotspotMessageEdition={clearHotspotMessageEdition}
+                                        />
+                                    ) : (
+                                        <HotspotMessage
+                                            cityzenIsAuthor={isAuthor(
+                                                cityzenIsAuthenticated,
+                                                cityzenId,
+                                                message.author.id,
+                                            )}
+                                            message={message}
+                                            key={message.id}
+                                            edit={edit}
+                                        />
+                                    ),
+                            )
+                        )}
+                    </HotspotMessagesWall>
+                </CustomScroll>
+            </section>
+        </Fragment>
     );
 };
 
