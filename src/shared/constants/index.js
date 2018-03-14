@@ -9,7 +9,7 @@ export default {
             WALL: 'WallIcon',
             EVENT: 'EventIcon',
             ACCIDENT: 'AccidentIcon',
-            DESTRUCTION: 'DeteriorationIcon',
+            DESTRUCTION: 'DestructionIcon',
             HANDICAP: 'HandicapIcon',
         },
         SCOPE: {

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Modal from './../../lib/Modal';
 import WallHotspotForm from './WallHotspotForm';
 import EventHotspotForm from './EventHotspotForm';
+import AlertHotspotForm from './AlertHotspotForm';
 import actions from './../../../../client/actions';
 import { getSettingUpMode, hotspotEdition } from './../../../reducers/edition';
 import { settingUpHotspotModalState } from './../../../reducers/componentsState';
@@ -32,6 +33,16 @@ const displayFormForSelectedHotspotType = ({
     if (hotspotType === HOTSPOT.TYPE.EVENT) {
         return (
             <EventHotspotForm
+                settingUpMode={settingUpMode}
+                initialValues={initialValues}
+                dismissModal={dismissModal}
+                onSubmit={handleSubmit}
+            />
+        );
+    }
+    if (hotspotType === HOTSPOT.TYPE.ALERT) {
+        return (
+            <AlertHotspotForm
                 settingUpMode={settingUpMode}
                 initialValues={initialValues}
                 dismissModal={dismissModal}

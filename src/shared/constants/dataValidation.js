@@ -19,6 +19,14 @@ const VALIDATION = {
                 ERROR: `Pas plus de 100 caractères`,
             },
         },
+        ALERT_HOTSPOT: {
+            MESSAGE: {
+                MAX_LENGTH: 100,
+                LABEL: {
+                    ERROR: `Pas plus de 100 caractères, ne spoilez pas trop :)`,
+                },
+            },
+        },
     },
     MESSAGE: {
         TITLE: {

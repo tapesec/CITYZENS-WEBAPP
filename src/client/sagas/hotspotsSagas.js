@@ -6,6 +6,7 @@ import { hotspotEdition } from './../../shared/reducers/edition';
 import { getCityId, getCityName } from './../../shared/reducers/city';
 import WallHotspotPayload from './../services/payloads/WallHotspotPayload';
 import EventHotspotPayload from '../services/payloads/EventHotspotPayload';
+import MessageHotspotPayload from '../services/payloads/AlertHotspotPayload';
 import selectors from './../selectors';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
 import { SNACKBAR } from './../wording';
@@ -76,7 +77,7 @@ export function* buildWallHotspotPayload(edition) {
         hotspotPayload.valid();
         return hotspotPayload.payload;
     } catch (error) {
-        throw new Error('invalid Hotspot payload');
+        throw new Error(error.message);
     }
 }
 
@@ -104,7 +105,25 @@ export function* buildEventHotspotPayload(settingUpMode, edition) {
         hotspotPayload.valid();
         return hotspotPayload.payload;
     } catch (error) {
-        throw new Error('invalid Hotspot payload');
+        throw new Error(error.message);
+    }
+}
+
+export function* buildAlertHotspotPayload(edition) {
+    try {
+        const cityId = yield select(getCityId);
+        const cityName = yield select(getCityName);
+        const hotspotPayload = yield new MessageHotspotPayload();
+        hotspotPayload.type = edition.type;
+        hotspotPayload.cityId = cityId;
+        hotspotPayload.position = edition.position;
+        hotspotPayload.address = { name: edition.address, city: cityName };
+        hotspotPayload.iconType = edition.iconType;
+        hotspotPayload.message = edition.messageBody;
+        hotspotPayload.valid();
+        return hotspotPayload.payload;
+    } catch (error) {
+        throw new Error(error.message);
     }
 }
 
@@ -149,6 +168,17 @@ export function* persistEventHotspot(settingUpMode, edition, accessToken) {
     return newHotspot;
 }
 
+export function* persistAlertHotspot(edition, accessToken) {
+    const hotspotPayload = yield call(buildAlertHotspotPayload, edition);
+    const response = yield call(
+        [cityzensApi, cityzensApi.postHotspots],
+        accessToken,
+        JSON.stringify(hotspotPayload),
+    );
+    const newHotspot = yield response.json();
+    return newHotspot;
+}
+
 export function* persistHotspot(action) {
     let newHotspot;
 
@@ -162,6 +192,9 @@ export function* persistHotspot(action) {
         }
         if (edition.type === HOTSPOT.TYPE.EVENT) {
             newHotspot = yield call(persistEventHotspot, settingUpMode, edition, accessToken);
+        }
+        if (edition.type === HOTSPOT.TYPE.ALERT) {
+            newHotspot = yield call(persistAlertHotspot, edition, accessToken);
         }
         yield put({
             type: actionTypes.NEW_HOTSPOT_SAVED,
