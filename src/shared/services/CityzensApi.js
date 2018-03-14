@@ -53,6 +53,14 @@ class CityzenApi {
         });
     }
 
+    patchHotspots(accessToken, payload, hotspotId) {
+        return this.http.request(`${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}`, {
+            method: 'PATCH',
+            headers: CityzenApi.baseHeader(accessToken),
+            body: payload,
+        });
+    }
+
     // messages
 
     getMessages(hotspotId) {

@@ -13,7 +13,7 @@ import { NOTIFICATION_MESSAGE } from './../constants';
 import sharedConstants from './../../shared/constants';
 import { persistMessage, fetchMessages } from './messagesSagas';
 
-const { HOTSPOT, EDITION_MODE: { SETTING_UP } } = sharedConstants;
+const { HOTSPOT, EDITION_MODE: { SETTING_UP, EDITION } } = sharedConstants;
 
 export function* fetchHotspots(action) {
     if (action && action.payload && action.payload.cityId) {
@@ -61,19 +61,11 @@ export function* fetchHotspot(action) {
     }
 }
 
-export function* buildPayload(edition) {
+export function* buildWallHotspotPayload(edition) {
     try {
         const cityId = yield select(getCityId);
         const cityName = yield select(getCityName);
-        let hotspotPayload;
-        if (edition.type === HOTSPOT.TYPE.WALL_MESSAGE) {
-            hotspotPayload = yield new WallHotspotPayload();
-        }
-        if (edition.type === HOTSPOT.TYPE.EVENT) {
-            hotspotPayload = yield new EventHotspotPayload();
-            hotspotPayload.description = edition.description;
-            hotspotPayload.dateEnd = edition.dateEnd;
-        }
+        const hotspotPayload = yield new WallHotspotPayload();
         hotspotPayload.type = edition.type;
         hotspotPayload.cityId = cityId;
         hotspotPayload.title = edition.title;
@@ -88,8 +80,36 @@ export function* buildPayload(edition) {
     }
 }
 
+export function* buildEventHotspotPayload(settingUpMode, edition) {
+    try {
+        const cityId = yield select(getCityId);
+        const cityName = yield select(getCityName);
+        const hotspotPayload = yield new EventHotspotPayload(settingUpMode);
+        if (settingUpMode === SETTING_UP) {
+            hotspotPayload.description = edition.description;
+            hotspotPayload.dateEnd = edition.dateEnd;
+            hotspotPayload.type = edition.type;
+            hotspotPayload.cityId = cityId;
+            hotspotPayload.title = edition.title;
+            hotspotPayload.scope = edition.scope;
+            hotspotPayload.position = edition.position;
+            hotspotPayload.address = { name: edition.address, city: cityName };
+            hotspotPayload.iconType = edition.iconType;
+        }
+        if (settingUpMode === EDITION) {
+            hotspotPayload.scope = edition.scope;
+            hotspotPayload.description = edition.description;
+            hotspotPayload.dateEnd = edition.dateEnd;
+        }
+        hotspotPayload.valid();
+        return hotspotPayload.payload;
+    } catch (error) {
+        throw new Error('invalid Hotspot payload');
+    }
+}
+
 export function* persistWallHotspot(edition, accessToken) {
-    const hotspotPayload = yield call(buildPayload, edition);
+    const hotspotPayload = yield call(buildWallHotspotPayload, edition);
     const response = yield call(
         [cityzensApi, cityzensApi.postHotspots],
         accessToken,
@@ -108,20 +128,32 @@ export function* persistWallHotspot(edition, accessToken) {
     return newHotspot;
 }
 
-export function* persistEventHotspot(edition, accessToken) {
-    const hotspotPayload = yield call(buildPayload, edition);
+export function* persistEventHotspot(settingUpMode, edition, accessToken) {
+    const hotspotPayload = yield call(buildEventHotspotPayload, settingUpMode, edition);
+    if (settingUpMode === SETTING_UP) {
+        const response = yield call(
+            [cityzensApi, cityzensApi.postHotspots],
+            accessToken,
+            JSON.stringify(hotspotPayload),
+        );
+        const newHotspot = yield response.json();
+        return newHotspot;
+    }
     const response = yield call(
-        [cityzensApi, cityzensApi.postHotspots],
+        [cityzensApi, cityzensApi.patchHotspots],
         accessToken,
         JSON.stringify(hotspotPayload),
+        edition.hotspotId,
     );
     const newHotspot = yield response.json();
     return newHotspot;
 }
 
-export function* persistHotspot() {
+export function* persistHotspot(action) {
     let newHotspot;
+
     try {
+        const { settingUpMode } = action.payload;
         const edition = yield select(hotspotEdition.getCurrentHotspotEdition);
         const accessToken = yield select(getCityzenAccessToken);
 
@@ -129,7 +161,7 @@ export function* persistHotspot() {
             newHotspot = yield call(persistWallHotspot, edition, accessToken);
         }
         if (edition.type === HOTSPOT.TYPE.EVENT) {
-            newHotspot = yield call(persistEventHotspot, edition, accessToken);
+            newHotspot = yield call(persistEventHotspot, settingUpMode, edition, accessToken);
         }
         yield put({
             type: actionTypes.NEW_HOTSPOT_SAVED,

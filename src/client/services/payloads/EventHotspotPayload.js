@@ -1,12 +1,17 @@
 import HotspotPayload from './HotspotPayload';
 import constant from './../../../shared/constants';
 
-const { HOTSPOT } = constant;
+const { HOTSPOT, EDITION_MODE } = constant;
 
 class EventHotspotPayload extends HotspotPayload {
-    constructor() {
+    constructor(settingUpMode) {
         super();
         this.payload = {};
+        this.settingUpMode = settingUpMode;
+    }
+
+    set hotspotId(id) {
+        this.payload.id = id;
     }
 
     set title(title) {
@@ -26,13 +31,25 @@ class EventHotspotPayload extends HotspotPayload {
     }
 
     valid() {
-        super.valid();
-        if (this.payload && this.payload.type) {
-            if (this.payload.type === HOTSPOT.TYPE.EVENT) {
-                ['dateEnd', 'description'].forEach(attr => {
-                    if (!this.payload[attr])
-                        throw new Error('Payload is not fully completed (Event hotspot part)');
-                });
+        if (this.settingUpMode === EDITION_MODE.SETTING_UP) {
+            super.valid();
+            if (this.payload && this.payload.type) {
+                if (this.payload.type === HOTSPOT.TYPE.EVENT) {
+                    ['dateEnd', 'description'].forEach(attr => {
+                        if (!this.payload[attr])
+                            throw new Error('Payload is not fully completed (Event hotspot part)');
+                    });
+                }
+            }
+        }
+        if (this.settingUpMode === EDITION_MODE.EDITION) {
+            if (this.payload && this.payload.type) {
+                if (this.payload.type === HOTSPOT.TYPE.EVENT) {
+                    ['dateEnd', 'description', 'scope', 'hotspotId'].forEach(attr => {
+                        if (!this.payload[attr])
+                            throw new Error('Payload is not fully completed (Event hotspot part)');
+                    });
+                }
             }
         }
     }

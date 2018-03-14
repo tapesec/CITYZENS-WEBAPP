@@ -7,7 +7,7 @@ class FetchWrapper {
 
     request(url, options) {
         return this.fetch(url, options).then(response => {
-            if (response.status >= 200 && response.status <= 400) {
+            if (response.status >= 200 && response.status < 400) {
                 return response;
             }
             return Promise.reject(response.status);

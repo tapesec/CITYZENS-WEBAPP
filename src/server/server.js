@@ -95,6 +95,12 @@ app.get(
     router,
 );
 
+// eslint-disable-next-line no-unused-vars
+app.use((error, req, res, next) => {
+    res.send(`Oups ! il y a de la tempête dans le cloud revenez plus tard ;(/n/n ha voilà des détails si
+        vous comprenez quelques choses (moi non) ${error.message}`);
+});
+
 app.listen(parseInt(config.http.port, 10), () => {
     console.log('ready to serve pages');
 });
