@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import { Icon } from 'rmwc/Icon';
 import { Typography } from 'rmwc/Typography';
+import ActionsToolbar from './../Toolbar/ActionsToolbar';
+import Footer from './../Footer/Footer';
 import DateFormater from './../../../lib/DateFormater';
 import './HotspotContent.scss';
 import './AlertHotspot.scss';
@@ -43,6 +44,7 @@ const AlertHotspot = props => (
                 </div>
             </Typography>
         </section>
+        <Footer views={props.hotspot.views} />
     </Fragment>
 );
 

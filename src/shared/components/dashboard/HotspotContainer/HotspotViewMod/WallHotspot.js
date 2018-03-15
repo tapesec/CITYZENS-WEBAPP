@@ -9,6 +9,7 @@ import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
 import HotspotMessageForm from './HotspotMessage/MessageForm';
+import Footer from './../Footer/Footer';
 import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
 import actions from './../../../../../client/actions';
 import constants from './../../../../constants';
@@ -127,6 +128,7 @@ const WallHotspot = ({
                     </HotspotMessagesWall>
                 </CustomScroll>
             </section>
+            <Footer views={hotspot.views} />
         </Fragment>
     );
 };

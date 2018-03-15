@@ -237,6 +237,13 @@ const messageToScreenOnDisapear = () => ({
     type: actionTypes.MESSAGE_TO_SCREEN_ON_DISAPEAR,
 });
 
+const hotspotViewUp = hotspotId => ({
+    type: actionTypes.HOTSPOT_VIEW_UP,
+    payload: {
+        hotspotId,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -276,4 +283,5 @@ export default {
     redirectTo,
     displayMessageToScreen,
     messageToScreenOnDisapear,
+    hotspotViewUp,
 };

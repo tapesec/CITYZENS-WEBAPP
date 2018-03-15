@@ -218,11 +218,22 @@ export function* persistHotspot(action) {
     }
 }
 
+export function* postViewUp(action) {
+    try {
+        const accessToken = yield select(getCityzenAccessToken);
+        const { hotspotId } = action.payload;
+        yield call([cityzensApi, cityzensApi.postHotspotsViews, accessToken, hotspotId]);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export default function* hotspotsSagas() {
     yield [
         takeLatest(actionTypes.FETCH_HOTSPOTS_BY_CITY, fetchHotspots),
         takeLatest(actionTypes.OPEN_HOTSPOT_IN_SPA_MODAL, fetchHotspot),
         takeLatest(actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL, fetchHotspot),
         takeLatest(actionTypes.POST_SETTING_UP_HOTSPOT_FORM_DATA, persistHotspot),
+        takeLatest(actionTypes.HOTSPOT_VIEW_UP, postViewUp),
     ];
 }

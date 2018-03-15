@@ -1,8 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Typography from 'rmwc/Typography';
-import { Icon } from 'rmwc/Icon';
 import { Fab } from 'rmwc/Fab';
 import actions from './../../../../client/actions';
 import { messageEdition } from './../../../reducers/edition';
@@ -24,6 +22,7 @@ class HotspotContainer extends React.Component {
 
     componentDidMount() {
         if (this.props.loadHotspot) this.props.loadHotspot();
+        this.props.triggerHotspotViewUp(readableHotspot.id);
     }
 
     displayContent() {
@@ -32,6 +31,8 @@ class HotspotContainer extends React.Component {
         if (!readableHotspot) {
             return <p>Loading …</p>;
         }
+        debugger;
+
         if (readableHotspot.type === HOTSPOT.TYPE.EVENT) {
             return <EventHotspot loading={contentIsLoading} hotspot={readableHotspot} />;
         }
@@ -74,24 +75,6 @@ class HotspotContainer extends React.Component {
                     clear
                 </Fab>
                 {this.displayContent()}
-                <Typography
-                    theme="primary-bg text-primary-on-background"
-                    className="HotspotContainerFooter"
-                    use="caption"
-                    tag="footer">
-                    <div>
-                        <Icon strategy="component">mouse</Icon>
-                        <span>129 vues</span>
-                    </div>
-                    <div>
-                        <Icon strategy="component">accessibility</Icon>
-                        <span>3 abonnés</span>
-                    </div>
-                    <div>
-                        <Icon strategy="component">group</Icon>
-                        <span>2 membres</span>
-                    </div>
-                </Typography>
             </Modal>
         );
     }
@@ -106,6 +89,7 @@ HotspotContainer.propTypes = {
     }),
     hotspotMessageEditionIsInProgress: PropTypes.bool.isRequired,
     clearHotspotMessageEdition: PropTypes.func.isRequired,
+    triggerHotspotViewUp: PropTypes.func.isRequired,
 };
 
 HotspotContainer.defaultProps = {
@@ -122,6 +106,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     clearHotspotMessageEdition: () => {
         dispatch(actions.clearHotspotMessageEdition());
+    },
+    triggerHotspotViewUp: hotspotId => {
+        dispatch(actions.hotspotViewUp(hotspotId));
     },
 });
 

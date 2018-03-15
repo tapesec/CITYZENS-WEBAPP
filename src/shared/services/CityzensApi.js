@@ -1,6 +1,7 @@
 import fetchWrapper from './FetchWrapper';
 
 const HOTSPOTS_ENDPOINTS = '/hotspots';
+const HOTSPOTS_VIEWS_ENDPOINTS = '/views';
 const MESSAGES_ENDPOINTS = '/messages';
 
 class CityzenApi {
@@ -59,6 +60,16 @@ class CityzenApi {
             headers: CityzenApi.baseHeader(accessToken),
             body: payload,
         });
+    }
+
+    postHotspotsViews(accessToken, hotspotId) {
+        return this.http.request(
+            `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}/${HOTSPOTS_VIEWS_ENDPOINTS}`,
+            {
+                method: 'POST',
+                headers: CityzenApi.baseHeader(accessToken),
+            },
+        );
     }
 
     // messages

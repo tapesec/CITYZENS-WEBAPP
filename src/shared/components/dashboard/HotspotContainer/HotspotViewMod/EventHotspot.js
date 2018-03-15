@@ -7,6 +7,7 @@ import HotspotTitle from './HotspotTitle';
 import EventHotspotDescription from './EventHotspotDescription';
 import EventHotspotDateTime from './EventHotspotDateTime';
 import EventHotspotCountDown from './EventHotspotCountDown';
+import Footer from './../Footer/Footer';
 import actions from './../../../../../client/actions';
 import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
 
@@ -53,6 +54,7 @@ const EventHotspot = ({
                     />
                 </CustomScroll>
             </section>
+            <Footer views={hotspot.views} />
         </Fragment>
     );
 };
