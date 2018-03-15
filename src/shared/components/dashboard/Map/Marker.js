@@ -8,7 +8,7 @@ import constants from './../../../constants';
 import WallIcon from './../../../../server/assets/WallHotspotMarker.svg';
 import EventIcon from './../../../../server/assets/EventHotspotMarker.svg';
 import AccidentIcon from './../../../../server/assets/AlertHotspotMarkerCar.svg';
-import DeteriorationIcon from './../../../../server/assets/AlertHotspotMarkerDestruct.svg';
+import DestructionIcon from './../../../../server/assets/AlertHotspotMarkerDestruct.svg';
 import HandicapIcon from './../../../../server/assets/AlertHotspotMarkerHandicap.svg';
 
 import './../../../../../node_modules/react-tippy/dist/tippy.css';
@@ -20,7 +20,7 @@ class Marker extends React.Component {
             WallIcon,
             EventIcon,
             AccidentIcon,
-            DeteriorationIcon,
+            DestructionIcon,
             HandicapIcon,
         };
         return iconTypes[iconType];
