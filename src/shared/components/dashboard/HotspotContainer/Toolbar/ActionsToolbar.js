@@ -10,7 +10,7 @@ const ActionsToolbar = ({ editAction }) => (
         use="caption"
         tag="header">
         {editAction ? (
-            <div onClick={editAction}>
+            <div role="button" onKeyDown={editAction} tabIndex={0} onClick={editAction}>
                 <Icon strategy="component" title="editer">
                     mode_edit
                 </Icon>

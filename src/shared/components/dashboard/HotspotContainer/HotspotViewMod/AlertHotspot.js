@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Icon } from 'rmwc/Icon';
 import { Typography } from 'rmwc/Typography';
 import ActionsToolbar from './../Toolbar/ActionsToolbar';
+import withViewCounter from './../../../hoc/hotspots/withViewCounter';
 import Footer from './../Footer/Footer';
 import DateFormater from './../../../lib/DateFormater';
+
 import './HotspotContent.scss';
 import './AlertHotspot.scss';
 
@@ -54,7 +56,8 @@ AlertHotspot.propTypes = {
             updatedAt: PropTypes.string,
             content: PropTypes.string.isRequired,
         }),
+        views: PropTypes.number.isRequired,
     }).isRequired,
 };
 
-export default AlertHotspot;
+export default withViewCounter(AlertHotspot);

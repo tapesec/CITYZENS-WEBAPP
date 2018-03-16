@@ -10,6 +10,7 @@ import EventHotspotCountDown from './EventHotspotCountDown';
 import Footer from './../Footer/Footer';
 import actions from './../../../../../client/actions';
 import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
+import withViewCounter from './../../../hoc/hotspots/withViewCounter';
 
 import './HotspotContent.scss';
 
@@ -65,11 +66,16 @@ EventHotspot.propTypes = {
         dateEnd: PropTypes.string.isRequired,
         description: PropTypes.object.isRequired,
         author: PropTypes.object.isRequired,
+        views: PropTypes.number.isRequired,
     }).isRequired,
     cityzenIsAuthenticated: PropTypes.bool.isRequired,
-    cityzenId: PropTypes.string.isRequired,
+    cityzenId: PropTypes.string,
     editEventHotspot: PropTypes.func.isRequired,
     openSettingUpHotspotModal: PropTypes.func.isRequired,
+};
+
+EventHotspot.defaultProps = {
+    cityzenId: undefined,
 };
 
 const mapStateToProps = state => ({
@@ -86,4 +92,4 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventHotspot);
+export default connect(mapStateToProps, mapDispatchToProps)(withViewCounter(EventHotspot));

@@ -222,7 +222,7 @@ export function* postViewUp(action) {
     try {
         const accessToken = yield select(getCityzenAccessToken);
         const { hotspotId } = action.payload;
-        yield call([cityzensApi, cityzensApi.postHotspotsViews, accessToken, hotspotId]);
+        yield call([cityzensApi, cityzensApi.postHotspotsViews], accessToken, hotspotId);
     } catch (error) {
         console.log(error);
     }

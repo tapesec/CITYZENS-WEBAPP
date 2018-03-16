@@ -22,7 +22,6 @@ class HotspotContainer extends React.Component {
 
     componentDidMount() {
         if (this.props.loadHotspot) this.props.loadHotspot();
-        this.props.triggerHotspotViewUp(readableHotspot.id);
     }
 
     displayContent() {
@@ -31,7 +30,6 @@ class HotspotContainer extends React.Component {
         if (!readableHotspot) {
             return <p>Loading …</p>;
         }
-        debugger;
 
         if (readableHotspot.type === HOTSPOT.TYPE.EVENT) {
             return <EventHotspot loading={contentIsLoading} hotspot={readableHotspot} />;
@@ -89,7 +87,6 @@ HotspotContainer.propTypes = {
     }),
     hotspotMessageEditionIsInProgress: PropTypes.bool.isRequired,
     clearHotspotMessageEdition: PropTypes.func.isRequired,
-    triggerHotspotViewUp: PropTypes.func.isRequired,
 };
 
 HotspotContainer.defaultProps = {
@@ -106,9 +103,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     clearHotspotMessageEdition: () => {
         dispatch(actions.clearHotspotMessageEdition());
-    },
-    triggerHotspotViewUp: hotspotId => {
-        dispatch(actions.hotspotViewUp(hotspotId));
     },
 });
 

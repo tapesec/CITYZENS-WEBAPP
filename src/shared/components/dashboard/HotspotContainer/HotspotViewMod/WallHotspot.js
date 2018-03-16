@@ -20,6 +20,7 @@ import {
     WALLHOTSPOT,
 } from './../../../../wording';
 import { messageEdition, getSettingUpMode } from './../../../../reducers/edition';
+import withViewCounter from './../../../hoc/hotspots/withViewCounter';
 
 import './HotspotContent.scss';
 
@@ -137,15 +138,20 @@ WallHotspot.propTypes = {
     hotspot: PropTypes.shape({
         title: PropTypes.string.isRequired,
         messages: PropTypes.array.isRequired,
+        views: PropTypes.number.isRequired,
     }).isRequired,
     cityzenIsAuthenticated: PropTypes.bool.isRequired,
-    cityzenId: PropTypes.string.isRequired,
+    cityzenId: PropTypes.string,
     edit: PropTypes.func.isRequired,
     messageEditionData: PropTypes.shape({}).isRequired,
     settingUpMode: PropTypes.string.isRequired,
     clearHotspotMessageEdition: PropTypes.func.isRequired,
     submitForm: PropTypes.func.isRequired,
     displayHotspotMessageForm: PropTypes.func.isRequired,
+};
+
+WallHotspot.defaultProps = {
+    cityzenId: undefined,
 };
 
 const mapStateToProps = state => ({
@@ -167,4 +173,4 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WallHotspot);
+export default connect(mapStateToProps, mapDispatchToProps)(withViewCounter(WallHotspot));
