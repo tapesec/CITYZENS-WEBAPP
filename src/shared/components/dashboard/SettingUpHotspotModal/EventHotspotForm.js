@@ -8,9 +8,10 @@ import VALIDATION from './../../../constants/dataValidation';
 import {
     renderCustomTextField,
     renderCustomSwitch,
-    renderCustomTextArea,
+    // renderCustomTextArea,
     renderCustomDateTimePicker,
 } from './../../lib/form/customComponents';
+import renderWysiwygComponent from './../../lib/form/WysiwygTextArea';
 import constants from './../../../../shared/constants';
 
 const { EDITION_MODE } = constants;
@@ -76,7 +77,7 @@ const EventHotspotForm = ({ handleSubmit, dismissModal, settingUpMode }) => (
             component={renderCustomDateTimePicker}
         />
 
-        <Field name="description" label="Exprimez vous …" component={renderCustomTextArea} />
+        <Field name="description" label="Exprimez vous …" component={renderWysiwygComponent} />
         <div className="submitArea">
             <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                 {"C'est bon !"}

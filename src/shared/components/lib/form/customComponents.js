@@ -6,7 +6,6 @@ import moment from 'moment';
 import InputMoment from 'input-moment';
 import './../../../../../node_modules/input-moment/dist/input-moment.css';
 import ValidationMessage from './ValidationMessage';
-// import CityzensDatePicker from './cityzensDatePicker/CityzensDatePicker';
 
 export const renderCustomTextField = field => (
     <Fragment>
@@ -35,14 +34,6 @@ export const renderCustomSwitch = field => (
         <ValidationMessage {...field.meta} />
     </div>
 );
-
-/* export const renderCustonDatePicker = field => (
-    <CityzensDatePicker
-        value={field.input.value}
-        onChange={field.input.onChange}
-        placeholder={field.label}
-    />
-); */
 
 export class renderCustomDateTimePicker extends React.Component {
     constructor(props) {
