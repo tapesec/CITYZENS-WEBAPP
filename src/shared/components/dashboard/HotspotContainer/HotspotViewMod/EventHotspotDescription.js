@@ -12,9 +12,12 @@ const EventHotspotDescription = ({ description, author }) => (
                 <DateFormater duration labelPrefix="Mis à jour" date={description.updatedAt} />
             </Typography>
         </header>
-        <Typography use="body1" tag="p">
-            {description.content}
-        </Typography>
+        <Typography
+            use="subheading2"
+            tag="div"
+            theme="text-primary-on-light"
+            dangerouslySetInnerHTML={{ __html: description.content }}
+        />
     </article>
 );
 

@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import { Button } from 'rmwc/Button';
-import {
-    renderCustomTextField,
-    renderCustomTextArea,
-    renderCustomSwitch,
-} from './../../../../lib/form/customComponents';
+import { renderCustomTextField, renderCustomSwitch } from './../../../../lib/form/customComponents';
+import renderWysiwygComponent from './../../../../lib/form/WysiwygTextArea';
 import { MESSAGE_FORM } from './../../../../../wording';
 import VALIDATION from './../../../../../constants/dataValidation';
 import constants from './../../../../../constants';
@@ -49,7 +46,7 @@ const MessageForm = ({ clearHotspotMessageEdition, handleSubmit, editionMode }) 
             <Field
                 name="body"
                 label={MESSAGE_FORM.EDITION.BODY.LABEL}
-                component={renderCustomTextArea}
+                component={renderWysiwygComponent}
             />
             <div className="submitArea">
                 <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">

@@ -30,9 +30,11 @@ const HotspotMessage = ({ message, cityzenIsAuthor, edit }) => {
                     <DateFormater duration labelPrefix="Mis à jour" date={message.updatedAt} />
                 </Typography>
             </header>
-            <Typography use="subheading2" tag="p">
-                {message.body}
-            </Typography>
+            <Typography
+                use="subheading2"
+                tag="div"
+                dangerouslySetInnerHTML={{ __html: message.body }}
+            />
         </article>
     );
 };

@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 export const SNACKBAR = {
     INFO: {
-        HOTSPOT_SAVED_SUCCESSFULLY: 'Félicitations !, votre nouveau point dinterêt a bien été crée',
+        HOTSPOT_SAVED_SUCCESSFULLY: "Félicitations ! votre nouveau point d'interêt a bien été crée",
         MESSAGE_SAVED_SUCCESSFULLY: 'Message mis à jour',
     },
     ERROR: {
