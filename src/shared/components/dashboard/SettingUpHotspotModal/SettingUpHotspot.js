@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import CustomScroll from 'react-custom-scroll';
 import Modal from './../../lib/Modal';
 import WallHotspotForm from './WallHotspotForm';
 import EventHotspotForm from './EventHotspotForm';
@@ -81,12 +82,14 @@ const SettingUpHotspotModal = ({
             modalClass="HotspotContainer"
             backdropClass="HotspotContainer-backdrop">
             <section className="SettingUpHotspotContainer">
-                {displayFormForSelectedHotspotType({
-                    dismissModal,
-                    settingUpMode,
-                    initialValues,
-                    handleSubmit,
-                })}
+                <CustomScroll heightRelativeToParent="100%">
+                    {displayFormForSelectedHotspotType({
+                        dismissModal,
+                        settingUpMode,
+                        initialValues,
+                        handleSubmit,
+                    })}
+                </CustomScroll>
             </section>
         </Modal>
     );

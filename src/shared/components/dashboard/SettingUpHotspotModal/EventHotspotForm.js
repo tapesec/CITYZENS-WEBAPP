@@ -28,24 +28,6 @@ const validate = values => {
     return errors;
 };
 
-/* {
-    "cityId": "33273",
-    "position": {
-      "latitude": 22.12342,
-      "longitude": -1.12312
-    },
-    "address": {
-      "city": "Martignas sur Jalles",
-      "name": "12 place de l'Eglise"
-    },
-    "type": "Event",
-    "iconType": "EventIcon",
-    "title": "Les 10km du moulin Bidon",
-    "scope": "private",
-    "dateEnd": "2017-12-15T07:39:15.490Z",
-    "description": "Les dossards sont à retirer la veille. La course commence à 9h00"
-  }, */
-
 const EventHotspotForm = ({ handleSubmit, dismissModal, settingUpMode }) => (
     <form className="HotspotForm cityzen-form" onSubmit={handleSubmit}>
         <Typography

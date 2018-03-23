@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Icon from 'rmwc/Icon';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import Html from 'slate-html-serializer';
@@ -24,7 +25,8 @@ const wysiwygStyle = {
     letterSpacing: '.04em',
 };
 
-/* eslint-disable consistent-return,default-case */
+const EMOJIS = ['😃', '😬', '😂', '😅', '😆', '😍', '😱', '👏', '👍', '🙏', '🍔', '🍑', '🍆', '🔑'];
+const noop = e => e.preventDefault(); /* eslint-disable consistent-return,default-case */
 const rules = [
     {
         deserialize(el, next) {
@@ -35,8 +37,7 @@ const rules = [
                     type,
                     nodes: next(el.childNodes),
                 };
-            }
-            // return null;
+            } // return null;
         },
         serialize(obj, children) {
             if (obj.object === 'block') {
@@ -52,8 +53,7 @@ const rules = [
                     case 'quote':
                         return <blockquote>{children}</blockquote>;
                 }
-            }
-            // return null;
+            } // return null;
         },
     },
     {
@@ -73,16 +73,13 @@ const rules = [
                     return <strong>{children}</strong>;
                 case 'italic':
                     return <em>{children}</em>;
-                case 'underline':
+                case 'underlined':
                     return <u>{children}</u>;
             }
         },
     },
-];
-/* eslint-enable consistent-return */
-
+]; /* eslint-enable consistent-return */
 const html = new Html({ rules });
-
 const defaultValues = Value.fromJSON({
     document: {
         nodes: [
@@ -102,38 +99,25 @@ const defaultValues = Value.fromJSON({
             },
         ],
     },
-});
-
-// Define a React component renderer for our code blocks.
+}); // Define a React component renderer for our code blocks.
 const CodeNode = props => (
     <pre {...props.attributes}>
         <code>{props.children}</code>
     </pre>
 );
-
 CodeNode.propTypes = {
     attributes: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
-};
-
-const BoldMark = props => <strong>{props.children}</strong>;
-
-BoldMark.propTypes = {
-    children: PropTypes.node.isRequired,
-};
-
-// Define our app...
+}; // Define our app...
 export default class renderWysiwygComponent extends React.Component {
     // Set the initial value when the app is first constructed.
     static onKeyDown(event, change) {
-        switch (event.key) {
-            // When "B" is pressed, add a "bold" mark to the text.
+        switch (event.key) { // When "B" is pressed, add a "bold" mark to the text.
             case 'b': {
                 event.preventDefault();
                 change.toggleMark('bold');
                 return true;
-            }
-            // When "`" is pressed, keep our existing code block logic.
+            } // When "`" is pressed, keep our existing code block logic.
             case '`': {
                 const isCode = change.value.blocks.some(block => block.type === 'code');
                 event.preventDefault();
@@ -142,25 +126,39 @@ export default class renderWysiwygComponent extends React.Component {
             }
         }
         return undefined;
-    }
-
-    // Add a `renderNode` method to render a `CodeNode` for code blocks.
+    } // Add a `renderNode` method to render a `CodeNode` for code blocks.
     static renderNode(props) {
-        switch (props.node.type) {
-            case 'code':
-                return <CodeNode {...props} />;
+        const { attributes, children, node, isSelected } = props;
+        switch (node.type) {
+            case 'paragraph': {
+                return <p {...attributes}>{children}</p>;
+            }
+            case 'emoji': {
+                const { data } = node;
+                const code = data.get('code');
+                return (
+                    <span
+                        className={`emoji ${isSelected ? 'selected' : ''}`}
+                        {...props.attributes}
+                        contentEditable={false}
+                        onDrop={noop}>
+                        {code}
+                    </span>
+                );
+            }
         }
-        return undefined;
     }
-
     static renderMark(props) {
         switch (props.mark.type) {
             case 'bold':
-                return <BoldMark {...props} />;
+                return <strong>{props.children}</strong>;
+            case 'italic':
+                return <em>{props.children}</em>;
+            case 'underlined':
+                return <u>{props.children}</u>;
         }
         return undefined;
     }
-
     constructor(props) {
         super(props);
         if (props.input.value)
@@ -172,18 +170,71 @@ export default class renderWysiwygComponent extends React.Component {
                 value: defaultValues,
             };
         this.onChange = this.onChange.bind(this);
-    }
-    // On change, update the app's React state with the new editor value.
+    } // On change, update the app's React state with the new editor value.
     onChange({ value }) {
         this.setState({ value });
         const string = html.serialize(value);
         this.props.input.onChange(string);
     }
-
-    // Render the editor.
+    onClickMark(event, type) {
+        event.preventDefault();
+        const { value } = this.state;
+        const change = value.change().toggleMark(type);
+        this.onChange(change);
+    }
+    onClickEmoji(e, code) {
+        e.preventDefault();
+        const { value } = this.state;
+        const change = value.change();
+        change
+            .insertInline({
+                type: 'emoji',
+                isVoid: true,
+                data: { code },
+            })
+            .collapseToStartOfNextText()
+            .focus();
+        this.onChange(change);
+    }
+    hasMark(type) {
+        const { value } = this.state;
+        return value.activeMarks.some(mark => mark.type === type);
+    }
+    renderMarkButton(type, icon) {
+        const isActive = this.hasMark(type);
+        const onMouseDown = event => this.onClickMark(event, type);
+        return (
+            // eslint-disable-next-line react/jsx-no-bind
+            <Icon
+                onMouseDown={onMouseDown}
+                className={isActive ? 'active' : ''}
+                data-active={isActive}>
+                {icon}
+            </Icon>
+        );
+    }
+    renderToolbar() {
+        return (
+            <div className="rich-text-editor-toolbar">
+                {this.renderMarkButton('bold', 'format_bold')}
+                {this.renderMarkButton('italic', 'format_italic')}
+                {this.renderMarkButton('underlined', 'format_underlined')}
+                {EMOJIS.map((emoji, i) => {
+                    const onMouseDown = e => this.onClickEmoji(e, emoji);
+                    return (
+                        // eslint-disable-next-line react/jsx-no-bind
+                        <span key={i} role="button" className="button" onMouseDown={onMouseDown}>
+                            <span className="material-icons">{emoji}</span>
+                        </span>
+                    );
+                })}
+            </div>
+        );
+    } // Render the editor.
     render() {
         return (
             <div className="rich-text-editor" style={wysiwygStyle}>
+                {this.renderToolbar()}
                 <Editor
                     value={this.state.value}
                     onChange={this.onChange}
@@ -195,7 +246,6 @@ export default class renderWysiwygComponent extends React.Component {
         );
     }
 }
-
 renderWysiwygComponent.propTypes = {
     input: PropTypes.shape({
         value: PropTypes.string,
