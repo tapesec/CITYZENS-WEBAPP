@@ -17,6 +17,10 @@ const MARK_TAGS = {
     u: 'underline',
 };
 
+const INLINE_TAGS = {
+    span: 'emoji',
+};
+
 const wysiwygStyle = {
     minHeight: '200px',
     fontFamily: 'roboto',
@@ -78,6 +82,25 @@ const rules = [
             }
         },
     },
+    {
+        deserialize(el, next) {
+            const type = INLINE_TAGS[el.tagName.toLowerCase()];
+            if (!type) return;
+            return {
+                object: 'inline',
+                type,
+                nodes: next(el.childNodes),
+            };
+        },
+        serialize(obj, children) {
+            if (obj.object !== 'inline') return;
+            switch (obj.type) {
+                case 'emoji':
+                    console.log(obj, 'obj', children, 'children');
+                    return <span>{children}</span>;
+            }
+        },
+    },
 ]; /* eslint-enable consistent-return */
 const html = new Html({ rules });
 const defaultValues = Value.fromJSON({
@@ -110,23 +133,6 @@ CodeNode.propTypes = {
     children: PropTypes.node.isRequired,
 }; // Define our app...
 export default class renderWysiwygComponent extends React.Component {
-    // Set the initial value when the app is first constructed.
-    static onKeyDown(event, change) {
-        switch (event.key) { // When "B" is pressed, add a "bold" mark to the text.
-            case 'b': {
-                event.preventDefault();
-                change.toggleMark('bold');
-                return true;
-            } // When "`" is pressed, keep our existing code block logic.
-            case '`': {
-                const isCode = change.value.blocks.some(block => block.type === 'code');
-                event.preventDefault();
-                change.setBlocks(isCode ? 'paragraph' : 'code');
-                return true;
-            }
-        }
-        return undefined;
-    } // Add a `renderNode` method to render a `CodeNode` for code blocks.
     static renderNode(props) {
         const { attributes, children, node, isSelected } = props;
         switch (node.type) {
@@ -173,6 +179,7 @@ export default class renderWysiwygComponent extends React.Component {
     } // On change, update the app's React state with the new editor value.
     onChange({ value }) {
         this.setState({ value });
+        console.log(value.toJSON(), 'to json');
         const string = html.serialize(value);
         this.props.input.onChange(string);
     }
@@ -238,7 +245,6 @@ export default class renderWysiwygComponent extends React.Component {
                 <Editor
                     value={this.state.value}
                     onChange={this.onChange}
-                    onKeyDown={renderWysiwygComponent.onKeyDown}
                     renderNode={renderWysiwygComponent.renderNode}
                     renderMark={renderWysiwygComponent.renderMark}
                 />
