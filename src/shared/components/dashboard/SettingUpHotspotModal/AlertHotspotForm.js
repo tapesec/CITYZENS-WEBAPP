@@ -26,7 +26,7 @@ const validate = values => {
 const AlertHotspotForm = ({ handleSubmit, dismissModal }) => (
     <form className="HotspotForm cityzen-form" onSubmit={handleSubmit}>
         <Typography
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: 'center', marginBottom: '10px' }}
             tag="h2"
             use="headline"
             theme="text-on-primary-background">

@@ -83,21 +83,23 @@ const rules = [
         },
     },
     {
-        deserialize(el, next) {
+        deserialize(el) {
             const type = INLINE_TAGS[el.tagName.toLowerCase()];
             if (!type) return;
             return {
                 object: 'inline',
                 type,
-                nodes: next(el.childNodes),
+                isVoid: true,
+                data: {
+                    code: el.childNodes[0] ? el.childNodes[0].data : '',
+                },
             };
         },
-        serialize(obj, children) {
+        serialize(obj) {
             if (obj.object !== 'inline') return;
             switch (obj.type) {
                 case 'emoji':
-                    console.log(obj, 'obj', children, 'children');
-                    return <span>{children}</span>;
+                    return <span>{obj.data.get('code')}</span>;
             }
         },
     },
@@ -153,6 +155,7 @@ export default class renderWysiwygComponent extends React.Component {
                 );
             }
         }
+        return undefined;
     }
     static renderMark(props) {
         switch (props.mark.type) {
@@ -179,7 +182,6 @@ export default class renderWysiwygComponent extends React.Component {
     } // On change, update the app's React state with the new editor value.
     onChange({ value }) {
         this.setState({ value });
-        console.log(value.toJSON(), 'to json');
         const string = html.serialize(value);
         this.props.input.onChange(string);
     }
@@ -226,11 +228,16 @@ export default class renderWysiwygComponent extends React.Component {
                 {this.renderMarkButton('bold', 'format_bold')}
                 {this.renderMarkButton('italic', 'format_italic')}
                 {this.renderMarkButton('underlined', 'format_underlined')}
-                {EMOJIS.map((emoji, i) => {
+                {EMOJIS.map(emoji => {
                     const onMouseDown = e => this.onClickEmoji(e, emoji);
                     return (
                         // eslint-disable-next-line react/jsx-no-bind
-                        <span key={i} role="button" className="button" onMouseDown={onMouseDown}>
+                        <span
+                            key={Math.random()}
+                            role="button"
+                            className="button"
+                            tabIndex={0}
+                            onMouseDown={onMouseDown}>
                             <span className="material-icons">{emoji}</span>
                         </span>
                     );
