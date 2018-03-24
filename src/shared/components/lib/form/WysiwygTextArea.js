@@ -4,6 +4,7 @@ import Icon from 'rmwc/Icon';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import Html from 'slate-html-serializer';
+import ValidationMessage from './ValidationMessage';
 
 const BLOCK_TAGS = {
     blockquote: 'quote',
@@ -41,7 +42,7 @@ const rules = [
                     type,
                     nodes: next(el.childNodes),
                 };
-            } // return null;
+            }
         },
         serialize(obj, children) {
             if (obj.object === 'block') {
@@ -57,7 +58,7 @@ const rules = [
                     case 'quote':
                         return <blockquote>{children}</blockquote>;
                 }
-            } // return null;
+            }
         },
     },
     {
@@ -183,7 +184,7 @@ export default class renderWysiwygComponent extends React.Component {
     onChange({ value }) {
         this.setState({ value });
         const string = html.serialize(value);
-        this.props.input.onChange(string);
+        this.props.input.onChange(string === '<p></p>' ? '' : string); // needed for empty text validation
     }
     onClickMark(event, type) {
         event.preventDefault();
@@ -244,7 +245,8 @@ export default class renderWysiwygComponent extends React.Component {
                 })}
             </div>
         );
-    } // Render the editor.
+    }
+    // Render the editor.
     render() {
         return (
             <div className="rich-text-editor" style={wysiwygStyle}>
@@ -255,6 +257,7 @@ export default class renderWysiwygComponent extends React.Component {
                     renderNode={renderWysiwygComponent.renderNode}
                     renderMark={renderWysiwygComponent.renderMark}
                 />
+                <ValidationMessage {...this.props.meta} />
             </div>
         );
     }
@@ -264,4 +267,5 @@ renderWysiwygComponent.propTypes = {
         value: PropTypes.string,
         onChange: PropTypes.func,
     }).isRequired,
+    meta: PropTypes.shape({}).isRequired,
 };

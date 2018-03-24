@@ -35,6 +35,12 @@ const VALIDATION = {
                 ERROR: `Pas plus de 100 caractères`,
             },
         },
+        BODY: {
+            MAX_LENGTH: 1000,
+            LABEL: {
+                ERROR: `Pas plus de 1000 caractères`,
+            },
+        },
     },
 };
 

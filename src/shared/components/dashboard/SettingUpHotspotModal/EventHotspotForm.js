@@ -24,6 +24,9 @@ const validate = values => {
     if (values.title && values.title.length > VALIDATION.HOTSPOT.TITLE.MAX_LENGTH) {
         errors.title = VALIDATION.HOTSPOT.TITLE.LABEL.ERROR;
     }
+    if (!values.description) {
+        errors.description = VALIDATION.ALL.LABEL.ERROR;
+    }
     if (!values.dateEnd || values.dateEnd === '') errors.dateEnd = VALIDATION.ALL.LABEL.ERROR;
     return errors;
 };

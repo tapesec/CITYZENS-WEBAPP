@@ -22,6 +22,9 @@ const validate = values => {
     if (values.title && values.title.length > VALIDATION.MESSAGE.TITLE.MAX_LENGTH) {
         errors.title = VALIDATION.MESSAGE.TITLE.LABEL.ERROR;
     }
+    if (values.body && values.body.length > VALIDATION.MESSAGE.BODY.MAX_LENGTH) {
+        errors.body = VALIDATION.MESSAGE.BODY.LABEL.ERROR;
+    }
     if (!values.body) {
         errors.body = VALIDATION.ALL.LABEL.ERROR;
     }

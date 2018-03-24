@@ -9,6 +9,10 @@ section.SettingUpHotspotContainer {
         width: 100%;
     }
 
+    .inner-handle {
+        background-color: gray;
+    }
+
     form.HotspotForm {
         padding: 5px;
         .scope-switch-input {
