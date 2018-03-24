@@ -6,7 +6,7 @@ import Field from 'redux-form/lib/Field';
 import { Typography } from 'rmwc/Typography';
 import VALIDATION from './../../../constants/dataValidation';
 import { renderCustomTextField, renderCustomSwitch } from './../../lib/form/customComponents';
-import renderWysiwygComponent from './../../lib/form/WysiwygTextArea';
+import RenderWysiwygComponent from './../../lib/form/WysiwygTextArea';
 
 const validate = values => {
     const errors = {};
@@ -41,7 +41,11 @@ const WallHotspotForm = ({ handleSubmit, dismissModal }) => (
             label="Le titre de votre premier message"
             component={renderCustomTextField}
         />
-        <Field name="messageBody" label="Exprimez vous …" component={renderWysiwygComponent} />
+        <Field
+            name="messageBody"
+            label="Exprimez vous …"
+            component={field => <RenderWysiwygComponent {...field} placeholder="Quoi de neuf ?" />}
+        />
         <div className="submitArea">
             <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                 {"C'est bon !"}

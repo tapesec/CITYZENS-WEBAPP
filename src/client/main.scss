@@ -145,8 +145,8 @@ form.cityzen-form {
             color: $mdc-theme--text-on-primary-background;
         }
     }
-    .mdc-text-field--textarea .mdc-text-field__input {
-        padding-top: 38px;
+    .mdc-text-field__input {
+        border-bottom: 1px solid $mdc-theme--text-on-primary-background;
     }
     div.mdc-line-ripple.mdc-line-ripple--active {
         background-color: $mdc-theme-tertiary;

@@ -112,16 +112,7 @@ const defaultValues = Value.fromJSON({
             {
                 object: 'block',
                 type: 'paragraph',
-                nodes: [
-                    {
-                        object: 'text',
-                        leaves: [
-                            {
-                                text: 'Exprimez vous ici …',
-                            },
-                        ],
-                    },
-                ],
+                nodes: [],
             },
         ],
     },
@@ -245,8 +236,7 @@ export default class renderWysiwygComponent extends React.Component {
                 })}
             </div>
         );
-    }
-    // Render the editor.
+    } // Render the editor.
     render() {
         return (
             <div className="rich-text-editor" style={wysiwygStyle}>
@@ -256,6 +246,7 @@ export default class renderWysiwygComponent extends React.Component {
                     onChange={this.onChange}
                     renderNode={renderWysiwygComponent.renderNode}
                     renderMark={renderWysiwygComponent.renderMark}
+                    placeholder={this.props.placeholder}
                 />
                 <ValidationMessage {...this.props.meta} />
             </div>
