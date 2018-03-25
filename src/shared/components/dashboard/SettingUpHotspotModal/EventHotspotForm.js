@@ -34,11 +34,13 @@ const validate = values => {
 const EventHotspotForm = ({ handleSubmit, dismissModal, settingUpMode }) => (
     <form className="HotspotForm cityzen-form" onSubmit={handleSubmit}>
         <Typography
-            style={{ textAlign: 'center' }}
+            style={{ textAlign: 'center', marginBottom: '30px' }}
             tag="h2"
             use="headline"
             theme="text-on-primary-background">
-            {"Création de votre nouveau point d'interêt"}
+            {settingUpMode !== EDITION_MODE.EDITION
+                ? "Création de votre nouveau point d'interêt"
+                : "Modification de votre nouveau point d'interêt"}
         </Typography>
         {settingUpMode !== EDITION_MODE.EDITION ? (
             <Field

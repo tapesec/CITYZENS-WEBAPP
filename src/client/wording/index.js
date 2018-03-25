@@ -2,6 +2,7 @@
 export const SNACKBAR = {
     INFO: {
         HOTSPOT_SAVED_SUCCESSFULLY: "Félicitations ! votre nouveau point d'interêt a bien été crée",
+        HOTSPOT_UPDATED_SUCCESSFULLY: 'Modification réussie',
         MESSAGE_SAVED_SUCCESSFULLY: 'Message mis à jour',
     },
     ERROR: {

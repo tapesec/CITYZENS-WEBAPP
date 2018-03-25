@@ -203,7 +203,9 @@ export function* persistHotspot(action) {
         yield put(actions.clearHotspotEdition());
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.INFO.HOTSPOT_SAVED_SUCCESSFULLY,
+                settingUpMode === SETTING_UP
+                    ? SNACKBAR.INFO.HOTSPOT_SAVED_SUCCESSFULLY
+                    : SNACKBAR.INFO.HOTSPOT_UPDATED_SUCCESSFULLY,
                 NOTIFICATION_MESSAGE.LEVEL.INFO,
             ),
         );
