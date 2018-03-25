@@ -1,6 +1,5 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import MessagePayload from './../services/payloads/MessagePayload';
-import selectors from './../selectors';
 import actionTypes from './../actions/actionTypes';
 import actions from './../actions';
 import cityzensApi from './../../shared/services/CityzensApi';

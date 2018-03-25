@@ -60,6 +60,7 @@
     "slate": "^0.33.0",
     "slate-html-serializer": "^0.5.8",
     "slate-react": "^0.12.0",
+    "slate-soft-break": "^0.6.0",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

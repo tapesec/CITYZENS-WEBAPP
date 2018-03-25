@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import Icon from 'rmwc/Icon';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
+import SoftBreak from 'slate-soft-break';
 import Html from 'slate-html-serializer';
 import ValidationMessage from './ValidationMessage';
+
+import './WysiwygTextArea.scss';
 
 const BLOCK_TAGS = {
     blockquote: 'quote',
@@ -20,14 +23,6 @@ const MARK_TAGS = {
 
 const INLINE_TAGS = {
     span: 'emoji',
-};
-
-const wysiwygStyle = {
-    minHeight: '200px',
-    fontFamily: 'roboto',
-    marginTop: '20px',
-    lineHeight: '1.75rem',
-    letterSpacing: '.04em',
 };
 
 const EMOJIS = ['😃', '😬', '😂', '😅', '😆', '😍', '😱', '👏', '👍', '🙏', '🍔', '🍑', '🍆', '🔑'];
@@ -47,12 +42,6 @@ const rules = [
         serialize(obj, children) {
             if (obj.object === 'block') {
                 switch (obj.type) {
-                    case 'code':
-                        return (
-                            <pre>
-                                <code>{children}</code>
-                            </pre>
-                        );
                     case 'paragraph':
                         return <p>{children}</p>;
                     case 'quote':
@@ -104,7 +93,7 @@ const rules = [
             }
         },
     },
-]; /* eslint-enable consistent-return */
+];
 const html = new Html({ rules });
 const defaultValues = Value.fromJSON({
     document: {
@@ -116,16 +105,8 @@ const defaultValues = Value.fromJSON({
             },
         ],
     },
-}); // Define a React component renderer for our code blocks.
-const CodeNode = props => (
-    <pre {...props.attributes}>
-        <code>{props.children}</code>
-    </pre>
-);
-CodeNode.propTypes = {
-    attributes: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-}; // Define our app...
+});
+const plugins = [SoftBreak({ shift: true })]; // Define a React component renderer for our code blocks.
 export default class renderWysiwygComponent extends React.Component {
     static renderNode(props) {
         const { attributes, children, node, isSelected } = props;
@@ -236,14 +217,15 @@ export default class renderWysiwygComponent extends React.Component {
                 })}
             </div>
         );
-    } // Render the editor.
+    }
     render() {
         return (
-            <div className="rich-text-editor" style={wysiwygStyle}>
+            <div className="rich-text-editor">
                 {this.renderToolbar()}
                 <Editor
                     value={this.state.value}
                     onChange={this.onChange}
+                    plugins={plugins}
                     renderNode={renderWysiwygComponent.renderNode}
                     renderMark={renderWysiwygComponent.renderMark}
                     placeholder={this.props.placeholder}
