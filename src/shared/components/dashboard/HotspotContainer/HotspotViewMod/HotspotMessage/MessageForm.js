@@ -49,6 +49,7 @@ const MessageForm = ({ clearHotspotMessageEdition, handleSubmit, editionMode }) 
             <Field
                 name="body"
                 label={MESSAGE_FORM.EDITION.BODY.LABEL}
+                placeholder="Quoi de neuf ? … 😃"
                 component={renderWysiwygComponent}
             />
             <div className="submitArea">

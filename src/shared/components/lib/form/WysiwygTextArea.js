@@ -259,4 +259,5 @@ renderWysiwygComponent.propTypes = {
         onChange: PropTypes.func,
     }).isRequired,
     meta: PropTypes.shape({}).isRequired,
+    placeholder: PropTypes.string.isRequired,
 };

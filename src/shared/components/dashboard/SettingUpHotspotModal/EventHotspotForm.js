@@ -62,7 +62,11 @@ const EventHotspotForm = ({ handleSubmit, dismissModal, settingUpMode }) => (
             component={renderCustomDateTimePicker}
         />
 
-        <Field name="description" label="Exprimez vous …" component={renderWysiwygComponent} />
+        <Field
+            name="description"
+            placeholder="Décrivez l'évènement … 😃"
+            component={renderWysiwygComponent}
+        />
         <div className="submitArea">
             <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                 {"C'est bon !"}
