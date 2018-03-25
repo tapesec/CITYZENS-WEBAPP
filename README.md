@@ -6,14 +6,17 @@
 
 ### USED VSCODE EXTENSIONS
 
+* Debugger for Chrome
 * DotENV
 * ESLint
 * eslint-disable-snippets
 * Prettier - Code formatter
 * GitLens - Git supercharged
 * Import Cost
+* Js Reafactor
 * line-counter
 * move-imports
+* Prettier - Code formatter
 * VS Code Redis
 
 ### launch.json
