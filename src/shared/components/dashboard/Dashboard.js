@@ -14,7 +14,6 @@ import SettingUpHotspotModal from './SettingUpHotspotModal/SettingUpHotspot';
 
 export default function Dashboard({ match, history }) {
     const AlertHotspotContainer = displayWithProps(isLoading(HotspotContainer));
-
     return (
         <Fragment>
             <LeftSideMenu />

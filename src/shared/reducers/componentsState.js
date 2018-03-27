@@ -169,6 +169,20 @@ export default function componentsState(state = initialState, action) {
                     visible: false,
                 },
             };
+        case actionTypes.CLEAR_HOTSPOT_EDITION:
+            return {
+                ...state,
+                markerPreview: {
+                    enabled: false,
+                },
+            };
+        case actionTypes.RESET_MARKER_PREVIEW_MODE:
+            return {
+                ...state,
+                markerPreview: {
+                    enabled: true,
+                },
+            };
         default:
             return state;
     }
@@ -199,3 +213,5 @@ export const snackbarMessage = state => ({
     message: state.componentsState.snackbar.message,
     level: state.componentsState.snackbar.level,
 });
+
+export const getMarkerPreviewModeStatus = state => state.componentsState.markerPreview.enabled;

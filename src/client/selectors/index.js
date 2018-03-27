@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect';
 import { getHits } from './../../shared/reducers/algolia';
 
 const HOTSPOT_TYPES = {
@@ -17,7 +18,10 @@ const getHotspotsForSearchList = state => {
     return Object.values(state.hotspots);
 };
 
-const getHotspotsForMap = state => Object.values(state.hotspots);
+const getHotspotsForMap = createSelector(
+    state => state.hotspots,
+    hotspots => Object.values(hotspots),
+);
 
 const getHotspotById = (state, id) => state.hotspots[id];
 

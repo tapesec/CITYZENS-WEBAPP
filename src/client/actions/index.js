@@ -244,6 +244,10 @@ const hotspotViewUp = hotspotId => ({
     },
 });
 
+const resetMarkerPreviewMode = () => ({
+    type: actionTypes.RESET_MARKER_PREVIEW_MODE,
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -284,4 +288,5 @@ export default {
     displayMessageToScreen,
     messageToScreenOnDisapear,
     hotspotViewUp,
+    resetMarkerPreviewMode,
 };

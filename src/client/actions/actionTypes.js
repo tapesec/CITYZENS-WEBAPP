@@ -68,4 +68,7 @@ export default {
     MESSAGE_TO_SCREEN_ON_DISAPEAR: 'MESSAGE_TO_SCREEN_ON_DISAPEAR',
 
     REDIRECT_TO: 'REDIRECT_TO',
+
+    /* Toggle visibility markerPreview on map */
+    RESET_MARKER_PREVIEW_MODE: 'RESET_MARKER_PREVIEW_MODE',
 };

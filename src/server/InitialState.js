@@ -44,6 +44,9 @@ class InitialState {
                     level: 'info',
                     message: '',
                 },
+                markerPreview: {
+                    enabled: false,
+                },
             },
             algolia: {
                 hits: [],

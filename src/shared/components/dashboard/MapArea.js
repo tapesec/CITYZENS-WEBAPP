@@ -9,6 +9,7 @@ import helper from './../../helpers';
 import config from './../../config/';
 import actions from './../../../client/actions';
 import selectors from './../../../client/selectors';
+import { getMarkerPreviewModeStatus } from './../../reducers/componentsState';
 import './MapArea.scss';
 
 class MapArea extends React.Component {
@@ -23,14 +24,13 @@ class MapArea extends React.Component {
 
     componentDidMount() {
         let dragging = false;
-        let markerPreview;
         let markerHotspotType;
         let markerIconType;
         // eslint-disable-next-line
         const mojs = require('mo-js');
         if (typeof window !== 'undefined') {
             // eslint-disable-next-line
-            markerPreview = window.document.getElementById('markerPreviewArea');
+            this.markerPreview = window.document.getElementById('markerPreviewArea');
         }
         this.props.fetchHotspotsByCity('33273');
         this.rootElement.addEventListener('mousemove', evt => {
@@ -38,7 +38,7 @@ class MapArea extends React.Component {
             if (dragging) {
                 const x = evt.pageX;
                 const y = evt.pageY;
-                markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
+                this.markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
             }
         });
         this.rootElement.addEventListener('mousedown', evt => {
@@ -46,9 +46,9 @@ class MapArea extends React.Component {
                 dragging = true;
                 const x = evt.pageX;
                 const y = evt.pageY;
-                markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
-                markerPreview.style.display = 'inline';
-                markerPreview.firstChild.src =
+                this.markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
+                this.markerPreview.style.display = 'inline';
+                this.markerPreview.firstChild.src =
                     evt.target.getAttribute('data-img') || evt.target.src;
                 markerHotspotType = evt.target.getAttribute('data-hotspot-type');
                 markerIconType = evt.target.getAttribute('data-icon-type');
@@ -72,9 +72,15 @@ class MapArea extends React.Component {
                     markerIconType,
                 );
                 this.props.openHotspotAddressModal();
-                // markerPreview.style.display = 'none';
             }
         });
+    }
+
+    componentDidUpdate() {
+        if (this.props.markerPreviewModeIsEnabled === false) {
+            this.markerPreview.style.display = 'none';
+            this.props.resetMarkerPreviewMode();
+        }
     }
 
     onGoogleApiLoaded({ map, maps }) {
@@ -168,6 +174,7 @@ MapArea.propTypes = {
     openHotspotInSPAModal: PropTypes.func.isRequired,
     newMarkerDropped: PropTypes.func.isRequired,
     openHotspotAddressModal: PropTypes.func.isRequired,
+    resetMarkerPreviewMode: PropTypes.func.isRequired,
     map: PropTypes.shape({
         center: PropTypes.shape({
             lat: PropTypes.isRequired,
@@ -179,6 +186,7 @@ MapArea.propTypes = {
         hotspotId: PropTypes.string,
         show: PropTypes.bool,
     }).isRequired,
+    markerPreviewModeIsEnabled: PropTypes.bool.isRequired,
 };
 
 MapArea.defaultProps = {
@@ -190,6 +198,7 @@ const mapStateToProps = state => ({
     map: state.map,
     tooltipOpen: selectors.getMarkerTooltipState(state),
     citySlug: selectors.getCitySlug(state),
+    markerPreviewModeIsEnabled: getMarkerPreviewModeStatus(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -208,17 +217,14 @@ const mapDispatchToProps = dispatch => ({
     openHotspotInSPAModal: hotspotId => {
         dispatch(actions.openHotspotInSPAModal(hotspotId));
     },
-    displayMarkerPreview: (img, x, y) => {
-        dispatch(actions.displayMarkerDraggablePreview(img, x, y));
-    },
     newMarkerDropped: (position, type, iconType) => {
         dispatch(actions.newMarkerDropped(position, type, iconType));
     },
-    setNewHotspotType: type => {
-        dispatch(actions.setNewHotspotType(type));
-    },
     openHotspotAddressModal: () => {
         dispatch(actions.openHotspotAddressModal());
+    },
+    resetMarkerPreviewMode: () => {
+        dispatch(actions.resetMarkerPreviewMode());
     },
 });
 
