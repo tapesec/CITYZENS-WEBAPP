@@ -226,7 +226,7 @@ export function* postViewUp(action) {
         const { hotspotId } = action.payload;
         yield call([cityzensApi, cityzensApi.postHotspotsViews], accessToken, hotspotId);
     } catch (error) {
-        console.log(error);
+        console.log(error); // eslint-disable-line
     }
 }
 

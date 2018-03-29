@@ -6,3 +6,4 @@ dist
 sessions
 stats.json
 .DS_Store
+eslint-report
