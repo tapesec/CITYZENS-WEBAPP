@@ -56,8 +56,8 @@ passport.deserializeUser((user, done) => {
 // ...
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use('/assets', express.static('build'));
+console.log(process.cwd());
+app.use('/assets', express.static(path.join(__dirname, '/')));
 
 app.get(
     '/login',

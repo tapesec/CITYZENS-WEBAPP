@@ -6,11 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client:build": "webpack --mode development --config webpack-dev.js --watch true",
+    "client:build:prod": "webpack --mode production --config webpack-client-prod.js",
     "server:build": "webpack --mode development --config webpack-server.js --watch true --profile --json > stats.json",
+    "server:build:prod": "webpack --mode production --config webpack-server-prod.js",
     "start": "webpack-dev-server --config webpack-dev.js",
     "start:server": "node --require dotenv/config ./build/server.js",
     "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"node --require dotenv/config ./build/server.js\"",
-    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "ic": "npm run client:build:prod && npm run server:build:prod"
   },
   "repository": {
     "type": "git",
