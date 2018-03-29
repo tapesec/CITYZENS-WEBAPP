@@ -4,3 +4,4 @@ build
 .env
 sessions
 stats.json
+.DS_Store

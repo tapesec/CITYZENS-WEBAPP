@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';

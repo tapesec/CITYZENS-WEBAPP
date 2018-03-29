@@ -1,15 +1,16 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BUILD = path.resolve(__dirname, 'build');
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'server', 'server.js');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: ['babel-polyfill', ENTRY_PATH],
     output: {
         filename: 'server.js',
         path: BUILD,
+        publicPath: '/',
     },
     target: 'node',
     externals: [nodeExternals()],
@@ -25,22 +26,20 @@ module.exports = {
             },
             {
                 test: /\.s?css$/,
-                use: ExtractTextPlugin.extract({
-                    // fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: { importLoaders: 1 },
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            // prefix css properties
-                        },
-                        {
-                            loader: 'sass-loader',
-                        },
-                    ],
-                }),
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: { importLoaders: 1 },
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        // prefix css properties
+                    },
+                    {
+                        loader: 'sass-loader',
+                    },
+                ],
             },
             {
                 test: /\.(png|jpg|gif)$/,
@@ -69,5 +68,12 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.css', '.scss'],
     },
-    plugins: [new ExtractTextPlugin('styles.css')],
+    plugins: [
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: 'styles.css',
+            chunkFilename: '[name].css',
+        }),
+    ],
 };
