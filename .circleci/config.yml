@@ -38,5 +38,4 @@ jobs:
       - run: npm run eslint-ic
 
       - store_test_results:
-          path: reports/junit
-          path: ~/repo/reports/junit
+          path: artifacts/reports/junit
