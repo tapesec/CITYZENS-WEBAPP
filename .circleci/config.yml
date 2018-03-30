@@ -34,7 +34,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm run server:build:prod
+      - run: npm run build:prod
       - run: 
           name: "Eslint Linter"
           command: npm run eslint -- -f junit -o reports/junit/eslint-result.xml --color 
@@ -43,3 +43,6 @@ jobs:
           path: reports/junit
       - store_test_results:
           path: reports/junit
+
+      - run: clever deploy
+
