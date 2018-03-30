@@ -38,4 +38,4 @@ jobs:
       - run: npm run eslint
 
       - store_test_results:
-    path: test-results
+          path: reports/junit

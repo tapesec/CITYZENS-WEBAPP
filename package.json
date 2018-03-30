@@ -12,7 +12,7 @@
     "start": "webpack-dev-server --config webpack-dev.js",
     "start:server": "node --require dotenv/config ./build/server.js",
     "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"node --require dotenv/config ./build/server.js\"",
-    "eslint-ic": "eslint src -c .eslintrc.js -o eslint-report --color -f junit",
+    "eslint-ic": "eslint src -c .eslintrc.js -o reports/junit/eslint-report.xml --color -f junit",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "ic": "npm run client:build:prod && npm run server:build:prod"
   },
