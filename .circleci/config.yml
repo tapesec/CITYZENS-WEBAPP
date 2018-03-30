@@ -39,3 +39,4 @@ jobs:
 
       - store_test_results:
           path: reports/junit
+          path: ~/repo/reports/junit
