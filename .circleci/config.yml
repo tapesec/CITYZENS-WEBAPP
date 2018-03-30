@@ -47,7 +47,7 @@ jobs:
       - run: 
           name: install 
           command: |
-            apt-get install -y curl
+            sudo apt-get install -y curl
             curl https://clever-tools.cellar.services.clever-cloud.com/releases/latest/clever-tools-latest_linux.tar.gz > clever-tools-latest_linux.tar.gz
             tar -xvf clever-tools-latest_linux.tar.gz
       - run: 
