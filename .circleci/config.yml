@@ -35,7 +35,11 @@ jobs:
 
       # run tests!
       - run: npm run server:build:prod
-      - run: npm run eslint-ic
+      - run: 
+          name: "Eslint Linter"
+          command: npm run eslint -- -f junit -o reports/junit/eslint-result.xml --color 
 
       - store_test_results:
-          path: junit
+          path: reports/junit
+      - store_test_results:
+          path: reports/junit
