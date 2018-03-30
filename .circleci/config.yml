@@ -44,5 +44,16 @@ jobs:
       - store_test_results:
           path: reports/junit
 
-      - run: clever deploy
+      - run: 
+          name: update apt
+          command: apt-get update && apt-get install -y curl
+      - run: 
+          name: get clever-tools
+          command: curl https://clever-tools.cellar.services.clever-cloud.com/releases/latest/clever-tools-latest_linux.tar.gz > clever-tools-latest_linux.tar.gz
+      - run:
+          name: tar it
+          command: tar -xvf clever-tools-latest_linux.tar.gz
+      - run: 
+          name: clever deploy
+          command: clever deploy
 
