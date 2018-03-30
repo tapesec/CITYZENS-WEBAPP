@@ -52,5 +52,5 @@ jobs:
             tar -xvf clever-tools-latest_linux.tar.gz
       - run: 
           name: clever deploy
-          command: clever deploy
+          command: ./clever deploy
 
