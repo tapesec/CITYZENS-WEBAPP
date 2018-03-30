@@ -36,3 +36,6 @@ jobs:
       # run tests!
       - run: npm run server:build:prod
       - run: npm run eslint
+
+      - store_test_results:
+    path: test-results
