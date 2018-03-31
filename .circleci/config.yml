@@ -44,16 +44,8 @@ jobs:
           path: reports/junit
 
       - run: 
-          name: install 
-          command: |
-            sudo apt-get install -y curl
-            curl https://clever-tools.cellar.services.clever-cloud.com/releases/latest/clever-tools-latest_linux.tar.gz > clever-tools-latest_linux.tar.gz
-            tar -xvf clever-tools-latest_linux.tar.gz
-      - run: 
           name: clever deploy
           command: |
-            ./clever login --token $CLEVER_TOKEN --secret $CLEVER_SECRET
-            rm -f .clever.json
-            ./clever link -a $APP_ALIAS $APP_ID
-            ./clever deploy -a $APP_ALIAS
+            git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_c286bfc4-28ae-4489-930d-e8119fa93eca.git
+            git push -u clever master
 
