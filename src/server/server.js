@@ -1,4 +1,3 @@
-import path from 'path';
 import express from 'express';
 import passport from 'passport';
 import Auth0Strategy from 'passport-auth0';
@@ -57,6 +56,7 @@ passport.deserializeUser((user, done) => {
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
+    console.log(__dirname, process.cwd());
     console.log(req.path);
     next();
 });
