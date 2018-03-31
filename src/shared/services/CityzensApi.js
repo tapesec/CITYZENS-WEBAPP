@@ -1,4 +1,5 @@
 import fetchWrapper from './FetchWrapper';
+import config from './../config';
 
 const HOTSPOTS_ENDPOINTS = '/hotspots';
 const HOTSPOTS_VIEWS_ENDPOINTS = '/views';
@@ -114,4 +115,4 @@ class CityzenApi {
         );
     }
 }
-export default new CityzenApi(fetchWrapper);
+export default new CityzenApi(fetchWrapper, config.cityzensApi.baseUrl);
