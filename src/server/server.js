@@ -58,9 +58,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 if (process.env.NODE_ENV === 'development') {
-    app.use('/assets', express.static(path.join(__dirname, '/build')));
+    app.use('/assets', express.static(path.join(__dirname, 'build')));
 } else {
-    app.use('/assets', express.static(path.join(__dirname, '/dist')));
+    app.use('/assets', express.static(path.join(__dirname, 'dist')));
 }
 
 app.get(

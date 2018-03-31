@@ -14,7 +14,7 @@
     "init": "parallelshell \"npm run client:build\" \"npm run server:build\" \"node --require dotenv/config ./build/server.js\"",
     "eslint": "eslint src -c .eslintrc.js",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
-    "build:prod": "npm run client:build:prod && npm run server:build:prod && node ./dist/server.js"
+    "build:prod": "npm run client:build:prod && npm run server:build:prod"
   },
   "repository": {
     "type": "git",
