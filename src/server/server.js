@@ -61,9 +61,9 @@ app.use((req, res, next) => {
     next();
 });
 if (process.env.NODE_ENV === 'development') {
-    app.use('/assets', express.static(path.join(__dirname, 'build')));
+    app.use('/assets', express.static('build'));
 } else {
-    app.use('/assets', express.static(path.join(__dirname, 'dist')));
+    app.use('/assets', express.static('dist'));
 }
 
 app.get(
