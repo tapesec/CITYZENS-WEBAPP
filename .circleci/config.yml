@@ -52,6 +52,8 @@ jobs:
       - run: 
           name: clever deploy
           command: |
-            ./clever link -a cityzens-webapp app_326475ab-8513-4229-bb69-e0d1cc0e4261
-            ./clever deploy -a cityzens-webapp
+            ./clever login --token $CLEVER_TOKEN --secret $CLEVER_SECRET
+            rm -f .clever.json
+            ./clever link -a $APP_ALIAS $APP_ID
+            ./clever deploy -a $APP_ALIAS
 
