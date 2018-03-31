@@ -55,11 +55,7 @@ passport.deserializeUser((user, done) => {
 // ...
 app.use(passport.initialize());
 app.use(passport.session());
-app.use((req, res, next) => {
-    console.log(__dirname, process.cwd());
-    console.log(req.path);
-    next();
-});
+
 if (process.env.NODE_ENV === 'development') {
     app.use('/assets', express.static('build'));
 } else {
@@ -98,10 +94,6 @@ app.get('/:citySlug', initialState.defaultState.bind(initialState), router);
 
 app.get(
     '/:citySlug/:hotspotSlug',
-    (req, res, next) => {
-        console.log(req.path);
-        next();
-    },
     initialState.defaultState.bind(initialState),
     initialState.readHotspot.bind(initialState),
     router,
