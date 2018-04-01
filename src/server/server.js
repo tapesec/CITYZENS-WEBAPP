@@ -7,6 +7,8 @@ import fetch from 'cross-fetch';
 import config from './config';
 import router from './router';
 
+import render500 from './views/templates/error-500';
+
 import Hotspots from './services/Hotspots';
 import Cities from './services/Cities';
 import Messages from './services/Messages';
@@ -101,8 +103,7 @@ app.get(
 
 // eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
-    res.send(`Oups ! il y a de la tempête dans le cloud revenez plus tard ;(/n/n ha voilà des détails si
-        vous comprenez quelques choses (moi non) ${error.message}`);
+    res.send(render500(error.message));
 });
 
 app.listen(parseInt(config.http.port, 10), () => {
