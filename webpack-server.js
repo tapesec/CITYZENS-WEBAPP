@@ -1,9 +1,12 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+
 const BUILD = path.resolve(__dirname, 'build');
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'server', 'server.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackSourceMapSupport = require('webpack-source-map-support');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = {
     entry: ['babel-polyfill', ENTRY_PATH],
@@ -14,7 +17,7 @@ module.exports = {
     },
     target: 'node',
     externals: [nodeExternals()],
-    devtool: 'eval-source-map',
+    devtool: 'cheap-module-source-map',
     module: {
         rules: [
             {
@@ -74,6 +77,11 @@ module.exports = {
             // both options are optional
             filename: 'styles.css',
             chunkFilename: '[name].css',
+        }),
+        new WebpackSourceMapSupport(),
+        new WebpackShellPlugin({
+            onBuildStart: ['echo "building server ..."'],
+            onBuildEnd: ['node --require dotenv/config ./build/server.js'],
         }),
     ],
 };

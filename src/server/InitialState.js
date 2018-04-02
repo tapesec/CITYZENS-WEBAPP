@@ -1,7 +1,3 @@
-/* import constant from './../shared/constants';
-
-const { EDITION_MODE } = constant; */
-
 const getHotspotBySlug = (state, slug) =>
     Object.values(state.hotspots)
         .filter(hotspot => hotspot.slug === slug)
@@ -68,7 +64,11 @@ class InitialState {
         if (req.params && req.params.citySlug) {
             try {
                 const dataTree = { ...InitialState.dataTree() };
-                const city = await this.citiesService.getCity(req.params.citySlug);
+                const response = await this.citiesService.getCity(req.params.citySlug);
+                if (response.status >= 400) {
+                    return next({ statusCode: response.status });
+                }
+                const city = await response.json();
                 const accessToken = req.user ? req.user.accessToken : undefined;
                 const hotspots = await this.hotspotsService.getHotspots(accessToken, {
                     insee: city.insee,
@@ -100,17 +100,20 @@ class InitialState {
             try {
                 const { hotspotSlug } = req.params;
                 const hotspot = getHotspotBySlug(req.initialState, hotspotSlug);
+                if (!hotspot) {
+                    return next({ statusCode: 404 });
+                }
                 const messages = await this.messagesService.getMessages(hotspot.id);
                 req.initialState.messages = messages;
                 req.initialState.componentsState.hotspotModal.open = true;
                 req.initialState.componentsState.hotspotModal.currentHotspotSlug =
                     req.params.hotspotSlug;
-                next();
+                return next();
             } catch (error) {
-                next(error);
+                return next(error);
             }
         } else {
-            next('Invalid request parameter');
+            return next('Invalid request parameter');
         }
     }
 }

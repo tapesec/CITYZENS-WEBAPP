@@ -13,8 +13,7 @@ class Cities {
                     'Content-Type': 'application/json',
                 },
             });
-            const city = await response.json();
-            return city;
+            return response;
         } catch (err) {
             return Promise.reject(err);
         }

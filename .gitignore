@@ -5,6 +5,7 @@ dist
 .env
 sessions
 stats.json
+stats-client.json
 .DS_Store
 eslint-report
 reports

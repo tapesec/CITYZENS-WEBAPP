@@ -1,9 +1,9 @@
-export default message => `<!DOCTYPE html>
+export default () => `<!DOCTYPE html>
 		<html>
 		<head>
 			<meta charset="utf-8" />
 			<meta http-equiv="X-UA-Compatible" content="IE=9; IE=edge">
-			<title>Erreur 500</title>
+			<title>Erreur 404</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1">
             <link href="/assets/styles.css" rel="stylesheet">
             <style>
@@ -29,12 +29,10 @@ export default message => `<!DOCTYPE html>
 		</head>
 		<body>
             <div id="root">
-                <h1>Il y a de l'orage dans le Cloud !</h1>
-                <p>Nous avons décodé les vibrations en provenance du stratocumulus, nos 
-                meilleurs métérologistes sont sur le pont et travaillent activement
-                à faire revenir le soleil.</p>
-                <p>Pour les plus habiles d'entre vous, voici le message décodé : </p>
-                <blockquote>Erreur 500 : ${message}</blockquote>
+                <h1>Cette page n'existe pas !</h1>
+                <p>Nous avons cherché partout mais nous n'avons rien trouvé</p>
+                <p>Même google ne trouverez pas la page que vous demandé alors imaginez nous ...<br>
+                En même temps, ma femme dit que je ne vois pas plus loin que le bout de mon nez (soupir)...</p>
             </div>
 		</body>
 		</html>

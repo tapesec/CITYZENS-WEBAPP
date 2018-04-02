@@ -8,6 +8,7 @@ import config from './config';
 import router from './router';
 
 import render500 from './views/templates/error-500';
+import render404 from './views/templates/error-404';
 
 import Hotspots from './services/Hotspots';
 import Cities from './services/Cities';
@@ -103,7 +104,10 @@ app.get(
 
 // eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
-    res.send(render500(error.message));
+    if (error.statusCode === 404) {
+        return res.send(render404(error.message));
+    }
+    return res.send(render500(error.message));
 });
 
 app.listen(parseInt(config.http.port, 10), () => {

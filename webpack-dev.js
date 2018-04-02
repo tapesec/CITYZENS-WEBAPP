@@ -1,10 +1,11 @@
 const path = require('path');
-const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+
 const BUILD = path.resolve(__dirname, 'build');
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'client', 'index.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = {
     entry: ['babel-polyfill', ENTRY_PATH],
@@ -70,6 +71,10 @@ module.exports = {
             safe: false, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
             systemvars: false, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
             silent: false, // hide any errors
+        }),
+        new WebpackShellPlugin({
+            onBuildStart: ['echo "building client ..."'],
+            onBuildEnd: ['npm run server:build'],
         }),
     ],
     resolve: {
