@@ -63,10 +63,14 @@ app.use(passport.session());
 
 // Parse incoming request user-agent …
 app.use((req, res, next) => {
-    const source = req.headers['user-agent'];
-    const ua = useragent.parse(source);
-    req.ua = JSON.stringify(ua);
-    next();
+    try {
+        const source = req.headers['user-agent'];
+        const ua = useragent.parse(source);
+        req.ua = ua;
+        next();
+    } catch (error) {
+        next(error);
+    }
 });
 
 if (process.env.NODE_ENV === 'development') {
