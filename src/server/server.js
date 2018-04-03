@@ -7,7 +7,7 @@ import fetch from 'cross-fetch';
 import useragent from 'express-useragent';
 import config from './config';
 import router from './router';
-// import SlackWebhook from './services/SlackWebhook';
+import SlackWebhook from './services/SlackWebhook';
 import render500 from './views/templates/error-500';
 import render404 from './views/templates/error-404';
 
@@ -21,7 +21,7 @@ const hotspots = new Hotspots(cityzenApi);
 const messages = new Messages(cityzenApi);
 const cities = new Cities(fetch, config.http.apiUrl);
 const initialState = new InitialState(hotspots, cities, messages);
-// const slackWebhook = new SlackWebhook(fetch, config.slack.slackWebhookErrorUrl);
+const slackWebhook = new SlackWebhook(fetch, config.slack.slackWebhookErrorUrl);
 
 const app = express();
 const FileStore = sessionFileStore(session);
@@ -62,16 +62,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Parse incoming request user-agent …
-app.use((req, res, next) => {
-    try {
-        const source = req.headers['user-agent'];
-        const ua = useragent.parse(source);
-        req.ua = ua;
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
+app.use(useragent.express());
 
 if (process.env.NODE_ENV === 'development') {
     app.use('/assets', express.static('build'));
@@ -116,15 +107,18 @@ app.get(
     router,
 );
 
-app.use(async (error, req, res) => {
+// eslint-disable-next-line no-unused-vars
+app.use((error, req, res, next) => {
     if (error.statusCode === 404) {
         return res.send(render404(error.message));
     }
-    /* slackWebhook.alert(
+    slackWebhook.alert(
         `[${process.env.NODE_ENV}] Erreur 500 renvoyé : ${error.message ||
             JSON.stringify(error)}\n\n
-        remote ip: ${req.ip}, x-forwarded-for: ${req.ips}, user-agent: ${req.ua}`,
-    ); */
+        remote ip: ${req.ip}, x-forwarded-for: ${req.ips}, user-agent: ${JSON.stringify({
+            ...req.useragent,
+        })}`,
+    );
     return res.send(render500(error.message || JSON.stringify(error)));
 });
 
