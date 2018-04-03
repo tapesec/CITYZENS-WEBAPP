@@ -86,12 +86,11 @@ class InitialState {
                 next();
                 return Promise.resolve();
             } catch (error) {
-                next(error);
-                return Promise.reject(error);
+                return next(error);
+                // return Promise.reject(error);
             }
         } else {
-            next(new Error('Invalid request parameter'));
-            return Promise.reject();
+            return next(new Error('Invalid request parameter'));
         }
     }
 

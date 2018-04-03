@@ -4,8 +4,10 @@ import Auth0Strategy from 'passport-auth0';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 import fetch from 'cross-fetch';
+import useragent from 'express-useragent';
 import config from './config';
 import router from './router';
+import SlackWebhook from './services/SlackWebhook';
 
 import render500 from './views/templates/error-500';
 import render404 from './views/templates/error-404';
@@ -20,6 +22,7 @@ const hotspots = new Hotspots(cityzenApi);
 const messages = new Messages(cityzenApi);
 const cities = new Cities(fetch, config.http.apiUrl);
 const initialState = new InitialState(hotspots, cities, messages);
+const slackWebhook = new SlackWebhook(fetch, config.slack.slackWebhookErrorUrl);
 
 const app = express();
 const FileStore = sessionFileStore(session);
@@ -58,6 +61,14 @@ passport.deserializeUser((user, done) => {
 // ...
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Parse incoming request user-agent …
+app.use((req, res, next) => {
+    const source = req.headers['user-agent'];
+    const ua = useragent.parse(source);
+    req.ua = JSON.stringify(ua);
+    next();
+});
 
 if (process.env.NODE_ENV === 'development') {
     app.use('/assets', express.static('build'));
@@ -102,11 +113,14 @@ app.get(
     router,
 );
 
-// eslint-disable-next-line no-unused-vars
-app.use((error, req, res, next) => {
+app.use(async (error, req, res) => {
     if (error.statusCode === 404) {
         return res.send(render404(error.message));
     }
+    slackWebhook.alert(
+        `[${process.env.NODE_ENV}] Erreur 500 renvoyé : ${error.message}\n\n
+        remote ip: ${req.ip}, x-forwarded-for: ${req.ips}, user-agent: ${req.ua}`,
+    );
     return res.send(render500(error.message));
 });
 
