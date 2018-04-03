@@ -118,10 +118,11 @@ app.use(async (error, req, res) => {
         return res.send(render404(error.message));
     }
     slackWebhook.alert(
-        `[${process.env.NODE_ENV}] Erreur 500 renvoyé : ${error.message || error}\n\n
+        `[${process.env.NODE_ENV}] Erreur 500 renvoyé : ${error.message ||
+            JSON.stringify(error)}\n\n
         remote ip: ${req.ip}, x-forwarded-for: ${req.ips}, user-agent: ${req.ua}`,
     );
-    return res.send(render500(error.message || error));
+    return res.send(render500(error.message || JSON.stringify(error)));
 });
 
 app.listen(parseInt(config.http.port, 10), () => {
