@@ -7,8 +7,7 @@ import fetch from 'cross-fetch';
 import useragent from 'express-useragent';
 import config from './config';
 import router from './router';
-import SlackWebhook from './services/SlackWebhook';
-
+// import SlackWebhook from './services/SlackWebhook';
 import render500 from './views/templates/error-500';
 import render404 from './views/templates/error-404';
 
@@ -22,7 +21,7 @@ const hotspots = new Hotspots(cityzenApi);
 const messages = new Messages(cityzenApi);
 const cities = new Cities(fetch, config.http.apiUrl);
 const initialState = new InitialState(hotspots, cities, messages);
-const slackWebhook = new SlackWebhook(fetch, config.slack.slackWebhookErrorUrl);
+// const slackWebhook = new SlackWebhook(fetch, config.slack.slackWebhookErrorUrl);
 
 const app = express();
 const FileStore = sessionFileStore(session);
