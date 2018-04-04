@@ -91,7 +91,7 @@ const WallHotspot = ({
         <Fragment>
             <ActionsToolbar />
             <section className="HotspotContent">
-                <HotspotTitle title={hotspot.title} />
+                <HotspotTitle title={hotspot.title} address={hotspot.address} />
                 <CustomScroll heightRelativeToParent="100%">
                     <HotspotMessagesWall>
                         {displayNewMessageControl()}

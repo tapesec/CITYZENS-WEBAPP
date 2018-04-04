@@ -1,9 +1,19 @@
+@import './../../../../../client/variables.scss';
+
 Header.HotspotTitle {
     width: calc(100% - 50px);
+    display: flex;
+    flex-flow: column;
     h1 {
-        font-family: 'Amaranth', sans-serif;
-        font-size: 1.6em;
-        font-weight: 100;
-        color: #516167;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 200;
+        font-size: 2em;
+        color: $mdc-theme--text-on-primary-background;
+    }
+    p {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 200;
+        font-size: 1em;
+        color: $mdc-theme--text-on-primary-background;
     }
 }

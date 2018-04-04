@@ -44,7 +44,7 @@ const EventHotspot = ({
         <Fragment>
             {buildToolbar()}
             <section className="HotspotContent">
-                <HotspotTitle title={hotspot.title} />
+                <HotspotTitle title={hotspot.title} address={hotspot.address} />
                 <EventHotspotDateTime date={hotspot.dateEnd} />
                 <EventHotspotCountDown dateEnd={hotspot.dateEnd} />
                 <CustomScroll heightRelativeToParent="100%">
