@@ -4,6 +4,7 @@ import config from './../config';
 const HOTSPOTS_ENDPOINTS = '/hotspots';
 const HOTSPOTS_VIEWS_ENDPOINTS = '/views';
 const MESSAGES_ENDPOINTS = '/messages';
+const PERTINENCE_ENDPOINTS = '/pertinence';
 
 class CityzenApi {
     constructor(requestService, url = 'http://localhost:3001') {
@@ -111,6 +112,20 @@ class CityzenApi {
                     Authorization: `bearer ${accessToken}`,
                 },
                 body: payload,
+            },
+        );
+    }
+
+    postPertinence(accessToken, hotspotId, pertinence) {
+        return this.http.request(
+            `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}${PERTINENCE_ENDPOINTS}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${accessToken}`,
+                },
+                body: pertinence,
             },
         );
     }

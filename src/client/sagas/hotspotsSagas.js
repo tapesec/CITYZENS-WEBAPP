@@ -230,6 +230,37 @@ export function* postViewUp(action) {
     }
 }
 
+export function* postAlertExist(action) {
+    const { poll, hotspotId } = action.payload;
+    try {
+        const accessToken = yield select(getCityzenAccessToken);
+        const response = yield call(
+            [cityzensApi, cityzensApi.postPertinence],
+            accessToken,
+            hotspotId,
+            JSON.stringify({ agree: poll }),
+        );
+        const updatedHotspot = yield response.json();
+        yield put({
+            type: actionTypes.NEW_HOTSPOT_SAVED,
+            payload: { hotspot: updatedHotspot },
+        });
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.INFO.ALERT_POLL_RECEIVED,
+                NOTIFICATION_MESSAGE.LEVEL.INFO,
+            ),
+        );
+    } catch (error) {
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.ERROR.ALERT_POLL_FAILED,
+                NOTIFICATION_MESSAGE.LEVEL.ERROR,
+            ),
+        );
+    }
+}
+
 export default function* hotspotsSagas() {
     yield [
         takeLatest(actionTypes.FETCH_HOTSPOTS_BY_CITY, fetchHotspots),
@@ -237,5 +268,6 @@ export default function* hotspotsSagas() {
         takeLatest(actionTypes.OPEN_HOTSPOT_IN_UNIVERSAL_MODAL, fetchHotspot),
         takeLatest(actionTypes.POST_SETTING_UP_HOTSPOT_FORM_DATA, persistHotspot),
         takeLatest(actionTypes.HOTSPOT_VIEW_UP, postViewUp),
+        takeLatest(actionTypes.ALERT_STILL_EXIST, postAlertExist),
     ];
 }

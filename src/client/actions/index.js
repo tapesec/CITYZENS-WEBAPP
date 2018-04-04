@@ -248,6 +248,14 @@ const resetMarkerPreviewMode = () => ({
     type: actionTypes.RESET_MARKER_PREVIEW_MODE,
 });
 
+const alertStillExist = (hotspotId, boolean) => ({
+    type: actionTypes.ALERT_STILL_EXIST,
+    payload: {
+        hotspotId,
+        poll: boolean,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -289,4 +297,5 @@ export default {
     messageToScreenOnDisapear,
     hotspotViewUp,
     resetMarkerPreviewMode,
+    alertStillExist,
 };
