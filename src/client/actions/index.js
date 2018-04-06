@@ -256,6 +256,14 @@ const alertStillExist = (hotspotId, boolean) => ({
     },
 });
 
+const hotspotAvatarUploaded = (hotspotId, avatarIconUrl) => ({
+    type: actionTypes.HOTSPOT_AVATAR_UPLOADED,
+    payload: {
+        hotspotId,
+        avatarIconUrl,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -298,4 +306,5 @@ export default {
     hotspotViewUp,
     resetMarkerPreviewMode,
     alertStillExist,
+    hotspotAvatarUploaded,
 };

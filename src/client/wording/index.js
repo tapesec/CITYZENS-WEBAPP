@@ -1,3 +1,6 @@
+const GENERIC_RETRY_REQUEST =
+    'nous venons de recevoir la cause du problème, pouvez vous réessayer un peu plus tard ?';
+
 /* eslint-disable import/prefer-default-export */
 export const SNACKBAR = {
     INFO: {
@@ -7,10 +10,9 @@ export const SNACKBAR = {
         ALERT_POLL_RECEIVED: 'Merci de nous avoir avertis 😊',
     },
     ERROR: {
-        SAVING_HOTSPOT_FAILED:
-            "Oups, nous n'avons pas réussi à sauvegarder votre point d'interêt, nous venons de recevoir la cause du problème, pouvez vous réessayer un peu plus tard ?",
-        SAVING_MESSAGE_FAILED:
-            "Oups, nous n'avons pas réussi à sauvegarder votre message, nous venons de recevoir la cause du problème, pouvez vous réessayer un peu plus tard ?",
+        SAVING_HOTSPOT_FAILED: `Oups, nous n'avons pas réussi à sauvegarder votre point d'interêt, ${GENERIC_RETRY_REQUEST}`,
+        UPDATING_HOTSPOT_FAILED: `Oups, nous n'avons pas réussi à sauvegarder la modification, ${GENERIC_RETRY_REQUEST}`,
+        SAVING_MESSAGE_FAILED: `Oups, nous n'avons pas réussi à sauvegarder votre message, ${GENERIC_RETRY_REQUEST}`,
         ALERT_POLL_FAILED:
             "Nous n'avons pas réussi à soumettre votre avis, pouvez vous réessayer un peu plus tard ? Merci.",
     },

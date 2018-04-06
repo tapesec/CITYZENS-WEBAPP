@@ -3,6 +3,7 @@ const algoliaApplicationId = process.env.ALGOLIA_APPLICATION_ID;
 const algoliaSearchApiKey = process.env.ALGOLIA_SEARCH_API_KEY;
 const algoliaHotspotsIndex = process.env.ALGOLIA_HOTSPOTS_INDEX;
 const cityzensApiBaseUrl = process.env.API_URL;
+const fileStackApiKey = process.env.FILE_STACK_API_KEY;
 
 export default {
     google: {
@@ -15,5 +16,8 @@ export default {
     },
     cityzensApi: {
         baseUrl: cityzensApiBaseUrl,
+    },
+    fileStack: {
+        apiKey: fileStackApiKey,
     },
 };
