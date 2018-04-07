@@ -2,17 +2,17 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CustomScroll from 'react-custom-scroll';
-import ActionsToolbar from './../Toolbar/ActionsToolbar';
-import HotspotTitle from './HotspotTitle';
+import ActionsToolbar from '../../Toolbar/ActionsToolbar';
+import HotspotTitle from '../HotspotHeader/HotspotTitle';
 import EventHotspotDescription from './EventHotspotDescription';
 import EventHotspotDateTime from './EventHotspotDateTime';
 import EventHotspotCountDown from './EventHotspotCountDown';
-import Footer from './../Footer/Footer';
-import actions from './../../../../../client/actions';
-import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
-import withViewCounter from './../../../hoc/hotspots/withViewCounter';
+import Footer from '../../Footer/Footer';
+import actions from '../../../../../../client/actions';
+import { getCityzenId, isAuthenticated } from '../../../../../reducers/authenticatedCityzen';
+import withViewCounter from '../../../../hoc/hotspots/withViewCounter';
 
-import './HotspotContent.scss';
+import './../HotspotContent.scss';
 
 const EventHotspot = ({
     hotspot,

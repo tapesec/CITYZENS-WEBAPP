@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from 'rmwc/Typography';
 import PropTypes from 'prop-types';
 import { Icon } from 'rmwc/Icon';
-import DateFormater from './../../../lib/DateFormater';
+import DateFormater from './../../../../lib/DateFormater';
 import './EventHotspotDateTime.scss';
 
 const EventHotspotDateTime = ({ date }) => (

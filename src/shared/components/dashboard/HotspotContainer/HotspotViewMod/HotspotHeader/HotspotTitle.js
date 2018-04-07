@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactFilestack from 'filestack-react';
-import actions from './../../../../../client/actions';
-import config from './../../../../config';
+import actions from '../../../../../../client/actions';
+import config from '../../../../../config';
 import HotspotAvatar from './HotspotAvatar';
 import './HotspotTitle.scss';
 

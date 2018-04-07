@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { DateTime } from 'luxon';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
-import DateFormater from './../../../lib/DateFormater';
+import DateFormater from './../../../../lib/DateFormater';
 import './EventHotspotDateTime.scss';
 
 class EventHotspotCountDown extends React.Component {

@@ -3,7 +3,7 @@ import Typography from 'rmwc/Typography';
 import Icon from 'rmwc/Icon';
 import PropTypes from 'prop-types';
 import DateFormater from '../../../../lib/DateFormater';
-import '../HotspotMessage.scss';
+import './../HotspotMessage.scss';
 
 const HotspotMessage = ({ message, cityzenIsAuthor, edit }) => {
     const editMessage = () => {

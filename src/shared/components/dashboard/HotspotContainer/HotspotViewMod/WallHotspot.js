@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import CustomScroll from 'react-custom-scroll';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
-import HotspotTitle from './HotspotTitle';
+import HotspotTitle from './HotspotHeader/HotspotTitle';
 import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Icon } from 'rmwc/Icon';
 import { Typography } from 'rmwc/Typography';
-import actions from './../../../../../client/actions';
-import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
-import ActionsToolbar from './../Toolbar/ActionsToolbar';
-import withViewCounter from './../../../hoc/hotspots/withViewCounter';
-import Footer from './../Footer/Footer';
-import DateFormater from './../../../lib/DateFormater';
+import actions from '../../../../../../client/actions';
+import { getCityzenId, isAuthenticated } from '../../../../../reducers/authenticatedCityzen';
+import ActionsToolbar from '../../Toolbar/ActionsToolbar';
+import withViewCounter from '../../../../hoc/hotspots/withViewCounter';
+import Footer from '../../Footer/Footer';
+import DateFormater from '../../../../lib/DateFormater';
 
-import './HotspotContent.scss';
+import '../HotspotContent.scss';
 import './AlertHotspot.scss';
 
 const DisplayQuestionOrSayThanks = props =>

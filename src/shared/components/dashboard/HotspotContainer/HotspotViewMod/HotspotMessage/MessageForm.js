@@ -9,7 +9,7 @@ import { MESSAGE_FORM } from './../../../../../wording';
 import VALIDATION from './../../../../../constants/dataValidation';
 import constants from './../../../../../constants';
 
-import './HotspotMessage.scss';
+import './../HotspotMessage.scss';
 import './MessageForm.scss';
 
 const { EDITION_MODE } = constants;

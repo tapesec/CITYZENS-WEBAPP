@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from 'rmwc/Typography';
 import PropTypes from 'prop-types';
-import DateFormater from './../../../lib/DateFormater';
+import DateFormater from './../../../../lib/DateFormater';
 
 const EventHotspotDescription = ({ description, author }) => (
     <article className="HotspotMessage">
