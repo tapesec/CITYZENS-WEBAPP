@@ -96,6 +96,7 @@ const WallHotspot = ({
                     address={hotspot.address}
                     hotspotId={hotspot.id}
                     isAuthor={cityzenId === hotspot.author.id}
+                    avatarUrl={hotspot.avatarIconUrl}
                 />
 
                 <CustomScroll heightRelativeToParent="100%">

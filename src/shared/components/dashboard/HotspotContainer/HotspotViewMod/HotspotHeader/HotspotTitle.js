@@ -20,7 +20,14 @@ const fileStackOptions = {
     },
 };
 
-const HotspotTitle = ({ title, address, hotspotId, persistHotspotAvatarIcon, isAuthor }) => (
+const HotspotTitle = ({
+    title,
+    address,
+    hotspotId,
+    persistHotspotAvatarIcon,
+    isAuthor,
+    avatarUrl,
+}) => (
     <header className="HotspotHeader">
         {isAuthor ? (
             <ReactFilestack
@@ -32,10 +39,12 @@ const HotspotTitle = ({ title, address, hotspotId, persistHotspotAvatarIcon, isA
                     persistHotspotAvatarIcon(hotspotId, url);
                 }}
                 onError={() => {}}
-                render={({ onPick }) => <HotspotAvatar onPick={onPick} editionMode />}
+                render={({ onPick }) => (
+                    <HotspotAvatar onPick={onPick} editionMode url={avatarUrl} />
+                )}
             />
         ) : (
-            <HotspotAvatar editionMode={false} />
+            <HotspotAvatar editionMode={false} url={avatarUrl} />
         )}
 
         <div className="HotspotTitle">

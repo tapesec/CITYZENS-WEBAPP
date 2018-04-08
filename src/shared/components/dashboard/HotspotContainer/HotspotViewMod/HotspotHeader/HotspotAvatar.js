@@ -33,7 +33,7 @@ class HotspotAvatar extends React.Component {
                 }}>
                 <img
                     className={this.state.mouseEntered ? 'HotspotAvatar-hovered' : ''}
-                    src="https://dummyimage.com/300.png"
+                    src={this.props.url}
                     alt="Icône du centre d'intêret"
                     style={{ cursor: 'pointer' }}
                 />
@@ -43,7 +43,7 @@ class HotspotAvatar extends React.Component {
             </div>
         ) : (
             <div className="HotspotAvatar">
-                <img src="https://dummyimage.com/300.png" alt="Icône du centre d'intêret" />
+                <img src={this.props.url} alt="Icône du centre d'intêret" />
             </div>
         );
     }

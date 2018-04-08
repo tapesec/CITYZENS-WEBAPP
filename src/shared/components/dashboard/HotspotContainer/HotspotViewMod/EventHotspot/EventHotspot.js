@@ -49,6 +49,7 @@ const EventHotspot = ({
                     address={hotspot.address}
                     hotspotId={hotspot.id}
                     isAuthor={cityzenId === hotspot.author.id}
+                    avatarUrl={hotspot.avatarIconUrl}
                 />
                 <EventHotspotDateTime date={hotspot.dateEnd} />
                 <EventHotspotCountDown dateEnd={hotspot.dateEnd} />

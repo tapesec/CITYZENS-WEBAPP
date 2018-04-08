@@ -36,7 +36,11 @@ const SearchResult = props => (
                                     borderRadius: '50%',
                                 }}
                                 alt="avatar"
-                                src="https://dummyimage.com/300.png"
+                                src={
+                                    hit.type === constants.HOTSPOT.TYPE.ALERT
+                                        ? 'https://dummyimage.com/300.png'
+                                        : hit.avatarIconUrl
+                                }
                             />
                         </ListItemGraphic>
                         <ListItemText
