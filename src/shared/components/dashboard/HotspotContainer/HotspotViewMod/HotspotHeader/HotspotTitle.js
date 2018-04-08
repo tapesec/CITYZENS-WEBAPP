@@ -65,6 +65,7 @@ HotspotTitle.propTypes = {
     }).isRequired,
     persistHotspotAvatarIcon: PropTypes.func.isRequired,
     isAuthor: PropTypes.bool.isRequired,
+    avatarUrl: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

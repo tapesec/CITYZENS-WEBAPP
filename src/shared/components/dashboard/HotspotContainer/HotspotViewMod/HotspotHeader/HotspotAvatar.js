@@ -52,6 +52,7 @@ class HotspotAvatar extends React.Component {
 HotspotAvatar.propTypes = {
     onPick: PropTypes.func,
     editionMode: PropTypes.bool.isRequired,
+    url: PropTypes.string.isRequired,
 };
 
 HotspotAvatar.defaultProps = {
