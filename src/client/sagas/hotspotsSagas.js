@@ -7,7 +7,6 @@ import { getCityId, getCityName } from './../../shared/reducers/city';
 import WallHotspotPayload from './../services/payloads/WallHotspotPayload';
 import EventHotspotPayload from '../services/payloads/EventHotspotPayload';
 import MessageHotspotPayload from '../services/payloads/AlertHotspotPayload';
-import selectors from './../selectors';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
 import { SNACKBAR } from './../wording';
 import { NOTIFICATION_MESSAGE } from './../constants';
@@ -41,8 +40,7 @@ export function* fetchHotspot(action) {
         let hotspotId;
         let hotspot;
         if (action && action.payload && action.payload.slug) {
-            hotspot = yield select(selectors.getHotspotBySlug, action.payload.slug);
-            hotspotId = hotspot.id;
+            hotspotId = action.payload.slug;
         }
         if (action && action.payload && action.payload.hotspotId) {
             // eslint-disable-next-line
