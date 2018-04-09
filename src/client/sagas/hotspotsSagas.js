@@ -38,7 +38,6 @@ export function* fetchHotspots(action) {
 export function* fetchHotspot(action) {
     try {
         let hotspotId;
-        let hotspot;
         if (action && action.payload && action.payload.slug) {
             hotspotId = action.payload.slug;
         }
