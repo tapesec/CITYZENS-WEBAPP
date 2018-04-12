@@ -1,9 +1,9 @@
 @import './../../../../../../client/variables.scss';
 
-Header.HotspotHeader {
+div.HotspotHeader {
     width: calc(100% - 50px);
-    display: flex;
     margin-bottom: 30px;
+    display: flex;
     .HotspotAvatar {
         margin-right: 20px;
         display: flex;
