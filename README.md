@@ -45,4 +45,4 @@ npm i shallow-equal-explain
 const shallowEqualExplanation = shallowEqualExplain(prevProps, this.props);
 ```
 Cette lib permet d'identifier les différences entre prev et next props.
-Ne pas hésiter à généraliser l'utilisation de reselect pour éviter le rerendering excessif
+Ne pas hésiter à généraliser l'utilisation de reselect pour éviter le rerendering excessif.
