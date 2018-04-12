@@ -8,7 +8,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:8.9.0
-      
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -34,18 +34,18 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: 
+      - run:
           name: "Eslint Linter"
-          command: npm run eslint -- -f junit -o reports/junit/eslint-result.xml --color 
+          command: npm run eslint -- -f junit -o reports/junit/eslint-result.xml --color
 
       - store_test_results:
           path: reports/junit
       - store_test_results:
           path: reports/junit
 
-      - run: 
+      - run:
           name: clever deploy
           command: |
             git remote add clever https://$CLEVER_TOKEN:$CLEVER_SECRET@push-par-clevercloud-customers.services.clever-cloud.com/$APP_ID.git
-            git push -u clever master
+            git push -u -f clever master
 
