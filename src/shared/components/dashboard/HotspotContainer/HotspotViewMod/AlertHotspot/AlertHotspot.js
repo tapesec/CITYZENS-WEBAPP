@@ -13,6 +13,7 @@ import { getCityzenId, isAuthenticated } from '../../../../../reducers/authentic
 import HotspotTitle from './../HotspotHeader/HotspotTitle';
 import ActionsToolbar from '../../Toolbar/ActionsToolbar';
 import withViewCounter from '../../../../hoc/hotspots/withViewCounter';
+import AlertImage from './AlertImage';
 import Footer from '../../Footer/Footer';
 import DateFormater from '../../../../lib/DateFormater';
 
@@ -72,6 +73,52 @@ const fileStackOptions = {
     },
 };
 
+const DiplayImageDescriptionOrImport = (
+    HotspotId,
+    imageLocation,
+    cityzenIsAuthenticated,
+    saveUploadedImage,
+) => {
+    if (imageLocation) return <AlertImage imageLocation={imageLocation} />;
+    else if (cityzenIsAuthenticated) {
+        return (
+            <ReactFilestack
+                apikey={config.fileStack.apiKey}
+                options={fileStackOptions}
+                onSuccess={result => {
+                    const image = result.filesUploaded[0];
+                    const { url } = image;
+                    saveUploadedImage(HotspotId, url);
+                }}
+                onError={err => {
+                    console.log(err); // eslint-disable-line no-console
+                }}
+                render={({ onPick }) => (
+                    <div
+                        onClick={onPick}
+                        role="button"
+                        tabIndex={-1}
+                        onKeyUp={onPick}
+                        className="alert-dropzone">
+                        <Typography tag="span" use="headline">
+                            Cliquez ici pour déposer vos images ou prendre une photo
+                        </Typography>
+                    </div>
+                )}
+            />
+        );
+    }
+    return (
+        <div className="loged-out-alert-dropzone">
+            <Typography tag="span" use="headline">
+                <a href="/login">Connectez vous</a> pour déposez une image ou prendre une photo
+            </Typography>
+        </div>
+    );
+};
+
+DiplayImageDescriptionOrImport.propTypes = {};
+
 const AlertHotspot = props => (
     <Fragment>
         <ActionsToolbar />
@@ -85,40 +132,12 @@ const AlertHotspot = props => (
                 />
             </header>
             <CustomScroll heightRelativeToParent="100%">
-                {props.cityzenIsAuthenticated && props.hotspot.author.id === props.cityzenId ? (
-                    <ReactFilestack
-                        apikey={config.fileStack.apiKey}
-                        options={fileStackOptions}
-                        onSuccess={result => {
-                            const image = result.filesUploaded[0];
-                            const { url } = image;
-                            props.saveUploadedImage(props.hotspot.id, url);
-                        }}
-                        onError={err => {
-                            console.log(err); // eslint-disable-line no-console
-                        }}
-                        render={({ onPick }) => (
-                            <div
-                                onClick={onPick}
-                                role="button"
-                                tabIndex={-1}
-                                onKeyUp={onPick}
-                                className="alert-dropzone">
-                                <Typography tag="span" use="headline">
-                                    Cliquez ici pour déposer vos images ou prendre une photo
-                                </Typography>
-                            </div>
-                        )}
-                    />
-                ) : (
-                    <div className="loged-out-alert-dropzone">
-                        <Typography tag="span" use="headline">
-                            <a href="/login">Connectez vous</a> pour déposez une image ou prendre
-                            une photo
-                        </Typography>
-                    </div>
+                {DiplayImageDescriptionOrImport(
+                    props.hotspot.id,
+                    props.hotspot.imageDescriptionLocation,
+                    props.cityzenIsAuthenticated,
+                    props.saveUploadedImage,
                 )}
-
                 <Elevation z="4" style={{ margin: '1px' }}>
                     <article className="HotspotMessage">
                         <Typography
@@ -171,9 +190,9 @@ AlertHotspot.propTypes = {
         author: PropTypes.shape({
             id: PropTypes.string,
         }),
+        imageDescriptionLocation: PropTypes.string,
     }).isRequired,
     cityzenIsAuthenticated: PropTypes.bool.isRequired,
-    cityzenId: PropTypes.string.isRequired,
     saveUploadedImage: PropTypes.func.isRequired,
 };
 
