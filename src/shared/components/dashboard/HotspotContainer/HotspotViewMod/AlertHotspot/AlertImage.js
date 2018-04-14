@@ -4,7 +4,6 @@ import { Elevation } from 'rmwc/Elevation';
 
 const elevationStyle = {
     margin: '1px 1px 0 1px',
-    width: '100%',
 };
 
 const imageStyle = {
