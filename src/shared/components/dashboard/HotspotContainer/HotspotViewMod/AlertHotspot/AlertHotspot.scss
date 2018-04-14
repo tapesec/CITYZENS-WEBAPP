@@ -1,7 +1,6 @@
 @import './../../../../../../client/variables.scss';
 
 .AlertHotspot {
-    justify-content: center;
     div.iconContainer {
         align-self: center;
         background-color: #dfdfe4;
@@ -12,24 +11,75 @@
             font-size: 4em;
         }
     }
-    p.question-label {
+    div.alert-dropzone {
+        display: flex;
+        border: 4px dashed gray;
+        align-items: center;
         align-self: center;
+        justify-content: center;
+        height: 300px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-right: 1px;
+        margin-left: 1px;
         margin-bottom: 20px;
-    }
-    p.question-disabled {
-        align-self: center;
-        a, a:visited, a:focus {
-            color: $mdc-theme-secondary;
+        background-color: white;
+        &:hover {
+            border-color: $mdc-theme-secondary;
+            span {
+                color: $mdc-theme-secondary;
+            }
+        }
+        cursor: pointer;
+        span {
+            color: gray;
+            text-align: center;
         }
     }
-    div.thumb-container {
+    div.loged-out-alert-dropzone {
         display: flex;
+        border: 4px dashed gray;
+        align-items: center;
         align-self: center;
-        justify-content: space-around;
-        width: 30%;
-        cursor: pointer;
-        i {
-            font-size: 3em;
+        justify-content: center;
+        height: 300px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-right: 1px;
+        margin-left: 1px;
+        margin-bottom: 20px;
+        
+        span {
+            color: gray;
+            text-align: center;
+            margin: 20px;
+            a, a:visited, a:focus {
+                color: $mdc-theme-secondary;
+            }
+        }
+    }
+    div.pertinence-section {
+        display: flex;
+        flex-flow: column;
+        p.question-label {
+            align-self: center;
+            margin-bottom: 20px;
+        }
+        p.question-disabled {
+            align-self: center;
+            a, a:visited, a:focus {
+                color: $mdc-theme-secondary;
+            }
+        }
+        div.thumb-container {
+            display: flex;
+            align-self: center;
+            justify-content: space-around;
+            width: 30%;
+            cursor: pointer;
+            i {
+                font-size: 3em;
+            }
         }
     }
 }

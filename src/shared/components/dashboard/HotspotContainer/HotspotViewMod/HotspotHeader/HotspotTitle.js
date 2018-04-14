@@ -27,45 +27,63 @@ const HotspotTitle = ({
     persistHotspotAvatarIcon,
     isAuthor,
     avatarUrl,
-}) => (
-    <header className="HotspotHeader">
-        {isAuthor ? (
-            <ReactFilestack
-                apikey={config.fileStack.apiKey}
-                options={fileStackOptions}
-                onSuccess={result => {
-                    const newAvatarIcon = result.filesUploaded[0];
-                    const { url } = newAvatarIcon;
-                    persistHotspotAvatarIcon(hotspotId, url);
-                }}
-                onError={() => {}}
-                render={({ onPick }) => (
-                    <HotspotAvatar onPick={onPick} editionMode url={avatarUrl} />
-                )}
-            />
-        ) : (
-            <HotspotAvatar editionMode={false} url={avatarUrl} />
-        )}
+    noAvatar,
+}) => {
+    const displayAvatar = () => {
+        if (!noAvatar) {
+            return isAuthor ? (
+                <ReactFilestack
+                    apikey={config.fileStack.apiKey}
+                    options={fileStackOptions}
+                    onSuccess={result => {
+                        const newAvatarIcon = result.filesUploaded[0];
+                        const { url } = newAvatarIcon;
+                        persistHotspotAvatarIcon(hotspotId, url);
+                    }}
+                    onError={() => {}}
+                    render={({ onPick }) => (
+                        <HotspotAvatar onPick={onPick} editionMode url={avatarUrl} />
+                    )}
+                />
+            ) : (
+                <HotspotAvatar editionMode={false} url={avatarUrl} />
+            );
+        }
+        return null;
+    };
 
-        <div className="HotspotTitle">
-            <h1>{title}</h1>
-            <p>
-                {address.name}, {address.city}
-            </p>
+    return (
+        <div className="HotspotHeader">
+            {displayAvatar()}
+            <div className="HotspotTitle">
+                <h1>{title}</h1>
+                <p>
+                    {address.name}, {address.city}
+                </p>
+            </div>
         </div>
-    </header>
-);
+    );
+};
 
 HotspotTitle.propTypes = {
-    hotspotId: PropTypes.string.isRequired,
+    hotspotId: PropTypes.string,
     title: PropTypes.string.isRequired,
     address: PropTypes.shape({
         name: PropTypes.string.isRequired,
         city: PropTypes.string.isRequired,
     }).isRequired,
-    persistHotspotAvatarIcon: PropTypes.func.isRequired,
-    isAuthor: PropTypes.bool.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
+    persistHotspotAvatarIcon: PropTypes.func,
+    isAuthor: PropTypes.bool,
+    avatarUrl: PropTypes.string,
+    noAvatar: PropTypes.bool,
+};
+
+HotspotTitle.defaultProps = {
+    noAvatar: false,
+    avatarUrl: '',
+    hotspotId: undefined,
+    persistHotspotAvatarIcon: () => {},
+    isAuthor: false,
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -17,7 +17,6 @@
 * line-counter
 * move-imports
 * Prettier - Code formatter
-* VS Code Redis
 
 ### launch.json
 

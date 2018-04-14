@@ -38,7 +38,7 @@ const SearchResult = props => (
                                 alt="avatar"
                                 src={
                                     hit.type === constants.HOTSPOT.TYPE.ALERT
-                                        ? 'https://dummyimage.com/300.png'
+                                        ? helper.generateAvatarForAlertHotspot(hit)
                                         : hit.avatarIconUrl
                                 }
                             />

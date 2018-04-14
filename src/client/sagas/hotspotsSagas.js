@@ -289,6 +289,37 @@ function* uploadHotspotAvatarIcon(action) {
     }
 }
 
+function* uploadAlertHotspotImg(action) {
+    const { hotspotId, imgUrl } = action.payload;
+    try {
+        const accessToken = yield select(getCityzenAccessToken);
+        const response = yield call(
+            [cityzensApi, cityzensApi.patchHotspots],
+            accessToken,
+            JSON.stringify({ alertHotspotImgLocation: imgUrl }),
+            hotspotId,
+        );
+        const updatedHotspot = yield response.json();
+        yield put({
+            type: actionTypes.NEW_HOTSPOT_SAVED,
+            payload: { hotspot: updatedHotspot },
+        });
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.INFO.ALERT_HOTSPOT_IMG_UPDATED_SUCCESSFULLY,
+                NOTIFICATION_MESSAGE.LEVEL.INFO,
+            ),
+        );
+    } catch (error) {
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.ERROR.UPDATING_HOTSPOT_FAILED,
+                NOTIFICATION_MESSAGE.LEVEL.ERROR,
+            ),
+        );
+    }
+}
+
 export default function* hotspotsSagas() {
     yield [
         takeLatest(actionTypes.FETCH_HOTSPOTS_BY_CITY, fetchHotspots),
@@ -298,5 +329,6 @@ export default function* hotspotsSagas() {
         takeLatest(actionTypes.HOTSPOT_VIEW_UP, postViewUp),
         takeLatest(actionTypes.ALERT_STILL_EXIST, postAlertExist),
         takeLatest(actionTypes.HOTSPOT_AVATAR_UPLOADED, uploadHotspotAvatarIcon),
+        takeLatest(actionTypes.ALERT_HOTSPOT_IMAGE_UPLOADED, uploadAlertHotspotImg),
     ];
 }

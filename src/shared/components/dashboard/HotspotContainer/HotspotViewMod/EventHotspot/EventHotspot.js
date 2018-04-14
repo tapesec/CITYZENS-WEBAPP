@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CustomScroll from 'react-custom-scroll';
+import { Elevation } from 'rmwc/Elevation';
 import ActionsToolbar from '../../Toolbar/ActionsToolbar';
 import HotspotTitle from '../HotspotHeader/HotspotTitle';
 import EventHotspotDescription from './EventHotspotDescription';
@@ -54,11 +55,13 @@ const EventHotspot = ({
                 <EventHotspotDateTime date={hotspot.dateEnd} />
                 <EventHotspotCountDown dateEnd={hotspot.dateEnd} />
                 <CustomScroll heightRelativeToParent="100%">
-                    <EventHotspotDescription
-                        description={hotspot.description}
-                        author={hotspot.author}
-                        dateEnd={hotspot.dateEnd}
-                    />
+                    <Elevation z="4" style={{ margin: '1px' }}>
+                        <EventHotspotDescription
+                            description={hotspot.description}
+                            author={hotspot.author}
+                            dateEnd={hotspot.dateEnd}
+                        />
+                    </Elevation>
                 </CustomScroll>
             </section>
             <Footer views={hotspot.views} />

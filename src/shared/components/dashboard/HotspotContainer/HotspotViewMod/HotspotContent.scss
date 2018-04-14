@@ -4,13 +4,12 @@ section.HotspotContent {
     min-height: 0;
     min-width: 0;
     overflow: hidden;
-    margin: 30px 11px 0px 30px;
+    margin: 30px 30px 0px 30px;
     display: flex;
     flex-direction: column;
 
     div.add-message-button {
         border: 1px solid darken($mdc-theme-background, 8%);
-        margin-right: 20px;
         display: flex;
         align-items: center;
         padding: 10px;
