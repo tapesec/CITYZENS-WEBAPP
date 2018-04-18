@@ -3,6 +3,7 @@ import { GatewayDest, GatewayProvider } from 'react-gateway';
 import { Route, Switch } from 'react-router-dom';
 import authConnector from './hoc/authConnector';
 import MainContainer from './MainContainer';
+import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
 import MainToolbar from './toolbar/MainToolbar';
 
@@ -19,6 +20,7 @@ class App extends React.Component {
                     <MainContainer>
                         <Nav />
                         <Switch>
+                            <Route exact path="/" component={Home} />
                             <Route path="/:citySlug" component={Dashboard} />
                         </Switch>
                     </MainContainer>

@@ -90,7 +90,12 @@ class InitialState {
                 // return Promise.reject(error);
             }
         } else {
-            return next(new Error('Invalid request parameter'));
+            const dataTree = { ...InitialState.dataTree() };
+            req.initialState = dataTree;
+            next();
+            return Promise.resolve();
+
+            // return next(new Error('Invalid request parameter'));
         }
     }
 

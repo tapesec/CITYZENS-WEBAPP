@@ -98,7 +98,7 @@ app.get('/favicon.ico', (req, res) => {
     res.send('nada');
 });
 
-app.get('/:citySlug', initialState.defaultState.bind(initialState), router);
+app.get(['/', '/:citySlug'], initialState.defaultState.bind(initialState), router);
 
 app.get(
     '/:citySlug/:hotspotSlug',
