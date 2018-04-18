@@ -29,12 +29,18 @@
             margin-top: 20px;
         }
         a {
-            background-color: $mdc-theme-secondary;
             padding: 10px;
             color: white;
             text-decoration: none;
             display: inline-block;
             box-shadow:  1px 1px 2px 1px lightgrey;
+        }
+        a.signin {
+            background-color: $mdc-theme-secondary;
+        }
+        a.visitor {
+            margin-left: 20px;
+            background-color: lightgray;
         }
     }
     .second-view-line {

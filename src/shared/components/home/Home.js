@@ -37,10 +37,21 @@ const Home = () => (
                         <Ripple primary>
                             <Typography
                                 tag="a"
+                                className="signin"
                                 href="/login"
                                 use="headline"
-                                theme="secondary-bg text-primary-on-secondary">
+                                theme="text-primary-on-secondary">
                                 Devenez un Cityzen
+                            </Typography>
+                        </Ripple>
+                        <Ripple primary>
+                            <Typography
+                                tag="a"
+                                className="visitor"
+                                href="/Martignas-sur-Jalle"
+                                use="headline"
+                                theme="text-primary-on-secondary">
+                                Je suis un touriste
                             </Typography>
                         </Ripple>
                     </div>
