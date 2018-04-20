@@ -272,6 +272,18 @@ const alertHotspotImageUploaded = (hotspotId, imgUrl) => ({
     },
 });
 
+const selectWidgetToConfigure = (hotspotId, widgetName) => ({
+    type: actionTypes.SELECT_WIDGET_TO_CONFIGURE,
+    payload: {
+        hotspotId,
+        widgetName,
+    },
+});
+
+const unselectWidgetToConfigure = () => ({
+    type: actionTypes.UNSELECT_WIDGET_TO_CONFIGURE,
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -316,4 +328,6 @@ export default {
     alertStillExist,
     hotspotAvatarUploaded,
     alertHotspotImageUploaded,
+    selectWidgetToConfigure,
+    unselectWidgetToConfigure,
 };

@@ -32,6 +32,11 @@ export default {
             },
         },
     },
+    WIDGET: {
+        NAME: {
+            MEDIA_SLIDE_SHOW: 'MEDIA_SLIDE_SHOW',
+        },
+    },
     EDITION_MODE: {
         TURNED_OFF: 'TURNED_OFF',
         EDITION: 'EDITION',

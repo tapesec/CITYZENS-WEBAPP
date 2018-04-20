@@ -43,6 +43,7 @@ class InitialState {
                 markerPreview: {
                     enabled: false,
                 },
+                widget: {},
             },
             algolia: {
                 hits: [],

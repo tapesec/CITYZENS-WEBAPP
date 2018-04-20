@@ -49,6 +49,7 @@ const WallHotspot = ({
     clearHotspotMessageEdition,
     submitForm,
     displayHotspotMessageForm,
+    selectWidgetToConfigure,
 }) => {
     const handleSubmit = values => {
         const payload = {
@@ -89,7 +90,11 @@ const WallHotspot = ({
 
     return (
         <Fragment>
-            <ActionsToolbar />
+            <ActionsToolbar
+                slideShowAction={() => {
+                    selectWidgetToConfigure(hotspot.id, constants.WIDGET.NAME.MEDIA_SLIDE_SHOW);
+                }}
+            />
             <section className="HotspotContent">
                 <HotspotTitle
                     title={hotspot.title}
@@ -155,6 +160,7 @@ WallHotspot.propTypes = {
     clearHotspotMessageEdition: PropTypes.func.isRequired,
     submitForm: PropTypes.func.isRequired,
     displayHotspotMessageForm: PropTypes.func.isRequired,
+    selectWidgetToConfigure: PropTypes.func.isRequired,
 };
 
 WallHotspot.defaultProps = {
@@ -177,6 +183,9 @@ const mapDispatchToProps = dispatch => ({
     },
     displayHotspotMessageForm: () => {
         dispatch(actions.displaySettingUpHotspotMessageForm());
+    },
+    selectWidgetToConfigure: (hotspotId, widgetName) => {
+        dispatch(actions.selectWidgetToConfigure(hotspotId, widgetName));
     },
 });
 

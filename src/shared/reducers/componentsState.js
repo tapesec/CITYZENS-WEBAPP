@@ -183,6 +183,19 @@ export default function componentsState(state = initialState, action) {
                     enabled: true,
                 },
             };
+        case actionTypes.SELECT_WIDGET_TO_CONFIGURE:
+            return {
+                ...state,
+                widget: {
+                    name: action.payload.widgetName,
+                    hotspotId: action.payload.hotspotId,
+                },
+            };
+        case actionTypes.UNSELECT_WIDGET_TO_CONFIGURE:
+            return {
+                ...state,
+                widget: {},
+            };
         default:
             return state;
     }
@@ -215,3 +228,6 @@ export const snackbarMessage = state => ({
 });
 
 export const getMarkerPreviewModeStatus = state => state.componentsState.markerPreview.enabled;
+
+export const selectWidgetCurrentlyEdited = state => state.componentsState.widget;
+export const widgetIsBeingEdited = state => state.componentsState.widget.name !== undefined;
