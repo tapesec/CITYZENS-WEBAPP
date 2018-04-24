@@ -9,8 +9,19 @@ import './Slideshow.scss';
 class Slideshow extends React.Component {
     constructor() {
         super();
+        this.state = {
+            refreshToken: new Date().getTime(),
+        };
         this.next = this.next.bind(this);
         this.prev = this.prev.bind(this);
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                refreshToken: new Date().getTime(),
+            });
+        }, 1000);
     }
 
     next() {
@@ -58,7 +69,7 @@ class Slideshow extends React.Component {
                         callback() {},
                         transitionEnd() {},
                     }}
-                    key={new Date().getTime()}>
+                    key={this.state.refreshToken}>
                     {this.props.imageIds.map(imageId => (
                         <ImageCDN filename={imageId} key={imageId} alt="galerie photo" />
                     ))}
