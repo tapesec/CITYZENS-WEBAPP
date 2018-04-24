@@ -12,8 +12,8 @@ import Footer from '../../Footer/Footer';
 import actions from '../../../../../../client/actions';
 import { getCityzenId, isAuthenticated } from '../../../../../reducers/authenticatedCityzen';
 import withViewCounter from '../../../../hoc/hotspots/withViewCounter';
-
-import './../HotspotContent.scss';
+import constants from './../../../../../constants';
+import config from '../../../../../config';
 
 const EventHotspot = ({
     hotspot,
@@ -21,6 +21,7 @@ const EventHotspot = ({
     cityzenId,
     editEventHotspot,
     openSettingUpHotspotModal,
+    selectWidgetToConfigure,
 }) => {
     const buildToolbar = () => {
         if (cityzenIsAuthenticated && cityzenId === hotspot.author.id) {
@@ -36,6 +37,9 @@ const EventHotspot = ({
                         });
                         openSettingUpHotspotModal();
                     }}
+                    slideShowAction={() => {
+                        selectWidgetToConfigure(hotspot.id, constants.WIDGET.NAME.MEDIA_SLIDE_SHOW);
+                    }}
                 />
             );
         }
@@ -45,17 +49,19 @@ const EventHotspot = ({
         <Fragment>
             {buildToolbar()}
             <section className="HotspotContent">
-                <HotspotTitle
-                    title={hotspot.title}
-                    address={hotspot.address}
-                    hotspotId={hotspot.id}
-                    isAuthor={cityzenId === hotspot.author.id}
-                    avatarUrl={hotspot.avatarIconUrl}
-                />
-                <EventHotspotDateTime date={hotspot.dateEnd} />
-                <EventHotspotCountDown dateEnd={hotspot.dateEnd} />
                 <CustomScroll heightRelativeToParent="100%">
-                    <Elevation z="4" style={{ margin: '1px' }}>
+                    <HotspotTitle
+                        title={hotspot.title}
+                        address={hotspot.address}
+                        hotspotId={hotspot.id}
+                        isAuthor={cityzenId === hotspot.author.id}
+                        avatarUrl={`${hotspot.avatarIconUrl}?policy=${
+                            config.fileStack.security.policy
+                        }&signature=${config.fileStack.security.signature}`}
+                    />
+                    <EventHotspotDateTime date={hotspot.dateEnd} />
+                    <EventHotspotCountDown dateEnd={hotspot.dateEnd} />
+                    <Elevation z="4" style={{ margin: '1px', marginRight: '20px' }}>
                         <EventHotspotDescription
                             description={hotspot.description}
                             author={hotspot.author}
@@ -81,6 +87,7 @@ EventHotspot.propTypes = {
     cityzenId: PropTypes.string,
     editEventHotspot: PropTypes.func.isRequired,
     openSettingUpHotspotModal: PropTypes.func.isRequired,
+    selectWidgetToConfigure: PropTypes.func.isRequired,
 };
 
 EventHotspot.defaultProps = {
@@ -98,6 +105,9 @@ const mapDispatchToProps = dispatch => ({
     },
     editEventHotspot: hotspot => {
         dispatch(actions.editEventHotspot(hotspot));
+    },
+    selectWidgetToConfigure: (hotspotId, widgetName) => {
+        dispatch(actions.selectWidgetToConfigure(hotspotId, widgetName));
     },
 });
 

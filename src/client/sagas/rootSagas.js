@@ -5,6 +5,7 @@ import messagesSagas from './messagesSagas';
 import mapSagas from './MapSagas';
 import routingSagas from './routingSagas';
 import geocodingSagas from './geocodingSagas';
+import slideshowSagas from './widgets/slideshowSagas';
 
 export default function* init() {
     yield [
@@ -14,5 +15,6 @@ export default function* init() {
         fork(routingSagas),
         fork(messagesSagas),
         fork(geocodingSagas),
+        fork(slideshowSagas),
     ];
 }

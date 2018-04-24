@@ -23,6 +23,7 @@ class HotspotContainer extends React.Component {
         super();
         this.displayContent.bind(this);
         this.callRightContextAction = this.callRightContextAction.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount() {
@@ -57,7 +58,8 @@ class HotspotContainer extends React.Component {
             return (
                 <SlideshowAdmin
                     hotspotId={readableHotspot.id}
-                    pictures={readableHotspot.slideShow}
+                    imagesId={readableHotspot.slideShow}
+                    storageFolder={`${readableHotspot.author.id}-${readableHotspot.slug}`}
                 />
             );
         }

@@ -284,6 +284,14 @@ const unselectWidgetToConfigure = () => ({
     type: actionTypes.UNSELECT_WIDGET_TO_CONFIGURE,
 });
 
+const saveSlideshowWidget = (hotspotId, picturesUrl) => ({
+    type: actionTypes.SAVE_SLIDESHOWS_PICTURES,
+    payload: {
+        hotspotId,
+        picturesUrl,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -330,4 +338,5 @@ export default {
     alertHotspotImageUploaded,
     selectWidgetToConfigure,
     unselectWidgetToConfigure,
+    saveSlideshowWidget,
 };

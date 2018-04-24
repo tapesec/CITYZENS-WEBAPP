@@ -1,0 +1,31 @@
+.ImageCDN {
+    position: relative;
+    &:hover {
+        .overlay{
+            display: flex;
+        }
+    }
+    div.overlay {
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        box-sizing: border-box;
+        display: none;
+        align-items: center;
+        cursor: pointer;
+        i {
+            margin: auto;
+        }
+        div.loading-message {
+            color: white;
+            font-size: 0.7em;
+            margin: auto;
+        }
+    }
+    img {
+        box-sizing: border-box
+    }
+    
+}

@@ -44,6 +44,9 @@ class InitialState {
                     enabled: false,
                 },
                 widget: {},
+                onLoad: {
+                    removingSlideshowImage: false,
+                },
             },
             algolia: {
                 hits: [],

@@ -9,6 +9,7 @@ import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
 import HotspotMessageForm from './HotspotMessage/MessageForm';
+import Slideshow from '../Widgets/Slideshow/Slideshow';
 import Footer from './../Footer/Footer';
 import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
 import actions from './../../../../../client/actions';
@@ -21,8 +22,9 @@ import {
 } from './../../../../wording';
 import { messageEdition, getSettingUpMode } from './../../../../reducers/edition';
 import withViewCounter from './../../../hoc/hotspots/withViewCounter';
+import config from '../../../../config';
 
-import './HotspotContent.scss';
+import './WallHotspot.scss';
 
 const EMPTY_MESSAGE_KEY = 'first-key';
 const EMPTY_MESSAGE_WORDING = {
@@ -36,7 +38,7 @@ const EMPTY_MESSAGE_WORDING = {
     body: DEFAULT_HOTSPOT_MESSAGES_WORDING_BODY,
 };
 
-const isAuthor = (cityzenIsAuthenticated, cityzenId, messageAuthorId) =>
+const isAuthorOfMessage = (cityzenIsAuthenticated, cityzenId, messageAuthorId) =>
     cityzenIsAuthenticated && messageAuthorId === cityzenId;
 
 const WallHotspot = ({
@@ -57,6 +59,13 @@ const WallHotspot = ({
             hotspotId: hotspot.id,
         };
         submitForm(settingUpMode, payload);
+    };
+
+    const displaySlideshowWidget = () => {
+        if (hotspot.slideShow.length > 0) {
+            return <Slideshow imageIds={hotspot.slideShow} />;
+        }
+        return null;
     };
 
     const handleNewMessageButton = () => {
@@ -90,21 +99,28 @@ const WallHotspot = ({
 
     return (
         <Fragment>
-            <ActionsToolbar
-                slideShowAction={() => {
-                    selectWidgetToConfigure(hotspot.id, constants.WIDGET.NAME.MEDIA_SLIDE_SHOW);
-                }}
-            />
-            <section className="HotspotContent">
-                <HotspotTitle
-                    title={hotspot.title}
-                    address={hotspot.address}
-                    hotspotId={hotspot.id}
-                    isAuthor={cityzenId === hotspot.author.id}
-                    avatarUrl={hotspot.avatarIconUrl}
+            {cityzenIsAuthenticated && hotspot.author.id === cityzenId ? (
+                <ActionsToolbar
+                    slideShowAction={() => {
+                        selectWidgetToConfigure(hotspot.id, constants.WIDGET.NAME.MEDIA_SLIDE_SHOW);
+                    }}
                 />
+            ) : (
+                <ActionsToolbar />
+            )}
 
+            <section className="HotspotContent">
                 <CustomScroll heightRelativeToParent="100%">
+                    <HotspotTitle
+                        title={hotspot.title}
+                        address={hotspot.address}
+                        hotspotId={hotspot.id}
+                        isAuthor={cityzenId === hotspot.author.id}
+                        avatarUrl={`${hotspot.avatarIconUrl}?policy=${
+                            config.fileStack.security.policy
+                        }&signature=${config.fileStack.security.signature}`}
+                    />
+                    {displaySlideshowWidget()}
                     <HotspotMessagesWall>
                         {displayNewMessageControl()}
 
@@ -126,7 +142,7 @@ const WallHotspot = ({
                                         />
                                     ) : (
                                         <HotspotMessage
-                                            cityzenIsAuthor={isAuthor(
+                                            cityzenIsAuthor={isAuthorOfMessage(
                                                 cityzenIsAuthenticated,
                                                 cityzenId,
                                                 message.author.id,

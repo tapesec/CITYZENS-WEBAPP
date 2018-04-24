@@ -196,6 +196,20 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 widget: {},
             };
+        case actionTypes.DELETE_SLIDESHOW_IMAGE_REQUESTED:
+            return {
+                ...state,
+                onLoad: {
+                    removingSlideshowImage: true,
+                },
+            };
+        case actionTypes.DELETE_SLIDESHOW_IMAGE_ENDED:
+            return {
+                ...state,
+                onLoad: {
+                    removingSlideshowImage: false,
+                },
+            };
         default:
             return state;
     }
@@ -231,3 +245,7 @@ export const getMarkerPreviewModeStatus = state => state.componentsState.markerP
 
 export const selectWidgetCurrentlyEdited = state => state.componentsState.widget;
 export const widgetIsBeingEdited = state => state.componentsState.widget.name !== undefined;
+
+export const componentIsLoading = {
+    removingSlideshowImage: state => state.componentsState.onLoad.removingSlideshowImage,
+};

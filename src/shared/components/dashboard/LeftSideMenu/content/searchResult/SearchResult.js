@@ -14,6 +14,7 @@ import Typography from 'rmwc/Typography';
 import CustomScroll from 'react-custom-scroll';
 import constants from './../../../../../../shared/constants';
 import helper from './../../../../../../shared/helpers';
+import config from '../../../../../config';
 
 const SearchResult = props => (
     <CustomScroll>
@@ -39,7 +40,9 @@ const SearchResult = props => (
                                 src={
                                     hit.type === constants.HOTSPOT.TYPE.ALERT
                                         ? helper.generateAvatarForAlertHotspot(hit)
-                                        : hit.avatarIconUrl
+                                        : `${hit.avatarIconUrl}?policy=${
+                                              config.fileStack.security.policy
+                                          }&signature=${config.fileStack.security.signature}`
                                 }
                             />
                         </ListItemGraphic>

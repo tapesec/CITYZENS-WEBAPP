@@ -34,6 +34,7 @@ const HotspotTitle = ({
             return isAuthor ? (
                 <ReactFilestack
                     apikey={config.fileStack.apiKey}
+                    security={config.fileStack.security}
                     options={fileStackOptions}
                     onSuccess={result => {
                         const newAvatarIcon = result.filesUploaded[0];

@@ -1,0 +1,19 @@
+@import '../../../../../client/variables.scss';
+
+div.add-message-button {
+    border: 1px solid darken($mdc-theme-background, 8%);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    span {
+        margin-left: 10px;
+    }
+    &:hover {
+        span {
+            color: $mdc-theme-secondary;
+        }
+        border: 1px solid $mdc-theme-secondary;
+    }
+}

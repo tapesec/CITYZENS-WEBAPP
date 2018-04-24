@@ -17,7 +17,6 @@ import AlertImage from './AlertImage';
 import Footer from '../../Footer/Footer';
 import DateFormater from '../../../../lib/DateFormater';
 
-import '../HotspotContent.scss';
 import './AlertHotspot.scss';
 
 const DisplayQuestionOrSayThanks = props =>
@@ -124,14 +123,14 @@ const AlertHotspot = props => (
         <ActionsToolbar />
 
         <section className="HotspotContent AlertHotspot">
-            <header>
-                <HotspotTitle
-                    title={helpers.generateTitleForMarker(props.hotspot)}
-                    avatarUrl={helpers.generateAvatarForAlertHotspot(props.hotspot)}
-                    address={props.hotspot.address}
-                />
-            </header>
             <CustomScroll heightRelativeToParent="100%">
+                <header>
+                    <HotspotTitle
+                        title={helpers.generateTitleForMarker(props.hotspot)}
+                        avatarUrl={helpers.generateAvatarForAlertHotspot(props.hotspot)}
+                        address={props.hotspot.address}
+                    />
+                </header>
                 {DiplayImageDescriptionOrImport(
                     props.hotspot.id,
                     props.hotspot.imageDescriptionLocation,
