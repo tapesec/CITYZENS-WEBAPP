@@ -58,7 +58,7 @@ class Slideshow extends React.Component {
                         callback() {},
                         transitionEnd() {},
                     }}
-                    key={this.props.imageIds.length}>
+                    key={new Date().getTime()}>
                     {this.props.imageIds.map(imageId => (
                         <ImageCDN filename={imageId} key={imageId} alt="galerie photo" />
                     ))}
