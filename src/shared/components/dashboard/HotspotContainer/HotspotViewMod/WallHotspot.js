@@ -111,50 +111,54 @@ const WallHotspot = ({
 
             <section className="HotspotContent">
                 <CustomScroll heightRelativeToParent="100%">
-                    <HotspotTitle
-                        title={hotspot.title}
-                        address={hotspot.address}
-                        hotspotId={hotspot.id}
-                        isAuthor={cityzenId === hotspot.author.id}
-                        avatarUrl={`${hotspot.avatarIconUrl}?policy=${
-                            config.fileStack.security.policy
-                        }&signature=${config.fileStack.security.signature}`}
-                    />
-                    {displaySlideshowWidget()}
-                    <HotspotMessagesWall>
-                        {displayNewMessageControl()}
+                    <section style={{ marginRight: '12px' }}>
+                        <HotspotTitle
+                            title={hotspot.title}
+                            address={hotspot.address}
+                            hotspotId={hotspot.id}
+                            isAuthor={cityzenId === hotspot.author.id}
+                            avatarUrl={`${hotspot.avatarIconUrl}?policy=${
+                                config.fileStack.security.policy
+                            }&signature=${config.fileStack.security.signature}`}
+                        />
+                        {displaySlideshowWidget()}
+                        <HotspotMessagesWall>
+                            {displayNewMessageControl()}
 
-                        {hotspot.messages.length === 0 ? (
-                            <HotspotMessage
-                                message={EMPTY_MESSAGE_WORDING}
-                                key={EMPTY_MESSAGE_KEY}
-                            />
-                        ) : (
-                            hotspot.messages.map(
-                                message =>
-                                    messageEditionData.id === message.id ? (
-                                        <HotspotMessageForm
-                                            initialValues={messageEditionData}
-                                            key={hotspot.id}
-                                            onSubmit={handleSubmit}
-                                            editionMode={settingUpMode}
-                                            clearHotspotMessageEdition={clearHotspotMessageEdition}
-                                        />
-                                    ) : (
-                                        <HotspotMessage
-                                            cityzenIsAuthor={isAuthorOfMessage(
-                                                cityzenIsAuthenticated,
-                                                cityzenId,
-                                                message.author.id,
-                                            )}
-                                            message={message}
-                                            key={message.id}
-                                            edit={edit}
-                                        />
-                                    ),
-                            )
-                        )}
-                    </HotspotMessagesWall>
+                            {hotspot.messages.length === 0 ? (
+                                <HotspotMessage
+                                    message={EMPTY_MESSAGE_WORDING}
+                                    key={EMPTY_MESSAGE_KEY}
+                                />
+                            ) : (
+                                hotspot.messages.map(
+                                    message =>
+                                        messageEditionData.id === message.id ? (
+                                            <HotspotMessageForm
+                                                initialValues={messageEditionData}
+                                                key={hotspot.id}
+                                                onSubmit={handleSubmit}
+                                                editionMode={settingUpMode}
+                                                clearHotspotMessageEdition={
+                                                    clearHotspotMessageEdition
+                                                }
+                                            />
+                                        ) : (
+                                            <HotspotMessage
+                                                cityzenIsAuthor={isAuthorOfMessage(
+                                                    cityzenIsAuthenticated,
+                                                    cityzenId,
+                                                    message.author.id,
+                                                )}
+                                                message={message}
+                                                key={message.id}
+                                                edit={edit}
+                                            />
+                                        ),
+                                )
+                            )}
+                        </HotspotMessagesWall>
+                    </section>
                 </CustomScroll>
             </section>
             <Footer views={hotspot.views} />

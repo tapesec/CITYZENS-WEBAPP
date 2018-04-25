@@ -19,7 +19,7 @@
     background-color: #f9f9f9;
     .closeModal {
         position: absolute;
-        right: 18px;
+        right: 5px;
         top: 30px;
     }
     section.HotspotContent {
@@ -27,9 +27,16 @@
         min-height: 0;
         min-width: 0;
         overflow: hidden;
-        margin: 20px 30px 0px 30px;
+        margin: 20px 17px 0px 30px;
         display: flex;
         flex-direction: column;
+
+        .inner-container {
+            .content-wrapper {
+                margin-right: 10px;
+            }
+        }
+
         .inner-handle {
             background-color: gray;
         }

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import ReactFilestack from 'filestack-react';
 import actions from '../../../../../../client/actions';
 import config from '../../../../../config';
+import { SNACKBAR } from './../../../../../../client/wording';
+import { NOTIFICATION_MESSAGE } from './../../../../../../client/constants';
 import HotspotAvatar from './HotspotAvatar';
 import './HotspotTitle.scss';
 
@@ -28,6 +30,7 @@ const HotspotTitle = ({
     isAuthor,
     avatarUrl,
     noAvatar,
+    displayMessageToScreen,
 }) => {
     const displayAvatar = () => {
         if (!noAvatar) {
@@ -41,7 +44,9 @@ const HotspotTitle = ({
                         const { url } = newAvatarIcon;
                         persistHotspotAvatarIcon(hotspotId, url);
                     }}
-                    onError={() => {}}
+                    onError={() => {
+                        displayMessageToScreen(); // eslint-disable-line no-console
+                    }}
                     render={({ onPick }) => (
                         <HotspotAvatar onPick={onPick} editionMode url={avatarUrl} />
                     )}
@@ -77,6 +82,7 @@ HotspotTitle.propTypes = {
     isAuthor: PropTypes.bool,
     avatarUrl: PropTypes.string,
     noAvatar: PropTypes.bool,
+    displayMessageToScreen: PropTypes.func.isRequired,
 };
 
 HotspotTitle.defaultProps = {
@@ -90,6 +96,14 @@ HotspotTitle.defaultProps = {
 const mapDispatchToProps = dispatch => ({
     persistHotspotAvatarIcon: (hotspotId, iconUrl) => {
         dispatch(actions.hotspotAvatarUploaded(hotspotId, iconUrl));
+    },
+    displayMessageToScreen: () => {
+        dispatch(
+            actions.displayMessageToScreen(
+                SNACKBAR.ERROR.UPDATING_HOTSPOT_FAILED,
+                NOTIFICATION_MESSAGE.LEVEL.ERROR,
+            ),
+        );
     },
 });
 

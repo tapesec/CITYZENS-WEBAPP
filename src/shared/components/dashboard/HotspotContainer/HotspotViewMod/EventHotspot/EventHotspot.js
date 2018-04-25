@@ -9,6 +9,7 @@ import EventHotspotDescription from './EventHotspotDescription';
 import EventHotspotDateTime from './EventHotspotDateTime';
 import EventHotspotCountDown from './EventHotspotCountDown';
 import Footer from '../../Footer/Footer';
+import Slideshow from '../../Widgets/Slideshow/Slideshow';
 import actions from '../../../../../../client/actions';
 import { getCityzenId, isAuthenticated } from '../../../../../reducers/authenticatedCityzen';
 import withViewCounter from '../../../../hoc/hotspots/withViewCounter';
@@ -45,29 +46,40 @@ const EventHotspot = ({
         }
         return <ActionsToolbar />;
     };
+
+    const displaySlideshowWidget = () => {
+        if (hotspot.slideShow.length > 0) {
+            return <Slideshow imageIds={hotspot.slideShow} />;
+        }
+        return null;
+    };
+
     return (
         <Fragment>
             {buildToolbar()}
             <section className="HotspotContent">
                 <CustomScroll heightRelativeToParent="100%">
-                    <HotspotTitle
-                        title={hotspot.title}
-                        address={hotspot.address}
-                        hotspotId={hotspot.id}
-                        isAuthor={cityzenId === hotspot.author.id}
-                        avatarUrl={`${hotspot.avatarIconUrl}?policy=${
-                            config.fileStack.security.policy
-                        }&signature=${config.fileStack.security.signature}`}
-                    />
-                    <EventHotspotDateTime date={hotspot.dateEnd} />
-                    <EventHotspotCountDown dateEnd={hotspot.dateEnd} />
-                    <Elevation z="4" style={{ margin: '1px', marginRight: '20px' }}>
-                        <EventHotspotDescription
-                            description={hotspot.description}
-                            author={hotspot.author}
-                            dateEnd={hotspot.dateEnd}
+                    <article style={{ marginRight: '12px' }}>
+                        <HotspotTitle
+                            title={hotspot.title}
+                            address={hotspot.address}
+                            hotspotId={hotspot.id}
+                            isAuthor={cityzenId === hotspot.author.id}
+                            avatarUrl={`${hotspot.avatarIconUrl}?policy=${
+                                config.fileStack.security.policy
+                            }&signature=${config.fileStack.security.signature}`}
                         />
-                    </Elevation>
+                        <EventHotspotDateTime date={hotspot.dateEnd} />
+                        <EventHotspotCountDown dateEnd={hotspot.dateEnd} />
+                        {displaySlideshowWidget()}
+                        <Elevation z="4" style={{ margin: '1px' }}>
+                            <EventHotspotDescription
+                                description={hotspot.description}
+                                author={hotspot.author}
+                                dateEnd={hotspot.dateEnd}
+                            />
+                        </Elevation>
+                    </article>
                 </CustomScroll>
             </section>
             <Footer views={hotspot.views} />
