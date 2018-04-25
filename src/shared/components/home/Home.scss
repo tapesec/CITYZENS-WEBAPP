@@ -60,9 +60,12 @@
         border-top: 1px solid lightgray;
         padding-top: 70px;
         padding-bottom: 70px;
-        img {
+        div.ImageCDN {
             width: 30%;
-            margin-right: 10px;
+            display: inline-block;
+            img {
+                width: 100%;
+            }
         }
         h2 {
             margin-bottom: 20px;

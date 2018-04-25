@@ -29,6 +29,7 @@ const ImageCDN = props => (
             }&signature=${config.fileStack.security.signature}`}
             alt={props.alt}
             style={props.style}
+            className={props.className}
         />
     </div>
 );
@@ -38,8 +39,9 @@ ImageCDN.propTypes = {
     filename: PropTypes.string.isRequired,
     iconAction: PropTypes.string,
     onClick: PropTypes.func,
-    style: PropTypes.shape({}),
     loading: PropTypes.bool,
+    style: PropTypes.shape({}),
+    className: PropTypes.string,
 };
 
 ImageCDN.defaultProps = {
@@ -47,6 +49,7 @@ ImageCDN.defaultProps = {
     onClick: () => {},
     style: {},
     loading: false,
+    className: '',
 };
 
 export default ImageCDN;

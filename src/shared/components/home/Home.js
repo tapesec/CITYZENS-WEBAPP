@@ -115,12 +115,14 @@ const Home = () => (
         <Grid className="third-view-line">
             <GridCell span="1" />
             <GridCell span="4">
-                <ImageCDN filename="iMTfeaOyS0iReA0OLhGN" alt="Calendrier" />
-                <ImageCDN filename="uiFagz6oSQiX8TTcAQAC" alt="Mur" />
-                <ImageCDN filename="a4e3l7JbSOOw05HNK5DN" alt="Travaux" />
-                <ImageCDN filename="uNBPerZcTWORohX7wtyg" alt="Accident" />
-                <ImageCDN filename="eiHWi2RQrmYiTR8zJhLO" alt="Handicapé" />
-                <ImageCDN filename="mv3vE6K6T5qWiu3Syu7r" alt="Dégradation" />
+                <section>
+                    <ImageCDN filename="iMTfeaOyS0iReA0OLhGN" alt="Calendrier" />
+                    <ImageCDN filename="uiFagz6oSQiX8TTcAQAC" alt="Mur" />
+                    <ImageCDN filename="a4e3l7JbSOOw05HNK5DN" alt="Travaux" />
+                    <ImageCDN filename="uNBPerZcTWORohX7wtyg" alt="Accident" />
+                    <ImageCDN filename="eiHWi2RQrmYiTR8zJhLO" alt="Handicapé" />
+                    <ImageCDN filename="mv3vE6K6T5qWiu3Syu7r" alt="Dégradation" />
+                </section>
             </GridCell>
             <GridCell span="1" />
             <GridCell span="5">
