@@ -83,6 +83,7 @@ const DiplayImageDescriptionOrImport = (
         return (
             <ReactFilestack
                 apikey={config.fileStack.apiKey}
+                security={config.fileStack.security}
                 options={fileStackOptions}
                 onSuccess={result => {
                     const image = result.filesUploaded[0];
