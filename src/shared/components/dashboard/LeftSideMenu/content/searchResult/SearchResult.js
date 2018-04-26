@@ -42,6 +42,8 @@ const SearchResult = props => (
                                     borderRadius: '50%',
                                 }}
                                 alt="avatar"
+                                process
+                                processParam="compress"
                             />
                         </ListItemGraphic>
                         <ListItemText

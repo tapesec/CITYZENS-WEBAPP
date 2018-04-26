@@ -22,7 +22,6 @@ import {
 } from './../../../../wording';
 import { messageEdition, getSettingUpMode } from './../../../../reducers/edition';
 import withViewCounter from './../../../hoc/hotspots/withViewCounter';
-import config from '../../../../config';
 
 import './WallHotspot.scss';
 
@@ -117,9 +116,7 @@ const WallHotspot = ({
                             address={hotspot.address}
                             hotspotId={hotspot.id}
                             isAuthor={cityzenId === hotspot.author.id}
-                            avatarUrl={`${hotspot.avatarIconUrl}?policy=${
-                                config.fileStack.security.policy
-                            }&signature=${config.fileStack.security.signature}`}
+                            avatarUrl={hotspot.avatarIconUrl.split('/')[3]}
                         />
                         {displaySlideshowWidget()}
                         <HotspotMessagesWall>

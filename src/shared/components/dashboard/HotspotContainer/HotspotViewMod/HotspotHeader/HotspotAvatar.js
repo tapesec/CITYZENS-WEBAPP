@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'rmwc/Icon';
+import ImageCDN from '../../../../lib/ImageCDN';
 
 class HotspotAvatar extends React.Component {
     constructor() {
@@ -31,11 +32,11 @@ class HotspotAvatar extends React.Component {
                 onMouseLeave={() => {
                     this.displayImageOverlay(false);
                 }}>
-                <img
-                    className={this.state.mouseEntered ? 'HotspotAvatar-hovered' : ''}
-                    src={this.props.url}
+                <ImageCDN
+                    filename={this.props.url}
                     alt="Icône du centre d'intêret"
                     style={{ cursor: 'pointer' }}
+                    className={this.state.mouseEntered ? 'HotspotAvatar-hovered' : ''}
                 />
                 {this.state.mouseEntered ? (
                     <Icon strategy="ligature" theme="text-primary-on-background" use="build" />
@@ -43,7 +44,7 @@ class HotspotAvatar extends React.Component {
             </div>
         ) : (
             <div className="HotspotAvatar">
-                <img src={this.props.url} alt="Icône du centre d'intêret" />
+                <ImageCDN filename={this.props.url} alt="Icône du centre d'intêret" />
             </div>
         );
     }

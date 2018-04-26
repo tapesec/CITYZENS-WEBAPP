@@ -130,7 +130,9 @@ const AlertHotspot = props => (
                     <header>
                         <HotspotTitle
                             title={helpers.generateTitleForMarker(props.hotspot)}
-                            avatarUrl={helpers.generateAvatarForAlertHotspot(props.hotspot)}
+                            avatarUrl={
+                                helpers.generateAvatarForAlertHotspot(props.hotspot).split('/')[3]
+                            }
                             address={props.hotspot.address}
                         />
                     </header>

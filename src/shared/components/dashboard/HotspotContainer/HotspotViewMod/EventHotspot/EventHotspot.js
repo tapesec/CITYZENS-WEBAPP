@@ -14,7 +14,6 @@ import actions from '../../../../../../client/actions';
 import { getCityzenId, isAuthenticated } from '../../../../../reducers/authenticatedCityzen';
 import withViewCounter from '../../../../hoc/hotspots/withViewCounter';
 import constants from './../../../../../constants';
-import config from '../../../../../config';
 
 const EventHotspot = ({
     hotspot,
@@ -65,9 +64,7 @@ const EventHotspot = ({
                             address={hotspot.address}
                             hotspotId={hotspot.id}
                             isAuthor={cityzenId === hotspot.author.id}
-                            avatarUrl={`${hotspot.avatarIconUrl}?policy=${
-                                config.fileStack.security.policy
-                            }&signature=${config.fileStack.security.signature}`}
+                            avatarUrl={hotspot.avatarIconUrl.split('/')[3]}
                         />
                         <EventHotspotDateTime date={hotspot.dateEnd} />
                         <EventHotspotCountDown dateEnd={hotspot.dateEnd} />
