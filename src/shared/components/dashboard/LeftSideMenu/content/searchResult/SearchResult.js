@@ -12,9 +12,9 @@ import {
 } from 'rmwc/List';
 import Typography from 'rmwc/Typography';
 import CustomScroll from 'react-custom-scroll';
+import ImageCDN from '../../../../lib/ImageCDN';
 import constants from './../../../../../../shared/constants';
 import helper from './../../../../../../shared/helpers';
-import config from '../../../../../config';
 
 const SearchResult = props => (
     <CustomScroll>
@@ -29,7 +29,12 @@ const SearchResult = props => (
                                 width: '40px',
                                 height: '55px',
                             }}>
-                            <img
+                            <ImageCDN
+                                filename={
+                                    hit.type === constants.HOTSPOT.TYPE.ALERT
+                                        ? helper.generateAvatarForAlertHotspot(hit).split('/')[3]
+                                        : hit.avatarIconUrl.split('/')[3]
+                                }
                                 style={{
                                     display: 'block',
                                     height: '55px',
@@ -37,13 +42,6 @@ const SearchResult = props => (
                                     borderRadius: '50%',
                                 }}
                                 alt="avatar"
-                                src={
-                                    hit.type === constants.HOTSPOT.TYPE.ALERT
-                                        ? helper.generateAvatarForAlertHotspot(hit)
-                                        : `${hit.avatarIconUrl}?policy=${
-                                              config.fileStack.security.policy
-                                          }&signature=${config.fileStack.security.signature}`
-                                }
                             />
                         </ListItemGraphic>
                         <ListItemText
