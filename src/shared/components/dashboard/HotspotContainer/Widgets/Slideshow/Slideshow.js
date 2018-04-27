@@ -71,7 +71,13 @@ class Slideshow extends React.Component {
                     }}
                     key={this.state.refreshToken}>
                     {this.props.imageIds.map(imageId => (
-                        <ImageCDN filename={imageId} key={imageId} alt="galerie photo" />
+                        <ImageCDN
+                            process
+                            processParam="resize=w:900,fit:clip/compress"
+                            filename={imageId}
+                            key={imageId}
+                            alt="galerie photo"
+                        />
                     ))}
                 </ReactSwipe>
 

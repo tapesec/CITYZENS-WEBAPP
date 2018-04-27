@@ -70,7 +70,11 @@ const fileStackOptions = {
     minFiles: 1,
     lang: 'fr',
     transformations: {
-        crop: { force: true },
+        rotate: true,
+        crop: {
+            force: true,
+            aspectRatio: 2.39 / 1,
+        },
     },
 };
 
