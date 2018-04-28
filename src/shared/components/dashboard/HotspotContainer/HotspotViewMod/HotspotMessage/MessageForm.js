@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import reduxForm from 'redux-form/lib/reduxForm';
 import Field from 'redux-form/lib/Field';
 import { Button } from 'rmwc/Button';
 import { renderCustomTextField, renderCustomSwitch } from './../../../../lib/form/customComponents';
@@ -14,7 +13,7 @@ import './MessageForm.scss';
 
 const { EDITION_MODE } = constants;
 
-const validate = values => {
+export const validate = values => {
     const errors = {};
     if (!values.title) {
         errors.title = VALIDATION.ALL.LABEL.ERROR;
@@ -76,13 +75,4 @@ MessageForm.propTypes = {
     editionMode: PropTypes.string.isRequired,
 };
 
-const withReduxForm = reduxForm({
-    enableReinitialize: true,
-    keepDirtyOnReinitialize: true,
-    forceUnregisterOnUnmount: false,
-    form: 'hotspotMessageForm',
-    shouldError: ({ props }) => props.invalid,
-    validate,
-})(MessageForm);
-
-export default withReduxForm;
+export default MessageForm;

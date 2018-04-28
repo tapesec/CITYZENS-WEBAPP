@@ -8,7 +8,8 @@ import HotspotTitle from './HotspotHeader/HotspotTitle';
 import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
-import HotspotMessageForm from './HotspotMessage/MessageForm';
+import NewHotspotMessageForm from './HotspotMessage/NewMessageFormContainer';
+import EditHotspotMessageForm from './HotspotMessage/EditMessageFormContainer';
 import Slideshow from '../Widgets/Slideshow/Slideshow';
 import Footer from './../Footer/Footer';
 import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
@@ -84,7 +85,7 @@ const WallHotspot = ({
                     <span>{WALLHOTSPOT.BUTTON_ADD_MESSAGE}</span>
                 </Typography>
             ) : (
-                <HotspotMessageForm
+                <NewHotspotMessageForm
                     initialValues={messageEditionData}
                     key={hotspot.id}
                     onSubmit={handleSubmit}
@@ -131,7 +132,7 @@ const WallHotspot = ({
                                 hotspot.messages.map(
                                     message =>
                                         messageEditionData.id === message.id ? (
-                                            <HotspotMessageForm
+                                            <EditHotspotMessageForm
                                                 initialValues={messageEditionData}
                                                 key={hotspot.id}
                                                 onSubmit={handleSubmit}
@@ -199,6 +200,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(actions.postEditionMessageFormData(settingUpMode, formData));
     },
     displayHotspotMessageForm: () => {
+        dispatch(actions.clearHotspotMessageEdition());
         dispatch(actions.displaySettingUpHotspotMessageForm());
     },
     selectWidgetToConfigure: (hotspotId, widgetName) => {
