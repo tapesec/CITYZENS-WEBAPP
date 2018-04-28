@@ -89,6 +89,9 @@ class HotspotContainer extends React.Component {
         if (hotspotMessageEditionIsInProgress) {
             clearHotspotMessageEdition();
         }
+        if (this.props.widgetIsBeingEdited) {
+            this.backFromWidget();
+        }
         closeModal();
     }
 
