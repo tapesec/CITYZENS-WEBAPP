@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const transitionStyles = {
     entered: { left: 0 },
-    entering: { left: '-396px' },
-    exited: { left: '-396px' },
+    entering: { left: '-500px' },
+    exited: { left: '-500px' },
     exiting: { left: 0 },
 };
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { TextField } from 'rmwc/TextField';
-
+import MarkerToolbar from './../MarkerToolbar/MarkerToolbar';
 import LeftSideMenuContainer from './LeftSideMenuContainer';
 import LeftSideMenuHeader from './header/LeftSideMenuHeader';
 import LeftSideMenuContent from './content/LeftSideMenuContent';
@@ -23,28 +23,31 @@ class LeftSideMenu extends React.Component {
         return (
             <Drawer in={this.props.open}>
                 {state => (
-                    <LeftSideMenuContainer state={state}>
-                        <LeftSideMenuHeader />
-                        <LeftSideMenuContent>
-                            <TextField
-                                persistent="true"
-                                fullwidth
-                                withLeadingIcon="search"
-                                label="Que cherchez vous ?"
-                                theme="text-on-primary-background"
-                                onChange={evt => {
-                                    this.props.hotspotSearchKeyPress(evt.target.value);
-                                }}
-                                id="hotspot-search-input-id"
-                            />
-                            <SearchResult
-                                hotspotsList={this.props.hotspotsList}
-                                focusHotspot={this.props.focusHotspot}
-                                city={this.props.city}
-                                openHotspotInSPAModal={this.props.openHotspotInSPAModal}
-                            />
-                        </LeftSideMenuContent>
-                    </LeftSideMenuContainer>
+                    <Fragment>
+                        <MarkerToolbar state={state} />
+                        <LeftSideMenuContainer state={state}>
+                            <LeftSideMenuHeader />
+                            <LeftSideMenuContent>
+                                <TextField
+                                    persistent="true"
+                                    fullwidth
+                                    withLeadingIcon="search"
+                                    label="Que cherchez vous ?"
+                                    theme="text-on-primary-background"
+                                    onChange={evt => {
+                                        this.props.hotspotSearchKeyPress(evt.target.value);
+                                    }}
+                                    id="hotspot-search-input-id"
+                                />
+                                <SearchResult
+                                    hotspotsList={this.props.hotspotsList}
+                                    focusHotspot={this.props.focusHotspot}
+                                    city={this.props.city}
+                                    openHotspotInSPAModal={this.props.openHotspotInSPAModal}
+                                />
+                            </LeftSideMenuContent>
+                        </LeftSideMenuContainer>
+                    </Fragment>
                 )}
             </Drawer>
         );

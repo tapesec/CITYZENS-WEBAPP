@@ -1,0 +1,11 @@
+.MarkerToolbar {
+    background-color: white;
+    width: 5rem;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 397px;
+    border-right: 1px solid lightgray;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+    transition: left 300ms ease-in-out;
+}
