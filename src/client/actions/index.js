@@ -293,7 +293,7 @@ const saveSlideshowWidget = (hotspotId, picturesUrl) => ({
 });
 
 const showHotspotTypeDescriptionModal = (status, hotspotType) => ({
-    type: actionTypes.HOTSPOT_TYPE_DESCRIPTION_MODAL,
+    type: actionTypes.SHOW_HOTSPOT_TYPE_DESCRIPTION_MODAL,
     payload: {
         open: status,
         hotspotType,

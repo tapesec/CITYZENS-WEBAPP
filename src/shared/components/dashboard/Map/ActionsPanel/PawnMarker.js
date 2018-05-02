@@ -10,15 +10,9 @@ class PawnMarker extends React.Component {
     componentDidMount() {}
 
     render() {
-        const { title, text, filename, type, iconType } = this.props;
+        const { title, text, filename, type, iconType, clickAction } = this.props;
         return (
             <div
-                ref={node => {
-                    this.rootNode = node;
-                }}
-                onKeyDown={() => {
-                    console.log('test 2');
-                }}
                 role="button"
                 tabIndex={-1}
                 className="PawnMarker"
@@ -47,9 +41,7 @@ class PawnMarker extends React.Component {
                         data-icon-type={iconType}
                         data-hotspot-type={type}
                         alt={title}
-                        onClick={() => {
-                            console.log('test3');
-                        }}
+                        onClick={clickAction}
                     />
                 </Tooltip>
             </div>
@@ -63,6 +55,7 @@ PawnMarker.propTypes = {
     filename: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     iconType: PropTypes.string.isRequired,
+    clickAction: PropTypes.func.isRequired,
 };
 
 export default PawnMarker;

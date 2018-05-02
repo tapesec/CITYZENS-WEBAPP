@@ -119,7 +119,9 @@ hr {
 //     vertical-align:middle;
 // }
 /* end reset css */
-
+html {
+    touch-action: manipulation;
+}
 html, body {
     height: 100%;
     max-width: 100%;

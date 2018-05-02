@@ -18,8 +18,15 @@ const transitionClasses = {
 
 const MarkerToolbar = ({ state, openHotspotTypeDescription }) => {
     const openWallHotspotDescription = () => {
-        console.log('test');
         openHotspotTypeDescription(true, HOTSPOT.TYPE.WALL_MESSAGE);
+    };
+
+    const openEventDescription = () => {
+        openHotspotTypeDescription(true, HOTSPOT.TYPE.EVENT);
+    };
+
+    const openAlertDescription = () => {
+        openHotspotTypeDescription(true, HOTSPOT.TYPE.ALERT);
     };
 
     return (
@@ -36,7 +43,7 @@ const MarkerToolbar = ({ state, openHotspotTypeDescription }) => {
                     filename={HOTSPOT.WALL.AVATAR_ICON.DEFAULT}
                     iconType={HOTSPOT.ICON.WALL}
                     type={HOTSPOT.TYPE.WALL_MESSAGE}
-                    onClick={openWallHotspotDescription}
+                    clickAction={openWallHotspotDescription}
                 />
                 <PawnMarker
                     title="Evenement"
@@ -46,7 +53,7 @@ const MarkerToolbar = ({ state, openHotspotTypeDescription }) => {
                     filename={HOTSPOT.EVENT.AVATAR_ICON.DEFAULT}
                     iconType={HOTSPOT.ICON.EVENT}
                     type={HOTSPOT.TYPE.EVENT}
-                    onClick={openWallHotspotDescription}
+                    clickAction={openEventDescription}
                 />
                 <PawnMarker
                     title="Accident de voie publique"
@@ -56,6 +63,7 @@ const MarkerToolbar = ({ state, openHotspotTypeDescription }) => {
                     filename={HOTSPOT.ALERT.AVATAR_ICON.ACCIDENT}
                     iconType={HOTSPOT.ICON.ACCIDENT}
                     type={HOTSPOT.TYPE.ALERT}
+                    clickAction={openAlertDescription}
                 />
             </div>
         </aside>

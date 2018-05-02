@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Button, ButtonIcon } from 'rmwc/Button';
 import { getHotspotTypeDescriptionModal } from '../../../reducers/componentsState';
 import Modal from './../../lib/Modal';
+import SubmitButtons from './../../lib/submitButtons/SubmitButtons';
 import constants from '../../../constants/';
 
 import './Modal.scss';
@@ -16,6 +18,14 @@ const HotspotDescriptionModal = ({ dismissModal, hotspotTypeDescriptionModal }) 
                 <Fragment>
                     <h1>Mur de message</h1>
                     <p>Vous pouvez écrire des messages</p>
+                    <SubmitButtons
+                        submitLabel="Je place le point sur la carte"
+                        cancelLabel="Fermer"
+                        submitAction={() => {}}
+                        cancelAction={() => {}}
+                        submitIcon="add_location"
+                        cancelIcon="close"
+                    />
                 </Fragment>
             );
         }
