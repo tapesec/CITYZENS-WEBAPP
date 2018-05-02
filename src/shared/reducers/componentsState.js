@@ -210,6 +210,14 @@ export default function componentsState(state = initialState, action) {
                     removingSlideshowImage: false,
                 },
             };
+        case actionTypes.SHOW_HOTSPOT_TYPE_DESCRIPTION_MODAL:
+            return {
+                ...state,
+                hotspotTypeDescriptionModal: {
+                    open: action.payload.open,
+                    hotspotType: action.payload.hotspotType,
+                },
+            };
         default:
             return state;
     }
@@ -249,3 +257,6 @@ export const widgetIsBeingEdited = state => state.componentsState.widget.name !=
 export const componentIsLoading = {
     removingSlideshowImage: state => state.componentsState.onLoad.removingSlideshowImage,
 };
+
+export const getHotspotTypeDescriptionModal = state =>
+    state.componentsState.hotspotTypeDescriptionModal;

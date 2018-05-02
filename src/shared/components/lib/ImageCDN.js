@@ -30,7 +30,13 @@ const ImageCDN = props => {
                     <div className="loading-message">Suppression en cours...</div>
                 </div>
             ) : null}
-            <img src={imgUrl} alt={props.alt} style={props.style} className={props.className} />
+            <img
+                src={imgUrl}
+                alt={props.alt}
+                style={props.style}
+                className={props.className}
+                data-type={props.dataType}
+            />
         </div>
     );
 };
@@ -45,6 +51,7 @@ ImageCDN.propTypes = {
     className: PropTypes.string,
     process: PropTypes.bool,
     processParam: PropTypes.string,
+    dataType: PropTypes.string,
 };
 
 ImageCDN.defaultProps = {
@@ -55,6 +62,7 @@ ImageCDN.defaultProps = {
     className: '',
     process: false,
     processParam: '',
+    dataType: '',
 };
 
 export default ImageCDN;

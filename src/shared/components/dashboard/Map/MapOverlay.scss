@@ -1,0 +1,87 @@
+.MapOverlay {
+    width: 100%;
+    height: calc(100% - 64px);
+    background-color: rgba(0, 0, 0, 0.33);
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+    box-sizing: border-box;
+    transition: width 300ms ease-in-out;
+    will-change: width;
+    box-shadow: 0px 0px 12px 5px #eab213 inset;
+    overflow: hidden;
+    animation: lightning 1s infinite;
+
+    section.action-section-description {
+        // width: calc(100% - 80px);
+        display: flex;
+        color: white;
+        box-sizing: border-box;
+        background-color: rgba(0, 0, 0, 0.24);
+        padding: 1rem;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    aside.action-icon {
+        margin-top: 0;
+        animation: action-icon-bounce 1s infinite;
+    }
+}
+
+.MapOverlay.entered { 
+    width: calc(100% - 476px);
+}
+.MapOverlay.entering { 
+    width: calc(100% - 80px);
+}
+.MapOverlay.exited { 
+    width: calc(100% - 80px);
+}
+.MapOverlay.exiting { 
+    width: calc(100% - 476px);
+}
+
+@keyframes lightning {
+    from, to {
+        box-shadow: 0px 0px 0 0 #efaa2c inset;
+    }
+    10%, 90% {
+        box-shadow: 0px 0px 1px 1px #efaa2c inset;
+    }
+    20%, 80% {
+        box-shadow: 0px 0px 2px 2px #efaa2c inset;
+    }
+    30%, 70% {
+        box-shadow: 0px 0px 3px 3px #efaa2c inset;
+    }
+    40%, 60% {
+        box-shadow: 0px 0px 4px 4px #efaa2c inset;
+    }
+    50% {
+        box-shadow: 0px 0px 5px 5px #efaa2c inset;
+    }
+}
+
+@keyframes action-icon-bounce {
+    from, to {
+        margin-top: 0;
+    }
+    10%, 90% {
+        margin-top: -1px;
+    }
+    20%, 80% {
+        margin-top: -2px;
+    }
+    30%, 70% {
+        margin-top: -3px;
+    }
+    40%, 60% {
+        margin-top: -4px;
+    }
+    50% {
+        margin-top: -5px;
+    }
+}

@@ -47,6 +47,10 @@ class InitialState {
                 onLoad: {
                     removingSlideshowImage: false,
                 },
+                hotspotTypeDescriptionModal: {
+                    open: false,
+                    hotspotType: '',
+                },
             },
             algolia: {
                 hits: [],

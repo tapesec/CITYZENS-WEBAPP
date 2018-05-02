@@ -292,6 +292,18 @@ const saveSlideshowWidget = (hotspotId, picturesUrl) => ({
     },
 });
 
+const showHotspotTypeDescriptionModal = (status, hotspotType) => ({
+    type: actionTypes.HOTSPOT_TYPE_DESCRIPTION_MODAL,
+    payload: {
+        open: status,
+        hotspotType,
+    },
+});
+
+const toggleDropMarkerMod = () => ({
+    type: actionTypes.TOGGLE_DROP_MARKER_MOD,
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -339,4 +351,6 @@ export default {
     selectWidgetToConfigure,
     unselectWidgetToConfigure,
     saveSlideshowWidget,
+    showHotspotTypeDescriptionModal,
+    toggleDropMarkerMod,
 };

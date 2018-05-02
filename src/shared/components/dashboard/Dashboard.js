@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Route } from 'react-router-dom';
 import MarkerDraggablePreview from './Map/ActionsPanel/MarkerDraggablePreview';
@@ -10,24 +10,46 @@ import isLoading from './../hoc/isLoading';
 import LeftSideMenu from './LeftSideMenu/LeftSideMenu';
 import MapArea from './MapArea';
 import AddressModal from './AddressModal/AddressModal';
+import HotspotDescriptionModal from './HotspotDescriptionModal/Modal';
 import SettingUpHotspotModal from './SettingUpHotspotModal/SettingUpHotspot';
 
-export default function Dashboard({ match, history }) {
-    const AlertHotspotContainer = displayWithProps(isLoading(HotspotContainer));
-    return (
-        <Fragment>
-            <LeftSideMenu />
-            <MapArea history={history} />
-            <AlertHotspotContainer />
-            <AddressModal />
-            <SettingUpHotspotModal />
-            <Route
-                path={`${match.url}/:hotspotSlug`}
-                component={displayWithRoutes(loadWithSlug(isLoading(HotspotContainer)))}
-            />
-            <MarkerDraggablePreview />
-        </Fragment>
-    );
+class Dashboard extends React.Component {
+    componentDidMount() {
+        let previewSelectedPawnMarker;
+        this.dashboardElem.addEventListener('click', evt => {
+            if (previewSelectedPawnMarker && previewSelectedPawnMarker !== evt.target) {
+                previewSelectedPawnMarker.classList.remove('selected');
+            }
+            if (evt.target.getAttribute('data-type') === 'pawnMarker') {
+                previewSelectedPawnMarker = evt.target;
+                evt.target.classList.toggle('selected');
+            }
+        });
+    }
+
+    render() {
+        const { match, history } = this.props;
+        const AlertHotspotContainer = displayWithProps(isLoading(HotspotContainer));
+
+        return (
+            <div
+                ref={node => {
+                    this.dashboardElem = node;
+                }}>
+                <LeftSideMenu />
+                <MapArea history={history} />
+                <AlertHotspotContainer />
+                <AddressModal />
+                <HotspotDescriptionModal />
+                <SettingUpHotspotModal />
+                <Route
+                    path={`${match.url}/:hotspotSlug`}
+                    component={displayWithRoutes(loadWithSlug(isLoading(HotspotContainer)))}
+                />
+                <MarkerDraggablePreview />
+            </div>
+        );
+    }
 }
 
 Dashboard.propTypes = {
@@ -36,3 +58,5 @@ Dashboard.propTypes = {
     history: ReactRouterPropTypes.history.isRequired,
     /* eslint-enable react/no-typos */
 };
+
+export default Dashboard;

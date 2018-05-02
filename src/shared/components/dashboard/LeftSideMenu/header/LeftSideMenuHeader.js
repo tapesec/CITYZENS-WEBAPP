@@ -1,6 +1,7 @@
 import React from 'react';
 import { DrawerHeader } from 'rmwc/Drawer';
 import logoSvg from './../../../../../server/assets/logo-cityzens.svg';
+import ImageCDN from '../../../lib/ImageCDN';
 
 import './LeftSideMenuHeader.scss';
 
@@ -13,7 +14,7 @@ const style = {
 
 const LeftSideMenuHeader = () => (
     <DrawerHeader className="LeftSideMenuHeader">
-        <img alt="logo de Cityzens" style={style} src={logoSvg} />
+        <ImageCDN alt="logo de Cityzens" style={style} filename="TlFeYNnVSSOsm4TT6h6v" />
     </DrawerHeader>
 );
 

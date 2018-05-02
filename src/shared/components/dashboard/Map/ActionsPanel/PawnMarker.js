@@ -2,61 +2,65 @@ import React from 'react';
 import { Tooltip } from 'react-tippy';
 import Typography from 'rmwc/Typography';
 import PropTypes from 'prop-types';
+import ImageCDN from '../../../lib/ImageCDN';
 
 import './PawnMarker.scss';
 
-const PawnMarker = props => {
-    const { title, text, img, type, iconType } = props;
+class PawnMarker extends React.Component {
+    componentDidMount() {}
 
-    return (
-        <div
-            data-type="draggablePawnMarker"
-            data-icon-type={iconType}
-            data-hotspot-type={type}
-            data-img={img}>
-            <Tooltip
-                arrow
-                html={
-                    <div>
-                        <Typography tag="h3" use="subheading2">
-                            {title}
-                        </Typography>
-                        <Typography tag="p" use="body2">
-                            {text}
-                        </Typography>
-                    </div>
-                }
-                theme="light"
-                position="bottom"
-                trigger="mouseenter">
-                <span
-                    data-type="draggablePawnMarker"
-                    data-icon-type={iconType}
-                    data-hotspot-type={type}
-                    data-img={img}>
-                    <img
-                        src={img}
-                        onDragStart={e => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            return false;
-                        }}
-                        className="pawn-img"
-                        data-type="draggablePawnMarker"
+    render() {
+        const { title, text, filename, type, iconType } = this.props;
+        return (
+            <div
+                ref={node => {
+                    this.rootNode = node;
+                }}
+                onKeyDown={() => {
+                    console.log('test 2');
+                }}
+                role="button"
+                tabIndex={-1}
+                className="PawnMarker"
+                data-type="pawnMarker"
+                data-icon-type={iconType}
+                data-hotspot-type={type}>
+                <Tooltip
+                    arrow
+                    html={
+                        <div>
+                            <Typography tag="h3" use="subheading2">
+                                {title}
+                            </Typography>
+                            <Typography tag="p" use="body2">
+                                {text}
+                            </Typography>
+                        </div>
+                    }
+                    theme="light"
+                    position="right"
+                    trigger="mouseenter">
+                    <ImageCDN
+                        style={{ width: '50px' }}
+                        filename={filename.split('/')[3]}
+                        dataType="pawnMarker"
                         data-icon-type={iconType}
                         data-hotspot-type={type}
                         alt={title}
+                        onClick={() => {
+                            console.log('test3');
+                        }}
                     />
-                </span>
-            </Tooltip>
-        </div>
-    );
-};
+                </Tooltip>
+            </div>
+        );
+    }
+}
 
 PawnMarker.propTypes = {
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    filename: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     iconType: PropTypes.string.isRequired,
 };

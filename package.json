@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/tapesec/CITYZENS-WEBAPP#readme",
   "dependencies": {
+    "@shopify/draggable": "^1.0.0-beta.6",
     "algoliasearch": "^3.24.11",
     "babel-polyfill": "^6.26.0",
     "connect-ensure-login": "^0.1.1",
@@ -54,6 +55,8 @@
     "react-custom-scroll": "^2.0.3",
     "react-day-picker": "^7.1.2",
     "react-dom": "^16.2.0",
+    "react-draggable": "^3.0.5",
+    "react-dragula": "^1.1.17",
     "react-gateway": "^3.0.0",
     "react-modal2": "^5.0.0",
     "react-redux": "^5.0.7",

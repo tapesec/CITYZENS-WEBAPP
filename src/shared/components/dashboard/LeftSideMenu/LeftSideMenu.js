@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { TextField } from 'rmwc/TextField';
+import MapOverlay from '../Map/MapOverlay';
 import MarkerToolbar from './../MarkerToolbar/MarkerToolbar';
 import LeftSideMenuContainer from './LeftSideMenuContainer';
 import LeftSideMenuHeader from './header/LeftSideMenuHeader';
@@ -47,6 +48,7 @@ class LeftSideMenu extends React.Component {
                                 />
                             </LeftSideMenuContent>
                         </LeftSideMenuContainer>
+                        <MapOverlay state={state} />
                     </Fragment>
                 )}
             </Drawer>

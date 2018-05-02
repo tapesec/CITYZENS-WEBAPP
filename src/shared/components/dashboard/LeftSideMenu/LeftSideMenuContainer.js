@@ -2,16 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const transitionStyles = {
-    entered: { left: 0 },
-    entering: { left: '-500px' },
-    exited: { left: '-500px' },
-    exiting: { left: 0 },
+    entered: 'entered',
+    entering: 'entering',
+    exited: 'exited',
+    exiting: 'exiting',
 };
 
 const LeftSideMenuContainer = ({ state, children }) => (
-    <div style={{ ...transitionStyles[state] }} className="LeftSideMenu">
-        {children}
-    </div>
+    <div className={`LeftSideMenu ${transitionStyles[state]}`}>{children}</div>
 );
 
 LeftSideMenuContainer.propTypes = {

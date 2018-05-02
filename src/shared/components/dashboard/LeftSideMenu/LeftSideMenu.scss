@@ -8,8 +8,9 @@
     z-index: 0;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
     top: 0;
-    transition: left 300ms ease-in-out;
-
+    left: 0;
+    transition: transform 300ms ease-in-out;
+    will-change: transform;
     div.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {
         padding-left: 50px;
         box-sizing: border-box;
@@ -41,6 +42,19 @@
     h3.itemTitle {
         cursor: pointer;
     }
+}
+
+.LeftSideMenu.entered { 
+    transform: translate(0, 0);
+}
+.LeftSideMenu.entering { 
+    transform: translate(-500px, 0);
+}
+.LeftSideMenu.exited { 
+    transform: translate(-500px, 0);
+}
+.LeftSideMenu.exiting { 
+    transform: translate(0, 0);
 }
 
 @media all and (max-width: 500px) {

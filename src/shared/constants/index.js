@@ -17,6 +17,16 @@ export default {
             PRIVATE: 'private',
             PUBLIC: 'public',
         },
+        WALL: {
+            AVATAR_ICON: {
+                DEFAULT: 'https://cdn.filestackcontent.com/uiFagz6oSQiX8TTcAQAC',
+            },
+        },
+        EVENT: {
+            AVATAR_ICON: {
+                DEFAULT: 'https://cdn.filestackcontent.com/iMTfeaOyS0iReA0OLhGN',
+            },
+        },
         ALERT: {
             LABEL: {
                 ACCIDENT: 'Accident de voie publique ou panne',

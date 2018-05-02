@@ -4,8 +4,33 @@
     height: 100%;
     position: absolute;
     top: 0;
-    left: 397px;
+    left: 0;
+    will-change: transform;
     border-right: 1px solid lightgray;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
-    transition: left 300ms ease-in-out;
+    transition: transform 300ms ease-in-out;
+
+    .MarkerContent {
+        padding: 5px;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        .PawnMarker {
+            margin-bottom: 10px;
+        }
+    }
 }
+
+.MarkerToolbar.entered { 
+    transform: translate(397px, 0);
+}
+.MarkerToolbar.entering { 
+    transform: translate(0, 0);
+}
+.MarkerToolbar.exited { 
+    transform: translate(0, 0);
+}
+.MarkerToolbar.exiting { 
+    transform: translate(397px, 0);
+}
+

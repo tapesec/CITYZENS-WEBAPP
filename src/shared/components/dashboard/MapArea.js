@@ -4,7 +4,6 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Map/Marker';
-import ActionsPanel from './Map/ActionsPanel/ActionsPanel';
 import helper from './../../helpers';
 import config from './../../config/';
 import actions from './../../../client/actions';
@@ -84,11 +83,15 @@ class MapArea extends React.Component {
     }
 
     onGoogleApiLoaded({ map, maps }) {
-        maps.event.addListener(map, 'mousemove', evt => {
+        maps.event.addListener(map, 'mouseup', evt => {
             this.googleMouseCoords = {
                 lat: evt.latLng.lat(),
                 lng: evt.latLng.lng(),
             };
+            console.log({
+                lat: evt.latLng.lat(),
+                lng: evt.latLng.lng(),
+            });
         });
     }
 
@@ -134,7 +137,7 @@ class MapArea extends React.Component {
                 ref={elem => {
                     this.rootElement = elem;
                 }}>
-                <ActionsPanel />
+                {/* <ActionsPanel /> */}
                 <GoogleMapReact
                     style={{ userSelect: 'none' }}
                     bootstrapURLKeys={{
