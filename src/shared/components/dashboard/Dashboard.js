@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import actions from '../../../client/actions';
+import constants from '../../constants/';
+import { mapOverlayIsVisible } from '../../reducers/componentsState';
+import { hotspotEdition } from '../../reducers/edition';
 import MarkerDraggablePreview from './Map/ActionsPanel/MarkerDraggablePreview';
 import HotspotContainer from './HotspotContainer/HotspotContainer';
 import displayWithProps from './../hoc/displayWithProps';
@@ -12,17 +18,22 @@ import MapArea from './MapArea';
 import AddressModal from './AddressModal/AddressModal';
 import HotspotDescriptionModal from './HotspotDescriptionModal/Modal';
 import SettingUpHotspotModal from './SettingUpHotspotModal/SettingUpHotspot';
+import cancelHotspotCreationFlow from '../lib/cancelHotspotCreationFlow';
 
+const { PAWN_MARKER } = constants;
 class Dashboard extends React.Component {
     componentDidMount() {
-        let previewSelectedPawnMarker;
         this.dashboardElem.addEventListener('click', evt => {
-            if (previewSelectedPawnMarker && previewSelectedPawnMarker !== evt.target) {
-                previewSelectedPawnMarker.classList.remove('selected');
-            }
-            if (evt.target.getAttribute('data-type') === 'pawnMarker') {
-                previewSelectedPawnMarker = evt.target;
-                evt.target.classList.toggle('selected');
+            if (
+                evt.target.getAttribute('data-type') !== PAWN_MARKER.DATA_TYPE &&
+                !evt.path.some(elem => elem.id === 'MapArea')
+            ) {
+                cancelHotspotCreationFlow(
+                    this.props.mapOverlayIsVisible,
+                    this.props.newSettingUpHotspot.type,
+                    this.props.clearHotspotEdition,
+                    this.props.turnOffMapOverlayVisibility,
+                );
             }
         });
     }
@@ -56,7 +67,26 @@ Dashboard.propTypes = {
     /* eslint-disable react/no-typos */
     match: ReactRouterPropTypes.match.isRequired,
     history: ReactRouterPropTypes.history.isRequired,
+    turnOffMapOverlayVisibility: PropTypes.func.isRequired,
+    mapOverlayIsVisible: PropTypes.bool.isRequired,
+    clearHotspotEdition: PropTypes.func.isRequired,
+    newSettingUpHotspot: PropTypes.shape({
+        type: PropTypes.string,
+    }).isRequired,
     /* eslint-enable react/no-typos */
 };
 
-export default Dashboard;
+const mapStateToProps = state => ({
+    mapOverlayIsVisible: mapOverlayIsVisible(state),
+    newSettingUpHotspot: hotspotEdition.getCurrentHotspotEdition(state),
+});
+const mapDispatchToProps = dispatch => ({
+    turnOffMapOverlayVisibility: () => {
+        dispatch(actions.toggleMapOverlayVisibility(false));
+    },
+    clearHotspotEdition: () => {
+        dispatch(actions.clearHotspotEdition());
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PawnMarker from './../Map/ActionsPanel/PawnMarker';
 import actions from '../../../../client/actions';
+import { hotspotEdition } from '../../../reducers/edition';
+import { mapOverlayIsVisible } from '../../../reducers/componentsState';
 import constant from './../../../constants';
+import cancelHotspotCreationFlow from '../../lib/cancelHotspotCreationFlow';
 
 import './MarkerToolbar.scss';
 
-const { HOTSPOT } = constant;
+const { HOTSPOT, PAWN_MARKER } = constant;
 
 const transitionClasses = {
     entered: { className: 'entered', style: {} },
@@ -16,16 +19,41 @@ const transitionClasses = {
     exiting: { className: 'exiting', style: {} },
 };
 
-const MarkerToolbar = ({ state, openHotspotTypeDescription }) => {
+const MarkerToolbar = ({
+    state,
+    openHotspotTypeDescription,
+    isVisibleMapOverlay,
+    turnOffMapOverlayVisibility,
+    newSettingUpHotspot,
+    clearHotspotEdition,
+}) => {
     const openWallHotspotDescription = () => {
+        cancelHotspotCreationFlow(
+            isVisibleMapOverlay,
+            newSettingUpHotspot.type,
+            clearHotspotEdition,
+            turnOffMapOverlayVisibility,
+        );
         openHotspotTypeDescription(true, HOTSPOT.TYPE.WALL_MESSAGE);
     };
 
     const openEventDescription = () => {
+        cancelHotspotCreationFlow(
+            isVisibleMapOverlay,
+            newSettingUpHotspot.type,
+            clearHotspotEdition,
+            turnOffMapOverlayVisibility,
+        );
         openHotspotTypeDescription(true, HOTSPOT.TYPE.EVENT);
     };
 
     const openAlertDescription = () => {
+        cancelHotspotCreationFlow(
+            isVisibleMapOverlay,
+            newSettingUpHotspot.type,
+            clearHotspotEdition,
+            turnOffMapOverlayVisibility,
+        );
         openHotspotTypeDescription(true, HOTSPOT.TYPE.ALERT);
     };
 
@@ -36,30 +64,24 @@ const MarkerToolbar = ({ state, openHotspotTypeDescription }) => {
             className={`MarkerToolbar ${transitionClasses[state].className}`}>
             <div className="MarkerContent">
                 <PawnMarker
+                    id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.WALL_MESSAGE}`}
                     title="Mur de message"
-                    text="Déposez sur la carte un mur de message pour tenir au courant les
-                                    citizens des dernières nouvelles de votre commerce ou
-                                    association"
                     filename={HOTSPOT.WALL.AVATAR_ICON.DEFAULT}
                     iconType={HOTSPOT.ICON.WALL}
                     type={HOTSPOT.TYPE.WALL_MESSAGE}
                     clickAction={openWallHotspotDescription}
                 />
                 <PawnMarker
+                    id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.EVENT}`}
                     title="Evenement"
-                    text="Déposez sur la carte un évenement, ce point a une durée limitée
-                il disparaitra automatiquement à la date que vous aurez
-                spécifié."
                     filename={HOTSPOT.EVENT.AVATAR_ICON.DEFAULT}
                     iconType={HOTSPOT.ICON.EVENT}
                     type={HOTSPOT.TYPE.EVENT}
                     clickAction={openEventDescription}
                 />
                 <PawnMarker
+                    id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.ALERT}`}
                     title="Accident de voie publique"
-                    text="Vous constatez un accident de la circulation, d&apo;un véhicule
-                        ou piéton ou même une perturbation de la circulation, signalez
-                        le avec un court message."
                     filename={HOTSPOT.ALERT.AVATAR_ICON.ACCIDENT}
                     iconType={HOTSPOT.ICON.ACCIDENT}
                     type={HOTSPOT.TYPE.ALERT}
@@ -73,12 +95,29 @@ const MarkerToolbar = ({ state, openHotspotTypeDescription }) => {
 MarkerToolbar.propTypes = {
     state: PropTypes.string.isRequired,
     openHotspotTypeDescription: PropTypes.func.isRequired,
+    isVisibleMapOverlay: PropTypes.bool.isRequired,
+    turnOffMapOverlayVisibility: PropTypes.func.isRequired,
+    newSettingUpHotspot: PropTypes.shape({
+        type: PropTypes.string,
+    }).isRequired,
+    clearHotspotEdition: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+    newSettingUpHotspot: hotspotEdition.getCurrentHotspotEdition(state),
+    isVisibleMapOverlay: mapOverlayIsVisible(state),
+});
 
 const mapDispatchToProps = dispatch => ({
     openHotspotTypeDescription: (status, hotspotType) => {
         dispatch(actions.showHotspotTypeDescriptionModal(status, hotspotType));
     },
+    turnOffMapOverlayVisibility: () => {
+        dispatch(actions.toggleMapOverlayVisibility(false));
+    },
+    clearHotspotEdition: () => {
+        dispatch(actions.clearHotspotEdition());
+    },
 });
 
-export default connect(() => ({}), mapDispatchToProps)(MarkerToolbar);
+export default connect(mapStateToProps, mapDispatchToProps)(MarkerToolbar);

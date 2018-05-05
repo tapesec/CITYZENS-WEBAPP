@@ -2,16 +2,19 @@ div.PawnMarker {
     width: 50px;
     height: 50px;
     border-radius: 26px;
+    cursor: pointer;
     img {
         border-radius: 26px;
     }
 }
 // l'un ou l'autre puevent avoir la classe selected si on click dessus
-div.PawnMarker.selected {
+/* div.PawnMarker.selected {
     animation: selectedMarker 1s infinite;
-}
+    box-shadow: 0px 0px 5px 6px #efaa2c;
+} */
 div.PawnMarker img.selected {
     animation: selectedMarker 1s infinite;
+    box-shadow: 0px 0px 5px 6px #efaa2c;
 }
 
 @keyframes selectedMarker {
@@ -48,8 +51,4 @@ div.PawnMarker img.selected {
     100% {
         box-shadow: 0px 0px 0 0 #efaa2c;
     }
-  }
-
-div.PawnMarker.selected {
-    box-shadow: 0px 0px 5px 6px #efaa2c;
 }

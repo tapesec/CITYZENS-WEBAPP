@@ -31,6 +31,7 @@ const ImageCDN = props => {
                 </div>
             ) : null}
             <img
+                id={props.id}
                 src={imgUrl}
                 alt={props.alt}
                 style={props.style}
@@ -52,6 +53,7 @@ ImageCDN.propTypes = {
     process: PropTypes.bool,
     processParam: PropTypes.string,
     dataType: PropTypes.string,
+    id: PropTypes.string,
 };
 
 ImageCDN.defaultProps = {
@@ -63,6 +65,7 @@ ImageCDN.defaultProps = {
     process: false,
     processParam: '',
     dataType: '',
+    id: undefined,
 };
 
 export default ImageCDN;

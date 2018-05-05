@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Icon } from 'rmwc/Icon';
 import { Typography } from 'rmwc/Typography';
+import { mapOverlayIsVisible } from '../../../reducers/componentsState';
 
 import './MapOverlay.scss';
 
@@ -12,23 +14,29 @@ const transitionStyles = {
     exiting: 'exiting',
 };
 
-const MapOverlay = ({ state }) => (
-    <div className={`MapOverlay ${transitionStyles[state]}`}>
-        <section className="action-section-description">
-            <aside className="action-icon" style={{ marginRight: '5px' }}>
-                <Icon strategy="ligature">add_location</Icon>
-            </aside>
-            <article className="action-label-description">
-                <Typography tag="p" use="subheading2">
-                    Cliquez / touchez sur la carte le lieu où doit être posé le point
-                </Typography>
-            </article>
-        </section>
-    </div>
-);
+const MapOverlay = ({ state, isVisible }) =>
+    isVisible ? (
+        <div className={`MapOverlay ${transitionStyles[state]}`}>
+            <section className="action-section-description">
+                <aside className="action-icon" style={{ marginRight: '5px' }}>
+                    <Icon strategy="ligature">add_location</Icon>
+                </aside>
+                <article className="action-label-description">
+                    <Typography tag="p" use="subheading2">
+                        Cliquez / touchez sur la carte le lieu où doit être posé le point
+                    </Typography>
+                </article>
+            </section>
+        </div>
+    ) : null;
 
 MapOverlay.propTypes = {
     state: PropTypes.string.isRequired,
+    isVisible: PropTypes.bool.isRequired,
 };
 
-export default MapOverlay;
+// mapOverlayIsVisible
+const mapStateToProps = state => ({
+    isVisible: mapOverlayIsVisible(state),
+});
+export default connect(mapStateToProps)(MapOverlay);

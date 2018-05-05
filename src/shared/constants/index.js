@@ -52,4 +52,8 @@ export default {
         EDITION: 'EDITION',
         SETTING_UP: 'SETTING_UP',
     },
+    PAWN_MARKER: {
+        ID_PREFIX: 'pawn-marker-',
+        DATA_TYPE: 'pawnMarker',
+    },
 };

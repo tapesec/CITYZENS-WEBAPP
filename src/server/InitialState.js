@@ -51,6 +51,10 @@ class InitialState {
                     open: false,
                     hotspotType: '',
                 },
+                // overlay when user have to click in map for create new hotspot
+                dropMarkerMapOverlay: {
+                    visible: false,
+                },
             },
             algolia: {
                 hits: [],

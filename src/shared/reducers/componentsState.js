@@ -218,6 +218,13 @@ export default function componentsState(state = initialState, action) {
                     hotspotType: action.payload.hotspotType,
                 },
             };
+        case actionTypes.TOGGLE_DROP_MARKER_MOD:
+            return {
+                ...state,
+                dropMarkerMapOverlay: {
+                    visible: action.payload.visible,
+                },
+            };
         default:
             return state;
     }
@@ -260,3 +267,5 @@ export const componentIsLoading = {
 
 export const getHotspotTypeDescriptionModal = state =>
     state.componentsState.hotspotTypeDescriptionModal;
+
+export const mapOverlayIsVisible = state => state.componentsState.dropMarkerMapOverlay.visible;

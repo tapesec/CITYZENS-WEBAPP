@@ -209,12 +209,10 @@ const mapMoved = (lat, lng) => ({
     },
 });
 
-const newMarkerDropped = (position, type, iconType) => ({
+const newMarkerDropped = position => ({
     type: actionTypes.NEW_MARKER_DROPPED,
     payload: {
         position,
-        type,
-        iconType,
     },
 });
 
@@ -242,10 +240,6 @@ const hotspotViewUp = hotspotId => ({
     payload: {
         hotspotId,
     },
-});
-
-const resetMarkerPreviewMode = () => ({
-    type: actionTypes.RESET_MARKER_PREVIEW_MODE,
 });
 
 const alertStillExist = (hotspotId, boolean) => ({
@@ -300,8 +294,19 @@ const showHotspotTypeDescriptionModal = (status, hotspotType) => ({
     },
 });
 
-const toggleDropMarkerMod = () => ({
+const initSettingUpMode = (type, iconType) => ({
+    type: actionTypes.INIT_SETTING_UP_MODE,
+    payload: {
+        iconType,
+        type,
+    },
+});
+
+const toggleMapOverlayVisibility = visible => ({
     type: actionTypes.TOGGLE_DROP_MARKER_MOD,
+    payload: {
+        visible,
+    },
 });
 
 export default {
@@ -344,7 +349,6 @@ export default {
     displayMessageToScreen,
     messageToScreenOnDisapear,
     hotspotViewUp,
-    resetMarkerPreviewMode,
     alertStillExist,
     hotspotAvatarUploaded,
     alertHotspotImageUploaded,
@@ -352,5 +356,6 @@ export default {
     unselectWidgetToConfigure,
     saveSlideshowWidget,
     showHotspotTypeDescriptionModal,
-    toggleDropMarkerMod,
+    toggleMapOverlayVisibility,
+    initSettingUpMode,
 };

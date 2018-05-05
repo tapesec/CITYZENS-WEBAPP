@@ -15,11 +15,19 @@ export default function edition(state = initialState, action) {
                 ...state,
                 mode: EDITION,
             };
-        case actionTypes.NEW_MARKER_DROPPED:
+        case actionTypes.INIT_SETTING_UP_MODE:
             hotspot = {
                 ...state.hotspot,
                 type: action.payload.type,
                 iconType: action.payload.iconType,
+            };
+            return {
+                ...state,
+                hotspot,
+            };
+        case actionTypes.NEW_MARKER_DROPPED:
+            hotspot = {
+                ...state.hotspot,
                 position: action.payload.position,
             };
             return {

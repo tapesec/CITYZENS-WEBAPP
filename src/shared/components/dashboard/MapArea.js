@@ -8,90 +8,41 @@ import helper from './../../helpers';
 import config from './../../config/';
 import actions from './../../../client/actions';
 import selectors from './../../../client/selectors';
-import { getMarkerPreviewModeStatus } from './../../reducers/componentsState';
+import { mapOverlayIsVisible } from './../../reducers/componentsState';
+import { hotspotEdition } from '../../reducers/edition';
+import constants from '../../constants';
 import './MapArea.scss';
+
+const { PAWN_MARKER } = constants;
 
 class MapArea extends React.Component {
     constructor() {
         super();
-        this.googleMouseCoords = {
-            lat: 0,
-            lng: 0,
-        };
         this.onGoogleApiLoaded = this.onGoogleApiLoaded.bind(this);
     }
 
     componentDidMount() {
-        let dragging = false;
-        let markerHotspotType;
-        let markerIconType;
-        // eslint-disable-next-line
-        const mojs = require('mo-js');
-        if (typeof window !== 'undefined') {
-            // eslint-disable-next-line
-            this.markerPreview = window.document.getElementById('markerPreviewArea');
-        }
         this.props.fetchHotspotsByCity('33273');
-        this.rootElement.addEventListener('mousemove', evt => {
-            evt.preventDefault();
-            if (dragging) {
-                const x = evt.pageX;
-                const y = evt.pageY;
-                this.markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
-            }
-        });
-        this.rootElement.addEventListener('mousedown', evt => {
-            if (evt.target.getAttribute('data-type') === 'draggablePawnMarker') {
-                dragging = true;
-                const x = evt.pageX;
-                const y = evt.pageY;
-                this.markerPreview.style.transform = `translate(${x - 26}px,${y - 83}px)`;
-                this.markerPreview.style.display = 'inline';
-                this.markerPreview.firstChild.src =
-                    evt.target.getAttribute('data-img') || evt.target.src;
-                markerHotspotType = evt.target.getAttribute('data-hotspot-type');
-                markerIconType = evt.target.getAttribute('data-icon-type');
-            }
-        });
-        this.rootElement.addEventListener('mouseup', () => {
-            if (dragging) {
-                dragging = false;
-                if (typeof window !== 'undefined') {
-                    const burst = new mojs.Burst({
-                        parent: '#markerPreviewArea',
-                    });
-                    burst.play();
-                }
-                this.props.newMarkerDropped(
-                    {
-                        latitude: this.googleMouseCoords.lat,
-                        longitude: this.googleMouseCoords.lng,
-                    },
-                    markerHotspotType,
-                    markerIconType,
-                );
-                this.props.openHotspotAddressModal();
-            }
-        });
-    }
-
-    componentDidUpdate() {
-        if (this.props.markerPreviewModeIsEnabled === false) {
-            this.markerPreview.style.display = 'none';
-            this.props.resetMarkerPreviewMode();
-        }
     }
 
     onGoogleApiLoaded({ map, maps }) {
-        maps.event.addListener(map, 'mouseup', evt => {
-            this.googleMouseCoords = {
-                lat: evt.latLng.lat(),
-                lng: evt.latLng.lng(),
-            };
-            console.log({
-                lat: evt.latLng.lat(),
-                lng: evt.latLng.lng(),
-            });
+        maps.event.addListener(map, 'click', evt => {
+            if (this.props.mapOverlayIsVisible) {
+                this.props.newMarkerDropped({
+                    latitude: evt.latLng.lat(),
+                    longitude: evt.latLng.lng(),
+                });
+                const { type } = this.props.newSettingUpHotspot;
+                if (typeof window !== 'undefined') {
+                    // eslint-disable-next-line no-undef
+                    const markerToolBarIcon = document.getElementById(
+                        `${PAWN_MARKER.ID_PREFIX}${type}`,
+                    );
+                    markerToolBarIcon.classList.remove('selected');
+                }
+                this.props.turnOffMapOverlayVisibility();
+                this.props.openHotspotAddressModal();
+            }
         });
     }
 
@@ -133,11 +84,11 @@ class MapArea extends React.Component {
 
         return (
             <div
+                id="MapArea" // required
                 className="MapArea"
                 ref={elem => {
                     this.rootElement = elem;
                 }}>
-                {/* <ActionsPanel /> */}
                 <GoogleMapReact
                     style={{ userSelect: 'none' }}
                     bootstrapURLKeys={{
@@ -151,7 +102,8 @@ class MapArea extends React.Component {
                     onGoogleApiLoaded={this.onGoogleApiLoaded}
                     center={this.props.map.center}
                     defaultZoom={defaultProps.zoom}
-                    options={{ minZoom: 14 }}>
+                    options={{ minZoom: 14 }}
+                    className="GoogleMapReact">
                     {this.displayHotspots()}
                 </GoogleMapReact>
             </div>
@@ -177,7 +129,6 @@ MapArea.propTypes = {
     openHotspotInSPAModal: PropTypes.func.isRequired,
     newMarkerDropped: PropTypes.func.isRequired,
     openHotspotAddressModal: PropTypes.func.isRequired,
-    resetMarkerPreviewMode: PropTypes.func.isRequired,
     map: PropTypes.shape({
         center: PropTypes.shape({
             lat: PropTypes.isRequired,
@@ -189,7 +140,11 @@ MapArea.propTypes = {
         hotspotId: PropTypes.string,
         show: PropTypes.bool,
     }).isRequired,
-    markerPreviewModeIsEnabled: PropTypes.bool.isRequired,
+    mapOverlayIsVisible: PropTypes.bool.isRequired,
+    turnOffMapOverlayVisibility: PropTypes.func.isRequired,
+    newSettingUpHotspot: PropTypes.shape({
+        type: PropTypes.string,
+    }).isRequired,
 };
 
 MapArea.defaultProps = {
@@ -201,7 +156,8 @@ const mapStateToProps = state => ({
     map: state.map,
     tooltipOpen: selectors.getMarkerTooltipState(state),
     citySlug: selectors.getCitySlug(state),
-    markerPreviewModeIsEnabled: getMarkerPreviewModeStatus(state),
+    mapOverlayIsVisible: mapOverlayIsVisible(state),
+    newSettingUpHotspot: hotspotEdition.getCurrentHotspotEdition(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -226,8 +182,8 @@ const mapDispatchToProps = dispatch => ({
     openHotspotAddressModal: () => {
         dispatch(actions.openHotspotAddressModal());
     },
-    resetMarkerPreviewMode: () => {
-        dispatch(actions.resetMarkerPreviewMode());
+    turnOffMapOverlayVisibility: () => {
+        dispatch(actions.toggleMapOverlayVisibility(false));
     },
 });
 
