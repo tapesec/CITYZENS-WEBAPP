@@ -5,7 +5,7 @@ import { Icon } from 'rmwc/Icon';
 
 const Footer = ({ views }) => (
     <Typography
-        theme="primary-bg text-primary-on-background"
+        theme="background text-secondary-on-background"
         className="HotspotContainerFooter"
         use="caption"
         tag="footer">

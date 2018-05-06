@@ -29,7 +29,21 @@ module.exports = {
                 ],
             },
             {
+                test: /\.css$/,
+                // only turn on standard global CSS loader for the material directories
+                // These paths are the same as above and specific to your system, so change accordingly
+                include: [
+                    path.resolve('./node_modules/material-components-web'),
+                    path.resolve('./node_modules/@material'),
+                ],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
                 test: /\.s?css$/,
+                exclude: [
+                    path.resolve('./node_modules/material-components-web'),
+                    path.resolve('./node_modules/@material'),
+                ],
                 use: [
                     MiniCssExtractPlugin.loader,
                     {

@@ -25,14 +25,14 @@ const HotspotMessage = ({ message, cityzenIsAuthor, edit }) => {
                     {displayEditAction()}
                     <Typography
                         style={{ marginBottom: 10 }}
-                        use="headline"
+                        use="headline6"
                         tag="h2"
                         theme="secondary">
                         {message.title}
                     </Typography>
                     <Typography
                         style={{ marginBottom: 10 }}
-                        use="body1"
+                        use="subtitle2"
                         tag="p"
                         theme="primary-dark">
                         Rédigé par <strong>{message.author.pseudo}</strong>{' '}
@@ -41,8 +41,8 @@ const HotspotMessage = ({ message, cityzenIsAuthor, edit }) => {
                     </Typography>
                 </header>
                 <Typography
-                    use="subheading2"
                     tag="div"
+                    use="body1"
                     dangerouslySetInnerHTML={{ __html: message.body }}
                 />
             </article>

@@ -7,9 +7,16 @@ import InputMoment from 'input-moment';
 import './../../../../../node_modules/input-moment/dist/input-moment.css';
 import ValidationMessage from './ValidationMessage';
 
+import './customComponents.scss';
+
 export const renderCustomTextField = field => (
     <Fragment>
-        <TextField theme="text-on-primary-background" label={field.label} {...field.input} />
+        <TextField
+            className="cyz-text-field"
+            theme="text-on-primary-background"
+            label={field.label}
+            {...field.input}
+        />
         <ValidationMessage {...field.meta} />
     </Fragment>
 );

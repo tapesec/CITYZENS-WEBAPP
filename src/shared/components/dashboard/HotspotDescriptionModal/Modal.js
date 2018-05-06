@@ -1,11 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Typography } from 'rmwc/Typography';
 import actions from '../../../../client/actions/';
 import { getHotspotTypeDescriptionModal } from '../../../reducers/componentsState';
 import Modal from './../../lib/Modal';
-import SubmitButtons from './../../lib/submitButtons/SubmitButtons';
+import Content from './Content';
 import constants from '../../../constants/';
 
 import './Modal.scss';
@@ -38,59 +37,49 @@ const HotspotDescriptionModal = ({
     const displayDescriptionContent = () => {
         const { hotspotType } = hotspotTypeDescriptionModal;
         if (hotspotType === HOTSPOT.TYPE.WALL_MESSAGE) {
+            const description = `Ce point vous permet de placer dans votre ville toutes sortes d'informations. Un
+            accident, des dégradations, des équipements d'accésibilité pour les
+            personnes à mobilités réduite ou même des travaux.`;
             return (
-                <Fragment>
-                    <Typography tag="h1" use="headline4" theme="text-secondary-on-background">
-                        Mur de message
-                    </Typography>
-                    <p>Vous pouvez écrire des messages</p>
-                    <SubmitButtons
-                        submitLabel="Je place le point sur la carte"
-                        cancelLabel="Fermer"
-                        submitAction={() => {
-                            validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.WALL);
-                        }}
-                        cancelAction={cancelModal}
-                        submitIcon="add_location"
-                        cancelIcon="close"
-                    />
-                </Fragment>
+                <Content
+                    title="Mur de messages"
+                    icon={HOTSPOT.WALL.AVATAR_ICON.DEFAULT}
+                    description={description}
+                    submitAction={() => {
+                        validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.WALL);
+                    }}
+                    cancelAction={cancelModal}
+                />
             );
         }
         if (hotspotType === HOTSPOT.TYPE.EVENT) {
+            const description = `Choisissez ce point si vous organisez un évenement culturel, sportifs ou autres. Vous pouvez définir une date de fin et le point disparaitra automatiquement de la carte.`;
             return (
-                <Fragment>
-                    <h1>Point à durée limitée</h1>
-                    <p>Décrivez l{"'"}évènement</p>
-                    <SubmitButtons
-                        submitLabel="Je place le point sur la carte"
-                        cancelLabel="Fermer"
-                        submitAction={() => {
-                            validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
-                        }}
-                        cancelAction={cancelModal}
-                        submitIcon="add_location"
-                        cancelIcon="close"
-                    />
-                </Fragment>
+                <Content
+                    title="Evenement avec fin programmée"
+                    description={description}
+                    icon={HOTSPOT.EVENT.AVATAR_ICON.DEFAULT}
+                    submitAction={() => {
+                        validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
+                    }}
+                    cancelAction={cancelModal}
+                />
             );
         }
         if (hotspotType === HOTSPOT.TYPE.ALERT) {
+            const description = `Ce point vous permet de placer dans votre ville toutes sortes d'informations. Un
+            accident, des dégradations, des équipements d'accésibilité pour les
+            personnes à mobilités réduite ou même des travaux.`;
             return (
-                <Fragment>
-                    <h1>Signalez une information sur la carte</h1>
-                    <p>Que se passe t{"'"}il ?</p>
-                    <SubmitButtons
-                        submitLabel="Je place le point sur la carte"
-                        cancelLabel="Fermer"
-                        submitAction={() => {
-                            validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.ALERT);
-                        }}
-                        cancelAction={cancelModal}
-                        submitIcon="add_location"
-                        cancelIcon="close"
-                    />
-                </Fragment>
+                <Content
+                    title="Signalez une information sur la carte"
+                    icon={HOTSPOT.ALERT.AVATAR_ICON.ACCIDENT}
+                    description={description}
+                    submitAction={() => {
+                        validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.ALERT);
+                    }}
+                    cancelAction={cancelModal}
+                />
             );
         }
         return null;

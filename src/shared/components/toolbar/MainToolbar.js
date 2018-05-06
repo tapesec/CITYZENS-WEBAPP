@@ -18,12 +18,12 @@ class MainToolbar extends React.Component {
 
     render() {
         return (
-            <Toolbar className="Toolbar" theme="primary-bg">
-                <ToolbarRow>
+            <Toolbar className="Toolbar">
+                <ToolbarRow theme="background">
                     <ToolbarSection alignStart>
                         <Fab
-                            style={{ left: '20px', color: 'red' }}
-                            theme="primary-bg text-icon-on-primary"
+                            style={{ left: '10px', backgroundColor: 'white' }}
+                            theme="background text-icon-on-background"
                             onClick={() => {
                                 this.props.actions.toggleLeftSideMenuVisibility();
                             }}
@@ -55,7 +55,11 @@ class MainToolbar extends React.Component {
                                     tag="span"
                                     theme="text-primary-on-background"
                                     use="subheading2"
-                                    style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        cursor: 'pointer',
+                                    }}
                                     onKeyDown={() => {
                                         this.setState({ menuIsOpen: !this.state.menuIsOpen });
                                     }}

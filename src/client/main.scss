@@ -1,20 +1,4 @@
 
-@import './variables.scss'; // add before mdc-theme to overide theme color
-@import '~@material/theme/mdc-theme';
-@import '~@material/typography/dist/mdc.typography.min';
-@import '~@material/toolbar/dist/mdc.toolbar.min';
-@import '~@material/menu/dist/mdc.menu.min';
-@import '~@material/button/dist/mdc.button.min';
-@import '~@material/fab/dist/mdc.fab.min';
-@import '~@material/drawer/dist/mdc.drawer.min';
-@import '~@material/textfield/dist/mdc.textfield.min';
-@import '~@material/switch/dist/mdc.switch.min';
-@import '~@material/list/dist/mdc.list.min';
-@import '~@material/snackbar/dist/mdc.snackbar.min';
-@import '~@material/elevation/dist/mdc.elevation.min';
-@import '~@material/layout-grid/dist/mdc.layout-grid.min';
-@import '~@material/ripple/dist/mdc.ripple.min';
-
 /*
 html5doctor.com Reset Stylesheet
 v1.6.1
@@ -22,6 +6,7 @@ Last Updated: 2010-09-17
 Author: Richard Clark - http://richclarkdesign.com
 Twitter: @rich_clark
 */
+@import './variables.scss';
 
 /* reset css */
 html, body, div, span, object, iframe,
@@ -43,6 +28,11 @@ time, mark, audio, video {
     font-size:100%;
     vertical-align:baseline;
     background:transparent;
+}
+
+:root {
+    --mdc-theme-primary: pink;
+    --mdc-theme-secondary: blue;
 }
 
 body {
@@ -135,63 +125,6 @@ body {
     height: 100%;
 }
 // hacks for ie and edge duno why rmwc v1.2.0 and material web component 0.30 …
-.material-icons.mdc-fab__icon {
+/* .material-icons.mdc-fab__icon {
     display: inherit;
-}
-
-// cityzen form
-
-form.cityzen-form {
-    .mdc-text-field {
-        width: 100%;
-        label {
-            @extend .mdc-typography--subheading2;
-        }
-        .mdc-text-field__label--float-above {
-            color: $mdc-theme--text-on-primary-background;
-        }
-    }
-    .mdc-text-field__input {
-        border-bottom: 1px solid $mdc-theme--text-on-primary-background;
-    }
-    div.mdc-line-ripple.mdc-line-ripple--active {
-        background-color: $mdc-theme-tertiary;
-    }
-    .mdc-form-field {
-        @extend .mdc-typography--subheading2;
-        label {
-            margin-left: 5px;
-        }
-    }
-    .m-input-moment {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        z-index: 1;
-        background-color: white;
-
-    }
-    .DayPickerInput {
-        width: 100%;
-        border-bottom: 1px solid $mdc-theme--text-on-primary-light;
-        margin-bottom: 10px;
-        input{
-            &:focus {
-                outline: none;
-            }
-            &:first-child {
-                border: none;
-                padding: 5px 0 5px 0;
-                width: 100%;
-                color: $mdc-theme--text-on-primary-light;
-                @extend .mdc-typography--subheading2;
-            }
-        }
-    }
-}
-
-
-
-.hotspot-title {
-    
-}
+} */

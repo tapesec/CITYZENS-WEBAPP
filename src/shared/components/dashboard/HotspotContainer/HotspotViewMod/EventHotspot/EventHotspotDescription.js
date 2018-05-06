@@ -6,14 +6,14 @@ import DateFormater from './../../../../lib/DateFormater';
 const EventHotspotDescription = ({ description, author }) => (
     <article className="HotspotMessage">
         <header>
-            <Typography style={{ marginBottom: 10 }} use="caption" tag="p" theme="primary-dark">
+            <Typography style={{ marginBottom: 10 }} use="subtitle2" tag="p" theme="primary-dark">
                 Rédigé par <strong>{author.pseudo}</strong>{' '}
                 <DateFormater duration date={description.updatedAt} />.{' '}
                 <DateFormater duration labelPrefix="Mis à jour" date={description.updatedAt} />
             </Typography>
         </header>
         <Typography
-            use="subheading2"
+            use="body1"
             tag="div"
             theme="text-primary-on-light"
             dangerouslySetInnerHTML={{ __html: description.content }}

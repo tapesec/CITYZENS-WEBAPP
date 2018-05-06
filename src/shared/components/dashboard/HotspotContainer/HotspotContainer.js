@@ -114,7 +114,8 @@ class HotspotContainer extends React.Component {
                     onClick={this.callRightContextAction}
                     className="closeModal"
                     mini
-                    theme={['primary-bg', 'text-icon-on-primary']}>
+                    style={{ backgroundColor: 'white' }}
+                    theme="background text-icon-on-background">
                     {this.props.widgetIsBeingEdited ? 'keyboard_backspace' : 'clear'}
                 </Fab>
                 {this.displayWidgetOrContent()}

@@ -32,7 +32,7 @@ class EventHotspotCountDown extends React.Component {
                 <Typography tag="div" className="iconContainer" theme="text-icon-on-primary">
                     <Icon strategy="component">alarm_on</Icon>
                 </Typography>
-                <Typography tag="header" use="subheading2" theme="secondary">
+                <Typography tag="header" use="subtitle1" theme="secondary">
                     <DateFormater countdown date={this.state.dateEnd} />
                 </Typography>
             </header>

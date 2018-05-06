@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import reducer from './../shared/reducers/';
 import configureStore from './store/';
 import App from './../shared/components/App';
+
 // eslint-disable-next-line no-undef
 const preloadedState = window.PRELOADED_STATE || {};
 const store = configureStore(reducer, preloadedState);

@@ -24,7 +24,11 @@ const warn = values => {
 
 const AddressForm = ({ handleSubmit, dismissModal }) => (
     <form className="AddressForm cityzen-form" onSubmit={handleSubmit}>
-        <Field name="address" label="test label" component={renderCustomTextField} />
+        <Field
+            name="address"
+            label="Corrigez l'adresse si inexacte (ne bougera pas le point)"
+            component={renderCustomTextField}
+        />
         <div className="submitArea">
             <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                 {"C'est bon !"}

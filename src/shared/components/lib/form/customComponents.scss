@@ -1,0 +1,11 @@
+@import './../../../../client/variables.scss';
+
+div.cyz-text-field {
+    width: 100%;
+    div.mdc-line-ripple.mdc-line-ripple--active {
+        background-color: $mdc-theme-secondary;
+    }
+    label.mdc-floating-label.mdc-floating-label--float-above {
+        color: $mdc-theme-secondary;
+    }
+}

@@ -31,7 +31,7 @@ const DisplayQuestionOrSayThanks = props =>
             Vous avez déjà répondu, merci.
         </Typography>
     ) : (
-        <Typography tag="div" className="thumb-container" theme="text-icon-on-primary">
+        <Typography tag="div" className="thumb-container">
             <div>
                 <Icon
                     strategy="component"
@@ -107,7 +107,7 @@ const DiplayImageDescriptionOrImport = (
                         tabIndex={-1}
                         onKeyUp={onPick}
                         className="alert-dropzone">
-                        <Typography tag="span" use="headline">
+                        <Typography tag="span" use="subtitle1">
                             Cliquez ici pour déposer vos images ou prendre une photo
                         </Typography>
                     </div>
@@ -117,7 +117,7 @@ const DiplayImageDescriptionOrImport = (
     }
     return (
         <div className="loged-out-alert-dropzone">
-            <Typography tag="span" use="headline">
+            <Typography tag="span" use="subtitle1">
                 <a href="/login">Connectez vous</a> pour déposez une image ou prendre une photo
             </Typography>
         </div>
@@ -151,12 +151,12 @@ const AlertHotspot = props => (
                         <article className="HotspotMessage">
                             <Typography
                                 tag="p"
-                                use="subheading2"
+                                use="body1"
                                 className="question-label"
                                 theme="text-primary-on-background">
                                 {props.hotspot.message.content}
                             </Typography>
-                            <Typography tag="p" use="subheading1" theme="text-primary-on-light">
+                            <Typography tag="p" use="subtitle2" theme="text-primary-on-light">
                                 <DateFormater
                                     labelPrefix="Dernière mise à jour "
                                     duration
@@ -168,7 +168,7 @@ const AlertHotspot = props => (
                     <div className="pertinence-section">
                         <Typography
                             tag="p"
-                            use="headline"
+                            use="subtitle1"
                             className="question-label"
                             theme="secondary">
                             Il y a t&apos;il toujours quelque chose ?
@@ -178,7 +178,7 @@ const AlertHotspot = props => (
                         ) : (
                             <Typography
                                 tag="p"
-                                use="subheading2"
+                                use="subtitle1"
                                 className="question-disabled"
                                 theme="text-primary-background">
                                 <a href="/login">Connectez vous</a> pour nous le dire

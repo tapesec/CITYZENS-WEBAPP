@@ -78,7 +78,7 @@ const WallHotspot = ({
                 <Typography
                     onClick={handleNewMessageButton}
                     tag="div"
-                    use="subheading2"
+                    use="body1"
                     className="add-message-button"
                     theme="text-primary-on-background">
                     <Icon strategy="ligature">add_circle_outline</Icon>

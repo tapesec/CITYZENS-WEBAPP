@@ -10,7 +10,7 @@ const EventHotspotDateTime = ({ date }) => (
         <Typography tag="div" theme="text-icon-on-primary" className="iconContainer">
             <Icon strategy="component">today</Icon>
         </Typography>
-        <Typography use="subheading2" tag="div" theme="secondary">
+        <Typography use="subtitle1" tag="div" theme="secondary">
             <DateFormater date={date} />
         </Typography>
     </header>

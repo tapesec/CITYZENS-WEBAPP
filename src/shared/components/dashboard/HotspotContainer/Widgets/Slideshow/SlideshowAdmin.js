@@ -47,7 +47,7 @@ const SlideshowAdmin = ({
             <ActionsToolbar />
             <section className="HotspotContent">
                 <CustomScroll heightRelativeToParent="100%">
-                    <Typography tag="h1" theme="text-secondary-on-background" use="display1">
+                    <Typography tag="h1" theme="text-secondary-on-background" use="headline5">
                         {"Configurez votre carousel d'image"}
                     </Typography>
                     <ReactFilestack
@@ -74,7 +74,7 @@ const SlideshowAdmin = ({
                         )}
                     />
                     <section className="pictures-list">
-                        <Typography tag="h2" theme="text-secondary-on-background" use="headline">
+                        <Typography tag="h2" theme="text-secondary-on-background" use="headline6">
                             {'Liste des images de votre diaporama'}
                         </Typography>
                         <Grid>

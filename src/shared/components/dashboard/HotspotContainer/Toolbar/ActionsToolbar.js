@@ -5,7 +5,7 @@ import Typography from 'rmwc/Typography';
 
 const ActionsToolbar = ({ editAction, slideShowAction }) => (
     <Typography
-        theme="primary-bg text-icon-on-background"
+        theme="background text-icon-on-background"
         className="HotspotContainerToolbar"
         use="caption"
         tag="header">
