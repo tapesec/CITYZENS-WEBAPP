@@ -5,6 +5,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1;
     will-change: transform;
     border-right: 1px solid lightgray;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
@@ -23,14 +24,18 @@
 
 .MarkerToolbar.entered { 
     transform: translate(397px, 0);
+    z-index: 1;
 }
 .MarkerToolbar.entering { 
     transform: translate(0, 0);
+    z-index: 0;
 }
 .MarkerToolbar.exited { 
     transform: translate(0, 0);
+    z-index: 0;
 }
 .MarkerToolbar.exiting { 
     transform: translate(397px, 0);
+    z-index: 1;
 }
 
