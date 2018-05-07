@@ -8,10 +8,8 @@
     pointer-events: none;
     box-sizing: border-box;
     transition: width 300ms ease-in-out;
-    will-change: width;
     box-shadow: 0px 0px 12px 5px #eab213 inset;
     overflow: hidden;
-    animation: lightning 1s infinite;
 
     section.action-section-description {
         // width: calc(100% - 80px);
