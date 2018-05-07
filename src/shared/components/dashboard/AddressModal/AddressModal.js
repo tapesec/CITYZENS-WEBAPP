@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Typography } from 'rmwc/Typography';
+
 import AddressForm from './AddressForm';
 import actions from './../../../../client/actions';
 import { hotspotAddressModalState } from './../../../reducers/componentsState';
@@ -27,16 +27,11 @@ const displayAddressModalContent = (
         openSettingUpHotspotModal();
     };
     return (
-        <Fragment>
-            <Typography tag="h2" theme="text-on-primary-background" use="subheading2">
-                {"L'adresse est elle exacte ?"}
-            </Typography>
-            <AddressForm
-                initialValues={initialValues}
-                dismissModal={dismissModal}
-                onSubmit={handleSubmit}
-            />
-        </Fragment>
+        <AddressForm
+            initialValues={initialValues}
+            dismissModal={dismissModal}
+            onSubmit={handleSubmit}
+        />
     );
 };
 
@@ -57,9 +52,6 @@ const AddressModal = ({
         modalClass="AddressModal"
         backdropClass="AddressModal-backdrop">
         <div className="AddressContainer">
-            <Typography tag="h2" theme="text-on-primary-background" use="display1">
-                {"Nouveau point d'interêt"}
-            </Typography>
             {displayAddressModalContent(
                 isLoading,
                 hasNetworkError,

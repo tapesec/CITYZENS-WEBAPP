@@ -1,11 +1,22 @@
 .AddressModal {
     width: 600px;
-    height: 300px;
     position: fixed;
     background-color: white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
     display: flex;
     justify-content: center;
+    padding: 10px;
+    .AddressContainer {
+        h2, h3 {
+            text-align: center;
+        }
+        width: 100%;
+        .AddressForm {
+            button {
+                width: 100%;
+            }
+        }
+    }
 }
 
 .AddressModal-backdrop {
@@ -19,23 +30,11 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.AddressContainer {
-    display: flex;
-    flex-direction: column;
-    margin:30px;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
 
-    .AddressForm {
+
+@media all and (max-width: 599px) {
+    .AddressModal {
         width: 100%;
-        .submitArea {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            button {
-                margin-right: 20px;
-            }
-        }
+        height:100%;
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Icon from 'rmwc/Icon';
 import PawnMarker from './../Map/ActionsPanel/PawnMarker';
 import actions from '../../../../client/actions';
 import { hotspotEdition } from '../../../reducers/edition';
@@ -63,6 +64,12 @@ const MarkerToolbar = ({
             style={{ ...transitionClasses[state].style }}
             className={`MarkerToolbar ${transitionClasses[state].className}`}>
             <div className="MarkerContent">
+                <Icon
+                    style={{ margin: '20px 0 20px 0' }}
+                    theme="text-icon-on-background"
+                    strategy="ligature">
+                    pin_drop
+                </Icon>
                 <PawnMarker
                     id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.WALL_MESSAGE}`}
                     title="Mur de message"
