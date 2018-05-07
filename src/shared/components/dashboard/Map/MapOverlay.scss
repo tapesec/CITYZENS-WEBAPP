@@ -26,8 +26,25 @@
     }
 
     aside.action-icon {
-        margin-top: 0;
-        animation: action-icon-bounce 1s infinite;
+        position: relative;
+        width: 27px;
+        height: 100%;
+        margin-right: 5px;
+        i {
+            top: 0;
+            position: absolute;
+            animation: action-icon-bounce 1s infinite;
+        }
+    }
+}
+
+@media all and (max-width: 500px) {
+    .MapOverlay {
+        section.action-section-description {
+            article > p{
+                font-size: 14px;
+            }
+        }
     }
 }
 
@@ -67,21 +84,21 @@
 
 @keyframes action-icon-bounce {
     from, to {
-        margin-top: 0;
+        top: 0;
     }
     10%, 90% {
-        margin-top: -1px;
+        top: -1px;
     }
     20%, 80% {
-        margin-top: -2px;
+        top: -2px;
     }
     30%, 70% {
-        margin-top: -3px;
+        top: -3px;
     }
     40%, 60% {
-        margin-top: -4px;
+        top: -4px;
     }
     50% {
-        margin-top: -5px;
+        top: -5px;
     }
 }

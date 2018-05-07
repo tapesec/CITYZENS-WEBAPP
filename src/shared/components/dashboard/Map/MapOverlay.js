@@ -18,11 +18,11 @@ const MapOverlay = ({ state, isVisible }) =>
     isVisible ? (
         <div className={`MapOverlay ${transitionStyles[state]}`}>
             <section className="action-section-description">
-                <aside className="action-icon" style={{ marginRight: '5px' }}>
+                <aside className="action-icon">
                     <Icon strategy="ligature">add_location</Icon>
                 </aside>
                 <article className="action-label-description">
-                    <Typography tag="p" use="subheading2">
+                    <Typography tag="p" use="body1">
                         Cliquez / touchez sur la carte le lieu où doit être posé le point
                     </Typography>
                 </article>
