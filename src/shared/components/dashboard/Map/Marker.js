@@ -4,12 +4,8 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { Tooltip } from 'react-tippy';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
+import ImageCDN from '../../lib/ImageCDN';
 import constants from './../../../constants';
-import WallIcon from './../../../../server/assets/WallHotspotMarker.svg';
-import EventIcon from './../../../../server/assets/EventHotspotMarker.svg';
-import AccidentIcon from './../../../../server/assets/AlertHotspotMarkerCar.svg';
-import DestructionIcon from './../../../../server/assets/AlertHotspotMarkerDestruct.svg';
-import HandicapIcon from './../../../../server/assets/AlertHotspotMarkerHandicap.svg';
 
 import './../../../../../node_modules/react-tippy/dist/tippy.css';
 import './Marker.scss';
@@ -17,11 +13,11 @@ import './Marker.scss';
 class Marker extends React.Component {
     static mapIconWithIconType(iconType) {
         const iconTypes = {
-            WallIcon,
-            EventIcon,
-            AccidentIcon,
-            DestructionIcon,
-            HandicapIcon,
+            WallIcon: '5lkJTLUSCGxTZL3X3Bgw',
+            EventIcon: 'OdVlEfDATlSW4R6TfcEy',
+            AccidentIcon: 'APITX885QNqEVNFoBhR8',
+            DestructionIcon: '100TA3LTdGFDguB4ZAjw',
+            HandicapIcon: '43i8vvKqTqaERyyu8UuZ',
         };
         return iconTypes[iconType];
     }
@@ -103,10 +99,10 @@ class Marker extends React.Component {
                             <Icon strategy="component">visibility</Icon>
                         </Typography>
                     }>
-                    <img
+                    <ImageCDN
                         style={style}
-                        src={Marker.mapIconWithIconType(this.props.iconType)}
-                        alt="Icone d'un point d'interêt"
+                        filename={Marker.mapIconWithIconType(this.props.iconType)}
+                        alt="point GPS"
                     />
                 </Tooltip>
             </div>
