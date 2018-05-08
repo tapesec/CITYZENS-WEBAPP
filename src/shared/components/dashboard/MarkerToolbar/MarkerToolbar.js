@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Icon from 'rmwc/Icon';
 import PawnMarker from './../Map/ActionsPanel/PawnMarker';
 import actions from '../../../../client/actions';
 import { hotspotEdition } from '../../../reducers/edition';
