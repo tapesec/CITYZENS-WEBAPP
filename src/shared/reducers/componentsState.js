@@ -25,7 +25,9 @@ export default function componentsState(state = initialState, action) {
             return {
                 ...state,
                 map: {
-                    markerTooltip: {},
+                    markerTooltip: {
+                        show: false,
+                    },
                 },
             };
         case actionTypes.OPEN_HOTSPOT_IN_SPA_MODAL:

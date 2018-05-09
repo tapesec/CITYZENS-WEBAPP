@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import actions from '../../../client/actions';
 import constants from '../../constants/';
+import selectors from '../../../client/selectors';
 import { mapOverlayIsVisible } from '../../reducers/componentsState';
 import { hotspotEdition } from '../../reducers/edition';
 import MarkerDraggablePreview from './Map/ActionsPanel/MarkerDraggablePreview';
@@ -24,6 +25,13 @@ const { PAWN_MARKER } = constants;
 class Dashboard extends React.Component {
     componentDidMount() {
         this.dashboardElem.addEventListener('click', evt => {
+            // for unfocus map marker's tooltip in map
+            if (evt.target.getAttribute('data-type') !== 'map-marker') {
+                if (this.props.tooltipOpen.show) {
+                    this.props.unfocusHotspotMarker();
+                }
+            }
+            // for disabled pawMarker shadow
             if (
                 evt.target.getAttribute('data-type') !== PAWN_MARKER.DATA_TYPE &&
                 !evt.path.some(elem => elem.id === 'MapArea')
@@ -41,7 +49,6 @@ class Dashboard extends React.Component {
     render() {
         const { match, history } = this.props;
         const AlertHotspotContainer = displayWithProps(isLoading(HotspotContainer));
-
         return (
             <div
                 ref={node => {
@@ -70,15 +77,18 @@ Dashboard.propTypes = {
     turnOffMapOverlayVisibility: PropTypes.func.isRequired,
     mapOverlayIsVisible: PropTypes.bool.isRequired,
     clearHotspotEdition: PropTypes.func.isRequired,
+    unfocusHotspotMarker: PropTypes.func.isRequired,
     newSettingUpHotspot: PropTypes.shape({
         type: PropTypes.string,
     }).isRequired,
+    tooltipOpen: PropTypes.shape({ show: PropTypes.bool }).isRequired,
     /* eslint-enable react/no-typos */
 };
 
 const mapStateToProps = state => ({
     mapOverlayIsVisible: mapOverlayIsVisible(state),
     newSettingUpHotspot: hotspotEdition.getCurrentHotspotEdition(state),
+    tooltipOpen: selectors.getMarkerTooltipState(state),
 });
 const mapDispatchToProps = dispatch => ({
     turnOffMapOverlayVisibility: () => {
@@ -86,6 +96,9 @@ const mapDispatchToProps = dispatch => ({
     },
     clearHotspotEdition: () => {
         dispatch(actions.clearHotspotEdition());
+    },
+    unfocusHotspotMarker: () => {
+        dispatch(actions.unfocusHotspotInMap());
     },
 });
 

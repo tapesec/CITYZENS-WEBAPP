@@ -1,19 +1,58 @@
 @import './../../../../client/variables.scss';
-
-.marker-tooltip {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    span {
-        margin-right: 10px;
+div.Marker {
+        width: 52px;
+        height: 83px;
+    .ImageCDN {
+        width: 52px;
+        height: 83px;
     }
-    i {
-        color: $mdc-theme--text-icon-on-primary;
+    div.marker-tooltip {
+        position: absolute;
+        z-index: 1;
+        opacity: 0;
+        bottom: 40px;
+        left: -55px;
+        width: 150px;
+        padding: 5px;
+        transition-property: opacity, bottom;
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+        div.tooltip-content {
+            padding: 5px;
+            background-color: white;
+            box-shadow: 0 4px 20px 4px rgba(0, 20, 60, .1), 0 4px 80px -8px rgba(0, 20, 60, .2);
+            border-radius: 4px;
+            p {
+                span.open-advice {
+                    color: $mdc-theme-secondary;
+                }
+                span.title {
+                    font-weight: 600;
+                }
+                span {
+                    align-items: center;
+                }
+            }
+        }
+        div.tooltip-arrow {
+            margin-left: 72px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 5px 0 5px;
+            border-color: #ffffff transparent transparent transparent;
+        }
+        
     }
     &:hover {
-        span, i {
-            color: $mdc-theme-secondary;
+        cursor: pointer;
+        div.marker-tooltip {
+            opacity: 1;
+            bottom: 80px;        
         }
-
+    }
+    div.marker-tooltip.focused {
+        opacity: 1;
+        bottom: 80px;
     }
 }

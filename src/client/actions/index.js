@@ -58,11 +58,8 @@ const focusHotspotInMap = hotspotId => ({
     },
 });
 
-const unfocusHotspotInMap = hotspotId => ({
+const unfocusHotspotInMap = () => ({
     type: actionTypes.UNFOCUS_HOTSPOT_IN_MAP,
-    payload: {
-        hotspotId,
-    },
 });
 
 const centerMapToPosition = (lat, lng) => ({

@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { Tooltip } from 'react-tippy';
 import { Typography } from 'rmwc/Typography';
-import { Icon } from 'rmwc/Icon';
 import ImageCDN from '../../lib/ImageCDN';
 import constants from './../../../constants';
 
-import './../../../../../node_modules/react-tippy/dist/tippy.css';
 import './Marker.scss';
 
 class Marker extends React.Component {
@@ -58,53 +55,39 @@ class Marker extends React.Component {
         const MARKER_HEIGHT = 83;
         const style = {
             position: 'absolute',
-            width: MARKER_WIDTH,
-            height: MARKER_HEIGHT,
             left: -MARKER_WIDTH / 2,
             top: -MARKER_HEIGHT,
         };
         // eslint-disable-next-line
-        if (this.props.$hover) {
-            style.cursor = 'pointer';
-        }
-
         return (
             <div
+                className="Marker"
+                data-type="map-marker"
                 tabIndex={0}
                 role="button"
-                style={{ width: 30, height: 30 }}
                 onClick={this.focusHotspotMarker}
-                onKeyDown={this.focusHotspotMarker}>
-                <Tooltip
-                    position="top"
-                    arrow="true"
-                    trigger="click"
-                    animateFill="true"
-                    distance={83}
-                    sticky="true"
-                    open={this.state.open}
-                    theme="light"
-                    interactive
-                    onRequestClose={() => {
-                        this.props.unfocusHotspotMarker(this.props.hotspotId);
-                    }}
-                    html={
+                onKeyDown={this.focusHotspotMarker}
+                style={style}>
+                <div className={`marker-tooltip ${this.state.open ? 'focused' : ''}`}>
+                    <div className="tooltip-content">
                         <Typography
-                            className="marker-tooltip"
                             theme="text-primary-on-light"
-                            use="body1"
+                            use="caption"
                             tag="p"
                             onClick={this.openHotspot}>
-                            <span>{this.props.text}</span>
-                            <Icon strategy="component">visibility</Icon>
+                            <span className="title">{this.props.text}</span>
+                            <br />
+                            <span className="open-advice">(Appuyez pour ouvrir)</span>
                         </Typography>
-                    }>
-                    <ImageCDN
-                        style={style}
-                        filename={Marker.mapIconWithIconType(this.props.iconType)}
-                        alt="point GPS"
-                    />
-                </Tooltip>
+                    </div>
+                    <div className="tooltip-arrow" />
+                </div>
+                <ImageCDN
+                    onClick={this.openHotspot}
+                    filename={Marker.mapIconWithIconType(this.props.iconType)}
+                    dataType="map-marker"
+                    alt="point GPS"
+                />
             </div>
         );
     }
@@ -116,7 +99,6 @@ Marker.propTypes = {
     hotspotId: PropTypes.string.isRequired,
     iconType: PropTypes.string.isRequired,
     focusHotspotMarker: PropTypes.func.isRequired,
-    unfocusHotspotMarker: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
     openHotspotInSPAModal: PropTypes.func.isRequired,
     citySlug: PropTypes.string.isRequired,
