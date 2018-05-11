@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import { connect } from 'react-redux';
 import { TextField } from 'rmwc/TextField';
 import MapOverlay from '../Map/MapOverlay';
 import MarkerToolbar from './../MarkerToolbar/MarkerToolbar';
 import LeftSideMenuContainer from './LeftSideMenuContainer';
 import LeftSideMenuHeader from './header/LeftSideMenuHeader';
-import LeftSideMenuContent from './content/LeftSideMenuContent';
 import SearchResult from './content/searchResult/SearchResult';
 import selectors from './../../../../client/selectors/';
 import actions from './../../../../client/actions';
@@ -16,8 +16,36 @@ import './../../../../../node_modules/react-custom-scroll/dist/customScroll.css'
 import './LeftSideMenu.scss';
 
 class LeftSideMenu extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            dense: false,
+        };
+        this.searchBoxOnFocus = this.searchBoxOnFocus.bind(this);
+        this.searchBoxOnBlur = this.searchBoxOnBlur.bind(this);
+    }
+
     componentDidMount() {
+        const WIDTH = window.screen.availWidth; // eslint-disable-line no-undef
+
         this.props.leftSideMenuDidMount();
+        setTimeout(() => {
+            this.setState({
+                isMobileDevice: WIDTH < 600,
+            });
+        }, 100);
+    }
+
+    searchBoxOnFocus() {
+        this.setState({ dense: this.state.isMobileDevice });
+    }
+    /* Ce timeout permet de passer d'un coup 
+    du blur du champ de recherche à l'ouverture du hotspot 
+    sans le timeout le focus du champ de recherche est perdu et le hotspot n'est pas ouvert */
+    searchBoxOnBlur() {
+        setTimeout(() => {
+            this.setState({ dense: false });
+        }, 10);
     }
 
     render() {
@@ -27,26 +55,34 @@ class LeftSideMenu extends React.Component {
                     <Fragment>
                         <MarkerToolbar state={state} />
                         <LeftSideMenuContainer state={state}>
-                            <LeftSideMenuHeader />
-                            <LeftSideMenuContent>
+                            <LeftSideMenuHeader dense={this.state.dense} />
+                            <section className="SearchBox">
                                 <TextField
+                                    ref={elem => {
+                                        this.textField = elem;
+                                    }}
+                                    onFocus={this.searchBoxOnFocus}
+                                    onBlur={this.searchBoxOnBlur}
                                     persistent="true"
-                                    fullwidth
-                                    withLeadingIcon="search"
-                                    label="Que cherchez vous ?"
+                                    withLeadingIcon="filter_list"
+                                    label="Filtrez la liste ici"
                                     theme="text-on-primary-background"
+                                    outlined
                                     onChange={evt => {
                                         this.props.hotspotSearchKeyPress(evt.target.value);
                                     }}
                                     id="hotspot-search-input-id"
                                 />
-                                <SearchResult
-                                    hotspotsList={this.props.hotspotsList}
-                                    focusHotspot={this.props.focusHotspot}
-                                    city={this.props.city}
-                                    openHotspotInSPAModal={this.props.openHotspotInSPAModal}
-                                />
-                            </LeftSideMenuContent>
+                            </section>
+                            <SearchResult
+                                dense={this.state.dense}
+                                focusMarkerIcon={!this.state.isMobileDevice}
+                                hotspotsList={this.props.hotspotsList}
+                                focusHotspot={this.props.focusHotspot}
+                                city={this.props.city}
+                                openHotspotInSPAModal={this.props.openHotspotInSPAModal}
+                                history={this.props.history}
+                            />
                         </LeftSideMenuContainer>
                         <MapOverlay state={state} />
                     </Fragment>
@@ -72,6 +108,8 @@ LeftSideMenu.propTypes = {
     hotspotSearchKeyPress: PropTypes.func.isRequired,
     focusHotspot: PropTypes.func.isRequired,
     openHotspotInSPAModal: PropTypes.func.isRequired,
+    // eslint-disable-next-line react/no-typos
+    history: ReactRouterPropTypes.history.isRequired,
 };
 
 LeftSideMenu.defaultProps = {

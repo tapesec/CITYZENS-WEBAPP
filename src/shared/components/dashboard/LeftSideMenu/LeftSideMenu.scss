@@ -2,45 +2,67 @@
 
 .LeftSideMenu {
     height: 100%;
+    max-height: 100%;
+    overflow: hidden;
     background-color: $mdc-theme-primary;
     width: 396px;
     position: absolute;
+    display: flex;
+    flex-direction: column;
     z-index: 0;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
     top: 0;
     left: 0;
     transition: transform 300ms ease-in-out;
     will-change: transform;
-    div.mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {
-        padding-left: 50px;
-        box-sizing: border-box;
-    }
-
-    .mdc-text-field:not(.mdc-text-field--disabled) {
-        .mdc-text-field__label--float-above {
-            color: $mdc-theme--text-on-primary-background;
+    .SearchBox {
+        padding: 0 10px;
+        .mdc-text-field {
+            width: 100%;
+        }
+        .mdc-text-field__input {
+            padding: 12px 12px 12px 50px; 
+        }
+        .mdc-text-field--focused {
+            .mdc-floating-label {
+                color: $mdc-theme-secondary;
+            }
+            .mdc-notched-outline__path {
+                stroke: $mdc-theme-secondary;
+            }
         }
     }
-
-    div.mdc-line-ripple.mdc-line-ripple--active {
-        background-color: $mdc-theme-tertiary;
-    }
-
-    // scrollbar
-    .inner-handle {
-        background-color: gray;
-    }
-
-    a.itemTitle {
-        text-decoration: none;
-        color: $mdc-theme-secondary;
-        &:visited, &:hover, &:active, &:focus {
+    .SearchResult {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        overflow: hidden;
+        // scrollbar
+        .inner-handle {
+            background-color: gray;
+        }
+    
+        a.itemTitle {
+            text-decoration: none;
             color: $mdc-theme-secondary;
+            &:visited, &:hover, &:active, &:focus {
+                color: $mdc-theme-secondary;
+            }
         }
-    }
+    
+        h3.itemTitle {
+            cursor: pointer;
+        }
 
-    h3.itemTitle {
-        cursor: pointer;
+        i.mdc-list-item__meta {
+            padding: 5px;
+            border: 1px solid;
+            border-radius: 20px;
+            &:hover {
+                color: white;
+                background-color: slategray;
+            }
+        }
     }
 }
 

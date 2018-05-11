@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
                 ref={node => {
                     this.dashboardElem = node;
                 }}>
-                <LeftSideMenu />
+                <LeftSideMenu history={history} />
                 <MapArea history={history} />
                 <AlertHotspotContainer />
                 <AddressModal />

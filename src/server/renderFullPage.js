@@ -8,6 +8,7 @@ export default function renderFullPage(html, preloadedState) {
 			<meta name="viewport" content="width=device-width">
 			<link href="/assets/styles.css" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+			<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet">
 		</head>
 		<body>
 			<div id="root">${html}</div>
