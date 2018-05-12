@@ -63,6 +63,11 @@
                 background-color: slategray;
             }
         }
+        // algolia highlight
+        em {
+            color: $mdc-theme-tertiary;
+            text-decoration: underline;
+        }
     }
 }
 

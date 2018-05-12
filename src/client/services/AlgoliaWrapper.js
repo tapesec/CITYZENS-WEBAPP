@@ -7,9 +7,9 @@ class AlgoliaWrapper {
         this.index = this.client.initIndex(indexName);
     }
 
-    search(query) {
+    search(searchParam) {
         return new Promise((resolve, reject) => {
-            this.index.search({ query }, (err, content) => {
+            this.index.search(searchParam, (err, content) => {
                 if (err) {
                     reject(err);
                 } else {

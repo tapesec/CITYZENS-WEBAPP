@@ -1,5 +1,6 @@
-import { takeLatest, take, call, put } from 'redux-saga/effects';
+import { takeLatest, take, call, put, select } from 'redux-saga/effects';
 import algoliasearch from 'algoliasearch';
+import { getCityId } from '../../shared/reducers/city';
 import actionTypes from './../actions/actionTypes';
 import AlgoliaWrapper from './../services/AlgoliaWrapper';
 import actions from './../actions/';
@@ -12,12 +13,13 @@ export function* initAlgolia() {
     algolia.initIndex(config.algolia.algoliaHotspotsIndex);
 
     while (true) {
-        const keyPressAction = yield take(actionTypes.HOTSPOT_SEARCH_KEY_PRESS);
         try {
-            const prediction = yield call(
-                [algolia, algolia.search],
-                keyPressAction.payload.searchValue,
-            );
+            const cityId = yield select(getCityId);
+            const keyPressAction = yield take(actionTypes.HOTSPOT_SEARCH_KEY_PRESS);
+            const prediction = yield call([algolia, algolia.search], {
+                query: keyPressAction.payload.searchValue,
+                filters: `cityId:${cityId}`,
+            });
             yield put(actions.displayHits(prediction));
         } catch (err) {
             yield put(actions.algoliaError());

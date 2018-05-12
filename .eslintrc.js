@@ -15,5 +15,6 @@ module.exports = {
         'jsx-a11y/anchor-is-valid': 'off',
         'linebreak-style': 'off',
         'import/no-extraneous-dependencies': 'off',
+        'react/no-danger': 'off',
     },
 };

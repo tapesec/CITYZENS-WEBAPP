@@ -30,6 +30,15 @@ const SearchResult = props => {
             props.history.push(`/${props.city.slug}/${hit.slug}`);
         }
     };
+
+    const getAdresseLabel = hit => {
+        // eslint-disable-next-line no-underscore-dangle
+        if ((hit._highlightResult && hit._highlightResult.address) || hit.address) {
+            return hit._highlightResult ? hit._highlightResult.address.value : hit.address.name; // eslint-disable-line no-underscore-dangle
+        }
+        return '';
+    };
+
     return (
         <section className="SearchResult">
             <CustomScroll heightRelativeToParent="100%">
@@ -75,14 +84,20 @@ const SearchResult = props => {
                                         <Typography tag="h3" theme="secondary">
                                             <Link
                                                 className="itemTitle mdc-typography--subheading2"
-                                                to={`/${props.city.slug}/${hit.slug}`}>
-                                                {helper.generateTitleForMarker(hit)}
-                                            </Link>
+                                                to={`/${props.city.slug}/${hit.slug}`}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: helper.generateTitleForMarker(hit),
+                                                }}
+                                            />
                                         </Typography>
                                     )}
 
                                     <ListItemSecondaryText>
-                                        {hit.address.name || hit.address}
+                                        <span
+                                            dangerouslySetInnerHTML={{
+                                                __html: getAdresseLabel(hit),
+                                            }}
+                                        />
                                     </ListItemSecondaryText>
                                 </ListItemText>
                                 <ListItemMeta

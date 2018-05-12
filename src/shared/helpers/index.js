@@ -2,6 +2,7 @@ import constants from './../constants';
 
 const generateTitleForMarker = hotspot => {
     const { HOTSPOT } = constants;
+    const currentHotspot = hotspot._highlightResult || hotspot; // eslint-disable-line no-underscore-dangle
 
     if (hotspot.type === HOTSPOT.TYPE.ALERT) {
         if (hotspot.iconType === HOTSPOT.ICON.ACCIDENT) return HOTSPOT.ALERT.LABEL.ACCIDENT;
@@ -9,7 +10,7 @@ const generateTitleForMarker = hotspot => {
         if (hotspot.iconType === HOTSPOT.ICON.HANDICAP) return HOTSPOT.ALERT.LABEL.HANDICAP;
         if (hotspot.iconType === HOTSPOT.ICON.ROAD_WORKS) return HOTSPOT.ALERT.LABEL.ROAD_WORKS;
     }
-    return hotspot.title;
+    return currentHotspot.title.value || currentHotspot.title;
 };
 
 const generateAvatarForAlertHotspot = hotspot => {
