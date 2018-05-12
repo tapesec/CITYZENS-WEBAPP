@@ -27,7 +27,18 @@ const generateAvatarForAlertHotspot = hotspot => {
     return hotspot.title;
 };
 
+/**
+ * @param number distance in meter
+ */
+const formatDistance = distance => {
+    if (distance > 1000) {
+        return `${Number.parseFloat(distance / 1000).toFixed(1)} Km`;
+    }
+    return `${distance} m`;
+};
+
 export default {
     generateTitleForMarker,
     generateAvatarForAlertHotspot,
+    formatDistance,
 };

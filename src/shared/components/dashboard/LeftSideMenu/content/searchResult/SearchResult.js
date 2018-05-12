@@ -31,12 +31,57 @@ const SearchResult = props => {
         }
     };
 
-    const getAdresseLabel = hit => {
+    const getAdresseLabelAndDistance = hit => {
         // eslint-disable-next-line no-underscore-dangle
-        if ((hit._highlightResult && hit._highlightResult.address) || hit.address) {
-            return hit._highlightResult ? hit._highlightResult.address.value : hit.address.name; // eslint-disable-line no-underscore-dangle
+        const highlightResult = hit._highlightResult;
+        // eslint-disable-next-line no-underscore-dangle
+        if (highlightResult) {
+            return highlightResult.address.value;
         }
-        return '';
+        return hit.address.name;
+    };
+
+    const getLabelDistanceOrMarkerIcon = hit => {
+        // eslint-disable-next-line no-underscore-dangle
+        const rankingInfo = hit._rankingInfo;
+        const onClickHandle = () => {
+            props.focusHotspot(hit.objectID || hit.id);
+        };
+        if (rankingInfo) {
+            return (
+                <ListItemMeta
+                    style={{
+                        flexBasis: 'min-content',
+                        alignItems: 'right',
+                        cursor: 'pointer',
+                        fontSize: props.dense ? '9px' : '12px',
+                        minWidth: '30px',
+                        padding: '3px',
+                    }}
+                    tag="span"
+                    basename="">
+                    {helper.formatDistance(rankingInfo.geoDistance)}
+                </ListItemMeta>
+            );
+        }
+        return (
+            <ListItemMeta
+                style={{
+                    flexBasis: 'min-content',
+                    alignItems: 'right',
+                    cursor: 'pointer',
+                }}
+                onClick={e => {
+                    e.stopPropagation();
+                    setTimeout(onClickHandle, 50);
+                }}>
+                pin_drop
+            </ListItemMeta>
+        );
+    };
+
+    getLabelDistanceOrMarkerIcon.propTypes = {
+        focusHotspot: PropTypes.func.isRequired,
     };
 
     return (
@@ -95,26 +140,12 @@ const SearchResult = props => {
                                     <ListItemSecondaryText>
                                         <span
                                             dangerouslySetInnerHTML={{
-                                                __html: getAdresseLabel(hit),
+                                                __html: getAdresseLabelAndDistance(hit),
                                             }}
                                         />
                                     </ListItemSecondaryText>
                                 </ListItemText>
-                                <ListItemMeta
-                                    style={{
-                                        flexBasis: 'min-content',
-                                        alignItems: 'right',
-                                        cursor: 'pointer',
-                                        display: props.focusMarkerIcon ? 'block' : 'none',
-                                    }}
-                                    onClick={e => {
-                                        e.stopPropagation();
-                                        setTimeout(() => {
-                                            props.focusHotspot(hit.objectID || hit.id);
-                                        }, 50);
-                                    }}>
-                                    pin_drop
-                                </ListItemMeta>
+                                {getLabelDistanceOrMarkerIcon(hit)}
                             </ListItem>
                             <ListDivider />
                         </Fragment>
@@ -131,7 +162,6 @@ SearchResult.propTypes = {
         slug: PropTypes.string.isRequired,
     }).isRequired,
     dense: PropTypes.bool.isRequired,
-    focusMarkerIcon: PropTypes.bool.isRequired,
     openHotspotInSPAModal: PropTypes.func.isRequired,
     // eslint-disable-next-line react/no-typos
     history: ReactRouterPropTypes.history.isRequired,

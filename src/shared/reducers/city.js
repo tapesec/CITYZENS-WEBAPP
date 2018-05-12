@@ -6,6 +6,6 @@ export default function city(state = initialState, action) {
             return state;
     }
 }
-
+export const getCity = state => state.city;
 export const getCityId = state => state.city.insee;
-export const getCityName = state =>  state.city.name;
+export const getCityName = state => state.city.name;

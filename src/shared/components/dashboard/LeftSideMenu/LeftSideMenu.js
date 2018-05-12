@@ -43,9 +43,10 @@ class LeftSideMenu extends React.Component {
     du blur du champ de recherche à l'ouverture du hotspot 
     sans le timeout le focus du champ de recherche est perdu et le hotspot n'est pas ouvert */
     searchBoxOnBlur() {
-        setTimeout(() => {
+        /* setTimeout(() => {
             this.setState({ dense: false });
-        }, 10);
+        }, 10); */
+        this.setState({ dense: false });
     }
 
     render() {
@@ -76,7 +77,6 @@ class LeftSideMenu extends React.Component {
                             </section>
                             <SearchResult
                                 dense={this.state.dense}
-                                focusMarkerIcon={!this.state.isMobileDevice}
                                 hotspotsList={this.props.hotspotsList}
                                 focusHotspot={this.props.focusHotspot}
                                 city={this.props.city}
