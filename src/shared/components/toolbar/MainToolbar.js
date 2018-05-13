@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Toolbar, ToolbarRow, ToolbarSection, ToolbarIcon } from 'rmwc/Toolbar';
+import { Toolbar, ToolbarRow, ToolbarSection } from 'rmwc/Toolbar';
 import { Menu, MenuItem, MenuAnchor } from 'rmwc/Menu';
 import Typography from 'rmwc/Typography';
+import { Icon } from 'rmwc/Icon';
 import Fab from 'rmwc/Fab';
 import actions from './../../../client/actions';
 
@@ -31,22 +32,32 @@ class MainToolbar extends React.Component {
                             menu
                         </Fab>
                     </ToolbarSection>
-                    <ToolbarSection style={{ marginRight: '2rem' }} alignEnd>
+                    <ToolbarSection alignEnd>
                         {!this.props.isAuthenticated ? (
-                            <Typography
-                                role="button"
-                                className="user-disconnected"
-                                tag="a"
-                                href="/login"
-                                use="subheading2">
-                                Se connecter
-                            </Typography>
+                            <Fragment>
+                                <Typography
+                                    role="button"
+                                    className="user-disconnected"
+                                    tag="a"
+                                    theme="text-primary-on-background"
+                                    href="/login"
+                                    use="body2">
+                                    Se connecter
+                                </Typography>
+                            </Fragment>
                         ) : (
                             <MenuAnchor tag="div">
                                 <Menu
                                     open={this.state.menuIsOpen}
                                     onClose={() => this.setState({ menuIsOpen: false })}>
-                                    <MenuItem>Se deconnecter</MenuItem>
+                                    <MenuItem className="username-in-menu">
+                                        <Icon strategy="ligature">face</Icon>
+                                        {` ${this.props.authenticatedCityzenName}`}
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Icon strategy="ligature">power_settings_new</Icon> Se
+                                        deconnecter
+                                    </MenuItem>
                                 </Menu>
 
                                 <div
@@ -54,7 +65,7 @@ class MainToolbar extends React.Component {
                                     tabIndex="0"
                                     tag="span"
                                     theme="text-primary-on-background"
-                                    use="subheading2"
+                                    use="body2"
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -66,13 +77,16 @@ class MainToolbar extends React.Component {
                                     onClick={() => {
                                         this.setState({ menuIsOpen: !this.state.menuIsOpen });
                                     }}>
-                                    <ToolbarIcon use="account_box" theme="text-icon-on-primary" />
                                     <Typography
                                         tag="span"
+                                        className="username"
                                         theme="text-primary-on-background"
-                                        use="subheading2">
+                                        use="body2">
                                         {this.props.authenticatedCityzenName}
                                     </Typography>
+                                    <Icon strategy="ligature" theme="text-icon-on-background">
+                                        more_vert
+                                    </Icon>
                                 </div>
                             </MenuAnchor>
                         )}

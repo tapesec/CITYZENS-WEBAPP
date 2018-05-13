@@ -9,25 +9,30 @@
         display: flex;
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
         .mdc-toolbar__section {
-            height: auto // hack for edge ...
+            height: auto; // hack for edge ...
         }
     }
 }
 
 a.user-disconnected {
-    // margin-top: 10px;
-    padding: 3px 10px 3px 10px;
-    border: 2px solid $mdc-theme--text-on-primary-light;
-    color: $mdc-theme--text-on-primary-light;
-    border-radius: 100px;
-    font-weight: bold;
-    &:hover {
-        cursor: pointer;
-        color: $mdc-theme-secondary;
-        border: 2px solid $mdc-theme-secondary;
-    }
+    text-decoration: underline;
 }
 
-span.user-connected {
-    margin-top: 14px;
+@media all and (max-width: 600px) {
+    .Toolbar {
+        .mdc-toolbar__section {
+            span.username {
+                display: none;
+            }
+        }
+    }
+}
+@media all and (min-width: 600px) {
+    .Toolbar {
+        .mdc-toolbar__section {
+            .username-in-menu {
+                display: none;
+            }
+        }
+    } 
 }
