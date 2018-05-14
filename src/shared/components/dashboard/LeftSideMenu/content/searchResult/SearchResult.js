@@ -45,6 +45,11 @@ const SearchResult = props => {
         // eslint-disable-next-line no-underscore-dangle
         const rankingInfo = hit._rankingInfo;
         const onClickHandle = () => {
+            if (props.isMobileDevice) {
+                setTimeout(() => {
+                    props.toggleLeftSideMenuVisibility();
+                }, 50);
+            }
             props.focusHotspot(hit.objectID || hit.id);
         };
         if (rankingInfo) {
@@ -73,7 +78,7 @@ const SearchResult = props => {
                 }}
                 onClick={e => {
                     e.stopPropagation();
-                    setTimeout(onClickHandle, 50);
+                    onClickHandle();
                 }}>
                 pin_drop
             </ListItemMeta>
@@ -82,6 +87,8 @@ const SearchResult = props => {
 
     getLabelDistanceOrMarkerIcon.propTypes = {
         focusHotspot: PropTypes.func.isRequired,
+        toggleLeftSideMenuVisibility: PropTypes.func.isRequired,
+        isMobileDevice: PropTypes.bool.isRequired,
     };
 
     return (

@@ -77,11 +77,15 @@ class LeftSideMenu extends React.Component {
                             </section>
                             <SearchResult
                                 dense={this.state.dense}
+                                isMobileDevice={this.state.isMobileDevice}
                                 hotspotsList={this.props.hotspotsList}
                                 focusHotspot={this.props.focusHotspot}
                                 city={this.props.city}
                                 openHotspotInSPAModal={this.props.openHotspotInSPAModal}
                                 history={this.props.history}
+                                toggleLeftSideMenuVisibility={
+                                    this.props.toggleLeftSideMenuVisibility
+                                }
                             />
                         </LeftSideMenuContainer>
                         <MapOverlay state={state} />
@@ -108,6 +112,7 @@ LeftSideMenu.propTypes = {
     hotspotSearchKeyPress: PropTypes.func.isRequired,
     focusHotspot: PropTypes.func.isRequired,
     openHotspotInSPAModal: PropTypes.func.isRequired,
+    toggleLeftSideMenuVisibility: PropTypes.func.isRequired,
     // eslint-disable-next-line react/no-typos
     history: ReactRouterPropTypes.history.isRequired,
 };
@@ -134,6 +139,9 @@ const mapDispatchToProps = dispatch => ({
     },
     openHotspotInSPAModal: hotspotId => {
         dispatch(actions.openHotspotInSPAModal(hotspotId));
+    },
+    toggleLeftSideMenuVisibility: () => {
+        dispatch(actions.toggleLeftSideMenuVisibility());
     },
 });
 
