@@ -17,6 +17,7 @@ const HotspotDescriptionModal = ({
     turnOnMapOverlayVisibility,
     initHotspotCreationMode,
     clearHotspotEdition,
+    openHotspotAddressModal,
 }) => {
     const validAndInitDropMarkerMode = (hotspotType, iconType) => {
         // eslint-disable-next-line no-undef
@@ -27,6 +28,20 @@ const HotspotDescriptionModal = ({
         turnOnMapOverlayVisibility();
         initHotspotCreationMode(hotspotType, iconType);
         dismissModal(true);
+    };
+
+    const validAndOpenAdressModal = (hotspotType, iconType) => {
+        // eslint-disable-next-line no-undef
+        const selectPawnMarkerDom = window.document.getElementById(
+            `${PAWN_MARKER.ID_PREFIX}${hotspotType}`,
+        );
+        selectPawnMarkerDom.classList.add('selected');
+        initHotspotCreationMode(hotspotType, iconType);
+        dismissModal(true);
+        openHotspotAddressModal({
+            subtitle: 'A quelle adresse doit se trouver le point ?',
+            inputLabel: "Saisissez l'adresse ici",
+        });
     };
 
     const cancelModal = () => {
@@ -45,9 +60,11 @@ const HotspotDescriptionModal = ({
                     title="Mur de messages"
                     icon={HOTSPOT.WALL.AVATAR_ICON.DEFAULT}
                     description={description}
-                    submitAction={() => {
-                        validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.WALL);
-                    }}
+                    submitActions={[
+                        () => {
+                            validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.WALL);
+                        },
+                    ]}
                     cancelAction={cancelModal}
                 />
             );
@@ -59,9 +76,23 @@ const HotspotDescriptionModal = ({
                     title="Evenement avec fin programmée"
                     description={description}
                     icon={HOTSPOT.EVENT.AVATAR_ICON.DEFAULT}
-                    submitAction={() => {
-                        validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
-                    }}
+                    submitActions={[
+                        {
+                            func: () => {
+                                // validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
+                                validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.EVENT);
+                            },
+                            label: "Je connais l'adresse du point",
+                            icon: 'add_location',
+                        },
+                        {
+                            func: () => {
+                                validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
+                            },
+                            label: 'Je place le point sur la carte',
+                            icon: 'map',
+                        },
+                    ]}
                     cancelAction={cancelModal}
                 />
             );
@@ -75,9 +106,11 @@ const HotspotDescriptionModal = ({
                     title="Signalez une information sur la carte"
                     icon={HOTSPOT.ALERT.AVATAR_ICON.ACCIDENT}
                     description={description}
-                    submitAction={() => {
-                        validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.ALERT);
-                    }}
+                    submitActions={[
+                        () => {
+                            validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.ALERT);
+                        },
+                    ]}
                     cancelAction={cancelModal}
                 />
             );
@@ -106,6 +139,7 @@ HotspotDescriptionModal.propTypes = {
     turnOnMapOverlayVisibility: PropTypes.func.isRequired,
     initHotspotCreationMode: PropTypes.func.isRequired,
     clearHotspotEdition: PropTypes.func.isRequired,
+    openHotspotAddressModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -124,6 +158,9 @@ const mapDispatchToProps = dispatch => ({
     },
     clearHotspotEdition: () => {
         dispatch(actions.clearHotspotEdition());
+    },
+    openHotspotAddressModal: modalParams => {
+        dispatch(actions.openHotspotAddressModal(modalParams));
     },
 });
 

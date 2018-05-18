@@ -41,7 +41,10 @@ class MapArea extends React.Component {
                     markerToolBarIcon.classList.remove('selected');
                 }
                 this.props.turnOffMapOverlayVisibility();
-                this.props.openHotspotAddressModal();
+                this.props.openHotspotAddressModal({
+                    subtitle: "L'adresse est-elle exacte ?",
+                    inputLabel: "Vous pouvez corrigez l'adresse",
+                });
             }
         });
     }
@@ -175,8 +178,8 @@ const mapDispatchToProps = dispatch => ({
     newMarkerDropped: (position, type, iconType) => {
         dispatch(actions.newMarkerDropped(position, type, iconType));
     },
-    openHotspotAddressModal: () => {
-        dispatch(actions.openHotspotAddressModal());
+    openHotspotAddressModal: modalParams => {
+        dispatch(actions.openHotspotAddressModal(modalParams));
     },
     turnOffMapOverlayVisibility: () => {
         dispatch(actions.toggleMapOverlayVisibility(false));

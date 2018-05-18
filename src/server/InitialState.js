@@ -27,6 +27,10 @@ class InitialState {
                 },
                 geocodeModal: {
                     open: false,
+                    content: {
+                        subtitle: '',
+                        inputLabel: '',
+                    },
                     contentIsLoading: false,
                     networkError: false,
                 },

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import AddressForm from './AddressForm';
 import actions from './../../../../client/actions';
 import { hotspotAddressModalState } from './../../../reducers/componentsState';
@@ -18,6 +17,7 @@ const displayAddressModalContent = (
     submitForm,
     closeModal,
     openSettingUpHotspotModal,
+    modalContent,
 ) => {
     if (isLoading) return <div>Chargement …</div>;
     if (hasNetworkError) return <div>Une erreur est survenue …</div>;
@@ -31,6 +31,8 @@ const displayAddressModalContent = (
             initialValues={initialValues}
             dismissModal={dismissModal}
             onSubmit={handleSubmit}
+            subtitle={modalContent.subtitle}
+            inputLabel={modalContent.inputLabel}
         />
     );
 };
@@ -44,6 +46,7 @@ const AddressModal = ({
     initialValues,
     submitForm,
     openSettingUpHotspotModal,
+    modalContent,
 }) => (
     <Modal
         open={open}
@@ -60,6 +63,7 @@ const AddressModal = ({
                 submitForm,
                 closeModal,
                 openSettingUpHotspotModal,
+                modalContent,
             )}
         </div>
     </Modal>
@@ -67,6 +71,7 @@ const AddressModal = ({
 
 AddressModal.propTypes = {
     open: PropTypes.bool.isRequired,
+    modalContent: PropTypes.shape({}).isRequired,
     isLoading: PropTypes.bool.isRequired,
     hasNetworkError: PropTypes.bool.isRequired,
     initialValues: PropTypes.shape({
@@ -80,6 +85,7 @@ AddressModal.propTypes = {
 
 const mapStateToProps = state => ({
     open: hotspotAddressModalState.isOpenHotspotAddressModal(state),
+    modalContent: hotspotAddressModalState.getHotspotAddressModalContent(state),
     hasNetworkError: hotspotAddressModalState.hasNetworkError(state),
     isLoading: hotspotAddressModalState.isLoading(state),
     initialValues: hotspotEdition.getCurrentHotspotEdition(state),

@@ -6,11 +6,9 @@ const VALIDATION = {
     },
     HOTSPOT: {
         ADDRESS: {
-            MAX_LENGTH: 50,
+            MAX_LENGTH: 100,
             LABEL: {
-                ERROR: `L'adresse ne doit pas faire plus de 50 caractères de long`,
-                WARNING:
-                    'Vous pouvez toujours mettre un adresse approximative si vous le souhaitez',
+                ERROR: `L'adresse ne doit pas faire plus de 100 caractères de long`,
             },
         },
         TITLE: {

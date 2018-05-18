@@ -63,7 +63,7 @@
     "react-tippy": "^1.2.2",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
-    "redux-form": "^7.2.3",
+    "redux-form": "^7.3.0",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "rmwc": "^1.6.0",

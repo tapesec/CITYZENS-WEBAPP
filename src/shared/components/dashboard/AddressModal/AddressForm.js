@@ -1,79 +1,185 @@
 import React /* , { Fragment } */ from 'react';
 import PropTypes from 'prop-types';
-import reduxForm from 'redux-form/lib/reduxForm';
-import Field from 'redux-form/lib/Field';
 import { Button } from 'rmwc/Button';
 import { Typography } from 'rmwc/Typography';
 import { Grid, GridCell } from 'rmwc/Grid';
+import { TextField, TextFieldHelperText } from 'rmwc/TextField';
 import { Icon } from 'rmwc/Icon';
 import VALIDATION from './../../../constants/dataValidation';
-import { renderCustomTextField } from './../../lib/form/customComponents';
 
-const validate = values => {
-    const errors = {};
+const validateAddress = values => {
+    const errors = {
+        isValid: true,
+        messages: [],
+    };
+    if (!values.address) {
+        errors.isValid = false;
+        errors.messages.push(VALIDATION.ALL.LABEL.ERROR);
+    }
     if (values.address && values.address.length > VALIDATION.HOTSPOT.ADDRESS.MAX_LENGTH) {
-        errors.address = VALIDATION.HOTSPOT.ADDRESS.LABEL.ERROR;
+        errors.isValid = false;
+        errors.messages.push(VALIDATION.HOTSPOT.ADDRESS.LABEL.ERROR);
     }
     return errors;
 };
 
-const warn = values => {
-    const warnings = {};
-    if (!values.address) {
-        warnings.address = VALIDATION.HOTSPOT.ADDRESS.LABEL.WARNING;
+class AddressForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            formValues: {
+                address: props.initialValues.address || '',
+            },
+            validate: {},
+        };
+        this.fieldConnector = this.fieldConnector.bind(this);
+        this.initValidationField = this.initValidationField.bind(this);
+        this.formSubmit = this.formSubmit.bind(this);
+        this.validateAndUpdateField = this.validateAndUpdateField.bind(this);
     }
-    return warnings;
-};
 
-const AddressForm = ({ handleSubmit, dismissModal }) => (
-    <form className="AddressForm" onSubmit={handleSubmit}>
-        <Grid>
-            <GridCell span="12" phone="12" tablet="12">
-                <Typography tag="h2" theme="text-on-primary-background" use="headline5">
-                    <Icon theme="text-icon-on-background" strategy="ligature">
-                        add_location
-                    </Icon>
-                    {"Nouveau point d'interêt"}
-                </Typography>
-                <Typography tag="h3" theme="text-on-primary-background" use="subtitle1">
-                    {"L'adresse est elle exacte ?"}
-                </Typography>
-            </GridCell>
-            <GridCell span="12" phone="12" tablet="12">
-                <Field
-                    name="address"
-                    label="Corrigez si nécessaire (ne déplacera pas le point)"
-                    component={renderCustomTextField}
-                />
-            </GridCell>
-            <GridCell span="6" phone="12" tablet="12">
-                <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
-                    {"C'est bon !"}
-                </Button>
-            </GridCell>
-            <GridCell span="6" phone="12" tablet="12">
-                <Button
-                    type="button"
-                    onClick={dismissModal}
-                    raised
-                    theme="secondary-bg text-primary-on-secondary">
-                    {'Annuler'}
-                </Button>
-            </GridCell>
-        </Grid>
-    </form>
-);
+    validateAndUpdateField(fieldName, fieldValidator, inputValue) {
+        const newState = {};
+        newState.formValues = {
+            [fieldName]: inputValue,
+        };
+        if (this.state.validate[fieldName] && this.state.validate[fieldName].touched) {
+            const validateObject = fieldValidator(newState.formValues);
+            newState.validate = {
+                [fieldName]: {
+                    touched: true,
+                    ...validateObject,
+                },
+            };
+        }
+        return newState;
+    }
+
+    fieldConnector(fieldName, fieldValidator) {
+        return evt => {
+            const newState = this.validateAndUpdateField(
+                fieldName,
+                fieldValidator,
+                evt.target.value,
+            );
+            this.setState(newState);
+        };
+    }
+
+    initValidationField(fieldName, fieldValidator) {
+        return () => {
+            const validateObject = fieldValidator(this.state.formValues);
+            this.setState({
+                validate: {
+                    [fieldName]: {
+                        touched: true,
+                        ...validateObject,
+                    },
+                },
+            });
+        };
+    }
+
+    formSubmit(evt) {
+        const { formValues } = this.state;
+        const isInvalid = [
+            {
+                name: 'address',
+                validator: validateAddress,
+            },
+        ].some(currentField => {
+            this.initValidationField(currentField.name, currentField.validator)();
+            const validateObject = currentField.validator(formValues);
+            return validateObject.isValid === false;
+        });
+        if (isInvalid) {
+            evt.preventDefault();
+            return false;
+        }
+        this.props.onSubmit(this.state.formValues);
+        return false;
+    }
+
+    render() {
+        const { dismissModal, subtitle, inputLabel } = this.props;
+        return (
+            <form className="AddressForm" onSubmit={this.formSubmit}>
+                <Grid>
+                    <GridCell span="12" phone="12" tablet="12">
+                        <Typography tag="h2" theme="text-on-primary-background" use="headline5">
+                            <Icon theme="text-icon-on-background" strategy="ligature">
+                                add_location
+                            </Icon>
+                            {"Nouveau point d'interêt"}
+                        </Typography>
+                        <Typography tag="h3" theme="text-on-primary-background" use="subtitle1">
+                            {subtitle}
+                        </Typography>
+                    </GridCell>
+                    <GridCell span="12" phone="12" tablet="12">
+                        <TextField
+                            className="cyz-text-field"
+                            theme="text-on-primary-background"
+                            label={inputLabel}
+                            value={this.state.formValues.address}
+                            onChange={this.fieldConnector('address', validateAddress)}
+                            onBlur={this.initValidationField('address', validateAddress)}
+                            invalid={
+                                this.state.validate.address && !this.state.validate.address.isValid
+                            }
+                        />
+                        {this.state.validate.address &&
+                        this.state.validate.address.isValid === false
+                            ? this.state.validate.address.messages.map(message => (
+                                  <TextFieldHelperText
+                                      style={{ color: 'red' }}
+                                      validationMsg
+                                      key={message}>
+                                      <Icon
+                                          strategy="ligature"
+                                          style={{ verticalAlign: 'middle', fontSize: '0.75rem' }}>
+                                          close
+                                      </Icon>
+                                      {message}
+                                  </TextFieldHelperText>
+                              ))
+                            : null}
+                    </GridCell>
+                    <GridCell span="6" phone="12" tablet="12">
+                        <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
+                            {"C'est bon !"}
+                        </Button>
+                    </GridCell>
+                    <GridCell span="6" phone="12" tablet="12">
+                        <Button
+                            type="button"
+                            onClick={dismissModal}
+                            raised
+                            theme="secondary-bg text-primary-on-secondary">
+                            {'Annuler'}
+                        </Button>
+                    </GridCell>
+                </Grid>
+            </form>
+        );
+    }
+}
 
 AddressForm.propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     dismissModal: PropTypes.func.isRequired,
+    subtitle: PropTypes.string.isRequired,
+    inputLabel: PropTypes.string.isRequired,
+    initialValues: PropTypes.shape({
+        address: PropTypes.string,
+    }),
     meta: PropTypes.object, // eslint-disable-line
 };
 
-export default reduxForm({
-    enableReinitialize: true,
-    form: 'addressHotspot',
-    validate,
-    warn,
-    shouldError: ({ props }) => props.invalids, // Prevent invalid form submission …
-})(AddressForm);
+AddressForm.defaultProps = {
+    initialValues: {
+        address: 'test',
+    },
+};
+
+export default AddressForm;

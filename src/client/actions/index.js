@@ -92,8 +92,12 @@ const closeHotspotInUniversalModal = () => ({
     type: actionTypes.CLOSE_HOTSPOT_IN_UNIVERSAL_MODAL,
 });
 
-const openHotspotAddressModal = () => ({
+const openHotspotAddressModal = modalParams => ({
     type: actionTypes.OPEN_HOSTPOT_ADDRESS_MODAL,
+    payload: {
+        subtitle: modalParams.subtitle,
+        inputLabel: modalParams.inputLabel,
+    },
 });
 
 const submitHotspotAddressModal = formData => ({

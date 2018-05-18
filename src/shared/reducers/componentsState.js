@@ -74,6 +74,10 @@ export default function componentsState(state = initialState, action) {
             geocodeModal = {
                 ...state.geocodeModal,
                 open: true,
+                content: {
+                    subtitle: action.payload.subtitle,
+                    inputLabel: action.payload.inputLabel,
+                },
             };
             return {
                 ...state,
@@ -82,6 +86,10 @@ export default function componentsState(state = initialState, action) {
         case actionTypes.CLOSE_HOSTPOT_ADDRESS_MODAL:
             geocodeModal = {
                 open: false,
+                content: {
+                    subtitle: '',
+                    inputLabel: '',
+                },
                 contentIsLoading: false,
                 networkError: false,
             };
@@ -234,12 +242,14 @@ export default function componentsState(state = initialState, action) {
 
 const getHotspotAddressModalState = state => state.componentsState.geocodeModal;
 const isOpenHotspotAddressModal = state => getHotspotAddressModalState(state).open;
+const getHotspotAddressModalContent = state => getHotspotAddressModalState(state).content;
 const hasNetworkError = state => getHotspotAddressModalState(state).networkError;
 const isLoading = state => getHotspotAddressModalState(state).contentIsLoading;
 
 export const hotspotAddressModalState = {
     getHotspotAddressModalState,
     isOpenHotspotAddressModal,
+    getHotspotAddressModalContent,
     hasNetworkError,
     isLoading,
 };
