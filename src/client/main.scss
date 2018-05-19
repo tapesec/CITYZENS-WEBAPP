@@ -125,6 +125,29 @@ body {
     height: 100%;
 }
 // hacks for ie and edge duno why rmwc v1.2.0 and material web component 0.30 …
-/* .material-icons.mdc-fab__icon {
+.material-icons.mdc-fab__icon {
     display: inherit;
-} */
+}
+// form inputs
+
+// TextFields outlined
+.cyz-text-field {
+    width: 100%;
+    &.mdc-text-field--outlined.mdc-text-field--focused {
+    
+        div.mdc-line-ripple.mdc-line-ripple--active {
+            background-color: $mdc-theme-secondary;
+        }
+        label.mdc-floating-label.mdc-floating-label--float-above {
+            color: $mdc-theme-secondary;
+        }
+        .mdc-notched-outline__path {
+            stroke: $mdc-theme-secondary;
+        }
+    }
+    &.mdc-text-field--outlined.mdc-text-field--invalid {
+        label.mdc-floating-label.mdc-floating-label--float-above {
+            color: #b00020;
+        }
+    }
+}
