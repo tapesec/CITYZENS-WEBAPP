@@ -21,4 +21,8 @@ TextFieldValidationMessages.propTypes = {
     messages: PropTypes.arrayOf(PropTypes.string),
 };
 
+TextFieldValidationMessages.defaultProps = {
+    messages: [],
+};
+
 export default TextFieldValidationMessages;

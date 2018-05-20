@@ -18,6 +18,9 @@ const displayAddressModalContent = (
     closeModal,
     openSettingUpHotspotModal,
     modalContent,
+    geocode,
+    geocoding,
+    geocodingFailed,
 ) => {
     if (isLoading) return <div>Chargement …</div>;
     if (hasNetworkError) return <div>Une erreur est survenue …</div>;
@@ -33,6 +36,9 @@ const displayAddressModalContent = (
             onSubmit={handleSubmit}
             subtitle={modalContent.subtitle}
             inputLabel={modalContent.inputLabel}
+            geocode={geocode}
+            geocoding={geocoding}
+            geocodingFailed={geocodingFailed}
         />
     );
 };
@@ -47,6 +53,9 @@ const AddressModal = ({
     submitForm,
     openSettingUpHotspotModal,
     modalContent,
+    geocode,
+    geocoding,
+    geocodingFailed,
 }) => (
     <Modal
         open={open}
@@ -64,6 +73,9 @@ const AddressModal = ({
                 closeModal,
                 openSettingUpHotspotModal,
                 modalContent,
+                geocode,
+                geocoding,
+                geocodingFailed,
             )}
         </div>
     </Modal>
@@ -81,6 +93,9 @@ AddressModal.propTypes = {
     dismissModal: PropTypes.func.isRequired,
     submitForm: PropTypes.func.isRequired,
     openSettingUpHotspotModal: PropTypes.func.isRequired,
+    geocode: PropTypes.func.isRequired,
+    geocoding: PropTypes.bool.isRequired,
+    geocodingFailed: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -89,6 +104,8 @@ const mapStateToProps = state => ({
     hasNetworkError: hotspotAddressModalState.hasNetworkError(state),
     isLoading: hotspotAddressModalState.isLoading(state),
     initialValues: hotspotEdition.getCurrentHotspotEdition(state),
+    geocoding: hotspotAddressModalState.geocoding(state),
+    geocodingFailed: hotspotAddressModalState.geocodingFailed(state),
 });
 
 const mapActionToProps = dispatch => ({
@@ -104,6 +121,9 @@ const mapActionToProps = dispatch => ({
     },
     openSettingUpHotspotModal: () => {
         dispatch(actions.openSettingUpHotspotModal());
+    },
+    geocode: formData => {
+        dispatch(actions.geocode(formData));
     },
 });
 

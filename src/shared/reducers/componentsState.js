@@ -85,6 +85,7 @@ export default function componentsState(state = initialState, action) {
             };
         case actionTypes.CLOSE_HOSTPOT_ADDRESS_MODAL:
             geocodeModal = {
+                ...state.geocodeModal,
                 open: false,
                 content: {
                     subtitle: '',
@@ -97,7 +98,7 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 geocodeModal,
             };
-        case actionTypes.GEOCODING_STARTED:
+        case actionTypes.REVERSED_GEOCODING_STARTED:
             geocodeModal = {
                 ...state.geocodeModal,
                 contentIsLoading: true,
@@ -106,7 +107,7 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 geocodeModal,
             };
-        case actionTypes.GEOCODING_SUCCEDED:
+        case actionTypes.REVERSED_GEOCODING_SUCCEDED:
             geocodeModal = {
                 ...state.geocodeModal,
                 contentIsLoading: false,
@@ -115,7 +116,7 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 geocodeModal,
             };
-        case actionTypes.GEOCODING_FAILED:
+        case actionTypes.REVERSED_GEOCODING_FAILED:
             geocodeModal = {
                 ...state.geocodeModal,
                 networkError: true,
@@ -124,7 +125,36 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 geocodeModal,
             };
-
+        case actionTypes.GEOCODING_STARTED:
+            geocodeModal = {
+                ...state.geocodeModal,
+                geocoding: true,
+                geocodingFailed: false,
+            };
+            return {
+                ...state,
+                geocodeModal,
+            };
+        case actionTypes.GEOCODING_SUCCEDED:
+            geocodeModal = {
+                ...state.geocodeModal,
+                geocoding: false,
+                geocodingFailed: false,
+            };
+            return {
+                ...state,
+                geocodeModal,
+            };
+        case actionTypes.GEOCODING_FAILED:
+            geocodeModal = {
+                ...state.geocodeModal,
+                geocodingFailed: true,
+                geocoding: false,
+            };
+            return {
+                ...state,
+                geocodeModal,
+            };
         case actionTypes.OPEN_SETTING_UP_HOTSPOT_MODAL:
             settingUpHotspotModal = {
                 ...state.settingUpHotspotModal,
@@ -245,6 +275,8 @@ const isOpenHotspotAddressModal = state => getHotspotAddressModalState(state).op
 const getHotspotAddressModalContent = state => getHotspotAddressModalState(state).content;
 const hasNetworkError = state => getHotspotAddressModalState(state).networkError;
 const isLoading = state => getHotspotAddressModalState(state).contentIsLoading;
+const geocoding = state => getHotspotAddressModalState(state).geocoding;
+const geocodingFailed = state => getHotspotAddressModalState(state).geocodingFailed;
 
 export const hotspotAddressModalState = {
     getHotspotAddressModalState,
@@ -252,6 +284,8 @@ export const hotspotAddressModalState = {
     getHotspotAddressModalContent,
     hasNetworkError,
     isLoading,
+    geocoding,
+    geocodingFailed,
 };
 
 const getSettingUpHotspotModalState = state => state.componentsState.settingUpHotspotModal;

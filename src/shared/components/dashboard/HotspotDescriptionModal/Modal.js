@@ -10,6 +10,10 @@ import constants from '../../../constants/';
 import './Modal.scss';
 
 const { HOTSPOT, PAWN_MARKER } = constants;
+const KNOWN_ADDRESS_LABEL = "Je connais l'adresse du point";
+const KNOWN_ADDRESS_ICON = 'add_location';
+const DROP_MARKER_LABEL = 'Je place le point sur la carte';
+const DROP_MARKER_ICON = 'map';
 
 const HotspotDescriptionModal = ({
     dismissModal,
@@ -31,11 +35,6 @@ const HotspotDescriptionModal = ({
     };
 
     const validAndOpenAdressModal = (hotspotType, iconType) => {
-        // eslint-disable-next-line no-undef
-        const selectPawnMarkerDom = window.document.getElementById(
-            `${PAWN_MARKER.ID_PREFIX}${hotspotType}`,
-        );
-        selectPawnMarkerDom.classList.add('selected');
         initHotspotCreationMode(hotspotType, iconType);
         dismissModal(true);
         openHotspotAddressModal({
@@ -61,8 +60,20 @@ const HotspotDescriptionModal = ({
                     icon={HOTSPOT.WALL.AVATAR_ICON.DEFAULT}
                     description={description}
                     submitActions={[
-                        () => {
-                            validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.WALL);
+                        {
+                            func: () => {
+                                // validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
+                                validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.WALL);
+                            },
+                            label: KNOWN_ADDRESS_LABEL,
+                            icon: KNOWN_ADDRESS_ICON,
+                        },
+                        {
+                            func: () => {
+                                validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.WALL);
+                            },
+                            label: DROP_MARKER_LABEL,
+                            icon: DROP_MARKER_ICON,
                         },
                     ]}
                     cancelAction={cancelModal}
@@ -82,15 +93,15 @@ const HotspotDescriptionModal = ({
                                 // validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
                                 validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.EVENT);
                             },
-                            label: "Je connais l'adresse du point",
-                            icon: 'add_location',
+                            label: KNOWN_ADDRESS_LABEL,
+                            icon: KNOWN_ADDRESS_ICON,
                         },
                         {
                             func: () => {
                                 validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
                             },
-                            label: 'Je place le point sur la carte',
-                            icon: 'map',
+                            label: DROP_MARKER_LABEL,
+                            icon: DROP_MARKER_ICON,
                         },
                     ]}
                     cancelAction={cancelModal}
@@ -107,8 +118,20 @@ const HotspotDescriptionModal = ({
                     icon={HOTSPOT.ALERT.AVATAR_ICON.ACCIDENT}
                     description={description}
                     submitActions={[
-                        () => {
-                            validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.ALERT);
+                        {
+                            func: () => {
+                                // validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
+                                validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.ALERT);
+                            },
+                            label: KNOWN_ADDRESS_LABEL,
+                            icon: KNOWN_ADDRESS_ICON,
+                        },
+                        {
+                            func: () => {
+                                validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.ALERT);
+                            },
+                            label: DROP_MARKER_LABEL,
+                            icon: DROP_MARKER_ICON,
                         },
                     ]}
                     cancelAction={cancelModal}

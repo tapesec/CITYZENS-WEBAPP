@@ -33,6 +33,8 @@ class InitialState {
                     },
                     contentIsLoading: false,
                     networkError: false,
+                    geocoding: false,
+                    geocodingFailed: false,
                 },
                 settingUpHotspotModal: {
                     open: false,

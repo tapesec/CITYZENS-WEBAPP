@@ -310,6 +310,13 @@ const toggleMapOverlayVisibility = visible => ({
     },
 });
 
+const geocode = value => ({
+    type: actionTypes.GEOCODING_STARTED,
+    payload: {
+        address: value.address,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -359,4 +366,5 @@ export default {
     showHotspotTypeDescriptionModal,
     toggleMapOverlayVisibility,
     initSettingUpMode,
+    geocode,
 };

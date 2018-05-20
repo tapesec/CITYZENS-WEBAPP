@@ -40,6 +40,7 @@ class AddressForm extends React.Component {
                 address: props.initialValues.address || '',
             },
             validate: {},
+            initialValues: props.initialValues,
         };
         this.fieldConnector = this.fieldConnector.bind(this);
         this.initValidationField = this.initValidationField.bind(this);
@@ -77,12 +78,17 @@ class AddressForm extends React.Component {
             this.setState(formStatus.newStateToUpdate);
             return false;
         }
+        if (this.state.formValues.address !== this.state.initialValues.address) {
+            this.props.geocode(this.state.formValues);
+            evt.preventDefault();
+            return false;
+        }
         this.props.onSubmit(this.state.formValues);
         return true;
     }
 
     render() {
-        const { dismissModal, subtitle, inputLabel } = this.props;
+        const { dismissModal, subtitle, inputLabel, geocoding, geocodingFailed } = this.props;
         return (
             <form className="AddressForm" onSubmit={this.formSubmit}>
                 <Grid>
@@ -117,6 +123,27 @@ class AddressForm extends React.Component {
                             />
                         ) : null}
                     </GridCell>
+                    <GridCell span="12" phone="12" tablet="12">
+                        {geocoding ? (
+                            <Typography tag="p" theme="text-on-primary-background" use="body2">
+                                <Icon
+                                    style={{ fontSize: '12px' }}
+                                    theme="text-icon-on-background"
+                                    strategy="ligature">
+                                    update
+                                </Icon>{' '}
+                                chargement...
+                            </Typography>
+                        ) : null}
+                        {geocodingFailed ? (
+                            <Typography tag="p" style={{ color: '#b00020' }} use="body2">
+                                <Icon style={{ fontSize: '12px' }} strategy="ligature">
+                                    error_outline
+                                </Icon>{' '}
+                                Impossible de localiser cette addresse essayez en une autre ?
+                            </Typography>
+                        ) : null}
+                    </GridCell>
                     <GridCell span="6" phone="12" tablet="12">
                         <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                             {"C'est bon !"}
@@ -140,6 +167,9 @@ class AddressForm extends React.Component {
 AddressForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     dismissModal: PropTypes.func.isRequired,
+    geocode: PropTypes.func.isRequired,
+    geocoding: PropTypes.bool.isRequired,
+    geocodingFailed: PropTypes.bool.isRequired,
     subtitle: PropTypes.string.isRequired,
     inputLabel: PropTypes.string.isRequired,
     initialValues: PropTypes.shape({

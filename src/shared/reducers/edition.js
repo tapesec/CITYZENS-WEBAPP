@@ -35,7 +35,7 @@ export default function edition(state = initialState, action) {
                 hotspot,
                 mode: SETTING_UP,
             };
-        case actionTypes.GEOCODING_SUCCEDED:
+        case actionTypes.REVERSED_GEOCODING_SUCCEDED:
             hotspot = {
                 ...state.hotspot,
                 address: action.payload.address,
@@ -44,6 +44,20 @@ export default function edition(state = initialState, action) {
                 ...state,
                 hotspot,
             };
+        case actionTypes.GEOCODING_SUCCEDED:
+            hotspot = {
+                ...state.hotspot,
+                position: {
+                    latitude: action.payload.position.latitude,
+                    longitude: action.payload.position.longitude,
+                },
+            };
+            return {
+                ...state,
+                hotspot,
+                mode: SETTING_UP,
+            };
+
         case actionTypes.CLEAR_HOTSPOT_EDITION:
             return {
                 ...state,
