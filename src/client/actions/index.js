@@ -317,6 +317,10 @@ const geocode = value => ({
     },
 });
 
+const initHotspotFromMyPosition = () => ({
+    type: actionTypes.INIT_HOTSPOT_FROM_MY_POSITION,
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -367,4 +371,5 @@ export default {
     toggleMapOverlayVisibility,
     initSettingUpMode,
     geocode,
+    initHotspotFromMyPosition,
 };

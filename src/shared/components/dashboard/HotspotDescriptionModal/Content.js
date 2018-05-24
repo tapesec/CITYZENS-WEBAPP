@@ -27,6 +27,7 @@ const Content = ({ title, icon, description, submitActions, cancelAction }) => (
                     type="submit"
                     onClick={action.func}
                     raised
+                    disabled={action.disabled}
                     theme="secondary-bg text-primary-on-secondary">
                     <ButtonIcon use={action.icon} />
                     {action.label}

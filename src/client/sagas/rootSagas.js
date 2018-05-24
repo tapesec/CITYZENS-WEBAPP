@@ -4,7 +4,7 @@ import hotspotsSagas from './hotspotsSagas';
 import messagesSagas from './messagesSagas';
 import mapSagas from './MapSagas';
 import routingSagas from './routingSagas';
-import geocodingSagas from './geocodingSagas';
+import geolocalisationSagas from './geolocalisationSagas';
 import slideshowSagas from './widgets/slideshowSagas';
 
 export default function* init() {
@@ -14,7 +14,7 @@ export default function* init() {
         fork(mapSagas),
         fork(routingSagas),
         fork(messagesSagas),
-        fork(geocodingSagas),
+        fork(geolocalisationSagas),
         fork(slideshowSagas),
     ];
 }

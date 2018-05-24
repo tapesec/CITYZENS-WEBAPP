@@ -13,6 +13,9 @@ class InitialState {
     static dataTree() {
         return {
             authenticatedCityzen: {},
+            visitor: {
+                position: {},
+            },
             componentsState: {
                 leftSideMenu: {
                     open: true,
@@ -79,9 +82,10 @@ class InitialState {
     }
 
     async defaultState(req, res, next) {
+        const dataTree = { ...InitialState.dataTree() };
+        dataTree.visitor.fromMobile = req.useragent.isMobile;
         if (req.params && req.params.citySlug) {
             try {
-                const dataTree = { ...InitialState.dataTree() };
                 const response = await this.citiesService.getCity(req.params.citySlug);
                 if (response.status >= 400) {
                     return next({ statusCode: response.status });
@@ -105,15 +109,11 @@ class InitialState {
                 return Promise.resolve();
             } catch (error) {
                 return next(error);
-                // return Promise.reject(error);
             }
         } else {
-            const dataTree = { ...InitialState.dataTree() };
             req.initialState = dataTree;
             next();
             return Promise.resolve();
-
-            // return next(new Error('Invalid request parameter'));
         }
     }
 

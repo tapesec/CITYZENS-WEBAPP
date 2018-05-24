@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import actions from '../../../../client/actions/';
 import { getHotspotTypeDescriptionModal } from '../../../reducers/componentsState';
+import { visitorIsStillLocated } from '../../../reducers/visitor';
 import Modal from './../../lib/Modal';
 import Content from './Content';
 import constants from '../../../constants/';
@@ -14,6 +15,8 @@ const KNOWN_ADDRESS_LABEL = "Je connais l'adresse du point";
 const KNOWN_ADDRESS_ICON = 'add_location';
 const DROP_MARKER_LABEL = 'Je place le point sur la carte';
 const DROP_MARKER_ICON = 'map';
+const MY_POSITION_LABEL = 'Je place un point depuis ma position';
+const MY_POSITION_ICON = 'gps_fixed';
 
 const HotspotDescriptionModal = ({
     dismissModal,
@@ -22,6 +25,8 @@ const HotspotDescriptionModal = ({
     initHotspotCreationMode,
     clearHotspotEdition,
     openHotspotAddressModal,
+    initHotspotFromMyPosition,
+    visitorIsLocated,
 }) => {
     const validAndInitDropMarkerMode = (hotspotType, iconType) => {
         // eslint-disable-next-line no-undef
@@ -41,6 +46,12 @@ const HotspotDescriptionModal = ({
             subtitle: 'A quelle adresse doit se trouver le point ?',
             inputLabel: "Saisissez l'adresse ici",
         });
+    };
+
+    const createHotspotFromMyPosition = (hotspotType, iconType) => {
+        initHotspotCreationMode(hotspotType, iconType);
+        dismissModal(true);
+        initHotspotFromMyPosition();
     };
 
     const cancelModal = () => {
@@ -90,7 +101,6 @@ const HotspotDescriptionModal = ({
                     submitActions={[
                         {
                             func: () => {
-                                // validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
                                 validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.EVENT);
                             },
                             label: KNOWN_ADDRESS_LABEL,
@@ -102,6 +112,14 @@ const HotspotDescriptionModal = ({
                             },
                             label: DROP_MARKER_LABEL,
                             icon: DROP_MARKER_ICON,
+                        },
+                        {
+                            func: () => {
+                                createHotspotFromMyPosition(hotspotType, HOTSPOT.ICON.EVENT);
+                            },
+                            label: MY_POSITION_LABEL,
+                            icon: MY_POSITION_ICON,
+                            disabled: visitorIsLocated,
                         },
                     ]}
                     cancelAction={cancelModal}
@@ -120,7 +138,6 @@ const HotspotDescriptionModal = ({
                     submitActions={[
                         {
                             func: () => {
-                                // validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
                                 validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.ALERT);
                             },
                             label: KNOWN_ADDRESS_LABEL,
@@ -159,14 +176,17 @@ HotspotDescriptionModal.propTypes = {
         open: PropTypes.bool.isRequired,
         hotspotType: PropTypes.string,
     }).isRequired,
+    visitorIsLocated: PropTypes.bool.isRequired,
     turnOnMapOverlayVisibility: PropTypes.func.isRequired,
     initHotspotCreationMode: PropTypes.func.isRequired,
     clearHotspotEdition: PropTypes.func.isRequired,
     openHotspotAddressModal: PropTypes.func.isRequired,
+    initHotspotFromMyPosition: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
     hotspotTypeDescriptionModal: getHotspotTypeDescriptionModal(state),
+    visitorIsLocated: visitorIsStillLocated(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -184,6 +204,9 @@ const mapDispatchToProps = dispatch => ({
     },
     openHotspotAddressModal: modalParams => {
         dispatch(actions.openHotspotAddressModal(modalParams));
+    },
+    initHotspotFromMyPosition: () => {
+        dispatch(actions.initHotspotFromMyPosition());
     },
 });
 

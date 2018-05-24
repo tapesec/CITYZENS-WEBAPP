@@ -8,12 +8,17 @@ import WallHotspotPayload from './../services/payloads/WallHotspotPayload';
 import EventHotspotPayload from '../services/payloads/EventHotspotPayload';
 import MessageHotspotPayload from '../services/payloads/AlertHotspotPayload';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
+import { getVisitorPosition } from '../../shared/reducers/visitor';
 import { SNACKBAR } from './../wording';
 import { NOTIFICATION_MESSAGE } from './../constants';
 import sharedConstants from './../../shared/constants';
 import { persistMessage, fetchMessages } from './messagesSagas';
+import { reverseGeocoding } from './geolocalisationSagas';
 
-const { HOTSPOT, EDITION_MODE: { SETTING_UP, EDITION } } = sharedConstants;
+const {
+    HOTSPOT,
+    EDITION_MODE: { SETTING_UP, EDITION },
+} = sharedConstants;
 
 export function* fetchHotspots(action) {
     if (action && action.payload && action.payload.cityId) {
@@ -320,6 +325,15 @@ function* uploadAlertHotspotImg(action) {
     }
 }
 
+export function* initHotspotCreationFromMyPosition() {
+    const position = yield select(getVisitorPosition);
+    if (position.timestamp) {
+        yield call(reverseGeocoding, { payload: { position: position.coords } });
+        yield put({ type: actionTypes.SET_POSITION_TO_EDITED_HOTSPOT, payload: { position } });
+        yield put(actions.openSettingUpHotspotModal());
+    }
+}
+
 export default function* hotspotsSagas() {
     yield [
         takeLatest(actionTypes.FETCH_HOTSPOTS_BY_CITY, fetchHotspots),
@@ -330,5 +344,6 @@ export default function* hotspotsSagas() {
         takeLatest(actionTypes.ALERT_STILL_EXIST, postAlertExist),
         takeLatest(actionTypes.HOTSPOT_AVATAR_UPLOADED, uploadHotspotAvatarIcon),
         takeLatest(actionTypes.ALERT_HOTSPOT_IMAGE_UPLOADED, uploadAlertHotspotImg),
+        takeLatest(actionTypes.INIT_HOTSPOT_FROM_MY_POSITION, initHotspotCreationFromMyPosition),
     ];
 }
