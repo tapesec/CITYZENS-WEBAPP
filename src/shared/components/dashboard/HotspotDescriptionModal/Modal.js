@@ -86,6 +86,16 @@ const HotspotDescriptionModal = ({
                             label: DROP_MARKER_LABEL,
                             icon: DROP_MARKER_ICON,
                         },
+                        {
+                            func: () => {
+                                createHotspotFromMyPosition(hotspotType, HOTSPOT.ICON.WALL);
+                            },
+                            label: `${MY_POSITION_LABEL} ${
+                                !visitorIsLocated ? '(Pas de GPS)' : ''
+                            }`,
+                            icon: MY_POSITION_ICON,
+                            disabled: !visitorIsLocated,
+                        },
                     ]}
                     cancelAction={cancelModal}
                 />
@@ -151,6 +161,16 @@ const HotspotDescriptionModal = ({
                             },
                             label: DROP_MARKER_LABEL,
                             icon: DROP_MARKER_ICON,
+                        },
+                        {
+                            func: () => {
+                                createHotspotFromMyPosition(hotspotType, HOTSPOT.ICON.ALERT);
+                            },
+                            label: `${MY_POSITION_LABEL} ${
+                                !visitorIsLocated ? '(Pas de GPS)' : ''
+                            }`,
+                            icon: MY_POSITION_ICON,
+                            disabled: !visitorIsLocated,
                         },
                     ]}
                     cancelAction={cancelModal}
