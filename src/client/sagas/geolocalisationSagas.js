@@ -49,21 +49,6 @@ export function* geocoding(action) {
     }
 }
 
-/* export function* getCurrentPosition() {
-    yield locationChannel.put({ type: REDUX_SAGA_LOCATION_ACTION_REQUEST });
-    // eslint-disable-next-line no-undef
-    window.navigator.geolocation.getCurrentPosition(
-        position => {
-            locationChannel.put({
-                type: actionTypes.SET_GPS_POSITION,
-                payload: { coords: position.coords, timestamp: position.timestamp },
-            });
-        },
-        error => locationChannel.put({ type: actionTypes.ON_GPS_ERROR, error }),
-        { maximumAge: 30000, timeout: 27000 },
-    );
-} */
-
 export function* watchCurrentPosition() {
     yield put({ type: REDUX_SAGA_LOCATION_ACTION_REQUEST });
     const channel = eventChannel(emitter => {
@@ -72,14 +57,20 @@ export function* watchCurrentPosition() {
             position => {
                 // eslint-disable-next-line no-console
                 console.log(position, 'position --->');
-                emitter(position);
+                emitter({
+                    coords: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    },
+                    timestamp: position.timestamp,
+                });
             },
             error => {
                 // eslint-disable-next-line no-console
-                console.log(error, 'error ---_--->');
+                console.log(error, 'error ------>');
                 emitter(error);
             },
-            { maximumAge: 30000, timeout: 27000, enableHighAccuracy: true },
+            { maximumAge: 30000, timeout: 27000 /* , enableHighAccuracy: true */ },
         );
 
         return () => {
@@ -89,10 +80,16 @@ export function* watchCurrentPosition() {
     });
     while (true) {
         const position = yield take(channel);
-        if (position.coords) {
+        if (position.coords && position.coords.latitude) {
             yield put({
                 type: actionTypes.SET_GPS_POSITION,
-                payload: { coords: position.coords, timestamp: position.timestamp },
+                payload: {
+                    coords: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    },
+                    timestamp: position.timestamp,
+                },
             });
         }
     }

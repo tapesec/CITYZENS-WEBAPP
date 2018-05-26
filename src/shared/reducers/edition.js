@@ -57,6 +57,19 @@ export default function edition(state = initialState, action) {
                 hotspot,
                 mode: SETTING_UP,
             };
+        case actionTypes.SET_POSITION_TO_EDITED_HOTSPOT:
+            hotspot = {
+                ...state.hotspot,
+                position: {
+                    latitude: action.payload.position.coords.latitude,
+                    longitude: action.payload.position.coords.longitude,
+                },
+            };
+            return {
+                ...state,
+                hotspot,
+                mode: SETTING_UP,
+            };
 
         case actionTypes.CLEAR_HOTSPOT_EDITION:
             return {

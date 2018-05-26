@@ -13,15 +13,7 @@ export default function visitor(state = initialState, action) {
 
 export const getVisitorPosition = state => state.visitor.position;
 export const visitorIsStillLocated = state => {
-    // eslint-disable-next-line no-console
-    console.log(
-        'visitor is still located ?',
-        state.visitor.position.timestamp,
-        state.visitor.position.timestamp - new Date().getTime() < 60000,
-    );
-    return (
-        state.visitor.position.timestamp &&
-        state.visitor.position.timestamp - new Date().getTime() < 60000
-    );
+    if (!state.visitor.position.timestamp) return false;
+    return new Date().getTime() - state.visitor.position.timestamp < 60000;
 };
 export const visitorComeFromMobile = state => state.visitor.fromMobile;

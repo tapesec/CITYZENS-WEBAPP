@@ -117,9 +117,11 @@ const HotspotDescriptionModal = ({
                             func: () => {
                                 createHotspotFromMyPosition(hotspotType, HOTSPOT.ICON.EVENT);
                             },
-                            label: MY_POSITION_LABEL,
+                            label: `${MY_POSITION_LABEL} ${
+                                !visitorIsLocated ? '(Pas de GPS)' : ''
+                            }`,
                             icon: MY_POSITION_ICON,
-                            disabled: visitorIsLocated,
+                            disabled: !visitorIsLocated,
                         },
                     ]}
                     cancelAction={cancelModal}
