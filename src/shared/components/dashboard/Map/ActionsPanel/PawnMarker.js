@@ -36,9 +36,13 @@ PawnMarker.propTypes = {
     title: PropTypes.string.isRequired,
     filename: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    iconType: PropTypes.string.isRequired,
+    iconType: PropTypes.string,
     clickAction: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+};
+
+PawnMarker.defaultProps = {
+    iconType: '',
 };
 
 export default PawnMarker;

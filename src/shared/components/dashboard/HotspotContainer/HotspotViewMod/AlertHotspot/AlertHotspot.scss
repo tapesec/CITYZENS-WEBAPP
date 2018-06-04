@@ -58,30 +58,21 @@
             }
         }
     }
-    div.pertinence-section {
-        display: flex;
-        flex-flow: column;
-        p.question-label {
-            align-self: center;
-            margin-bottom: 20px;
-        }
-        p.question-disabled {
-            align-self: center;
-            a, a:visited, a:focus {
-                color: $mdc-theme-secondary;
+    p.pertinence-question {
+        background-color: white;
+        padding: 5px;
+        border-radius: 5px;
+        i {
+            &:first-child {
+                margin-right: 10px;
             }
-        }
-        div.thumb-container {
-            display: flex;
-            align-self: center;
-            justify-content: space-around;
-            width: 30%;
-            cursor: pointer;
-            i {
-                font-size: 3em;
-            }
-            i:hover {
+            margin-left: 5px;
+            vertical-align: middle;
+            font-size: 14px;
+            color: gray;
+            &:hover:not(:first-child) {
                 color: $mdc-theme-secondary;
+                cursor: pointer;
             }
         }
     }

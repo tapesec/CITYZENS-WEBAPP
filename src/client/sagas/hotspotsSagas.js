@@ -120,8 +120,8 @@ export function* buildAlertHotspotPayload(edition) {
         hotspotPayload.cityId = cityId;
         hotspotPayload.position = edition.position;
         hotspotPayload.address = { name: edition.address, city: cityName };
-        hotspotPayload.iconType = edition.iconType;
         hotspotPayload.message = edition.messageBody;
+        hotspotPayload.alertHotspotImgLocation = edition.alertHotspotImgLocation;
         hotspotPayload.valid();
         return hotspotPayload.payload;
     } catch (error) {
@@ -212,6 +212,7 @@ export function* persistHotspot(action) {
             ),
         );
     } catch (err) {
+        console.log(err, 'err -->');
         yield put(actions.clearHotspotEdition());
         yield put(
             actions.displayMessageToScreen(

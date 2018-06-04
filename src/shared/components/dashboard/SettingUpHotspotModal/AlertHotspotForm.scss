@@ -1,0 +1,27 @@
+@import './../../../../client/variables.scss';
+
+div.alert-dropzone {
+    display: flex;
+    border: 4px dashed gray;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 1px;
+    margin-left: 1px;
+    margin-bottom: 20px;
+    background-color: white;
+    &:hover {
+        border-color: $mdc-theme-secondary;
+        span {
+            color: $mdc-theme-secondary;
+        }
+    }
+    cursor: pointer;
+    span {
+        color: gray;
+        text-align: center;
+    }
+}

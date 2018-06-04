@@ -8,15 +8,13 @@ import constants from './../../../constants';
 import './Marker.scss';
 
 class Marker extends React.Component {
-    static mapIconWithIconType(iconType) {
+    static mapIconWithIconType(type) {
         const iconTypes = {
-            WallIcon: '5lkJTLUSCGxTZL3X3Bgw',
-            EventIcon: 'OdVlEfDATlSW4R6TfcEy',
-            AccidentIcon: 'APITX885QNqEVNFoBhR8',
-            DestructionIcon: '100TA3LTdGFDguB4ZAjw',
-            HandicapIcon: '43i8vvKqTqaERyyu8UuZ',
+            WallMessage: '5lkJTLUSCGxTZL3X3Bgw',
+            Event: 'OdVlEfDATlSW4R6TfcEy',
+            Alert: 'ojfelOwUQ86ZoNkItkVb',
         };
-        return iconTypes[iconType];
+        return iconTypes[type];
     }
 
     constructor(props) {
@@ -84,7 +82,7 @@ class Marker extends React.Component {
                 </div>
                 <ImageCDN
                     onClick={this.openHotspot}
-                    filename={Marker.mapIconWithIconType(this.props.iconType)}
+                    filename={Marker.mapIconWithIconType(this.props.type)}
                     dataType="map-marker"
                     alt="point GPS"
                 />
@@ -97,7 +95,6 @@ Marker.propTypes = {
     tooltipOpen: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     hotspotId: PropTypes.string.isRequired,
-    iconType: PropTypes.string.isRequired,
     focusHotspotMarker: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
     openHotspotInSPAModal: PropTypes.func.isRequired,

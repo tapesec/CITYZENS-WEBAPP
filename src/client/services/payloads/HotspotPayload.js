@@ -36,13 +36,13 @@ class HotspotPayload {
         }
     }
 
-    set iconType(iconType) {
-        this.payload.iconType = iconType;
+    set alertHotspotImgLocation(imgHandle) {
+        if (imgHandle) this.payload.alertHotspotImgLocation = imgHandle;
     }
 
     valid() {
         if (this.payload && this.payload.type) {
-            ['type', 'iconType', 'address', 'position', 'cityId'].forEach(attr => {
+            ['type', 'address', 'position', 'cityId'].forEach(attr => {
                 if (!this.payload[attr])
                     throw new Error('Payload is not fully completed (hotspot part)');
             });

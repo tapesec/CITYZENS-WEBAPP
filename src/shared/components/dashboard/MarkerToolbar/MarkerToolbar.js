@@ -81,9 +81,8 @@ const MarkerToolbar = ({
                 />
                 <PawnMarker
                     id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.ALERT}`}
-                    title="Accident de voie publique"
-                    filename={HOTSPOT.ALERT.AVATAR_ICON.ACCIDENT}
-                    iconType={HOTSPOT.ICON.ACCIDENT}
+                    title="Point d'information"
+                    filename={HOTSPOT.ALERT.AVATAR_ICON.DEFAULT}
                     type={HOTSPOT.TYPE.ALERT}
                     clickAction={openAlertDescription}
                 />

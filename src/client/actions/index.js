@@ -295,10 +295,9 @@ const showHotspotTypeDescriptionModal = (status, hotspotType) => ({
     },
 });
 
-const initSettingUpMode = (type, iconType) => ({
+const initSettingUpMode = type => ({
     type: actionTypes.INIT_SETTING_UP_MODE,
     payload: {
-        iconType,
         type,
     },
 });
@@ -319,6 +318,13 @@ const geocode = value => ({
 
 const initHotspotFromMyPosition = () => ({
     type: actionTypes.INIT_HOTSPOT_FROM_MY_POSITION,
+});
+
+const removeImageWithHandle = imgHandle => ({
+    type: actionTypes.REMOVE_IMAGE_WITH_HANDLE,
+    payload: {
+        imgHandle,
+    },
 });
 
 export default {
@@ -372,4 +378,5 @@ export default {
     initSettingUpMode,
     geocode,
     initHotspotFromMyPosition,
+    removeImageWithHandle,
 };

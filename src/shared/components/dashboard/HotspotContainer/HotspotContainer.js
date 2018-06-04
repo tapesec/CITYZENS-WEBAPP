@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Fab } from 'rmwc/Fab';
 import actions from './../../../../client/actions';
 import { messageEdition } from './../../../reducers/edition';
 import {
@@ -49,7 +48,13 @@ class HotspotContainer extends React.Component {
                 />
             );
         }
-        return <AlertHotspot loading={contentIsLoading} hotspot={readableHotspot} />;
+        return (
+            <AlertHotspot
+                loading={contentIsLoading}
+                hotspot={readableHotspot}
+                closeAction={this.callRightContextAction}
+            />
+        );
     }
 
     displayWidgetConfigurationPageByName(widgetName) {
@@ -60,6 +65,7 @@ class HotspotContainer extends React.Component {
                     hotspotId={readableHotspot.id}
                     imagesId={readableHotspot.slideShow}
                     storageFolder={`${readableHotspot.author.id}-${readableHotspot.slug}`}
+                    closeAction={this.callRightContextAction}
                 />
             );
         }
@@ -110,15 +116,9 @@ class HotspotContainer extends React.Component {
                 onClose={this.closeModal}
                 modalClass="HotspotContainer"
                 backdropClass="HotspotContainer-backdrop">
-                <Fab
-                    onClick={this.callRightContextAction}
-                    className="closeModal"
-                    mini
-                    style={{ backgroundColor: 'white' }}
-                    theme="background text-icon-on-background">
-                    {this.props.widgetIsBeingEdited ? 'keyboard_backspace' : 'clear'}
-                </Fab>
-                {this.displayWidgetOrContent()}
+                <section style={{ overflow: 'auto', height: '100%' }}>
+                    {this.displayWidgetOrContent()}
+                </section>
             </Modal>
         );
     }

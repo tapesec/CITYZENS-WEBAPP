@@ -6,6 +6,7 @@ import mapSagas from './MapSagas';
 import routingSagas from './routingSagas';
 import geolocalisationSagas from './geolocalisationSagas';
 import slideshowSagas from './widgets/slideshowSagas';
+import filestackSagas from './filestackSagas';
 
 export default function* init() {
     yield [
@@ -16,5 +17,6 @@ export default function* init() {
         fork(messagesSagas),
         fork(geolocalisationSagas),
         fork(slideshowSagas),
+        fork(filestackSagas),
     ];
 }

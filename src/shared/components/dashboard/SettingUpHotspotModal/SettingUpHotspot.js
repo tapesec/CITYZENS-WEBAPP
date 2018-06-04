@@ -9,57 +9,14 @@ import AlertHotspotForm from './AlertHotspotForm';
 import actions from './../../../../client/actions';
 import { getSettingUpMode, hotspotEdition } from './../../../reducers/edition';
 import { settingUpHotspotModalState } from './../../../reducers/componentsState';
+import { visitorComeFromMobile } from '../../../reducers/visitor';
 import constants from './../../../constants';
+import { SNACKBAR } from './../../../../client/wording';
+import { NOTIFICATION_MESSAGE } from './../../../../client/constants';
 
 import './SettingUpHotspot.scss';
 
 const { HOTSPOT } = constants;
-
-const displayFormForSelectedHotspotType = ({
-    initialValues,
-    handleSubmit,
-    dismissModal,
-    settingUpMode,
-}) => {
-    const hotspotType = initialValues.type;
-    if (hotspotType === HOTSPOT.TYPE.WALL_MESSAGE) {
-        return (
-            <WallHotspotForm
-                initialValues={initialValues}
-                dismissModal={dismissModal}
-                onSubmit={handleSubmit}
-            />
-        );
-    }
-    if (hotspotType === HOTSPOT.TYPE.EVENT) {
-        return (
-            <EventHotspotForm
-                settingUpMode={settingUpMode}
-                initialValues={initialValues}
-                dismissModal={dismissModal}
-                onSubmit={handleSubmit}
-            />
-        );
-    }
-    if (hotspotType === HOTSPOT.TYPE.ALERT) {
-        return (
-            <AlertHotspotForm
-                settingUpMode={settingUpMode}
-                initialValues={initialValues}
-                dismissModal={dismissModal}
-                onSubmit={handleSubmit}
-            />
-        );
-    }
-    return null;
-};
-
-displayFormForSelectedHotspotType.propTypes = {
-    initialValues: PropTypes.shape({}).isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    dismissModal: PropTypes.func.isRequired,
-    settingUpMode: PropTypes.string.isRequired,
-};
 
 const SettingUpHotspotModal = ({
     open,
@@ -68,10 +25,52 @@ const SettingUpHotspotModal = ({
     initialValues,
     submitForm,
     closeModal,
+    fromMobile,
+    displayMessageToScreen,
+    removeImage,
 }) => {
     const handleSubmit = values => {
         submitForm(settingUpMode, values);
         closeModal();
+    };
+
+    const displayFormForSelectedHotspotType = () => {
+        const hotspotType = initialValues.type;
+        if (hotspotType === HOTSPOT.TYPE.WALL_MESSAGE) {
+            return (
+                <WallHotspotForm
+                    initialValues={initialValues}
+                    dismissModal={dismissModal}
+                    onSubmit={handleSubmit}
+                    fromMobile={fromMobile}
+                />
+            );
+        }
+        if (hotspotType === HOTSPOT.TYPE.EVENT) {
+            return (
+                <EventHotspotForm
+                    settingUpMode={settingUpMode}
+                    initialValues={initialValues}
+                    dismissModal={dismissModal}
+                    onSubmit={handleSubmit}
+                    fromMobile={fromMobile}
+                />
+            );
+        }
+        if (hotspotType === HOTSPOT.TYPE.ALERT) {
+            return (
+                <AlertHotspotForm
+                    settingUpMode={settingUpMode}
+                    initialValues={initialValues}
+                    dismissModal={dismissModal}
+                    onSubmit={handleSubmit}
+                    fromMobile={fromMobile}
+                    displayMessageToScreen={displayMessageToScreen}
+                    removeImage={removeImage}
+                />
+            );
+        }
+        return null;
     };
 
     return (
@@ -83,12 +82,7 @@ const SettingUpHotspotModal = ({
             backdropClass="HotspotContainer-backdrop">
             <section className="SettingUpHotspotContainer">
                 <CustomScroll heightRelativeToParent="100%">
-                    {displayFormForSelectedHotspotType({
-                        dismissModal,
-                        settingUpMode,
-                        initialValues,
-                        handleSubmit,
-                    })}
+                    {displayFormForSelectedHotspotType()}
                 </CustomScroll>
             </section>
         </Modal>
@@ -97,17 +91,21 @@ const SettingUpHotspotModal = ({
 
 SettingUpHotspotModal.propTypes = {
     open: PropTypes.bool.isRequired,
+    fromMobile: PropTypes.bool.isRequired,
     dismissModal: PropTypes.func.isRequired,
     settingUpMode: PropTypes.string.isRequired,
     initialValues: PropTypes.shape({}).isRequired,
     submitForm: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired,
+    displayMessageToScreen: PropTypes.func.isRequired,
+    removeImage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
     open: settingUpHotspotModalState.isOpenSettingUpHotspotModal(state),
     settingUpMode: getSettingUpMode(state),
     initialValues: hotspotEdition.getCurrentHotspotEdition(state),
+    fromMobile: visitorComeFromMobile(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -121,6 +119,17 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (settingUpMode, formData) => {
         dispatch(actions.saveInStateSettingUpHotspotFormData(formData));
         dispatch(actions.postSettingUpHotspotFormData(settingUpMode));
+    },
+    displayMessageToScreen: () => {
+        dispatch(
+            actions.displayMessageToScreen(
+                SNACKBAR.ERROR.UPDATING_HOTSPOT_FAILED,
+                NOTIFICATION_MESSAGE.LEVEL.ERROR,
+            ),
+        );
+    },
+    removeImage: handle => {
+        dispatch(actions.removeImageWithHandle(handle));
     },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SettingUpHotspotModal);

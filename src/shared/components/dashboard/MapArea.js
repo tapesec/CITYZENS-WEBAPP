@@ -66,7 +66,6 @@ class MapArea extends React.Component {
                 hotspotId={hotspot.id}
                 hotspotSlug={hotspot.slug}
                 type={hotspot.type}
-                iconType={hotspot.iconType}
                 citySlug={citySlug}
                 history={history}
                 openHotspotInSPAModal={openHotspotInSPAModal}
@@ -175,8 +174,8 @@ const mapDispatchToProps = dispatch => ({
     openHotspotInSPAModal: hotspotId => {
         dispatch(actions.openHotspotInSPAModal(hotspotId));
     },
-    newMarkerDropped: (position, type, iconType) => {
-        dispatch(actions.newMarkerDropped(position, type, iconType));
+    newMarkerDropped: position => {
+        dispatch(actions.newMarkerDropped(position));
     },
     openHotspotAddressModal: modalParams => {
         dispatch(actions.openHotspotAddressModal(modalParams));

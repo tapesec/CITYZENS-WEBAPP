@@ -3,54 +3,48 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Icon } from 'rmwc/Icon';
 import { Typography } from 'rmwc/Typography';
-import { Elevation } from 'rmwc/Elevation';
 import ReactFilestack from 'filestack-react';
-import CustomScroll from 'react-custom-scroll';
-import helpers from './../../../../../helpers';
 import config from '../../../../../config';
 import actions from '../../../../../../client/actions';
 import { getCityzenId, isAuthenticated } from '../../../../../reducers/authenticatedCityzen';
-import HotspotTitle from './../HotspotHeader/HotspotTitle';
 import ActionsToolbar from '../../Toolbar/ActionsToolbar';
 import withViewCounter from '../../../../hoc/hotspots/withViewCounter';
 import AlertImage from './AlertImage';
-import Footer from '../../Footer/Footer';
 import DateFormater from '../../../../lib/DateFormater';
 import { SNACKBAR } from './../../../../../../client/wording';
 import { NOTIFICATION_MESSAGE } from './../../../../../../client/constants';
+import constants from '../../../../../constants';
 
 import './AlertHotspot.scss';
+import ImageCDN from '../../../../lib/ImageCDN';
 
 const DisplayQuestionOrSayThanks = props =>
     props.hotspot.voterList.some(vote => vote[0] === props.cityzenId) ? ( // [[cityzenId, pertinence], …]
         <Typography
-            tag="p"
-            use="subheading2"
-            className="question-disabled"
-            theme="text-primary-background">
+            style={{ marginLeft: '10px' }}
+            tag="span"
+            use="body2"
+            theme="text-secondary-on-background">
             Vous avez déjà répondu, merci.
         </Typography>
     ) : (
-        <Typography tag="div" className="thumb-container">
-            <div>
-                <Icon
-                    strategy="component"
-                    onClick={() => {
-                        props.alertStillExist(props.hotspot.id, true);
-                    }}>
-                    thumb_up
-                </Icon>
-            </div>
-            <div>
-                <Icon
-                    strategy="component"
-                    onClick={() => {
-                        props.alertStillExist(props.hotspot.id, false);
-                    }}>
-                    thumb_down
-                </Icon>
-            </div>
-        </Typography>
+        <Fragment>
+            <Icon
+                strategy="component"
+                onClick={() => {
+                    props.alertStillExist(props.hotspot.id, true);
+                }}>
+                thumb_up
+            </Icon>
+
+            <Icon
+                strategy="component"
+                onClick={() => {
+                    props.alertStillExist(props.hotspot.id, false);
+                }}>
+                thumb_down
+            </Icon>
+        </Fragment>
     );
 
 DisplayQuestionOrSayThanks.propTypes = {
@@ -126,69 +120,101 @@ const DiplayImageDescriptionOrImport = (
 
 const AlertHotspot = props => (
     <Fragment>
-        <ActionsToolbar />
-
+        <ActionsToolbar closeAction={props.closeAction} />
         <section className="HotspotContent AlertHotspot">
-            <CustomScroll heightRelativeToParent="100%">
-                <section style={{ marginRight: '12px' }}>
-                    <header>
-                        <HotspotTitle
-                            title={helpers.generateTitleForMarker(props.hotspot)}
-                            avatarUrl={
-                                helpers.generateAvatarForAlertHotspot(props.hotspot).split('/')[3]
-                            }
-                            address={props.hotspot.address}
-                        />
-                    </header>
-                    {DiplayImageDescriptionOrImport(
-                        props.hotspot.id,
-                        props.hotspot.imageDescriptionLocation,
-                        props.cityzenIsAuthenticated,
-                        props.saveUploadedImage,
-                        props.displayMessageToScreen,
-                    )}
-                    <Elevation z="4" style={{ margin: '1px' }}>
-                        <article className="HotspotMessage">
-                            <Typography
-                                tag="p"
-                                use="body1"
-                                className="question-label"
-                                theme="text-primary-on-background">
-                                {props.hotspot.message.content}
-                            </Typography>
-                            <Typography tag="p" use="subtitle2" theme="text-primary-on-light">
-                                <DateFormater
-                                    labelPrefix="Dernière mise à jour "
-                                    duration
-                                    date={props.hotspot.message.updatedAt}
-                                />
-                            </Typography>
-                        </article>
-                    </Elevation>
-                    <div className="pertinence-section">
-                        <Typography
-                            tag="p"
-                            use="subtitle1"
-                            className="question-label"
-                            theme="secondary">
-                            Il y a t&apos;il toujours quelque chose ?
+            <section style={{ marginRight: '12px' }}>
+                <header
+                    style={{
+                        padding: '5px',
+                        backgroundColor: 'white',
+                        marginBottom: '10px',
+                        borderRadius: '5px',
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}>
+                    <ImageCDN
+                        style={{ width: '60px' }}
+                        filename={constants.HOTSPOT.ALERT.AVATAR_ICON.DEFAULT}
+                    />
+                    <div style={{ marginLeft: '10px' }}>
+                        <Icon
+                            theme="text-secondary-on-background"
+                            style={{ verticalAlign: 'middle' }}
+                            strategy="ligature">
+                            location_on
+                        </Icon>{' '}
+                        <Typography tag="span" use="body2" theme="text-primary-on-background">
+                            {props.hotspot.address.name}
                         </Typography>
-                        {props.cityzenIsAuthenticated ? (
-                            DisplayQuestionOrSayThanks(props)
-                        ) : (
-                            <Typography
-                                tag="p"
-                                use="subtitle1"
-                                className="question-disabled"
-                                theme="text-primary-background">
-                                <a href="/login">Connectez vous</a> pour nous le dire
-                            </Typography>
-                        )}
+                        <Typography
+                            style={{ marginLeft: '28px' }}
+                            tag="div"
+                            use="caption"
+                            theme="text-secondary-on-background">
+                            {props.hotspot.views} vues
+                        </Typography>
                     </div>
-                </section>
-            </CustomScroll>
+                </header>
+                {DiplayImageDescriptionOrImport(
+                    props.hotspot.id,
+                    props.hotspot.imageDescriptionLocation,
+                    props.cityzenIsAuthenticated,
+                    props.saveUploadedImage,
+                    props.displayMessageToScreen,
+                )}
+
+                <article className="HotspotMessage">
+                    <Typography
+                        style={{ fontWeight: 'bold' }}
+                        tag="strong"
+                        use="body2"
+                        theme="text-primary-on-background">
+                        {props.hotspot.author.pseudo}
+                    </Typography>
+                    <Typography
+                        tag="span"
+                        style={{ color: 'gray' }}
+                        use="body2"
+                        theme="text-secondary-on-background">
+                        <DateFormater
+                            labelPrefix=" "
+                            duration
+                            date={props.hotspot.message.updatedAt}
+                        />
+                    </Typography>
+                    <Typography
+                        tag="p"
+                        use="body2"
+                        className="question-label"
+                        theme="text-primary-on-background">
+                        {props.hotspot.message.content}
+                    </Typography>
+                    <Typography tag="em" use="body2" theme="text-secondary-on-background">
+                        <DateFormater
+                            labelPrefix="Dernière mise à jour "
+                            duration
+                            date={props.hotspot.message.updatedAt}
+                        />
+                    </Typography>
+                </article>
+
+                <Typography tag="p" use="body2" className="pertinence-question" theme="secondary">
+                    <Icon strategy="ligature">question_answer</Icon>
+                    Il y a t&apos;il toujours quelque chose ?
+                    {props.cityzenIsAuthenticated ? (
+                        DisplayQuestionOrSayThanks(props)
+                    ) : (
+                        <Typography
+                            style={{ marginLeft: '10px' }}
+                            tag="span"
+                            use="body2"
+                            theme="text-primary-background">
+                            <a href="/login">Connectez vous</a> pour nous le dire
+                        </Typography>
+                    )}
+                </Typography>
+            </section>
         </section>
-        <Footer views={props.hotspot.views} />
     </Fragment>
 );
 
@@ -198,17 +224,21 @@ AlertHotspot.propTypes = {
             updatedAt: PropTypes.string,
             content: PropTypes.string.isRequired,
         }),
-        address: PropTypes.shape({}),
+        address: PropTypes.shape({
+            name: PropTypes.string,
+        }),
         views: PropTypes.number.isRequired,
         id: PropTypes.string.isRequired,
         author: PropTypes.shape({
             id: PropTypes.string,
+            pseudo: PropTypes.string,
         }),
         imageDescriptionLocation: PropTypes.string,
     }).isRequired,
     cityzenIsAuthenticated: PropTypes.bool.isRequired,
     saveUploadedImage: PropTypes.func.isRequired,
     displayMessageToScreen: PropTypes.func.isRequired,
+    closeAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

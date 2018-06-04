@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { GatewayDest, GatewayProvider } from 'react-gateway';
 import { Route, Switch } from 'react-router-dom';
 import '../../../node_modules/@material/theme/dist/mdc.theme.min.css';
+import '../../../node_modules/@material/top-app-bar/dist/mdc.top-app-bar.min.css';
 import '../../../node_modules/@material/typography/dist/mdc.typography.min.css';
 import '../../../node_modules/@material/toolbar/dist/mdc.toolbar.min.css';
 import '../../../node_modules/@material/menu/dist/mdc.menu.min.css';

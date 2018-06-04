@@ -19,7 +19,6 @@ export default function edition(state = initialState, action) {
             hotspot = {
                 ...state.hotspot,
                 type: action.payload.type,
-                iconType: action.payload.iconType,
             };
             return {
                 ...state,

@@ -20,6 +20,7 @@ const SlideshowAdmin = ({
     saveSlideshowWidget,
     storageFolder,
     isRemovingImage,
+    closeAction,
 }) => {
     const getImageUploaderOptions = () => ({
         fromSources: ['local_file_system', 'url', 'webcam'],
@@ -44,7 +45,7 @@ const SlideshowAdmin = ({
     };
     return (
         <Fragment>
-            <ActionsToolbar />
+            <ActionsToolbar closeAction={closeAction} />
             <section className="HotspotContent">
                 <CustomScroll heightRelativeToParent="100%">
                     <Typography tag="h1" theme="text-secondary-on-background" use="headline5">
@@ -116,6 +117,7 @@ SlideshowAdmin.propTypes = {
     saveSlideshowWidget: PropTypes.func.isRequired,
     storageFolder: PropTypes.string.isRequired,
     isRemovingImage: PropTypes.bool.isRequired,
+    closeAction: PropTypes.func.isRequired,
 };
 
 SlideshowAdmin.defaultProps = {

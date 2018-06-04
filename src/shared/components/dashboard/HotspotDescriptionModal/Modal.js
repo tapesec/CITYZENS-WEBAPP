@@ -28,19 +28,19 @@ const HotspotDescriptionModal = ({
     initHotspotFromMyPosition,
     visitorIsLocated,
 }) => {
-    const validAndInitDropMarkerMode = (hotspotType, iconType) => {
+    const validAndInitDropMarkerMode = hotspotType => {
         // eslint-disable-next-line no-undef
         const selectPawnMarkerDom = window.document.getElementById(
             `${PAWN_MARKER.ID_PREFIX}${hotspotType}`,
         );
         selectPawnMarkerDom.classList.add('selected');
         turnOnMapOverlayVisibility();
-        initHotspotCreationMode(hotspotType, iconType);
+        initHotspotCreationMode(hotspotType);
         dismissModal(true);
     };
 
-    const validAndOpenAdressModal = (hotspotType, iconType) => {
-        initHotspotCreationMode(hotspotType, iconType);
+    const validAndOpenAdressModal = hotspotType => {
+        initHotspotCreationMode(hotspotType);
         dismissModal(true);
         openHotspotAddressModal({
             subtitle: 'A quelle adresse doit se trouver le point ?',
@@ -48,8 +48,8 @@ const HotspotDescriptionModal = ({
         });
     };
 
-    const createHotspotFromMyPosition = (hotspotType, iconType) => {
-        initHotspotCreationMode(hotspotType, iconType);
+    const createHotspotFromMyPosition = hotspotType => {
+        initHotspotCreationMode(hotspotType);
         dismissModal(true);
         initHotspotFromMyPosition();
     };
@@ -74,21 +74,21 @@ const HotspotDescriptionModal = ({
                         {
                             func: () => {
                                 // validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
-                                validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.WALL);
+                                validAndOpenAdressModal(hotspotType);
                             },
                             label: KNOWN_ADDRESS_LABEL,
                             icon: KNOWN_ADDRESS_ICON,
                         },
                         {
                             func: () => {
-                                validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.WALL);
+                                validAndInitDropMarkerMode(hotspotType);
                             },
                             label: DROP_MARKER_LABEL,
                             icon: DROP_MARKER_ICON,
                         },
                         {
                             func: () => {
-                                createHotspotFromMyPosition(hotspotType, HOTSPOT.ICON.WALL);
+                                createHotspotFromMyPosition(hotspotType);
                             },
                             label: `${MY_POSITION_LABEL} ${
                                 !visitorIsLocated ? '(Pas de GPS)' : ''
@@ -111,21 +111,21 @@ const HotspotDescriptionModal = ({
                     submitActions={[
                         {
                             func: () => {
-                                validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.EVENT);
+                                validAndOpenAdressModal(hotspotType);
                             },
                             label: KNOWN_ADDRESS_LABEL,
                             icon: KNOWN_ADDRESS_ICON,
                         },
                         {
                             func: () => {
-                                validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
+                                validAndInitDropMarkerMode(hotspotType);
                             },
                             label: DROP_MARKER_LABEL,
                             icon: DROP_MARKER_ICON,
                         },
                         {
                             func: () => {
-                                createHotspotFromMyPosition(hotspotType, HOTSPOT.ICON.EVENT);
+                                createHotspotFromMyPosition(hotspotType);
                             },
                             label: `${MY_POSITION_LABEL} ${
                                 !visitorIsLocated ? '(Pas de GPS)' : ''
@@ -145,26 +145,26 @@ const HotspotDescriptionModal = ({
             return (
                 <Content
                     title="Signalez une information sur la carte"
-                    icon={HOTSPOT.ALERT.AVATAR_ICON.ACCIDENT}
+                    icon={HOTSPOT.ALERT.AVATAR_ICON.DEFAULT}
                     description={description}
                     submitActions={[
                         {
                             func: () => {
-                                validAndOpenAdressModal(hotspotType, HOTSPOT.ICON.ALERT);
+                                validAndOpenAdressModal(hotspotType);
                             },
                             label: KNOWN_ADDRESS_LABEL,
                             icon: KNOWN_ADDRESS_ICON,
                         },
                         {
                             func: () => {
-                                validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.ALERT);
+                                validAndInitDropMarkerMode(hotspotType);
                             },
                             label: DROP_MARKER_LABEL,
                             icon: DROP_MARKER_ICON,
                         },
                         {
                             func: () => {
-                                createHotspotFromMyPosition(hotspotType, HOTSPOT.ICON.ALERT);
+                                createHotspotFromMyPosition(hotspotType);
                             },
                             label: `${MY_POSITION_LABEL} ${
                                 !visitorIsLocated ? '(Pas de GPS)' : ''
@@ -218,8 +218,8 @@ const mapDispatchToProps = dispatch => ({
     turnOnMapOverlayVisibility: () => {
         dispatch(actions.toggleMapOverlayVisibility(true));
     },
-    initHotspotCreationMode: (hotspotType, iconType) => {
-        dispatch(actions.initSettingUpMode(hotspotType, iconType));
+    initHotspotCreationMode: hotspotType => {
+        dispatch(actions.initSettingUpMode(hotspotType));
     },
     clearHotspotEdition: () => {
         dispatch(actions.clearHotspotEdition());

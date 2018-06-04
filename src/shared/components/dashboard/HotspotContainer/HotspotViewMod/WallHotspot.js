@@ -11,7 +11,6 @@ import HotspotMessage from './HotspotMessage/HotspotMessage';
 import NewHotspotMessageForm from './HotspotMessage/NewMessageFormContainer';
 import EditHotspotMessageForm from './HotspotMessage/EditMessageFormContainer';
 import Slideshow from '../Widgets/Slideshow/Slideshow';
-import Footer from './../Footer/Footer';
 import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
 import actions from './../../../../../client/actions';
 import constants from './../../../../constants';
@@ -159,7 +158,6 @@ const WallHotspot = ({
                     </section>
                 </CustomScroll>
             </section>
-            <Footer views={hotspot.views} />
         </Fragment>
     );
 };

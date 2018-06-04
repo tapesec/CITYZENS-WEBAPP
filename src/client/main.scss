@@ -150,4 +150,35 @@ body {
             color: #b00020;
         }
     }
+    &.mdc-text-field--textarea.mdc-text-field--focused {
+        border: 1px solid $mdc-theme-secondary;
+        .mdc-text-field__input:focus {
+            border: 1px solid $mdc-theme-secondary;
+        }
+        &.mdc-text-field--invalid {
+            border: 1px solid #b00020;
+            .mdc-text-field__input:focus {
+                border: 1px solid #b00020;
+            }
+            label.mdc-floating-label.mdc-floating-label--float-above {
+                color: #b00020;
+            }
+            div.mdc-line-ripple.mdc-line-ripple--active {
+                background-color: #b00020;
+            }
+        }
+    }
+    &.mdc-text-field--invalid {
+        border: 1px solid #b00020;
+        .mdc-text-field__input:focus {
+            border: 1px solid #b00020;
+        }
+        label.mdc-floating-label.mdc-floating-label--float-above {
+            color: #b00020;
+        }
+        div.mdc-line-ripple.mdc-line-ripple--active {
+            background-color: #b00020;
+        }
+    }
+
 }

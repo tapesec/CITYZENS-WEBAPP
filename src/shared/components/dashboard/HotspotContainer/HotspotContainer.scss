@@ -4,6 +4,8 @@
     height: 100%;
     width: 100%;
     position: fixed;
+    display:flex;
+    justify-content: center;
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 1000; // needed to pass above tippy tooltip …
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .5);
@@ -15,19 +17,20 @@
     height: 100%;
     max-height: 100%;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
-    position: fixed;
-    background-color: #f9f9f9;
+    position: static;
+    background-color: #ebf1f0;
+    width:600px;
     .closeModal {
         position: absolute;
-        right: 5px;
-        top: 30px;
+        right: 10px;
+        top: 20px;
+        z-index: 1;
     }
     section.HotspotContent {
         flex: 1;
         min-height: 0;
-        min-width: 0;
-        overflow: hidden;
-        margin: 20px 17px 0px 30px;
+        min-width: 0;;
+        margin: 20px 7px 0px 20px;
         display: flex;
         flex-direction: column;
 
@@ -43,7 +46,7 @@
     
     }
 }
-@media all and (min-width: 1680px) {
+/* @media all and (min-width: 1680px) {
     .HotspotContainer {
          width: 35%;
          right: 150px;
@@ -62,9 +65,9 @@
         width: 50%;
         right: 0;
     }
-}
+} */
 
-@media all and (max-width: 1024px) {
+@media all and (max-width: 600px) {
     .HotspotContainer {
         width: 100%;
         right: 0;
@@ -74,7 +77,8 @@
 .HotspotContainerFooter {
     border-top: 1px solid rgba(0, 0, 0, 0.377);
     padding: 10px;
-    display: flex;
+    position: fixed;
+    bottom: 0;
     div {
         &:first-child {
             margin-left: 25px;
@@ -91,7 +95,7 @@
 
 .HotspotContainerToolbar {
     display: flex;
-    padding: 10px;
+    padding: 5px;
     border-bottom: 1px solid rgba(0, 0, 0, .377);
     div {
         margin-left: 15px;
