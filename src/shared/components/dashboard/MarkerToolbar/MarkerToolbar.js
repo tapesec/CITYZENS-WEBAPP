@@ -34,17 +34,7 @@ const MarkerToolbar = ({
             clearHotspotEdition,
             turnOffMapOverlayVisibility,
         );
-        openHotspotTypeDescription(true, HOTSPOT.TYPE.WALL_MESSAGE);
-    };
-
-    const openEventDescription = () => {
-        cancelHotspotCreationFlow(
-            isVisibleMapOverlay,
-            newSettingUpHotspot.type,
-            clearHotspotEdition,
-            turnOffMapOverlayVisibility,
-        );
-        openHotspotTypeDescription(true, HOTSPOT.TYPE.EVENT);
+        openHotspotTypeDescription(true, HOTSPOT.TYPE.MEDIA);
     };
 
     const openAlertDescription = () => {
@@ -64,20 +54,11 @@ const MarkerToolbar = ({
             className={`MarkerToolbar ${transitionClasses[state].className}`}>
             <div className="MarkerContent">
                 <PawnMarker
-                    id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.WALL_MESSAGE}`}
+                    id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.MEDIA}`}
                     title="Mur de message"
-                    filename={HOTSPOT.WALL.AVATAR_ICON.DEFAULT}
-                    iconType={HOTSPOT.ICON.WALL}
-                    type={HOTSPOT.TYPE.WALL_MESSAGE}
+                    filename={HOTSPOT.MEDIA.AVATAR_ICON.DEFAULT}
+                    type={HOTSPOT.TYPE.MEDIA}
                     clickAction={openWallHotspotDescription}
-                />
-                <PawnMarker
-                    id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.EVENT}`}
-                    title="Evenement"
-                    filename={HOTSPOT.EVENT.AVATAR_ICON.DEFAULT}
-                    iconType={HOTSPOT.ICON.EVENT}
-                    type={HOTSPOT.TYPE.EVENT}
-                    clickAction={openEventDescription}
                 />
                 <PawnMarker
                     id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.ALERT}`}

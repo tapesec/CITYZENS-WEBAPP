@@ -1,7 +1,10 @@
+import config from '../config';
+
 export default {
     HOTSPOT: {
         TYPE: {
             WALL_MESSAGE: 'WallMessage',
+            MEDIA: 'Media',
             EVENT: 'Event',
             ALERT: 'Alert',
         },
@@ -13,14 +16,9 @@ export default {
             PRIVATE: 'private',
             PUBLIC: 'public',
         },
-        WALL: {
+        MEDIA: {
             AVATAR_ICON: {
-                DEFAULT: 'https://cdn.filestackcontent.com/uiFagz6oSQiX8TTcAQAC',
-            },
-        },
-        EVENT: {
-            AVATAR_ICON: {
-                DEFAULT: 'https://cdn.filestackcontent.com/iMTfeaOyS0iReA0OLhGN',
+                DEFAULT: `https://cdn.filestackcontent.com/${config.hotspot.mediaDefaultIcon}`,
             },
         },
         ALERT: {
@@ -28,7 +26,7 @@ export default {
                 DEFAULT: "Point d'information",
             },
             AVATAR_ICON: {
-                DEFAULT: 'https://cdn.filestackcontent.com/SX4CPm6Q5H8Bbb1Y3zTw',
+                DEFAULT: `https://cdn.filestackcontent.com/${config.hotspot.infoDefaultIcon}`,
             },
         },
     },

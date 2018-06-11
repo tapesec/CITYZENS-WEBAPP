@@ -134,6 +134,7 @@ const AlertHotspot = props => (
                     }}>
                     <ImageCDN
                         style={{ width: '60px' }}
+                        alt="icone d'un point d'information"
                         filename={constants.HOTSPOT.ALERT.AVATAR_ICON.DEFAULT}
                     />
                     <div style={{ marginLeft: '10px' }}>

@@ -20,6 +20,8 @@
     position: static;
     background-color: #ebf1f0;
     width:600px;
+    overflow: hidden;
+    box-sizing: border-box;
     .closeModal {
         position: absolute;
         right: 10px;
@@ -46,26 +48,6 @@
     
     }
 }
-/* @media all and (min-width: 1680px) {
-    .HotspotContainer {
-         width: 35%;
-         right: 150px;
-     }
- }
-
-@media all and (min-width: 1400px) and (max-width: 1680px) {
-   .HotspotContainer {
-        width: 40%;
-        right: 150px;
-    }
-}
-
-@media all and (min-width: 1024px) and (max-width: 1400px) {
-    .HotspotContainer {
-        width: 50%;
-        right: 0;
-    }
-} */
 
 @media all and (max-width: 600px) {
     .HotspotContainer {

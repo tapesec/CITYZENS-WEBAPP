@@ -132,6 +132,7 @@ body {
 
 // TextFields outlined
 .cyz-text-field {
+    box-sizing: border-box;
     width: 100%;
     &.mdc-text-field--outlined.mdc-text-field--focused {
     
@@ -168,17 +169,6 @@ body {
             }
         }
     }
-    &.mdc-text-field--invalid {
-        border: 1px solid #b00020;
-        .mdc-text-field__input:focus {
-            border: 1px solid #b00020;
-        }
-        label.mdc-floating-label.mdc-floating-label--float-above {
-            color: #b00020;
-        }
-        div.mdc-line-ripple.mdc-line-ripple--active {
-            background-color: #b00020;
-        }
-    }
+    
 
 }

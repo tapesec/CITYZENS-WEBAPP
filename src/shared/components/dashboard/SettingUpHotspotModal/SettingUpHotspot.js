@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import CustomScroll from 'react-custom-scroll';
 import Modal from './../../lib/Modal';
-import WallHotspotForm from './WallHotspotForm';
-import EventHotspotForm from './EventHotspotForm';
+import MediaHotspotForm from './MediaHotspotForm';
 import AlertHotspotForm from './AlertHotspotForm';
 import actions from './../../../../client/actions';
 import { getSettingUpMode, hotspotEdition } from './../../../reducers/edition';
@@ -36,24 +34,16 @@ const SettingUpHotspotModal = ({
 
     const displayFormForSelectedHotspotType = () => {
         const hotspotType = initialValues.type;
-        if (hotspotType === HOTSPOT.TYPE.WALL_MESSAGE) {
+        if (hotspotType === HOTSPOT.TYPE.MEDIA) {
             return (
-                <WallHotspotForm
-                    initialValues={initialValues}
-                    dismissModal={dismissModal}
-                    onSubmit={handleSubmit}
-                    fromMobile={fromMobile}
-                />
-            );
-        }
-        if (hotspotType === HOTSPOT.TYPE.EVENT) {
-            return (
-                <EventHotspotForm
+                <MediaHotspotForm
                     settingUpMode={settingUpMode}
                     initialValues={initialValues}
                     dismissModal={dismissModal}
                     onSubmit={handleSubmit}
                     fromMobile={fromMobile}
+                    displayMessageToScreen={displayMessageToScreen}
+                    removeImage={removeImage}
                 />
             );
         }
@@ -80,10 +70,10 @@ const SettingUpHotspotModal = ({
             onClose={() => {}}
             modalClass="HotspotContainer"
             backdropClass="HotspotContainer-backdrop">
-            <section className="SettingUpHotspotContainer">
-                <CustomScroll heightRelativeToParent="100%">
-                    {displayFormForSelectedHotspotType()}
-                </CustomScroll>
+            <section
+                className="SettingUpHotspotContainer"
+                style={{ overflow: 'auto', height: '100%' }}>
+                {displayFormForSelectedHotspotType()}
             </section>
         </Modal>
     );

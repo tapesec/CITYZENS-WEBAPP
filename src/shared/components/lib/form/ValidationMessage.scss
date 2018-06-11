@@ -5,26 +5,3 @@
 .cityzen-form-label-warning  {
     color: #f19D00;
 }
-
-.rich-text-editor-toolbar {
-    padding-bottom:3px;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    i {
-        color: #ccc;
-        margin-right: 5px;
-        cursor: pointer;
-        font-size: 18px;
-    }
-    i.active {
-        color: black;
-    }
-    span.button {
-        span {
-            font-size: 18px;
-            cursor: pointer;
-        }
-    }
-}

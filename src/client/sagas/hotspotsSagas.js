@@ -4,7 +4,7 @@ import actions from './../actions';
 import cityzensApi from './../../shared/services/CityzensApi';
 import { hotspotEdition } from './../../shared/reducers/edition';
 import { getCityId, getCityName } from './../../shared/reducers/city';
-import WallHotspotPayload from './../services/payloads/WallHotspotPayload';
+import MediaHotspotPayload from './../services/payloads/WallHotspotPayload';
 import EventHotspotPayload from '../services/payloads/EventHotspotPayload';
 import MessageHotspotPayload from '../services/payloads/AlertHotspotPayload';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
@@ -64,18 +64,18 @@ export function* fetchHotspot(action) {
     }
 }
 
-export function* buildWallHotspotPayload(edition) {
+export function* buildMediaHotspotPayload(edition) {
     try {
         const cityId = yield select(getCityId);
         const cityName = yield select(getCityName);
-        const hotspotPayload = yield new WallHotspotPayload();
+        const hotspotPayload = yield new MediaHotspotPayload();
         hotspotPayload.type = edition.type;
         hotspotPayload.cityId = cityId;
         hotspotPayload.title = edition.title;
         hotspotPayload.scope = edition.scope;
         hotspotPayload.position = edition.position;
         hotspotPayload.address = { name: edition.address, city: cityName };
-        hotspotPayload.iconType = edition.iconType;
+        hotspotPayload.avatarIconUrl = edition.avatarIconUrl;
         hotspotPayload.valid();
         return hotspotPayload.payload;
     } catch (error) {
@@ -129,8 +129,8 @@ export function* buildAlertHotspotPayload(edition) {
     }
 }
 
-export function* persistWallHotspot(edition, accessToken) {
-    const hotspotPayload = yield call(buildWallHotspotPayload, edition);
+export function* persistMediaHotspot(edition, accessToken) {
+    const hotspotPayload = yield call(buildMediaHotspotPayload, edition);
     const response = yield call(
         [cityzensApi, cityzensApi.postHotspots],
         accessToken,
@@ -146,27 +146,6 @@ export function* persistWallHotspot(edition, accessToken) {
         },
     };
     yield call(persistMessage, persistMessageParams);
-    return newHotspot;
-}
-
-export function* persistEventHotspot(settingUpMode, edition, accessToken) {
-    const hotspotPayload = yield call(buildEventHotspotPayload, settingUpMode, edition);
-    if (settingUpMode === SETTING_UP) {
-        const response = yield call(
-            [cityzensApi, cityzensApi.postHotspots],
-            accessToken,
-            JSON.stringify(hotspotPayload),
-        );
-        const newHotspot = yield response.json();
-        return newHotspot;
-    }
-    const response = yield call(
-        [cityzensApi, cityzensApi.patchHotspots],
-        accessToken,
-        JSON.stringify(hotspotPayload),
-        edition.hotspotId,
-    );
-    const newHotspot = yield response.json();
     return newHotspot;
 }
 
@@ -189,11 +168,8 @@ export function* persistHotspot(action) {
         const edition = yield select(hotspotEdition.getCurrentHotspotEdition);
         const accessToken = yield select(getCityzenAccessToken);
 
-        if (edition.type === HOTSPOT.TYPE.WALL_MESSAGE) {
-            newHotspot = yield call(persistWallHotspot, edition, accessToken);
-        }
-        if (edition.type === HOTSPOT.TYPE.EVENT) {
-            newHotspot = yield call(persistEventHotspot, settingUpMode, edition, accessToken);
+        if (edition.type === HOTSPOT.TYPE.MEDIA) {
+            newHotspot = yield call(persistMediaHotspot, edition, accessToken);
         }
         if (edition.type === HOTSPOT.TYPE.ALERT) {
             newHotspot = yield call(persistAlertHotspot, edition, accessToken);
@@ -212,7 +188,6 @@ export function* persistHotspot(action) {
             ),
         );
     } catch (err) {
-        console.log(err, 'err -->');
         yield put(actions.clearHotspotEdition());
         yield put(
             actions.displayMessageToScreen(

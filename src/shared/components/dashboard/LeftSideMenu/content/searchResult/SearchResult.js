@@ -100,13 +100,7 @@ const SearchResult = props => {
                             <ListItem style={{ cursor: 'pointer' }} onClick={listItemOnClick(hit)}>
                                 <ListItemGraphic>
                                     <ImageCDN
-                                        filename={
-                                            hit.type === constants.HOTSPOT.TYPE.ALERT
-                                                ? helper
-                                                      .generateAvatarForAlertHotspot(hit)
-                                                      .split('/')[3]
-                                                : hit.avatarIconUrl.split('/')[3]
-                                        }
+                                        filename={hit.avatarIconUrl}
                                         style={{
                                             display: 'block',
                                             borderRadius: '50%',

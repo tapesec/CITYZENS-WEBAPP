@@ -3,7 +3,7 @@ import constant from './../../../shared/constants';
 
 const { HOTSPOT } = constant;
 
-class WallHotspotPayload extends HotspotPayload {
+class MediaHotspotPayload extends HotspotPayload {
     constructor() {
         super();
         this.payload = {};
@@ -18,4 +18,4 @@ class WallHotspotPayload extends HotspotPayload {
     }
 }
 
-export default WallHotspotPayload;
+export default MediaHotspotPayload;

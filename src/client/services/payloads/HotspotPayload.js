@@ -36,6 +36,10 @@ class HotspotPayload {
         }
     }
 
+    set avatarIconUrl(imgHandle) {
+        if (imgHandle) this.payload.avatarIconUrl = imgHandle;
+    }
+
     set alertHotspotImgLocation(imgHandle) {
         if (imgHandle) this.payload.alertHotspotImgLocation = imgHandle;
     }

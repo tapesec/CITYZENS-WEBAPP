@@ -8,7 +8,7 @@ div.Marker {
     }
     div.marker-tooltip {
         position: absolute;
-        z-index: 1;
+        z-index: -1;
         opacity: 0;
         bottom: 40px;
         left: -55px;
@@ -47,8 +47,9 @@ div.Marker {
     &:hover {
         cursor: pointer;
         div.marker-tooltip {
+            z-index: 1;
             opacity: 1;
-            bottom: 80px;        
+            bottom: 80px;
         }
     }
     div.marker-tooltip.focused {

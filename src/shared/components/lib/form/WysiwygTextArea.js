@@ -5,7 +5,6 @@ import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import SoftBreak from 'slate-soft-break';
 import Html from 'slate-html-serializer';
-import ValidationMessage from './ValidationMessage';
 
 import './WysiwygTextArea.scss';
 
@@ -25,7 +24,7 @@ const INLINE_TAGS = {
     span: 'emoji',
 };
 
-const EMOJIS = ['😃', '😬', '😂', '😅', '😆', '😍', '😱', '👏', '👍', '🙏', '🍔', '🍑', '🍆', '🔑'];
+const EMOJIS = ['😃', '😬', '😂', '😅', '😆', '😍', '😱', '👏', '👍', '🙏'];
 const noop = e => e.preventDefault(); /* eslint-disable consistent-return,default-case */
 const rules = [
     {
@@ -143,20 +142,43 @@ export default class renderWysiwygComponent extends React.Component {
     }
     constructor(props) {
         super(props);
-        if (props.input.value)
+        if (props.value)
             this.state = {
-                value: html.deserialize(props.input.value),
+                value: html.deserialize(props.value),
             };
         else
             this.state = {
                 value: defaultValues,
             };
+        this.state.style = {};
         this.onChange = this.onChange.bind(this);
+        this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
     } // On change, update the app's React state with the new editor value.
+    onFocus() {
+        this.setState({
+            style: { borderColor: '#159587', borderWidth: '2px' },
+        });
+    }
+    onBlur() {
+        this.setState({
+            style: { borderColor: '#C2C2C2', borderWidth: '1px' },
+        });
+    }
     onChange({ value }) {
         this.setState({ value });
         const string = html.serialize(value);
-        this.props.input.onChange(string === '<p></p>' ? '' : string); // needed for empty text validation
+        const onChangeVal = {
+            target: {
+                value: '',
+            },
+        };
+        if (string === '<p></p>') {
+            onChangeVal.target.value = '';
+        } else {
+            onChangeVal.target.value = string;
+        }
+        this.props.onChange(onChangeVal); // needed for empty text validation
     }
     onClickMark(event, type) {
         event.preventDefault();
@@ -220,7 +242,7 @@ export default class renderWysiwygComponent extends React.Component {
     }
     render() {
         return (
-            <div className="rich-text-editor">
+            <div className="rich-text-editor" style={this.state.style}>
                 {this.renderToolbar()}
                 <Editor
                     value={this.state.value}
@@ -229,17 +251,15 @@ export default class renderWysiwygComponent extends React.Component {
                     renderNode={renderWysiwygComponent.renderNode}
                     renderMark={renderWysiwygComponent.renderMark}
                     placeholder={this.props.placeholder}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
                 />
-                <ValidationMessage {...this.props.meta} />
             </div>
         );
     }
 }
 renderWysiwygComponent.propTypes = {
-    input: PropTypes.shape({
-        value: PropTypes.string,
-        onChange: PropTypes.func,
-    }).isRequired,
-    meta: PropTypes.shape({}).isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string.isRequired,
 };

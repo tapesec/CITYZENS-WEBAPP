@@ -61,53 +61,16 @@ const HotspotDescriptionModal = ({
 
     const displayDescriptionContent = () => {
         const { hotspotType } = hotspotTypeDescriptionModal;
-        if (hotspotType === HOTSPOT.TYPE.WALL_MESSAGE) {
-            const description = `Ce point vous permet de placer dans votre ville toutes sortes d'informations. Un
-            accident, des dégradations, des équipements d'accésibilité pour les
-            personnes à mobilités réduite ou même des travaux.`;
+        if (hotspotType === HOTSPOT.TYPE.MEDIA) {
+            const description = `Ce type de point est votre espace d'échange privilégié
+             avec la communauté, que vous soyez professionnel ou 
+             particuliers grace aux différents widget vous pourrez 
+             échanger avec la communauté.`;
             return (
                 <Content
                     title="Mur de messages"
-                    icon={HOTSPOT.WALL.AVATAR_ICON.DEFAULT}
+                    icon={HOTSPOT.MEDIA.AVATAR_ICON.DEFAULT}
                     description={description}
-                    submitActions={[
-                        {
-                            func: () => {
-                                // validAndInitDropMarkerMode(hotspotType, HOTSPOT.ICON.EVENT);
-                                validAndOpenAdressModal(hotspotType);
-                            },
-                            label: KNOWN_ADDRESS_LABEL,
-                            icon: KNOWN_ADDRESS_ICON,
-                        },
-                        {
-                            func: () => {
-                                validAndInitDropMarkerMode(hotspotType);
-                            },
-                            label: DROP_MARKER_LABEL,
-                            icon: DROP_MARKER_ICON,
-                        },
-                        {
-                            func: () => {
-                                createHotspotFromMyPosition(hotspotType);
-                            },
-                            label: `${MY_POSITION_LABEL} ${
-                                !visitorIsLocated ? '(Pas de GPS)' : ''
-                            }`,
-                            icon: MY_POSITION_ICON,
-                            disabled: !visitorIsLocated,
-                        },
-                    ]}
-                    cancelAction={cancelModal}
-                />
-            );
-        }
-        if (hotspotType === HOTSPOT.TYPE.EVENT) {
-            const description = `Choisissez ce point si vous organisez un évenement culturel, sportifs ou autres. Vous pouvez définir une date de fin et le point disparaitra automatiquement de la carte.`;
-            return (
-                <Content
-                    title="Evenement avec fin programmée"
-                    description={description}
-                    icon={HOTSPOT.EVENT.AVATAR_ICON.DEFAULT}
                     submitActions={[
                         {
                             func: () => {

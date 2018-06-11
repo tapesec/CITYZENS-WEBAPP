@@ -174,8 +174,7 @@ AddressForm.propTypes = {
     inputLabel: PropTypes.string.isRequired,
     initialValues: PropTypes.shape({
         address: PropTypes.string,
-    }).isRequired,
-    meta: PropTypes.object, // eslint-disable-line
+    }).isRequired, // eslint-disable-line
 };
 
 /* AddressForm.defaultProps = {

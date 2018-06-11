@@ -8,6 +8,8 @@ const fileStackBaseContentUrl = process.env.FILE_STACK_CONTENT_BASE_URL;
 const fileStackBaseProcessUrl = process.env.FILE_STACK_PROCESS_BASE_URL;
 const filestackPolicy = process.env.FILE_STACK_POLICY;
 const filestackSignature = process.env.FILE_STACK_SIGNATURE;
+const mediaDefaultIcon = process.env.MEDIA_HOTSPOT_DEFAULT_ICON;
+const infoDefaultIcon = process.env.INFO_HOTSPOT_DEFAULT_ICON;
 
 export default {
     google: {
@@ -30,5 +32,9 @@ export default {
             policy: filestackPolicy,
             signature: filestackSignature,
         },
+    },
+    hotspot: {
+        mediaDefaultIcon,
+        infoDefaultIcon,
     },
 };

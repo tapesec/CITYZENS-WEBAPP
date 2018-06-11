@@ -10,8 +10,7 @@ import './Marker.scss';
 class Marker extends React.Component {
     static mapIconWithIconType(type) {
         const iconTypes = {
-            WallMessage: '5lkJTLUSCGxTZL3X3Bgw',
-            Event: 'OdVlEfDATlSW4R6TfcEy',
+            Media: '5lkJTLUSCGxTZL3X3Bgw',
             Alert: 'ojfelOwUQ86ZoNkItkVb',
         };
         return iconTypes[type];
