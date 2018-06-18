@@ -1,4 +1,4 @@
-import { renderToString } from 'react-dom/server';
+import { renderToNodeStream } from 'react-dom/server';
 import React from 'react';
 import { matchPath, StaticRouter } from 'react-router-dom';
 import { createStore } from 'redux';
@@ -24,7 +24,7 @@ export default (async function router(req, res) {
 
     const context = {};
 
-    const html = renderToString(
+    const html = renderToNodeStream(
         <StaticRouter context={context} location={req.url}>
             <Provider store={store}>
                 <App />
