@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Icon } from 'rmwc/Icon';
 import { Typography } from 'rmwc/Typography';
 import ReactFilestack from 'filestack-react';
+import HotspotHeader from '../common/hotspotHeader/HotspotHeader';
 import config from '../../../../../config';
 import actions from '../../../../../../client/actions';
 import { getCityzenId, isAuthenticated } from '../../../../../reducers/authenticatedCityzen';
@@ -16,7 +17,6 @@ import { NOTIFICATION_MESSAGE } from './../../../../../../client/constants';
 import constants from '../../../../../constants';
 
 import './AlertHotspot.scss';
-import ImageCDN from '../../../../lib/ImageCDN';
 
 const DisplayQuestionOrSayThanks = props =>
     props.hotspot.voterList.some(vote => vote[0] === props.cityzenId) ? ( // [[cityzenId, pertinence], …]
@@ -123,39 +123,11 @@ const AlertHotspot = props => (
         <ActionsToolbar closeAction={props.closeAction} />
         <section className="HotspotContent AlertHotspot">
             <section style={{ marginRight: '12px' }}>
-                <header
-                    style={{
-                        padding: '5px',
-                        backgroundColor: 'white',
-                        marginBottom: '10px',
-                        borderRadius: '5px',
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}>
-                    <ImageCDN
-                        style={{ width: '60px' }}
-                        alt="icone d'un point d'information"
-                        filename={constants.HOTSPOT.ALERT.AVATAR_ICON.DEFAULT}
-                    />
-                    <div style={{ marginLeft: '10px' }}>
-                        <Icon
-                            theme="text-secondary-on-background"
-                            style={{ verticalAlign: 'middle' }}
-                            strategy="ligature">
-                            location_on
-                        </Icon>{' '}
-                        <Typography tag="span" use="body2" theme="text-primary-on-background">
-                            {props.hotspot.address.name}
-                        </Typography>
-                        <Typography
-                            style={{ marginLeft: '28px' }}
-                            tag="div"
-                            use="caption"
-                            theme="text-secondary-on-background">
-                            {props.hotspot.views} vues
-                        </Typography>
-                    </div>
-                </header>
+                <HotspotHeader
+                    address={props.hotspot.address.name}
+                    views={props.hotspot.views}
+                    hotspotIcon={constants.HOTSPOT.ALERT.AVATAR_ICON.DEFAULT}
+                />
                 {DiplayImageDescriptionOrImport(
                     props.hotspot.id,
                     props.hotspot.imageDescriptionLocation,
@@ -183,11 +155,7 @@ const AlertHotspot = props => (
                             date={props.hotspot.message.updatedAt}
                         />
                     </Typography>
-                    <Typography
-                        tag="p"
-                        use="body2"
-                        className="question-label"
-                        theme="text-primary-on-background">
+                    <Typography tag="p" use="body2" theme="text-primary-on-background">
                         {props.hotspot.message.content}
                     </Typography>
                     <Typography tag="em" use="body2" theme="text-secondary-on-background">
@@ -221,6 +189,7 @@ const AlertHotspot = props => (
 
 AlertHotspot.propTypes = {
     hotspot: PropTypes.shape({
+        type: PropTypes.string,
         message: PropTypes.shape({
             updatedAt: PropTypes.string,
             content: PropTypes.string.isRequired,

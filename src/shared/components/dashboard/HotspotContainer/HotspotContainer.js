@@ -8,7 +8,6 @@ import {
     widgetIsBeingEdited,
 } from './../../../reducers/componentsState';
 import WallHotspot from './HotspotViewMod/WallHotspot';
-import EventHotspot from './HotspotViewMod/EventHotspot/EventHotspot';
 import AlertHotspot from './HotspotViewMod/AlertHotspot/AlertHotspot';
 import SlideshowAdmin from './Widgets/Slideshow/SlideshowAdmin';
 import Modal from './../../lib/Modal';
@@ -35,16 +34,13 @@ class HotspotContainer extends React.Component {
         if (!readableHotspot) {
             return <p>Loading …</p>;
         }
-
-        if (readableHotspot.type === HOTSPOT.TYPE.EVENT) {
-            return <EventHotspot loading={contentIsLoading} hotspot={readableHotspot} />;
-        }
-        if (readableHotspot.type === HOTSPOT.TYPE.WALL_MESSAGE) {
+        if (readableHotspot.type === HOTSPOT.TYPE.MEDIA) {
             return (
                 <WallHotspot
                     loading={contentIsLoading}
                     hotspot={readableHotspot}
                     clearHotspotMessageEdition={clearHotspotMessageEdition}
+                    closeAction={this.callRightContextAction}
                 />
             );
         }

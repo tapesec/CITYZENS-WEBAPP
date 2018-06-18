@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Typography from 'rmwc/Typography';
 import Icon from 'rmwc/Icon';
-import PropTypes from 'prop-types';
-import { Elevation } from 'rmwc/Elevation';
 import DateFormater from '../../../../lib/DateFormater';
+import ImageCDN from './../../../../lib/ImageCDN';
+import ComboIcon from './../../../../lib/comboIcon/ComboIcon';
 import './../HotspotMessage.scss';
 
 const HotspotMessage = ({ message, cityzenIsAuthor, edit }) => {
@@ -13,40 +14,63 @@ const HotspotMessage = ({ message, cityzenIsAuthor, edit }) => {
 
     const displayEditAction = () =>
         cityzenIsAuthor ? (
-            <Icon className="edit-icon" strategy="ligature" onClick={editMessage}>
-                mode_edit
-            </Icon>
+            <ComboIcon
+                className="contextual-action"
+                items={[
+                    { label: 'Editer', action: editMessage },
+                    { label: 'Supprimer', action: () => {} },
+                ]}
+            />
         ) : null;
 
     return (
-        <Elevation z="4" style={{ margin: '1px' }}>
-            <article key={message.id} className="HotspotMessage">
-                <header>
-                    {displayEditAction()}
-                    <Typography
-                        style={{ marginBottom: 10 }}
-                        use="headline6"
-                        tag="h2"
-                        theme="secondary">
-                        {message.title}
-                    </Typography>
-                    <Typography
-                        style={{ marginBottom: 10 }}
-                        use="subtitle2"
-                        tag="p"
-                        theme="primary-dark">
-                        Rédigé par <strong>{message.author.pseudo}</strong>{' '}
-                        <DateFormater duration date={message.createdAt} />.{' '}
-                        <DateFormater duration labelPrefix="Mis à jour" date={message.updatedAt} />
-                    </Typography>
-                </header>
-                <Typography
-                    tag="div"
-                    use="body1"
-                    dangerouslySetInnerHTML={{ __html: message.body }}
+        <article key={message.id} className="HotspotMessage">
+            <div style={{ display: 'flex' }}>
+                <ImageCDN
+                    style={{ width: '50px', marginRight: '16px', marginTop: '40px' }}
+                    filename="KI9EVeOiS3KbqA5G7es1"
+                    alt="avatar de l'auteur"
                 />
-            </article>
-        </Elevation>
+                <div>
+                    <header>
+                        {displayEditAction()}
+                        <Typography
+                            style={{ marginBottom: 10 }}
+                            use="body1"
+                            tag="h2"
+                            theme="secondary">
+                            {message.title}
+                        </Typography>
+                        <Typography
+                            style={{ fontWeight: 'bold' }}
+                            tag="strong"
+                            use="body2"
+                            theme="text-primary-on-background">
+                            {message.author.pseudo}
+                        </Typography>{' '}
+                        <Typography
+                            tag="span"
+                            style={{ color: 'gray' }}
+                            use="body2"
+                            theme="text-secondary-on-background">
+                            <DateFormater duration date={message.createdAt} />
+                        </Typography>
+                    </header>
+                    <Typography
+                        tag="p"
+                        use="body2"
+                        dangerouslySetInnerHTML={{ __html: message.body }}
+                    />
+                    <Typography tag="em" use="body2" theme="text-secondary-on-background">
+                        <DateFormater
+                            labelPrefix="Dernière mise à jour "
+                            duration
+                            date={message.updatedAt}
+                        />
+                    </Typography>
+                </div>
+            </div>
+        </article>
     );
 };
 

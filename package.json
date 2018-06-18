@@ -56,6 +56,7 @@
     "react-dom": "^16.2.0",
     "react-gateway": "^3.0.0",
     "react-modal2": "^5.0.0",
+    "react-onclickoutside": "^6.7.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-prop-types": "^1.0.0",

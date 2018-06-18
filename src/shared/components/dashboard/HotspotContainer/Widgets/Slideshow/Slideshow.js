@@ -44,6 +44,7 @@ class Slideshow extends React.Component {
                             overflow: 'hidden',
                             visibility: 'hidden',
                             position: 'relative',
+                            borderRadius: '5px',
                         },
 
                         wrapper: {
@@ -51,6 +52,7 @@ class Slideshow extends React.Component {
                             flexDirection: 'row',
                             overflow: 'hidden',
                             position: 'relative',
+                            borderRadius: '5px',
                         },
 
                         child: {
@@ -58,6 +60,7 @@ class Slideshow extends React.Component {
                             width: '100%',
                             position: 'relative',
                             transitionProperty: 'transform',
+                            borderRadius: '5px',
                         },
                     }}
                     swipeOptions={{

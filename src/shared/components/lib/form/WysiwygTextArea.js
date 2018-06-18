@@ -242,9 +242,11 @@ export default class renderWysiwygComponent extends React.Component {
     }
     render() {
         return (
-            <div className="rich-text-editor" style={this.state.style}>
+            <div className="rich-text-editor">
                 {this.renderToolbar()}
                 <Editor
+                    style={this.state.style}
+                    className="editor-content"
                     value={this.state.value}
                     onChange={this.onChange}
                     plugins={plugins}

@@ -1,8 +1,5 @@
 .rich-text-editor {
-    border: 1px solid #C2C2C2;
     border-radius: 3px;
-    padding: 10px;
-    min-height: 200px;
     font-family: roboto;
     margin-top: 20px;
     line-height: 1.75rem;
@@ -13,9 +10,6 @@
         margin-bottom: 20px;
     }
     .rich-text-editor-toolbar {
-        padding-bottom:3px;
-        border-bottom: 1px dashed #C2C2C2;
-        margin-bottom: 10px;
         display: flex;
         align-items: center;
         i {
@@ -32,6 +26,16 @@
                 font-size: 18px;
                 cursor: pointer;
             }
+        }
+    }
+    .editor-content {
+        padding: 10px;
+        border: 1px solid #C2C2C2;
+        border-radius: 4px;
+        font-size: 14px;
+        min-height: 150px;
+        &:hover {
+            border-color: black;
         }
     }
 }

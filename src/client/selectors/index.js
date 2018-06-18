@@ -2,8 +2,7 @@ import { createSelector } from 'reselect';
 import { getHits } from './../../shared/reducers/algolia';
 
 const HOTSPOT_TYPES = {
-    WallMessage: 'WallMessage',
-    Event: 'Event',
+    MEDIA: 'Media',
     Alert: 'Alert',
 };
 
@@ -57,7 +56,7 @@ const getReadableHotspot = state => {
     if (hotspotId) {
         hotspot = getHotspotById(state, hotspotId);
     }
-    if (hotspot && hotspot.type === HOTSPOT_TYPES.WallMessage) {
+    if (hotspot && hotspot.type === HOTSPOT_TYPES.MEDIA) {
         hotspot = {
             ...hotspot,
             messages: sortMessagesByDate(getMessagesByHotspotId(state, hotspot.id)),

@@ -10,17 +10,11 @@ article.HotspotMessage {
         margin-bottom: 20px;
     }
     header {
-        .edit-icon {
+        .contextual-action {
             position: absolute;
-            right: 5px;
-            top: 5px;
+            right: 10px;
+            top: 15px;
             font-size: 1em;
-            border-radius: 50%;
-            background-color: darken($mdc-theme-background, 8%);
-            &:hover {
-                background-color: darken($mdc-theme-background, 15%);
-            }
-            padding: 10px;
             cursor: pointer;
         }
     }

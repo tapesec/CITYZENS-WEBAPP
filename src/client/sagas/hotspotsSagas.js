@@ -54,7 +54,7 @@ export function* fetchHotspot(action) {
         const response = yield call([cityzensApi, cityzensApi.getHotspot], accessToken, hotspotId);
         const syncedHotspot = yield response.json();
         yield put(actions.fetchHotspotSucceded(syncedHotspot));
-        if (syncedHotspot.type === HOTSPOT.TYPE.WALL_MESSAGE) {
+        if (syncedHotspot.type === HOTSPOT.TYPE.MEDIA) {
             yield call(fetchMessages, { payload: { hotspotId: syncedHotspot.id } });
         }
     } catch (err) {

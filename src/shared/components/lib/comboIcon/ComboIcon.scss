@@ -1,0 +1,54 @@
+@import '../../../../client/variables.scss';
+
+.ComboIcon {
+    .dropdown-caret {
+        position: absolute;
+        top: 20px;
+        left: 2px;
+        width: 18px;
+        height: 10px;
+        float: left;
+        overflow: hidden;
+        .caret-outer {
+            border-bottom: 10px solid #657786;
+            border-bottom-color: rgba(0,0,0,0.1);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            height: auto;
+            left: 0;
+            top: 0;
+            width: auto;
+        }
+        .caret-inner {
+            top: 2px;
+            left: 1px;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 9px solid #fff;
+            border-bottom-color: #fff;
+            position: absolute;
+            z-index: 1;
+        }
+    }
+    
+    .combo-box {
+        position: absolute;
+        background-color: white;
+        line-height: 24px;
+        right: 0px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+        line-height: 2px;
+        border-radius: 2px;
+        border: 1px solid lightgray;
+        padding: 3px 0 3px 0;
+        .combo-item {
+            color: gray;
+            padding: 5px 15px 5px 15px;
+            line-height: 15px;
+            &:hover {
+                background-color: $mdc-theme-secondary;
+                color: white;
+            }
+        }
+    }
+}

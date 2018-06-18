@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Icon } from 'rmwc/Icon';
 import Typography from 'rmwc/Typography';
 
-const ActionsToolbar = ({ editAction, slideShowAction, closeAction }) => (
+const ActionsToolbar = ({ editAction, slideShowAction, closeAction, newMessageAction }) => (
     <Typography
         theme="background text-icon-on-background"
         className="HotspotContainerToolbar"
@@ -13,6 +13,13 @@ const ActionsToolbar = ({ editAction, slideShowAction, closeAction }) => (
             <div role="button" onKeyDown={editAction} tabIndex={0} onClick={editAction}>
                 <Icon strategy="component" title="editer">
                     mode_edit
+                </Icon>
+            </div>
+        ) : null}
+        {newMessageAction ? (
+            <div role="button" onKeyDown={newMessageAction} tabIndex={0} onClick={newMessageAction}>
+                <Icon theme="secondary" strategy="component" title="Nouveau message">
+                    create
                 </Icon>
             </div>
         ) : null}
@@ -51,12 +58,14 @@ const ActionsToolbar = ({ editAction, slideShowAction, closeAction }) => (
 
 ActionsToolbar.propTypes = {
     editAction: PropTypes.func,
+    newMessageAction: PropTypes.func,
     slideShowAction: PropTypes.func,
     closeAction: PropTypes.func.isRequired,
 };
 
 ActionsToolbar.defaultProps = {
     editAction: undefined,
+    newMessageAction: undefined,
     slideShowAction: undefined,
 };
 
