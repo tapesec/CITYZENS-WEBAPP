@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from 'rmwc/Typography';
-import Icon from 'rmwc/Icon';
 import DateFormater from '../../../../lib/DateFormater';
 import ImageCDN from './../../../../lib/ImageCDN';
 import ComboIcon from './../../../../lib/comboIcon/ComboIcon';

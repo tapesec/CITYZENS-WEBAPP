@@ -123,7 +123,7 @@ class MessageForm extends React.Component {
     }
 
     render() {
-        const { clearHotspotMessageEdition, handleSubmit, editionMode } = this.props;
+        const { editionMode } = this.props;
         return (
             <article className="HotspotMessage WallHotspotMessageForm">
                 <form className="cityzen-form" onSubmit={this.formSubmit}>
@@ -174,8 +174,14 @@ class MessageForm extends React.Component {
 }
 MessageForm.propTypes = {
     clearHotspotMessageEdition: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     editionMode: PropTypes.string.isRequired,
+    initialValues: PropTypes.shape({
+        title: PropTypes.string,
+        id: PropTypes.string,
+        pinned: PropTypes.bool,
+        body: PropTypes.string,
+    }).isRequired,
 };
 
 export default MessageForm;
