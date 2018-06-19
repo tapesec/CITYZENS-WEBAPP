@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { Icon } from 'rmwc/Icon';
 import Typography from 'rmwc/Typography';
 
-const ActionsToolbar = ({ editAction, slideShowAction, closeAction, newMessageAction }) => (
+const ActionsToolbar = ({
+    editAction,
+    slideShowAction,
+    closeAction,
+    newMessageAction,
+    isEditingWidget,
+}) => (
     <Typography
         theme="background text-icon-on-background"
         className="HotspotContainerToolbar"
@@ -38,21 +44,10 @@ const ActionsToolbar = ({ editAction, slideShowAction, closeAction, newMessageAc
                 tabIndex={0}
                 onClick={closeAction}>
                 <Icon strategy="ligature" title="Fermer la fenêtre">
-                    close
+                    {isEditingWidget ? 'keyboard_backspace' : 'clear'}
                 </Icon>
             </div>
         ) : null}
-
-        {/* <div>
-            <Icon strategy="component" title="Supprimez le point d'interet">
-                delete_forever
-            </Icon>
-        </div>
-        <div>
-            <Icon strategy="component" title="Passez en mode privée">
-                lock_open
-            </Icon>
-        </div> */}
     </Typography>
 );
 
@@ -61,12 +56,14 @@ ActionsToolbar.propTypes = {
     newMessageAction: PropTypes.func,
     slideShowAction: PropTypes.func,
     closeAction: PropTypes.func.isRequired,
+    isEditingWidget: PropTypes.bool,
 };
 
 ActionsToolbar.defaultProps = {
     editAction: undefined,
     newMessageAction: undefined,
     slideShowAction: undefined,
+    isEditingWidget: undefined,
 };
 
 export default ActionsToolbar;

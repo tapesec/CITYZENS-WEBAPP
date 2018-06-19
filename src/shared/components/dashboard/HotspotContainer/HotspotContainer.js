@@ -54,7 +54,7 @@ class HotspotContainer extends React.Component {
     }
 
     displayWidgetConfigurationPageByName(widgetName) {
-        const { readableHotspot } = this.props;
+        const { readableHotspot, isEditingWidget } = this.props;
         if (widgetName === constant.WIDGET.NAME.MEDIA_SLIDE_SHOW) {
             return (
                 <SlideshowAdmin
@@ -62,6 +62,7 @@ class HotspotContainer extends React.Component {
                     imagesId={readableHotspot.slideShow}
                     storageFolder={`${readableHotspot.author.id}-${readableHotspot.slug}`}
                     closeAction={this.callRightContextAction}
+                    isEditingWidget={isEditingWidget}
                 />
             );
         }
@@ -91,14 +92,14 @@ class HotspotContainer extends React.Component {
         if (hotspotMessageEditionIsInProgress) {
             clearHotspotMessageEdition();
         }
-        if (this.props.widgetIsBeingEdited) {
+        if (this.props.isEditingWidget) {
             this.backFromWidget();
         }
         closeModal();
     }
 
     callRightContextAction() {
-        if (this.props.widgetIsBeingEdited) {
+        if (this.props.isEditingWidget) {
             this.backFromWidget();
         } else {
             this.closeModal();
@@ -131,7 +132,7 @@ HotspotContainer.propTypes = {
     widgetCurrentlyEdited: PropTypes.shape({
         name: PropTypes.string,
     }).isRequired,
-    widgetIsBeingEdited: PropTypes.bool.isRequired,
+    isEditingWidget: PropTypes.bool.isRequired,
     hotspotMessageEditionIsInProgress: PropTypes.bool.isRequired,
     clearHotspotMessageEdition: PropTypes.func.isRequired,
     closeHotspotWidgetAdminPage: PropTypes.func.isRequired,
@@ -147,7 +148,7 @@ const mapStateToProps = state => ({
     readableHotspot: selectors.getReadableHotspot(state),
     hotspotMessageEditionIsInProgress: messageEdition.isInProgress(state),
     widgetCurrentlyEdited: selectWidgetCurrentlyEdited(state),
-    widgetIsBeingEdited: widgetIsBeingEdited(state),
+    isEditingWidget: widgetIsBeingEdited(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -159,4 +160,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HotspotContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(HotspotContainer);

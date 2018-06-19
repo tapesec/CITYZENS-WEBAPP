@@ -21,6 +21,7 @@ const SlideshowAdmin = ({
     storageFolder,
     isRemovingImage,
     closeAction,
+    isEditingWidget,
 }) => {
     const getImageUploaderOptions = () => ({
         fromSources: ['local_file_system', 'url', 'webcam'],
@@ -45,7 +46,7 @@ const SlideshowAdmin = ({
     };
     return (
         <Fragment>
-            <ActionsToolbar closeAction={closeAction} />
+            <ActionsToolbar closeAction={closeAction} isEditingWidget={isEditingWidget} />
             <section className="HotspotContent">
                 <CustomScroll heightRelativeToParent="100%">
                     <Typography tag="h1" theme="text-secondary-on-background" use="headline5">
@@ -118,6 +119,7 @@ SlideshowAdmin.propTypes = {
     storageFolder: PropTypes.string.isRequired,
     isRemovingImage: PropTypes.bool.isRequired,
     closeAction: PropTypes.func.isRequired,
+    isEditingWidget: PropTypes.bool.isRequired,
 };
 
 SlideshowAdmin.defaultProps = {
@@ -134,4 +136,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SlideshowAdmin);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(SlideshowAdmin);
