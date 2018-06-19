@@ -130,7 +130,7 @@ const AlertHotspot = props => (
                 />
                 {DiplayImageDescriptionOrImport(
                     props.hotspot.id,
-                    props.hotspot.imageDescriptionLocation,
+                    props.hotspot.pictureDescription,
                     props.cityzenIsAuthenticated,
                     props.saveUploadedImage,
                     props.displayMessageToScreen,
@@ -203,7 +203,7 @@ AlertHotspot.propTypes = {
             id: PropTypes.string,
             pseudo: PropTypes.string,
         }),
-        imageDescriptionLocation: PropTypes.string,
+        pictureDescription: PropTypes.string,
     }).isRequired,
     cityzenIsAuthenticated: PropTypes.bool.isRequired,
     saveUploadedImage: PropTypes.func.isRequired,
@@ -233,4 +233,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withViewCounter(AlertHotspot));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withViewCounter(AlertHotspot));
