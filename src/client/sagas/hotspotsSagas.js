@@ -5,7 +5,6 @@ import cityzensApi from './../../shared/services/CityzensApi';
 import { hotspotEdition } from './../../shared/reducers/edition';
 import { getCityId, getCityName } from './../../shared/reducers/city';
 import MediaHotspotPayload from './../services/payloads/WallHotspotPayload';
-import EventHotspotPayload from '../services/payloads/EventHotspotPayload';
 import MessageHotspotPayload from '../services/payloads/AlertHotspotPayload';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
 import { getVisitorPosition } from '../../shared/reducers/visitor';
@@ -17,7 +16,7 @@ import { reverseGeocoding } from './geolocalisationSagas';
 
 const {
     HOTSPOT,
-    EDITION_MODE: { SETTING_UP, EDITION },
+    EDITION_MODE: { SETTING_UP },
 } = sharedConstants;
 
 export function* fetchHotspots(action) {
@@ -76,34 +75,6 @@ export function* buildMediaHotspotPayload(edition) {
         hotspotPayload.position = edition.position;
         hotspotPayload.address = { name: edition.address, city: cityName };
         hotspotPayload.avatarIconUrl = edition.avatarIconUrl;
-        hotspotPayload.valid();
-        return hotspotPayload.payload;
-    } catch (error) {
-        throw new Error(error.message);
-    }
-}
-
-export function* buildEventHotspotPayload(settingUpMode, edition) {
-    try {
-        const cityId = yield select(getCityId);
-        const cityName = yield select(getCityName);
-        const hotspotPayload = yield new EventHotspotPayload(settingUpMode);
-        if (settingUpMode === SETTING_UP) {
-            hotspotPayload.description = edition.description;
-            hotspotPayload.dateEnd = edition.dateEnd;
-            hotspotPayload.type = edition.type;
-            hotspotPayload.cityId = cityId;
-            hotspotPayload.title = edition.title;
-            hotspotPayload.scope = edition.scope;
-            hotspotPayload.position = edition.position;
-            hotspotPayload.address = { name: edition.address, city: cityName };
-            hotspotPayload.iconType = edition.iconType;
-        }
-        if (settingUpMode === EDITION) {
-            hotspotPayload.scope = edition.scope;
-            hotspotPayload.description = edition.description;
-            hotspotPayload.dateEnd = edition.dateEnd;
-        }
         hotspotPayload.valid();
         return hotspotPayload.payload;
     } catch (error) {

@@ -5,8 +5,7 @@ import HotspotHeader from './common/hotspotHeader/HotspotHeader';
 import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
-import NewHotspotMessageForm from './HotspotMessage/NewMessageFormContainer';
-import EditHotspotMessageForm from './HotspotMessage/EditMessageFormContainer';
+import MessageForm from './HotspotMessage/MessageForm';
 import Slideshow from '../Widgets/Slideshow/Slideshow';
 import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
 import actions from './../../../../../client/actions';
@@ -67,7 +66,7 @@ const WallHotspot = ({
     const displayNewMessageControl = () => {
         if (cityzenIsAuthenticated && hotspot.author.id === cityzenId) {
             return settingUpMode === constants.EDITION_MODE.SETTING_UP ? (
-                <NewHotspotMessageForm
+                <MessageForm
                     initialValues={messageEditionData}
                     key={hotspot.id}
                     onSubmit={handleSubmit}
@@ -115,7 +114,7 @@ const WallHotspot = ({
                             hotspot.messages.map(
                                 message =>
                                     messageEditionData.id === message.id ? (
-                                        <EditHotspotMessageForm
+                                        <MessageForm
                                             initialValues={messageEditionData}
                                             key={hotspot.id}
                                             onSubmit={handleSubmit}

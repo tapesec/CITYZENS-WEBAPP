@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 import authenticatedCityzen from './authenticatedCityzen';
 import visitor from './visitor';
 import componentsState from './componentsState';
@@ -19,6 +18,5 @@ export default combineReducers({
     city,
     messages,
     edition,
-    form: formReducer,
     visitor,
 });

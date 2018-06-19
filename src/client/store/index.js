@@ -3,7 +3,6 @@ import createSagaMiddleware from 'redux-saga';
 // eslint-disable-next-line
 import { composeWithDevTools } from 'redux-devtools-extension';
 import init from './../sagas/rootSagas';
-import reduxFormMiddleware from './../middlewares/redux-form-workaround';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -11,7 +10,7 @@ const configureStore = (reducer, preloadedState) => {
     const store = createStore(
         reducer,
         preloadedState,
-        composeWithDevTools(applyMiddleware(sagaMiddleware, reduxFormMiddleware)),
+        composeWithDevTools(applyMiddleware(sagaMiddleware)),
     );
     sagaMiddleware.run(init);
     return store;

@@ -7,10 +7,6 @@ import onClickOutside from 'react-onclickoutside';
 import './ComboIcon.scss';
 
 class ComboIcon extends React.Component {
-    static onSelectItem(item) {
-        return () => item.action();
-    }
-
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +14,9 @@ class ComboIcon extends React.Component {
         };
         this.onClickHandler = this.onClickHandler.bind(this);
         // this.onSelectItem = this.onSelectItem.bind(this);
+    }
+    static onSelectItem(item) {
+        return () => item.action();
     }
 
     onClickHandler() {

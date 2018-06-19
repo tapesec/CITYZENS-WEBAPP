@@ -107,39 +107,6 @@ const defaultValues = Value.fromJSON({
 });
 const plugins = [SoftBreak({ shift: true })]; // Define a React component renderer for our code blocks.
 export default class renderWysiwygComponent extends React.Component {
-    static renderNode(props) {
-        const { attributes, children, node, isSelected } = props;
-        switch (node.type) {
-            case 'paragraph': {
-                return <p {...attributes}>{children}</p>;
-            }
-            case 'emoji': {
-                const { data } = node;
-                const code = data.get('code');
-                return (
-                    <span
-                        className={`emoji ${isSelected ? 'selected' : ''}`}
-                        {...props.attributes}
-                        contentEditable={false}
-                        onDrop={noop}>
-                        {code}
-                    </span>
-                );
-            }
-        }
-        return undefined;
-    }
-    static renderMark(props) {
-        switch (props.mark.type) {
-            case 'bold':
-                return <strong>{props.children}</strong>;
-            case 'italic':
-                return <em>{props.children}</em>;
-            case 'underlined':
-                return <u>{props.children}</u>;
-        }
-        return undefined;
-    }
     constructor(props) {
         super(props);
         if (props.value)
@@ -155,16 +122,6 @@ export default class renderWysiwygComponent extends React.Component {
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
     } // On change, update the app's React state with the new editor value.
-    onFocus() {
-        this.setState({
-            style: { borderColor: '#159587', borderWidth: '2px' },
-        });
-    }
-    onBlur() {
-        this.setState({
-            style: { borderColor: '#C2C2C2', borderWidth: '1px' },
-        });
-    }
     onChange({ value }) {
         this.setState({ value });
         const string = html.serialize(value);
@@ -200,9 +157,52 @@ export default class renderWysiwygComponent extends React.Component {
             .focus();
         this.onChange(change);
     }
+    onFocus() {
+        this.setState({
+            style: { borderColor: '#159587', borderWidth: '2px' },
+        });
+    }
+    onBlur() {
+        this.setState({
+            style: { borderColor: '#C2C2C2', borderWidth: '1px' },
+        });
+    }
     hasMark(type) {
         const { value } = this.state;
         return value.activeMarks.some(mark => mark.type === type);
+    }
+    static renderMark(props) {
+        switch (props.mark.type) {
+            case 'bold':
+                return <strong>{props.children}</strong>;
+            case 'italic':
+                return <em>{props.children}</em>;
+            case 'underlined':
+                return <u>{props.children}</u>;
+        }
+        return undefined;
+    }
+    static renderNode(props) {
+        const { attributes, children, node, isSelected } = props;
+        switch (node.type) {
+            case 'paragraph': {
+                return <p {...attributes}>{children}</p>;
+            }
+            case 'emoji': {
+                const { data } = node;
+                const code = data.get('code');
+                return (
+                    <span
+                        className={`emoji ${isSelected ? 'selected' : ''}`}
+                        {...props.attributes}
+                        contentEditable={false}
+                        onDrop={noop}>
+                        {code}
+                    </span>
+                );
+            }
+        }
+        return undefined;
     }
     renderMarkButton(type, icon) {
         const isActive = this.hasMark(type);
