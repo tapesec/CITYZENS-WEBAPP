@@ -117,7 +117,7 @@ export default class renderWysiwygComponent extends React.Component {
             this.state = {
                 value: defaultValues,
             };
-        this.state.style = {};
+        this.state.className = {};
         this.onChange = this.onChange.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
@@ -159,12 +159,12 @@ export default class renderWysiwygComponent extends React.Component {
     }
     onFocus() {
         this.setState({
-            style: { borderColor: '#159587', borderWidth: '2px' },
+            className: 'selected',
         });
     }
     onBlur() {
         this.setState({
-            style: { borderColor: '#C2C2C2', borderWidth: '1px' },
+            className: '',
         });
     }
     hasMark(type) {
@@ -244,18 +244,19 @@ export default class renderWysiwygComponent extends React.Component {
         return (
             <div className="rich-text-editor">
                 {this.renderToolbar()}
-                <Editor
-                    style={this.state.style}
-                    className="editor-content"
-                    value={this.state.value}
-                    onChange={this.onChange}
-                    plugins={plugins}
-                    renderNode={renderWysiwygComponent.renderNode}
-                    renderMark={renderWysiwygComponent.renderMark}
-                    placeholder={this.props.placeholder}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                />
+                <div className={`editor-container ${this.state.className}`}>
+                    <Editor
+                        className="editor-content"
+                        value={this.state.value}
+                        onChange={this.onChange}
+                        plugins={plugins}
+                        renderNode={renderWysiwygComponent.renderNode}
+                        renderMark={renderWysiwygComponent.renderMark}
+                        placeholder={this.props.placeholder}
+                        onFocus={this.onFocus}
+                        onBlur={this.onBlur}
+                    />
+                </div>
             </div>
         );
     }
