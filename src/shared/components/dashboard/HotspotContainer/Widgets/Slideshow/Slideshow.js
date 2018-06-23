@@ -44,7 +44,6 @@ class Slideshow extends React.Component {
                             overflow: 'hidden',
                             visibility: 'hidden',
                             position: 'relative',
-                            borderRadius: '5px',
                         },
 
                         wrapper: {
@@ -52,7 +51,6 @@ class Slideshow extends React.Component {
                             flexDirection: 'row',
                             overflow: 'hidden',
                             position: 'relative',
-                            borderRadius: '5px',
                         },
 
                         child: {
