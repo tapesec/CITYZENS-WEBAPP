@@ -101,7 +101,7 @@ class MapArea extends React.Component {
                     onGoogleApiLoaded={this.onGoogleApiLoaded}
                     center={this.props.map.center}
                     defaultZoom={defaultProps.zoom}
-                    options={{ minZoom: 14 }}
+                    options={{ minZoom: 14, keyboardShortcuts: false }}
                     className="GoogleMapReact">
                     {this.displayHotspots()}
                 </GoogleMapReact>
@@ -185,4 +185,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapArea);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(MapArea);
