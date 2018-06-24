@@ -2,9 +2,13 @@
 div.Marker {
         width: 52px;
         height: 83px;
+        background-image: url('https://cdn.filestackcontent.com/5lkJTLUSCGxTZL3X3Bgw?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RhdCIsIndyaXRlIiwid3JpdGVVcmwiLCJzdG9yZSIsImNvbnZlcnQiLCJyZW1vdmUiLCJleGlmIl0sImV4cGlyeSI6MTU4NTY5MjAwMH0=&signature=af896330fabdb11a110c33849b74a936f0c1782989c6230644785f995365f5c1');
+        background-size: contain;
+        background-repeat: no-repeat;
     .ImageCDN {
-        width: 52px;
-        height: 83px;
+        width: 44px;
+        margin-left: 4px;
+        margin-top: 3px;
     }
     div.marker-tooltip {
         position: absolute;

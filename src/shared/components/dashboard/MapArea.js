@@ -66,6 +66,7 @@ class MapArea extends React.Component {
                 hotspotId={hotspot.id}
                 hotspotSlug={hotspot.slug}
                 type={hotspot.type}
+                avatarIconUrl={hotspot.avatarIconUrl}
                 citySlug={citySlug}
                 history={history}
                 openHotspotInSPAModal={openHotspotInSPAModal}

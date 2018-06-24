@@ -81,7 +81,7 @@ class Marker extends React.Component {
                 </div>
                 <ImageCDN
                     onClick={this.openHotspot}
-                    filename={Marker.mapIconWithIconType(this.props.type)}
+                    filename={this.props.avatarIconUrl}
                     dataType="map-marker"
                     alt="point GPS"
                 />
@@ -99,6 +99,7 @@ Marker.propTypes = {
     openHotspotInSPAModal: PropTypes.func.isRequired,
     citySlug: PropTypes.string.isRequired,
     hotspotSlug: PropTypes.string,
+    avatarIconUrl: PropTypes.string.isRequired,
     // eslint-disable-next-line
     history: ReactRouterPropTypes.history.isRequired,
 };
