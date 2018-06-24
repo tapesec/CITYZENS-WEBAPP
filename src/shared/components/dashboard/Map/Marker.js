@@ -11,7 +11,7 @@ class Marker extends React.Component {
     static mapIconWithIconType(type) {
         const iconTypes = {
             Media: '5lkJTLUSCGxTZL3X3Bgw',
-            Alert: 'ojfelOwUQ86ZoNkItkVb',
+            Alert: 'kZce2J14SxGiGAy2cDNQ',
         };
         return iconTypes[type];
     }
