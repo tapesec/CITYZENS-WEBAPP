@@ -138,11 +138,11 @@ const Home = ({ isFromMobile }) => (
             <GridCell span="1" />
             <GridCell span="5">
                 <Typography tag="h2" use="headline5" theme="text-primary-on-background">
-                    Créer des points d'interets
+                    {"Créer des points d'interets"}
                 </Typography>
                 <Typography tag="p" use="body1" theme="tex-primary-on-background">
-                    Signalez sur la carte des points d'interets, créer un espace de communication
-                    avec les habitants de votre ville et ne manquez plus aucun évenements.
+                    {`Signalez sur la carte des points d'interets, créer un espace de communication
+                    avec les habitants de votre ville et ne manquez plus aucun évenements.`}
                 </Typography>
             </GridCell>
         </Grid>
