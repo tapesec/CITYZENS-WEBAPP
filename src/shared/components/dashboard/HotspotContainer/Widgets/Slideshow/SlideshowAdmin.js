@@ -97,7 +97,7 @@ const SlideshowAdmin = ({
                             <Typography
                                 tag="p"
                                 theme="text-secondary-on-background"
-                                use="subheading2">
+                                use="subtitle1">
                                 {
                                     "Il n'y a encore aucune image dans le diaporama, cliquez sur le bouton au dessus pour en ajouter"
                                 }

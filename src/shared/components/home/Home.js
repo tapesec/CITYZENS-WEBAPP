@@ -1,16 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Typography } from 'rmwc/Typography';
 import { Grid, GridCell } from 'rmwc/Grid';
 import { Ripple } from 'rmwc/Ripple';
+import { visitorComeFromMobile } from '../../reducers/visitor';
 import ImageCDN from './../lib/ImageCDN';
 
 import './Home.scss';
 
-const Home = () => (
+const Home = ({ isFromMobile }) => (
     <section className="layout">
         <Grid className="first-view-line">
-            <GridCell span="1" />
-            <GridCell span="5">
+            {!isFromMobile ? <GridCell span="1" /> : null}
+            <GridCell phone="12" span="5">
                 <div className="logo-map">
                     <ImageCDN
                         className="logo"
@@ -26,12 +29,18 @@ const Home = () => (
             </GridCell>
             <GridCell span="5">
                 <section className="punchline">
-                    <Typography tag="h1" use="display3" theme="text-primary-on-background">
+                    <Typography tag="h1" theme="text-primary-on-background">
+                        CITYZENS
+                    </Typography>
+                    <Typography tag="span" use="headline5" theme="text-primary-on-background">
                         Le réseau social de votre ville
                     </Typography>
-                    <Typography tag="p" use="headline" theme="tex-primary-on-background">
+                    <Typography tag="p" use="body1" theme="tex-primary-on-background">
                         Cityzens est un réseau social intéractif vous permettant de suivre toutes
                         les informations de votre ville.
+                    </Typography>
+                    <Typography tag="p" use="body1" theme="tex-primary-on-background">
+                        Connectez-vous à Martignas et ne manquez aucun évenements
                     </Typography>
                     <div className="signin-call-to-action">
                         <Ripple primary>
@@ -39,9 +48,9 @@ const Home = () => (
                                 tag="a"
                                 className="signin"
                                 href="/login"
-                                use="headline"
+                                use={isFromMobile ? 'caption' : 'body1'}
                                 theme="text-primary-on-secondary">
-                                Devenez un Cityzen
+                                DEVENEZ UN CITYZEN
                             </Typography>
                         </Ripple>
                         <Ripple primary>
@@ -49,16 +58,18 @@ const Home = () => (
                                 tag="a"
                                 className="visitor"
                                 href="/Martignas-sur-Jalle"
-                                use="headline"
+                                use={isFromMobile ? 'caption' : 'body1'}
                                 theme="text-primary-on-secondary">
-                                Je suis un touriste
+                                DECOUVREZ MARTIGNAS
                             </Typography>
                         </Ripple>
                     </div>
                 </section>
             </GridCell>
-            <GridCell span="1" />
-            <GridCell span="1" />
+            {!isFromMobile ? <GridCell span="1" /> : null}
+        </Grid>
+        <Grid className="face-view-line">
+            {!isFromMobile ? <GridCell span="1" /> : null}
             <GridCell span="1">
                 <ImageCDN filename="VCiosL1jQRuX5dWIGkSl" alt="ouvrier" />
             </GridCell>
@@ -89,7 +100,7 @@ const Home = () => (
             <GridCell span="1">
                 <ImageCDN filename="whqfOtTOu3HzXFeSpRAw" alt="Coiffeuse" />
             </GridCell>
-            <GridCell span="1" />
+            {!isFromMobile ? <GridCell span="1" /> : null}
         </Grid>
 
         <Grid className="second-view-line">
@@ -103,10 +114,10 @@ const Home = () => (
             </GridCell>
             <GridCell span="1" />
             <GridCell span="5">
-                <Typography tag="h2" use="display1" theme="text-primary-on-background">
+                <Typography tag="h2" use="headline5" theme="text-primary-on-background">
                     Une carte intéractive
                 </Typography>
-                <Typography tag="p" use="headline" theme="tex-primary-on-background">
+                <Typography tag="p" use="body1" theme="tex-primary-on-background">
                     Un contenu simple et rapidement accessible. Vous serez surpris de voir tout ce
                     qu’il se passe dans votre ville en naviguant au hasard sur la carte.
                 </Typography>
@@ -117,7 +128,7 @@ const Home = () => (
             <GridCell span="4">
                 <section>
                     <ImageCDN filename="iMTfeaOyS0iReA0OLhGN" alt="Calendrier" />
-                    <ImageCDN filename="uiFagz6oSQiX8TTcAQAC" alt="Mur" />
+                    <ImageCDN filename="QXg7dCRhQbiEi4iRGSDz" alt="Mur" />
                     <ImageCDN filename="a4e3l7JbSOOw05HNK5DN" alt="Travaux" />
                     <ImageCDN filename="uNBPerZcTWORohX7wtyg" alt="Accident" />
                     <ImageCDN filename="eiHWi2RQrmYiTR8zJhLO" alt="Handicapé" />
@@ -126,17 +137,24 @@ const Home = () => (
             </GridCell>
             <GridCell span="1" />
             <GridCell span="5">
-                <Typography tag="h2" use="display1" theme="text-primary-on-background">
-                    Lorem ipsum dolor
+                <Typography tag="h2" use="headline5" theme="text-primary-on-background">
+                    Créer des points d'interets
                 </Typography>
-                <Typography tag="p" use="headline" theme="tex-primary-on-background">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur scelerisque
-                    erat eget libero ullamcorper, sit amet ultrices enim consectetur. Donec
-                    scelerisque nunc diam, sed suscipit enim sollicitudin ultrices.
+                <Typography tag="p" use="body1" theme="tex-primary-on-background">
+                    Signalez sur la carte des points d'interets, créer un espace de communication
+                    avec les habitants de votre ville et ne manquez plus aucun évenements.
                 </Typography>
             </GridCell>
         </Grid>
     </section>
 );
 
-export default Home;
+Home.propTypes = {
+    isFromMobile: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ({
+    isFromMobile: visitorComeFromMobile(state),
+});
+
+export default connect(mapStateToProps)(Home);
