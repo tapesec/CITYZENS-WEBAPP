@@ -5,7 +5,7 @@ import cityzensApi from './../../shared/services/CityzensApi';
 import { hotspotEdition } from './../../shared/reducers/edition';
 import { getCityId, getCityName } from './../../shared/reducers/city';
 import MediaHotspotPayload from './../services/payloads/WallHotspotPayload';
-import MessageHotspotPayload from '../services/payloads/AlertHotspotPayload';
+import AlertHotspotPayload from '../services/payloads/AlertHotspotPayload';
 import { getCityzenAccessToken } from './../../shared/reducers/authenticatedCityzen';
 import { getVisitorPosition } from '../../shared/reducers/visitor';
 import { SNACKBAR } from './../wording';
@@ -86,13 +86,13 @@ export function* buildAlertHotspotPayload(edition) {
     try {
         const cityId = yield select(getCityId);
         const cityName = yield select(getCityName);
-        const hotspotPayload = yield new MessageHotspotPayload();
+        const hotspotPayload = yield new AlertHotspotPayload();
         hotspotPayload.type = edition.type;
         hotspotPayload.cityId = cityId;
         hotspotPayload.position = edition.position;
         hotspotPayload.address = { name: edition.address, city: cityName };
         hotspotPayload.message = edition.messageBody;
-        hotspotPayload.alertHotspotImgLocation = edition.alertHotspotImgLocation;
+        hotspotPayload.pictureDescription = edition.alertHotspotImgLocation;
         hotspotPayload.valid();
         return hotspotPayload.payload;
     } catch (error) {

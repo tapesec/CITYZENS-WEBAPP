@@ -40,17 +40,13 @@ class HotspotPayload {
         if (imgHandle) this.payload.avatarIconUrl = imgHandle;
     }
 
-    set alertHotspotImgLocation(imgHandle) {
-        if (imgHandle) this.payload.alertHotspotImgLocation = imgHandle;
-    }
-
     valid() {
         if (this.payload && this.payload.type) {
             ['type', 'address', 'position', 'cityId'].forEach(attr => {
                 if (!this.payload[attr])
                     throw new Error('Payload is not fully completed (hotspot part)');
             });
-            if (this.payload.type === (HOTSPOT.TYPE.WALL_MESSAGE || HOTSPOT.TYPE.EVENT)) {
+            if (this.payload.type === HOTSPOT.TYPE.MEDIA) {
                 ['title', 'scope'].forEach(attr => {
                     if (!this.payload[attr])
                         throw new Error('Payload is not fully completed (media hotspot part)');

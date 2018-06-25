@@ -10,6 +10,10 @@ class MessageHotspotPayload extends HotspotPayload {
         this.payload.message = message;
     }
 
+    set pictureDescription(imgHandle) {
+        if (imgHandle) this.payload.pictureDescription = imgHandle;
+    }
+
     valid() {
         super.valid();
         ['message'].forEach(attr => {
