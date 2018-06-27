@@ -246,6 +246,7 @@ export default class renderWysiwygComponent extends React.Component {
                 {this.renderToolbar()}
                 <div className={`editor-container ${this.state.className}`}>
                     <Editor
+                        style={this.props.editorContentStyle}
                         className="editor-content"
                         value={this.state.value}
                         onChange={this.onChange}
@@ -265,4 +266,8 @@ renderWysiwygComponent.propTypes = {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string.isRequired,
+    editorContentStyle: PropTypes.shape({}),
+};
+renderWysiwygComponent.defaultProps = {
+    editorContentStyle: undefined,
 };

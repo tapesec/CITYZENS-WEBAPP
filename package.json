@@ -44,7 +44,7 @@
     "luxon": "^0.5.3",
     "material-components-web": "^0.35.1",
     "mo-js": "^0.288.2",
-    "npm": "^5.8.0",
+    "npm": "^5.10.0",
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.1",
     "prop-types": "^15.6.1",

@@ -5,9 +5,14 @@ import HotspotHeader from './common/hotspotHeader/HotspotHeader';
 import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
+import HotspotCommentForm from './HotspotComment/HotspotCommentForm';
 import MessageForm from './HotspotMessage/MessageForm';
 import Slideshow from '../Widgets/Slideshow/Slideshow';
-import { getCityzenId, isAuthenticated } from './../../../../reducers/authenticatedCityzen';
+import {
+    getCityzenId,
+    isAuthenticated,
+    getCityzenProfile,
+} from './../../../../reducers/authenticatedCityzen';
 import actions from './../../../../../client/actions';
 import constants from './../../../../constants';
 import {
@@ -39,6 +44,7 @@ const WallHotspot = ({
     hotspot,
     cityzenIsAuthenticated,
     cityzenId,
+    cityzenProfile,
     edit,
     messageEditionData,
     settingUpMode,
@@ -78,6 +84,38 @@ const WallHotspot = ({
         return null;
     };
 
+    const displayContent = () => {
+        if (hotspot.messages.length === 0) {
+            return <HotspotMessage message={EMPTY_MESSAGE_WORDING} key={EMPTY_MESSAGE_KEY} />;
+        }
+        return hotspot.messages.map(message => {
+            if (messageEditionData.id === message.id)
+                return (
+                    <MessageForm
+                        initialValues={messageEditionData}
+                        key={hotspot.id}
+                        onSubmit={handleSubmit}
+                        editionMode={settingUpMode}
+                        clearHotspotMessageEdition={clearHotspotMessageEdition}
+                    />
+                );
+            return (
+                <HotspotMessage
+                    cityzenIsAuthor={isAuthorOfMessage(
+                        cityzenIsAuthenticated,
+                        cityzenId,
+                        message.author.id,
+                    )}
+                    message={message}
+                    key={message.id}
+                    edit={edit}
+                    cityzenIsAuthenticated={cityzenIsAuthenticated}
+                    cityzen={cityzenProfile}
+                />
+            );
+        });
+    };
+
     return (
         <Fragment>
             {cityzenIsAuthenticated && hotspot.author.id === cityzenId ? (
@@ -104,37 +142,7 @@ const WallHotspot = ({
                     {displaySlideshowWidget()}
                     <HotspotMessagesWall>
                         {displayNewMessageControl()}
-
-                        {hotspot.messages.length === 0 ? (
-                            <HotspotMessage
-                                message={EMPTY_MESSAGE_WORDING}
-                                key={EMPTY_MESSAGE_KEY}
-                            />
-                        ) : (
-                            hotspot.messages.map(
-                                message =>
-                                    messageEditionData.id === message.id ? (
-                                        <MessageForm
-                                            initialValues={messageEditionData}
-                                            key={hotspot.id}
-                                            onSubmit={handleSubmit}
-                                            editionMode={settingUpMode}
-                                            clearHotspotMessageEdition={clearHotspotMessageEdition}
-                                        />
-                                    ) : (
-                                        <HotspotMessage
-                                            cityzenIsAuthor={isAuthorOfMessage(
-                                                cityzenIsAuthenticated,
-                                                cityzenId,
-                                                message.author.id,
-                                            )}
-                                            message={message}
-                                            key={message.id}
-                                            edit={edit}
-                                        />
-                                    ),
-                            )
-                        )}
+                        {displayContent()}
                     </HotspotMessagesWall>
                 </section>
             </section>
@@ -150,6 +158,7 @@ WallHotspot.propTypes = {
     }).isRequired,
     cityzenIsAuthenticated: PropTypes.bool.isRequired,
     cityzenId: PropTypes.string,
+    cityzenProfile: PropTypes.shape({}),
     edit: PropTypes.func.isRequired,
     messageEditionData: PropTypes.shape({}).isRequired,
     settingUpMode: PropTypes.string.isRequired,
@@ -162,11 +171,13 @@ WallHotspot.propTypes = {
 
 WallHotspot.defaultProps = {
     cityzenId: undefined,
+    cityzenProfile: undefined,
 };
 
 const mapStateToProps = state => ({
     cityzenId: getCityzenId(state),
     cityzenIsAuthenticated: isAuthenticated(state),
+    cityzenProfile: getCityzenProfile(state),
     messageEditionData: messageEdition.getCurrentMessageEdition(state),
     settingUpMode: getSettingUpMode(state),
 });
