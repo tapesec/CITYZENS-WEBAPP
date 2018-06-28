@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import actions from '../../../../../../client/actions';
+import constants from '../../../../../constants';
 import RenderWysiwygComponent from './../../../../lib/form/WysiwygTextArea';
 import formHelpers from '../../../../../helpers/form';
 import ImageCDN from '../../../../lib/ImageCDN';
@@ -74,7 +77,11 @@ class HotspotCommentForm extends React.Component {
             return false;
         }
         evt.preventDefault();
-        this.props.onSubmit(this.state.formValues);
+        this.props.persistMessageComment(
+            constants.EDITION_MODE.SETTING_UP,
+            this.state.formValues,
+            this.props.parentId,
+        );
         return true;
     }
 
@@ -103,6 +110,16 @@ class HotspotCommentForm extends React.Component {
 
 HotspotCommentForm.propTypes = {
     parentId: PropTypes.string.isRequired,
+    persistMessageComment: PropTypes.func.isRequired,
 };
 
-export default HotspotCommentForm;
+const mapDispatchToProps = dispatch => ({
+    persistMessageComment: (settingUpMode, formData, parentId) => {
+        dispatch(actions.persistMessageComment(settingUpMode, formData, parentId));
+    },
+});
+
+export default connect(
+    () => {},
+    mapDispatchToProps,
+)(HotspotCommentForm);

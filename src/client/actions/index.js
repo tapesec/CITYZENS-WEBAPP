@@ -158,6 +158,15 @@ const postEditionMessageFormData = (settingUpMode, formData) => ({
     },
 });
 
+const persistMessageComment = (settingUpMode, formData, parentId) => ({
+    type: actionTypes.PERSIST_MESSAGE_COMMENT,
+    payload: {
+        settingUpMode,
+        formData,
+        parentId,
+    },
+});
+
 const clearHotspotMessageEdition = () => ({
     type: actionTypes.CLEAR_HOTSPOT_MESSAGE_EDITION,
 });
@@ -379,4 +388,5 @@ export default {
     geocode,
     initHotspotFromMyPosition,
     removeImageWithHandle,
+    persistMessageComment,
 };
