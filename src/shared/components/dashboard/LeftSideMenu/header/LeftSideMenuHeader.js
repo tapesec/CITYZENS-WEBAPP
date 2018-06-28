@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { DrawerHeader } from 'rmwc/Drawer';
 import ImageCDN from '../../../lib/ImageCDN';
 
@@ -17,7 +18,9 @@ const LeftSideMenuHeader = ({ dense }) => (
         {dense ? (
             <h1 className="cityzens-title">CITYZENS</h1>
         ) : (
-            <ImageCDN alt="logo de Cityzens" style={styleCDN} filename="TlFeYNnVSSOsm4TT6h6v" />
+            <Link to="/">
+                <ImageCDN alt="logo de Cityzens" style={styleCDN} filename="TlFeYNnVSSOsm4TT6h6v" />
+            </Link>
         )}
     </DrawerHeader>
 );

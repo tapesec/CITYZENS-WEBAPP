@@ -26,7 +26,7 @@ const SlideshowAdmin = ({
     const getImageUploaderOptions = () => ({
         fromSources: ['local_file_system', 'url', 'webcam'],
         accept: ['image/*', '.pdf'],
-        maxSize: 100000,
+        maxSize: 10000000,
         maxFiles: 5,
         minFiles: 1,
         lang: 'fr',

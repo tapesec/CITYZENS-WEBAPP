@@ -40,6 +40,12 @@ const VALIDATION = {
             },
         },
     },
+    COMMENT: {
+        MAX_LENGTH: 300,
+        LABEL: {
+            ERROR: `300 caractères max`,
+        },
+    },
 };
 
 export default VALIDATION;

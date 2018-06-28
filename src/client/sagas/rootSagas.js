@@ -2,6 +2,7 @@ import { fork } from 'redux-saga/effects';
 import algoliaSearchSagas from './algoliaSearchSagas';
 import hotspotsSagas from './hotspotsSagas';
 import messagesSagas from './messagesSagas';
+import commentsSagas from './commentsSagas';
 import mapSagas from './MapSagas';
 import routingSagas from './routingSagas';
 import geolocalisationSagas from './geolocalisationSagas';
@@ -18,5 +19,6 @@ export default function* init() {
         fork(geolocalisationSagas),
         fork(slideshowSagas),
         fork(filestackSagas),
+        fork(commentsSagas),
     ];
 }

@@ -14,11 +14,7 @@ const SubmitButtons = ({
 }) => (
     <div className="SubmitButtons">
         {submitLabel ? (
-            <Button
-                type="submit"
-                onClick={submitAction}
-                raised
-                theme="secondary-bg text-primary-on-secondary">
+            <Button type="submit" onClick={submitAction} raised theme="secondary-bg">
                 {submitIcon ? <ButtonIcon use={submitIcon} /> : null}
                 {submitLabel}
             </Button>

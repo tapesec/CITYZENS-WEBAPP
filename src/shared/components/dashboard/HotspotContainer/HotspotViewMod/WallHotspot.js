@@ -108,6 +108,7 @@ const WallHotspot = ({
                     )}
                     message={message}
                     key={message.id}
+                    parentId={message.id}
                     edit={edit}
                     cityzenIsAuthenticated={cityzenIsAuthenticated}
                     cityzen={cityzenProfile}

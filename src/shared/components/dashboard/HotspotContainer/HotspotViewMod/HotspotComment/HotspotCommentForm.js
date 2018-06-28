@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button } from 'rmwc/Button';
 import actions from '../../../../../../client/actions';
 import constants from '../../../../../constants';
 import RenderWysiwygComponent from './../../../../lib/form/WysiwygTextArea';
@@ -15,9 +16,9 @@ const validateBody = values => {
         isValid: true,
         messages: [],
     };
-    if (values.body && values.messageTitle.length > VALIDATION.MESSAGE.TITLE.MAX_LENGTH) {
+    if (values.body && values.body.length > VALIDATION.COMMENT.MAX_LENGTH) {
         errors.isValid = false;
-        errors.messages.push(VALIDATION.MESSAGE.TITLE.LABEL.ERROR);
+        errors.messages.push(VALIDATION.COMMENT.LABEL.ERROR);
     }
     return errors;
 };
@@ -44,14 +45,14 @@ class HotspotCommentForm extends React.Component {
         this.formSubmit = this.formSubmit.bind(this);
     }
 
-    fieldConnector(fieldName, fieldValidator, options = {}) {
+    fieldConnector(fieldName, fieldValidator) {
         const that = this;
         return evt => {
             const newState = formHelpers.validateAndUpdateFieldStateOnChange(
                 that.state,
                 fieldName,
                 fieldValidator,
-                options.switch ? !that.state.formValues.scope : evt.target.value,
+                evt.target.value,
             );
             that.setState(newState);
         };
@@ -79,7 +80,7 @@ class HotspotCommentForm extends React.Component {
         evt.preventDefault();
         this.props.persistMessageComment(
             constants.EDITION_MODE.SETTING_UP,
-            this.state.formValues,
+            { body: this.state.formValues.body },
             this.props.parentId,
         );
         return true;
@@ -98,10 +99,18 @@ class HotspotCommentForm extends React.Component {
                 <div className="form-content">
                     <RenderWysiwygComponent
                         value={this.state.formValues.body}
-                        onChange={this.fieldConnector('messageBody', validateBody)}
+                        onChange={this.fieldConnector('body', validateBody)}
                         placeholder="Laissez un commentaire …"
                         editorContentStyle={{ minHeight: '35px' }}
                     />
+                    <Button
+                        style={{ marginTop: '5px' }}
+                        type="submit"
+                        onClick={this.formSubmit}
+                        dense
+                        theme="secondary-bg on-secondary">
+                        Répondre
+                    </Button>
                 </div>
             </section>
         );
