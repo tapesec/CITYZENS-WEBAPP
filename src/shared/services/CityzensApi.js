@@ -4,6 +4,7 @@ import config from './../config';
 const HOTSPOTS_ENDPOINTS = '/hotspots';
 const HOTSPOTS_VIEWS_ENDPOINTS = '/views';
 const MESSAGES_ENDPOINTS = '/messages';
+const COMMENTS_ENDPOINTS = '/comments';
 const PERTINENCE_ENDPOINTS = '/pertinence';
 
 class CityzenApi {
@@ -112,6 +113,20 @@ class CityzenApi {
                     Authorization: `bearer ${accessToken}`,
                 },
                 body: payload,
+            },
+        );
+    }
+
+    getComments(hotspotId, messageId) {
+        return this.http.request(
+            `${
+                this.url
+            }${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}/${messageId}/${COMMENTS_ENDPOINTS}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             },
         );
     }

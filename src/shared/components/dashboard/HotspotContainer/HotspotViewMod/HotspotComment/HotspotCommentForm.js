@@ -80,9 +80,15 @@ class HotspotCommentForm extends React.Component {
         evt.preventDefault();
         this.props.persistMessageComment(
             constants.EDITION_MODE.SETTING_UP,
-            { body: this.state.formValues.body },
-            this.props.parentId,
+            { body: this.state.formValues.body, parentId: this.state.formValues.parentId },
+            this.props.hotspotId,
         );
+        this.setState({
+            formValues: {
+                body: '',
+                parentId: this.state.formValues.parentId,
+            },
+        });
         return true;
     }
 
@@ -119,16 +125,17 @@ class HotspotCommentForm extends React.Component {
 
 HotspotCommentForm.propTypes = {
     parentId: PropTypes.string.isRequired,
+    hotspotId: PropTypes.string.isRequired,
     persistMessageComment: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-    persistMessageComment: (settingUpMode, formData, parentId) => {
-        dispatch(actions.persistMessageComment(settingUpMode, formData, parentId));
+    persistMessageComment: (settingUpMode, formData, hotspotId) => {
+        dispatch(actions.persistMessageComment(settingUpMode, formData, hotspotId));
     },
 });
 
 export default connect(
-    () => {},
+    () => ({}),
     mapDispatchToProps,
 )(HotspotCommentForm);

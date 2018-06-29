@@ -7,6 +7,7 @@ import algolia from './algolia';
 import map from './map';
 import city from './city';
 import messages from './messages';
+import comments from './comments';
 import edition from './edition';
 
 export default combineReducers({
@@ -19,4 +20,5 @@ export default combineReducers({
     messages,
     edition,
     visitor,
+    comments,
 });

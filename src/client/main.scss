@@ -7,7 +7,10 @@ Author: Richard Clark - http://richclarkdesign.com
 Twitter: @rich_clark
 */
 @import './variables.scss';
-
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 /* reset css */
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -135,7 +138,7 @@ body {
     box-sizing: border-box;
     width: 100%;
     &.mdc-text-field--outlined.mdc-text-field--focused {
-    
+
         div.mdc-line-ripple.mdc-line-ripple--active {
             background-color: $mdc-theme-secondary;
         }
@@ -169,6 +172,6 @@ body {
             }
         }
     }
-    
+
 
 }

@@ -8,17 +8,18 @@ import { SNACKBAR } from './../wording';
 import { NOTIFICATION_MESSAGE } from './../constants';
 import sharedConstant from './../../shared/constants';
 
-const { EDITION, SETTING_UP } = sharedConstant.EDITION_MODE;
+const { SETTING_UP } = sharedConstant.EDITION_MODE;
 
-export function* fetchMessages(params) {
+export function* fetchComments(params) {
     if (params && params.payload && params.payload.hotspotId) {
         try {
             const response = yield call(
-                [cityzensApi, cityzensApi.getMessages],
+                [cityzensApi, cityzensApi.getComments],
                 params.payload.hotspotId,
+                params.payload.messageId,
             );
-            const syncedHotspot = yield response.json();
-            yield put(actions.fetchMessagesSucceded(syncedHotspot));
+            const fetchedComments = yield response.json();
+            yield put(actions.fetchMessagesSucceded(fetchedComments));
         } catch (err) {
             let errorPayload;
             if (err.message) errorPayload = err.message;
@@ -27,54 +28,36 @@ export function* fetchMessages(params) {
     }
 }
 
-export const buildMessagePayload = messageData => {
-    try {
-        const messagePayload = new MessagePayload();
-        messagePayload.title = messageData.title;
-        messagePayload.body = messageData.body;
-        messagePayload.pinned = messageData.pinned;
-        messagePayload.valid();
-        return messagePayload.payload;
-    } catch (error) {
-        throw new Error('Invalid message payload');
-    }
+export const buildCommentPayload = commentData => {
+    const commentPayload = new MessagePayload();
+    commentPayload.body = commentData.body;
+    commentPayload.parentId = commentData.parentId;
+    commentPayload.valid();
+    return commentPayload.payload;
 };
 
-export function* persistMessage(action) {
+export function* persistComment(action) {
     const { settingUpMode } = action.payload;
     try {
-        const accessToken = yield select(getCityzenAccessToken);
-        let response;
-        if (settingUpMode === EDITION) {
-            const { messageId, hotspotId } = action.payload;
-            const messagePayload = yield call(buildMessagePayload, action.payload);
-            response = yield call(
-                [cityzensApi, cityzensApi.patchMessages],
-                accessToken,
-                hotspotId,
-                messageId,
-                JSON.stringify(messagePayload),
-            );
-        }
         if (settingUpMode === SETTING_UP) {
+            const accessToken = yield select(getCityzenAccessToken);
             const { hotspotId } = action.payload;
-            const messagePayload = yield call(buildMessagePayload, action.payload);
-            response = yield call(
+            const commentPayload = yield call(buildCommentPayload, action.payload.formData);
+            const response = yield call(
                 [cityzensApi, cityzensApi.postMessages],
                 accessToken,
                 hotspotId,
-                JSON.stringify(messagePayload),
+                JSON.stringify(commentPayload),
+            );
+            const newComment = yield response.json();
+            yield put({ type: actionTypes.NEW_COMMENT_SAVED, payload: { comment: newComment } });
+            yield put(
+                actions.displayMessageToScreen(
+                    SNACKBAR.INFO.MESSAGE_SAVED_SUCCESSFULLY,
+                    NOTIFICATION_MESSAGE.LEVEL.INFO,
+                ),
             );
         }
-        const newMessage = yield response.json();
-        yield put(actions.clearHotspotMessageEdition());
-        yield put({ type: actionTypes.NEW_MESSAGE_SAVED, payload: { message: newMessage } });
-        yield put(
-            actions.displayMessageToScreen(
-                SNACKBAR.INFO.MESSAGE_SAVED_SUCCESSFULLY,
-                NOTIFICATION_MESSAGE.LEVEL.INFO,
-            ),
-        );
     } catch (err) {
         yield put(
             actions.displayMessageToScreen(
@@ -83,21 +66,6 @@ export function* persistMessage(action) {
             ),
         );
         console.log(err.message); // eslint-disable-line
-    }
-}
-
-export function* persistComment() {
-    const { settingUpMode } = action.payload;
-    if (settingUpMode === SETTING_UP) {
-        const { parentId } = action.payload;
-        const messagePayload = yield call(buildMessagePayload, action.payload);
-        response = yield call(
-            [cityzensApi, cityzensApi.patchMessages],
-            accessToken,
-            hotspotId,
-            messageId,
-            JSON.stringify(messagePayload),
-        );
     }
 }
 

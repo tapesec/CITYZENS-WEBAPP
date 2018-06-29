@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Typography from 'rmwc/Typography';
 import Icon from 'rmwc/Icon';
+import { getMessageComments } from '../../../../../reducers/comments';
+import HotspotComment from '../HotspotComment/HotspotComment';
 import DateFormater from '../../../../lib/DateFormater';
 import ImageCDN from './../../../../lib/ImageCDN';
 import ComboIcon from './../../../../lib/comboIcon/ComboIcon';
@@ -12,7 +15,7 @@ class HotspotMessage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            commentFormIsVisible: false,
+            commentsAreVisible: false,
         };
     }
 
@@ -22,9 +25,11 @@ class HotspotMessage extends React.Component {
             cityzenIsAuthor,
             edit,
             cityzenIsAuthenticated,
-            parentId,
             cityzen,
+            hotspotId,
+            messageComments,
         } = this.props;
+
         const editMessage = () => {
             edit(message.id, message.title, message.body, message.pinned);
         };
@@ -39,6 +44,9 @@ class HotspotMessage extends React.Component {
                     ]}
                 />
             ) : null;
+
+        const displayComments = () =>
+            messageComments.map(comment => <HotspotComment key={comment.id} comment={comment} />);
 
         return (
             <Fragment>
@@ -90,7 +98,7 @@ class HotspotMessage extends React.Component {
                                 <Typography
                                     onClick={() =>
                                         this.setState({
-                                            commentFormIsVisible: !this.state.commentFormIsVisible,
+                                            commentsAreVisible: !this.state.commentsAreVisible,
                                         })
                                     }
                                     tag="p"
@@ -106,7 +114,7 @@ class HotspotMessage extends React.Component {
                                         add_comment
                                     </Icon>{' '}
                                     Commentez{' '}
-                                    {this.state.commentFormIsVisible ? (
+                                    {this.state.commentsAreVisible ? (
                                         <Icon
                                             style={{
                                                 fontSize: '1rem',
@@ -120,13 +128,17 @@ class HotspotMessage extends React.Component {
                             </footer>
                         </div>
                     </div>
-                    {cityzenIsAuthenticated && this.state.commentFormIsVisible ? (
-                        <HotspotCommentForm
-                            parentId={parentId}
-                            cityzen={cityzen}
-                            style={{ marginBottom: '20px' }}
-                            onSubmit={() => {}}
-                        />
+                    {cityzenIsAuthenticated && this.state.commentsAreVisible ? (
+                        <Fragment>
+                            <HotspotCommentForm
+                                parentId={message.id}
+                                hotspotId={hotspotId}
+                                cityzen={cityzen}
+                                style={{ marginBottom: '20px' }}
+                                onSubmit={() => {}}
+                            />
+                            {displayComments()}
+                        </Fragment>
                     ) : null}
                 </article>
             </Fragment>
@@ -137,18 +149,19 @@ class HotspotMessage extends React.Component {
 HotspotMessage.propTypes = {
     message: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
+        title: PropTypes.string,
         author: PropTypes.shape({
-            pseudo: PropTypes.string.isRequired,
+            pseudo: PropTypes.string,
         }),
-        createdAt: PropTypes.string.isRequired,
+        createdAt: PropTypes.string,
         updatedAt: PropTypes.string,
-        body: PropTypes.string.isRequired,
+        body: PropTypes.string,
     }).isRequired,
+    messageComments: PropTypes.arrayOf(PropTypes.object).isRequired,
+    hotspotId: PropTypes.string.isRequired,
     cityzenIsAuthor: PropTypes.bool,
     cityzenIsAuthenticated: PropTypes.bool.isRequired,
     cityzen: PropTypes.shape({}),
-    parentId: PropTypes.string.isRequired,
     edit: PropTypes.func,
 };
 
@@ -158,4 +171,8 @@ HotspotMessage.defaultProps = {
     edit: () => {},
 };
 
-export default HotspotMessage;
+const mapStateToProps = (state, ownProps) => ({
+    messageComments: getMessageComments(state, ownProps.message.id),
+});
+
+export default connect(mapStateToProps)(HotspotMessage);

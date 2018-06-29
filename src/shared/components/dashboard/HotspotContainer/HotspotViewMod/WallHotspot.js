@@ -5,7 +5,6 @@ import HotspotHeader from './common/hotspotHeader/HotspotHeader';
 import ActionsToolbar from './../Toolbar/ActionsToolbar';
 import HotspotMessagesWall from './HotspotMessage/HotspotMessagesWall';
 import HotspotMessage from './HotspotMessage/HotspotMessage';
-import HotspotCommentForm from './HotspotComment/HotspotCommentForm';
 import MessageForm from './HotspotMessage/MessageForm';
 import Slideshow from '../Widgets/Slideshow/Slideshow';
 import {
@@ -108,7 +107,7 @@ const WallHotspot = ({
                     )}
                     message={message}
                     key={message.id}
-                    parentId={message.id}
+                    hotspotId={hotspot.id}
                     edit={edit}
                     cityzenIsAuthenticated={cityzenIsAuthenticated}
                     cityzen={cityzenProfile}

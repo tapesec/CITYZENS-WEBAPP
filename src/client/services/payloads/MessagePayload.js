@@ -18,9 +18,13 @@ class MessagePayload {
         if (pinned !== undefined) this.payload.pinned = pinned;
     }
 
+    set parentId(parentId) {
+        if (parentId !== undefined) this.payload.parentId = parentId;
+    }
+
     valid() {
         if (this.payload) {
-            ['title', 'body', 'pinned'].forEach(attr => {
+            ['body', 'pinned'].forEach(attr => {
                 if (this.payload[attr] === undefined)
                     throw new Error('Message payload is not fully completed');
             });

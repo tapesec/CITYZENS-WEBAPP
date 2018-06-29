@@ -158,12 +158,12 @@ const postEditionMessageFormData = (settingUpMode, formData) => ({
     },
 });
 
-const persistMessageComment = (settingUpMode, formData, parentId) => ({
+const persistMessageComment = (settingUpMode, formData, hotspotId) => ({
     type: actionTypes.PERSIST_MESSAGE_COMMENT,
     payload: {
         settingUpMode,
         formData,
-        parentId,
+        hotspotId,
     },
 });
 
