@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Typography from 'rmwc/Typography';
 import onClickOutside from 'react-onclickoutside';
 
 import './ComboIcon.scss';
@@ -57,7 +56,7 @@ class ComboIcon extends React.Component {
 
 ComboIcon.propTypes = {
     className: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    content: PropTypes.func.isRequired,
     actionComponent: PropTypes.func.isRequired,
 };
 

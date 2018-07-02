@@ -5,6 +5,8 @@ import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import SoftBreak from 'slate-soft-break';
 import Html from 'slate-html-serializer';
+import Typography from 'rmwc/Typography';
+import ComboIcon from '../../lib/comboIcon/ComboIcon';
 
 import './WysiwygTextArea.scss';
 
@@ -121,6 +123,7 @@ export default class renderWysiwygComponent extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
+        this.renderEmojisList = this.renderEmojisList.bind(this);
     } // On change, update the app's React state with the new editor value.
     componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.props.value && nextProps.value === '') {
@@ -177,6 +180,33 @@ export default class renderWysiwygComponent extends React.Component {
         const { value } = this.state;
         return value.activeMarks.some(mark => mark.type === type);
     }
+    renderEmojisList() {
+        return (
+            <div className="emojis-content">
+                <Typography
+                    className="title"
+                    use="body2"
+                    tag="div"
+                    theme="text-secondary-on-background">
+                    Emojis{' '}
+                </Typography>
+                {EMOJIS.map(emoji => {
+                    const onMouseDown = e => this.onClickEmoji(e, emoji);
+                    return (
+                        // eslint-disable-next-line react/jsx-no-bind
+                        <span
+                            key={Math.random()}
+                            role="button"
+                            className="button"
+                            tabIndex={0}
+                            onMouseDown={onMouseDown}>
+                            <span className="material-icons">{emoji}</span>
+                        </span>
+                    );
+                })}
+            </div>
+        );
+    }
     static renderMark(props) {
         switch (props.mark.type) {
             case 'bold':
@@ -229,20 +259,15 @@ export default class renderWysiwygComponent extends React.Component {
                 {this.renderMarkButton('bold', 'format_bold')}
                 {this.renderMarkButton('italic', 'format_italic')}
                 {this.renderMarkButton('underlined', 'format_underlined')}
-                {EMOJIS.map(emoji => {
-                    const onMouseDown = e => this.onClickEmoji(e, emoji);
-                    return (
-                        // eslint-disable-next-line react/jsx-no-bind
-                        <span
-                            key={Math.random()}
-                            role="button"
-                            className="button"
-                            tabIndex={0}
-                            onMouseDown={onMouseDown}>
-                            <span className="material-icons">{emoji}</span>
-                        </span>
-                    );
-                })}
+                <ComboIcon
+                    actionComponent={() => (
+                        <Icon style={{ margin: '3px' }} strategy="ligature">
+                            mood
+                        </Icon>
+                    )}
+                    className="emoji-selector"
+                    content={this.renderEmojisList()}
+                />
             </div>
         );
     }

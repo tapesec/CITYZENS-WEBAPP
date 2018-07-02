@@ -10,6 +10,21 @@
         margin-bottom: 15px;
     }
     .rich-text-editor-toolbar {
+        .emoji-selector {
+            margin: auto;
+            margin-right: 5px;
+        }
+        .emojis-content {
+            width: 100px;
+            padding: 2px;
+            line-height: 25px;
+            div.title {
+                padding: 2px 0 2px 4px;
+                background-color: lightsalmon;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+        }
         display: flex;
         align-items: center;
         i {
@@ -17,6 +32,9 @@
             margin-right: 5px;
             cursor: pointer;
             font-size: 18px;
+            &:hover {
+                color: black;
+            }
         }
         i.active {
             color: black;
@@ -44,7 +62,7 @@
             padding: 10px;
             font-size: 14px;
             min-height: 150px;
-            
+
         }
     }
 }

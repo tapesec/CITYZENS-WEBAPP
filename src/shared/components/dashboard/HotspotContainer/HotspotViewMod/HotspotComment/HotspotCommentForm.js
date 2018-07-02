@@ -127,10 +127,10 @@ HotspotCommentForm.propTypes = {
     parentId: PropTypes.string.isRequired,
     hotspotId: PropTypes.string.isRequired,
     persistMessageComment: PropTypes.func.isRequired,
-    cityzen: PropTypes.shape({
+    /* cityzen: PropTypes.shape({
         pictureCityzen: PropTypes.string,
         pictureAuthor: PropTypes.string,
-    }).isRequired,
+    }).isRequired, */
 };
 
 const mapDispatchToProps = dispatch => ({

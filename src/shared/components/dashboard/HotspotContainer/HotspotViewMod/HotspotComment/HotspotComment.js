@@ -8,57 +8,72 @@ import ComboIcon from './../../../../lib/comboIcon/ComboIcon';
 
 import './HotspotComment.scss';
 
-const HotspotComment = ({ comment }) => (
-    <article className="HotspotComment">
-        <div className="message-section">
-            <aside className="cityzen-avatar-aside">
-                <ImageCDN
-                    filename={
-                        comment.author.pictureCityzen ||
-                        comment.author.pictureExtern ||
-                        'KI9EVeOiS3KbqA5G7es1'
-                    }
-                    style={{ width: '40px', marginRight: '16px' }}
-                    alt="avatar de l'autheur"
-                />
-            </aside>
-            <div className="content">
-                <header>
+const HotspotComment = ({ comment }) => {
+    const noop = () => {};
+
+    const content = [
+        { label: 'Editer', action: noop },
+        { label: 'Supprimer', action: () => {} },
+    ].map(item => (
+        <Typography
+            tag="div"
+            use="body2"
+            className="combo-item"
+            key={item.label}
+            role="button"
+            onClick={() => item.action(item)}>
+            {item.label}
+        </Typography>
+    ));
+    return (
+        <article className="HotspotComment">
+            <div className="message-section">
+                <aside className="cityzen-avatar-aside">
+                    <ImageCDN
+                        filename={
+                            comment.author.pictureCityzen ||
+                            comment.author.pictureExtern ||
+                            'KI9EVeOiS3KbqA5G7es1'
+                        }
+                        style={{ width: '40px', marginRight: '16px' }}
+                        alt="avatar de l'autheur"
+                    />
+                </aside>
+                <div className="content">
+                    <header>
+                        <Typography
+                            style={{ fontWeight: 'bold' }}
+                            tag="strong"
+                            use="body2"
+                            theme="text-primary-on-background">
+                            {comment.author.pseudo}
+                        </Typography>{' '}
+                        <Typography
+                            tag="span"
+                            style={{ color: 'gray' }}
+                            use="body2"
+                            theme="text-secondary-on-background">
+                            <DateFormater duration date={comment.createdAt} />
+                        </Typography>
+                    </header>
                     <Typography
-                        style={{ fontWeight: 'bold' }}
-                        tag="strong"
+                        tag="p"
                         use="body2"
-                        theme="text-primary-on-background">
-                        {comment.author.pseudo}
-                    </Typography>{' '}
-                    <Typography
-                        tag="span"
-                        style={{ color: 'gray' }}
-                        use="body2"
-                        theme="text-secondary-on-background">
-                        <DateFormater duration date={comment.createdAt} />
-                    </Typography>
-                </header>
-                <Typography
-                    tag="p"
-                    use="body2"
-                    dangerouslySetInnerHTML={{ __html: comment.body }}
-                    theme="text-primary-on-background"
-                />
+                        dangerouslySetInnerHTML={{ __html: comment.body }}
+                        theme="text-primary-on-background"
+                    />
+                </div>
+                <div className="actions-menu">
+                    <ComboIcon
+                        actionComponent={() => <Icon strategy="ligature">more_vert</Icon>}
+                        className="contextual-action"
+                        content={content}
+                    />
+                </div>
             </div>
-            <div className="actions-menu">
-                <ComboIcon
-                    actionComponent={() => <Icon strategy="ligature">more_vert</Icon>}
-                    className="contextual-action"
-                    items={[
-                        { label: 'Supprimer', action: () => {} },
-                        { label: 'Signaler', action: () => {} },
-                    ]}
-                />
-            </div>
-        </div>
-    </article>
-);
+        </article>
+    );
+};
 
 HotspotComment.propTypes = {
     comment: PropTypes.shape({
