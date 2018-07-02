@@ -122,7 +122,7 @@ const AlertHotspot = props => (
     <Fragment>
         <ActionsToolbar closeAction={props.closeAction} />
         <section className="HotspotContent AlertHotspot">
-            <section style={{ marginRight: '12px' }}>
+            <section>
                 <HotspotHeader
                     address={props.hotspot.address.name}
                     views={props.hotspot.views}

@@ -10,6 +10,8 @@ import ImageCDN from './../../../../lib/ImageCDN';
 import ComboIcon from './../../../../lib/comboIcon/ComboIcon';
 import './../HotspotMessage.scss';
 import HotspotCommentForm from '../HotspotComment/HotspotCommentForm';
+import actions from '../../../../../../client/actions';
+import { componentIsLoading } from '../../../../../reducers/componentsState';
 
 class HotspotMessage extends React.Component {
     constructor(props) {
@@ -28,33 +30,67 @@ class HotspotMessage extends React.Component {
             cityzen,
             hotspotId,
             messageComments,
+            fetchMessageComments,
+            fetchingComments,
         } = this.props;
 
         const editMessage = () => {
             edit(message.id, message.title, message.body, message.pinned);
         };
 
-        const displayEditAction = () =>
-            cityzenIsAuthor ? (
+        const displayEditAction = () => {
+            const content = [
+                { label: 'Editer', action: editMessage },
+                { label: 'Supprimer', action: () => {} },
+            ].map(item => (
+                <Typography
+                    tag="div"
+                    use="body2"
+                    className="combo-item"
+                    key={item.label}
+                    role="button"
+                    onClick={() => item.action(item)}>
+                    {item.label}
+                </Typography>
+            ));
+            return cityzenIsAuthor ? (
                 <ComboIcon
+                    actionComponent={() => <Icon strategy="ligature">keyboard_arrow_down</Icon>}
                     className="contextual-action"
-                    items={[
-                        { label: 'Editer', action: editMessage },
-                        { label: 'Supprimer', action: () => {} },
-                    ]}
+                    content={content}
                 />
             ) : null;
+        };
 
-        const displayComments = () =>
-            messageComments.map(comment => <HotspotComment key={comment.id} comment={comment} />);
-
+        const displayComments = () => (
+            <Fragment>
+                <HotspotCommentForm
+                    parentId={message.id}
+                    hotspotId={hotspotId}
+                    cityzen={cityzen}
+                    style={{ marginBottom: '20px' }}
+                    onSubmit={() => {}}
+                />{' '}
+                {fetchingComments ? (
+                    <p>Chargement ...</p>
+                ) : (
+                    messageComments.map(comment => (
+                        <HotspotComment
+                            key={comment.id}
+                            comment={comment}
+                            cityzenIsAuthor={cityzenIsAuthor}
+                        />
+                    ))
+                )}
+            </Fragment>
+        );
         return (
             <Fragment>
                 <article key={message.id} className="HotspotMessage">
                     <div className="message-section" style={{ display: 'flex' }}>
                         <ImageCDN
                             style={{ width: '50px', marginRight: '16px', marginTop: '40px' }}
-                            filename="KI9EVeOiS3KbqA5G7es1"
+                            filename={message.author.pictureCityzen || message.author.pictureExtern}
                             alt="avatar de l'auteur"
                         />
                         <div className="message-content">
@@ -96,12 +132,13 @@ class HotspotMessage extends React.Component {
                             </Typography>
                             <footer>
                                 <Typography
-                                    onClick={() =>
+                                    onClick={() => {
                                         this.setState({
                                             commentsAreVisible: !this.state.commentsAreVisible,
-                                        })
-                                    }
-                                    tag="p"
+                                        });
+                                        fetchMessageComments(hotspotId, message.id);
+                                    }}
+                                    tag="span"
                                     use="caption"
                                     theme="text-secondary-on-background"
                                     style={{ cursor: 'pointer' }}>
@@ -128,17 +165,24 @@ class HotspotMessage extends React.Component {
                             </footer>
                         </div>
                     </div>
-                    {cityzenIsAuthenticated && this.state.commentsAreVisible ? (
-                        <Fragment>
-                            <HotspotCommentForm
-                                parentId={message.id}
-                                hotspotId={hotspotId}
-                                cityzen={cityzen}
-                                style={{ marginBottom: '20px' }}
-                                onSubmit={() => {}}
-                            />
-                            {displayComments()}
-                        </Fragment>
+                    {cityzenIsAuthenticated && this.state.commentsAreVisible
+                        ? displayComments()
+                        : null}
+                    {this.state.commentsAreVisible && !cityzenIsAuthenticated ? (
+                        <Typography
+                            style={{
+                                padding: '5px',
+                                backgroundColor: 'lightsalmon',
+                                textAlign: 'center',
+                                color: 'white',
+                                marginTop: '20px',
+                            }}
+                            tag="div"
+                            use="body2"
+                            theme="text-primary-on-background">
+                            <a href="/login">Connectez vous</a> pour répondre à{' '}
+                            <strong>{message.author.pseudo}</strong>
+                        </Typography>
                     ) : null}
                 </article>
             </Fragment>
@@ -163,6 +207,8 @@ HotspotMessage.propTypes = {
     cityzenIsAuthenticated: PropTypes.bool.isRequired,
     cityzen: PropTypes.shape({}),
     edit: PropTypes.func,
+    fetchMessageComments: PropTypes.func.isRequired,
+    fetchingComments: PropTypes.bool.isRequired,
 };
 
 HotspotMessage.defaultProps = {
@@ -173,6 +219,16 @@ HotspotMessage.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => ({
     messageComments: getMessageComments(state, ownProps.message.id),
+    fetchingComments: componentIsLoading.fetchingComments(state),
 });
 
-export default connect(mapStateToProps)(HotspotMessage);
+const mapDispatchToProps = dispatch => ({
+    fetchMessageComments: (hotspotId, messageId) => {
+        dispatch(actions.fetchMessageComments(hotspotId, messageId));
+    },
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(HotspotMessage);

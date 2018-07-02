@@ -10,20 +10,18 @@ import sharedConstant from './../../shared/constants';
 
 const { SETTING_UP } = sharedConstant.EDITION_MODE;
 
-export function* fetchComments(params) {
-    if (params && params.payload && params.payload.hotspotId) {
+export function* fetchComments(action) {
+    if (action && action.payload && action.payload.hotspotId) {
         try {
             const response = yield call(
                 [cityzensApi, cityzensApi.getComments],
-                params.payload.hotspotId,
-                params.payload.messageId,
+                action.payload.hotspotId,
+                action.payload.messageId,
             );
-            const fetchedComments = yield response.json();
-            yield put(actions.fetchMessagesSucceded(fetchedComments));
+            const comments = yield response.json();
+            yield put({ type: actionTypes.FETCH_MESSAGE_COMMENTS_SUCCEDED, payload: { comments } });
         } catch (err) {
-            let errorPayload;
-            if (err.message) errorPayload = err.message;
-            yield put(actions.fetchMessagesFailed(errorPayload));
+            yield put({ type: actionTypes.FETCH_MESSAGE_COMMENTS_FAILED });
         }
     }
 }
@@ -70,5 +68,8 @@ export function* persistComment(action) {
 }
 
 export default function* commentsSagas() {
-    yield [takeLatest(actionTypes.PERSIST_MESSAGE_COMMENT, persistComment)];
+    yield [
+        takeLatest(actionTypes.FETCH_MESSAGE_COMMENTS, fetchComments),
+        takeLatest(actionTypes.PERSIST_MESSAGE_COMMENT, persistComment),
+    ];
 }

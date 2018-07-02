@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Typography from 'rmwc/Typography';
-import Icon from 'rmwc/Icon';
 import onClickOutside from 'react-onclickoutside';
 
 import './ComboIcon.scss';
@@ -32,30 +31,23 @@ class ComboIcon extends React.Component {
     }
 
     render() {
+        const ActionComponent = this.props.actionComponent;
         return (
             <div className={`ComboIcon ${this.props.className}`}>
-                <Icon onClick={this.onClickHandler} strategy="ligature">
-                    keyboard_arrow_down
-                </Icon>
+                <div
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={this.onClickHandler}
+                    onClick={this.onClickHandler}>
+                    {ActionComponent()}
+                </div>
                 {this.state.open ? (
                     <Fragment>
                         <div className="dropdown-caret">
                             <div className="caret-outer" />
                             <div className="caret-inner" />
                         </div>
-                        <div className="combo-box">
-                            {this.props.items.map(item => (
-                                <Typography
-                                    tag="div"
-                                    use="body2"
-                                    className="combo-item"
-                                    key={item.label}
-                                    role="button"
-                                    onClick={ComboIcon.onSelectItem(item)}>
-                                    {item.label}
-                                </Typography>
-                            ))}
-                        </div>
+                        <div className="content">{this.props.content}</div>
                     </Fragment>
                 ) : null}
             </div>
@@ -66,6 +58,7 @@ class ComboIcon extends React.Component {
 ComboIcon.propTypes = {
     className: PropTypes.string.isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    actionComponent: PropTypes.func.isRequired,
 };
 
 export default onClickOutside(ComboIcon);

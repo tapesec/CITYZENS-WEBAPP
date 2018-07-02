@@ -55,6 +55,7 @@ class InitialState {
                 widget: {},
                 onLoad: {
                     removingSlideshowImage: false,
+                    fetchingComments: false,
                 },
                 hotspotTypeDescriptionModal: {
                     open: false,

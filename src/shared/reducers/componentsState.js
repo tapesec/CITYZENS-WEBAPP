@@ -6,6 +6,7 @@ export default function componentsState(state = initialState, action) {
     let hotspotModal;
     let geocodeModal;
     let settingUpHotspotModal;
+    let onLoad;
 
     switch (action.type) {
         case actionTypes.TOGGLE_LEFT_SIDE_MENU_VISIBILITY:
@@ -193,6 +194,25 @@ export default function componentsState(state = initialState, action) {
                 ...state,
                 hotspotModal,
             };
+        case actionTypes.FETCH_MESSAGE_COMMENTS:
+            onLoad = {
+                ...state.onLoad,
+                fetchingComments: true,
+            };
+            return {
+                ...state,
+                onLoad,
+            };
+        case actionTypes.FETCH_MESSAGE_COMMENTS_SUCCEDED:
+        case actionTypes.FETCH_MESSAGE_COMMENTS_FAILED:
+            onLoad = {
+                ...state.onLoad,
+                fetchingComments: false,
+            };
+            return {
+                ...state,
+                onLoad,
+            };
         case actionTypes.DISPLAY_MESSAGE_TO_SCREEN:
             return {
                 ...state,
@@ -309,6 +329,7 @@ export const widgetIsBeingEdited = state => state.componentsState.widget.name !=
 
 export const componentIsLoading = {
     removingSlideshowImage: state => state.componentsState.onLoad.removingSlideshowImage,
+    fetchingComments: state => state.componentsState.onLoad.fetchingComments,
 };
 
 export const getHotspotTypeDescriptionModal = state =>

@@ -6,7 +6,7 @@ const initialState = {};
 
 export default function comments(state = initialState, action) {
     switch (action.type) {
-        case actionTypes.NEW_COMMENTS_SAVED:
+        case actionTypes.FETCH_MESSAGE_COMMENTS_SUCCEDED:
             return { ...state, ...keyby(action.payload.comments, 'id') };
         case actionTypes.NEW_COMMENT_SAVED:
             return { ...state, [action.payload.comment.id]: action.payload.comment };

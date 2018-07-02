@@ -2,9 +2,20 @@
     padding: 10px 0 10px 10px;
     .message-section {
         display: flex;
+        .content {
+            flex-grow: 1;
+        }
+        .actions-menu {
+            i {
+                color: #9E9E9E;
+                &:hover {
+                    cursor: pointer;
+                    color: black;
+                }
+            }
+        }
     }
     aside.cityzen-avatar-aside {
-        width: 40px;
-        margin-right: 16px;
+      
     }
 }

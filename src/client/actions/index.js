@@ -158,6 +158,14 @@ const postEditionMessageFormData = (settingUpMode, formData) => ({
     },
 });
 
+const fetchMessageComments = (hotspotId, messageId) => ({
+    type: actionTypes.FETCH_MESSAGE_COMMENTS,
+    payload: {
+        hotspotId,
+        messageId,
+    },
+});
+
 const persistMessageComment = (settingUpMode, formData, hotspotId) => ({
     type: actionTypes.PERSIST_MESSAGE_COMMENT,
     payload: {
@@ -389,4 +397,5 @@ export default {
     initHotspotFromMyPosition,
     removeImageWithHandle,
     persistMessageComment,
+    fetchMessageComments,
 };

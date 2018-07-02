@@ -72,18 +72,18 @@ class HotspotCommentForm extends React.Component {
     formSubmit(evt) {
         // function may starts here
         const formStatus = formHelpers.formStatusBeforeSubmit(this.state, listFieldsAndValidators);
+        evt.preventDefault();
         if (formStatus.isValid === false) {
-            evt.preventDefault();
             this.setState(formStatus.newStateToUpdate);
             return false;
         }
-        evt.preventDefault();
         this.props.persistMessageComment(
             constants.EDITION_MODE.SETTING_UP,
             { body: this.state.formValues.body, parentId: this.state.formValues.parentId },
             this.props.hotspotId,
         );
         this.setState({
+            ...this.state,
             formValues: {
                 body: '',
                 parentId: this.state.formValues.parentId,
@@ -127,6 +127,10 @@ HotspotCommentForm.propTypes = {
     parentId: PropTypes.string.isRequired,
     hotspotId: PropTypes.string.isRequired,
     persistMessageComment: PropTypes.func.isRequired,
+    cityzen: PropTypes.shape({
+        pictureCityzen: PropTypes.string,
+        pictureAuthor: PropTypes.string,
+    }).isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

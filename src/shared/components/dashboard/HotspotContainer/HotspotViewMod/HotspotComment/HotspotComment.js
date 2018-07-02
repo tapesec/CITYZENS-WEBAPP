@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from 'rmwc/Typography';
+import { Icon } from 'rmwc/Icon';
 import ImageCDN from '../../../../lib/ImageCDN';
 import DateFormater from '../../../../lib/DateFormater';
+import ComboIcon from './../../../../lib/comboIcon/ComboIcon';
 
 import './HotspotComment.scss';
 
 const HotspotComment = ({ comment }) => (
     <article className="HotspotComment">
         <div className="message-section">
-            <div className="ariane-line" />
             <aside className="cityzen-avatar-aside">
                 <ImageCDN
                     filename={
@@ -17,6 +18,7 @@ const HotspotComment = ({ comment }) => (
                         comment.author.pictureExtern ||
                         'KI9EVeOiS3KbqA5G7es1'
                     }
+                    style={{ width: '40px', marginRight: '16px' }}
                     alt="avatar de l'autheur"
                 />
             </aside>
@@ -42,6 +44,16 @@ const HotspotComment = ({ comment }) => (
                     use="body2"
                     dangerouslySetInnerHTML={{ __html: comment.body }}
                     theme="text-primary-on-background"
+                />
+            </div>
+            <div className="actions-menu">
+                <ComboIcon
+                    actionComponent={() => <Icon strategy="ligature">more_vert</Icon>}
+                    className="contextual-action"
+                    items={[
+                        { label: 'Supprimer', action: () => {} },
+                        { label: 'Signaler', action: () => {} },
+                    ]}
                 />
             </div>
         </div>

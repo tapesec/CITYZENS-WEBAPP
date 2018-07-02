@@ -131,7 +131,7 @@ const WallHotspot = ({
             )}
 
             <section className="HotspotContent">
-                <section style={{ marginRight: '12px' }}>
+                <section>
                     <HotspotHeader
                         title={hotspot.title}
                         hotspotType={hotspot.type}

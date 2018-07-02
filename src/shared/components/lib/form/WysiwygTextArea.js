@@ -122,6 +122,12 @@ export default class renderWysiwygComponent extends React.Component {
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
     } // On change, update the app's React state with the new editor value.
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value && nextProps.value === '') {
+            this.setState({ value: defaultValues });
+            this.state.value.change().selectAll();
+        }
+    }
     onChange({ value }) {
         this.setState({ value });
         const string = html.serialize(value);
@@ -246,6 +252,9 @@ export default class renderWysiwygComponent extends React.Component {
                 {this.renderToolbar()}
                 <div className={`editor-container ${this.state.className}`}>
                     <Editor
+                        ref={node => {
+                            this.editor = node;
+                        }}
                         style={this.props.editorContentStyle}
                         className="editor-content"
                         value={this.state.value}

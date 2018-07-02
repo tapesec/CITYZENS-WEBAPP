@@ -121,7 +121,7 @@ class CityzenApi {
         return this.http.request(
             `${
                 this.url
-            }${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}/${messageId}/${COMMENTS_ENDPOINTS}`,
+            }${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}/${messageId}${COMMENTS_ENDPOINTS}`,
             {
                 method: 'GET',
                 headers: {
