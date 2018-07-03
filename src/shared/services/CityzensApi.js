@@ -117,6 +117,19 @@ class CityzenApi {
         );
     }
 
+    deleteMessage(accessToken, hotspotId, messageId) {
+        return this.http.request(
+            `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}/${messageId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${accessToken}`,
+                },
+            },
+        );
+    }
+
     getComments(hotspotId, messageId) {
         return this.http.request(
             `${

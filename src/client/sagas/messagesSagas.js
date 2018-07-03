@@ -40,6 +40,22 @@ export const buildMessagePayload = messageData => {
     }
 };
 
+export function* deleteMessage(action) {
+    try {
+        const { messageId, hotspotId } = action.payload;
+        const accessToken = yield select(getCityzenAccessToken);
+        yield call([cityzensApi, cityzensApi.deleteMessage], accessToken, hotspotId, messageId);
+        yield put({ type: actionTypes.HOTSPOT_MESSAGE_DELETED, payload: { messageId } });
+    } catch (error) {
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.ERROR.DELETING_MESSAGE_FAILED,
+                NOTIFICATION_MESSAGE.LEVEL.ERROR,
+            ),
+        );
+    }
+}
+
 export function* persistMessage(action) {
     const { settingUpMode } = action.payload;
     try {
@@ -87,5 +103,8 @@ export function* persistMessage(action) {
 }
 
 export default function* messagesSagas() {
-    yield [takeLatest(actionTypes.POST_EDITION_MESSAGE_FORM_DATA, persistMessage)];
+    yield [
+        takeLatest(actionTypes.POST_EDITION_MESSAGE_FORM_DATA, persistMessage),
+        takeLatest(actionTypes.DELETE_HOTSPOT_MESSAGE, deleteMessage),
+    ];
 }

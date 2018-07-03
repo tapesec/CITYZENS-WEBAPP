@@ -16,5 +16,6 @@ export const SNACKBAR = {
         SAVING_MESSAGE_FAILED: `Oups, nous n'avons pas réussi à sauvegarder votre message, ${GENERIC_RETRY_REQUEST}`,
         ALERT_POLL_FAILED:
             "Nous n'avons pas réussi à soumettre votre avis, pouvez vous réessayer un peu plus tard ? Merci.",
+        DELETING_MESSAGE_FAILED: `Suppression echoué`,
     },
 }; /* eslint-enable import/prefer-default-export */

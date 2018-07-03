@@ -158,6 +158,14 @@ const postEditionMessageFormData = (settingUpMode, formData) => ({
     },
 });
 
+const deleteHotspotMessage = (hotspotId, messageId) => ({
+    type: actionTypes.DELETE_HOTSPOT_MESSAGE,
+    payload: {
+        hotspotId,
+        messageId,
+    },
+});
+
 const fetchMessageComments = (hotspotId, messageId) => ({
     type: actionTypes.FETCH_MESSAGE_COMMENTS,
     payload: {
@@ -368,6 +376,7 @@ export default {
     saveInStateSettingUpHotspotFormData,
     postSettingUpHotspotFormData,
     postEditionMessageFormData,
+    deleteHotspotMessage,
     editMessageHotspot,
     editEventHotspot,
     clearHotspotMessageEdition,

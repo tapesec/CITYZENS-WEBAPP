@@ -31,6 +31,7 @@ class HotspotMessage extends React.Component {
             hotspotId,
             messageComments,
             fetchMessageComments,
+            deleteMessage,
             fetchingComments,
         } = this.props;
 
@@ -38,10 +39,14 @@ class HotspotMessage extends React.Component {
             edit(message.id, message.title, message.body, message.pinned);
         };
 
+        const deleteHotspotMessage = () => {
+            deleteMessage(hotspotId, message.id);
+        };
+
         const displayEditAction = () => {
             const content = [
                 { label: 'Editer', action: editMessage },
-                { label: 'Supprimer', action: () => {} },
+                { label: 'Supprimer', action: deleteHotspotMessage },
             ].map(item => (
                 <Typography
                     tag="div"
@@ -208,6 +213,7 @@ HotspotMessage.propTypes = {
     cityzen: PropTypes.shape({}),
     edit: PropTypes.func,
     fetchMessageComments: PropTypes.func.isRequired,
+    deleteMessage: PropTypes.func.isRequired,
     fetchingComments: PropTypes.bool.isRequired,
 };
 
@@ -225,6 +231,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
     fetchMessageComments: (hotspotId, messageId) => {
         dispatch(actions.fetchMessageComments(hotspotId, messageId));
+    },
+    deleteMessage: (hotspotId, messageId) => {
+        dispatch(actions.deleteHotspotMessage(hotspotId, messageId));
     },
 });
 
