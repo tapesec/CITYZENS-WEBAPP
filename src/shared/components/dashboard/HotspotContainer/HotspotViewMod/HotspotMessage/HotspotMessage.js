@@ -32,6 +32,7 @@ class HotspotMessage extends React.Component {
             messageComments,
             fetchMessageComments,
             deleteMessage,
+            deleteComment,
             fetchingComments,
         } = this.props;
 
@@ -81,9 +82,11 @@ class HotspotMessage extends React.Component {
                 ) : (
                     messageComments.map(comment => (
                         <HotspotComment
+                            hotspotId={hotspotId}
                             key={comment.id}
                             comment={comment}
                             cityzenIsAuthor={cityzenIsAuthor}
+                            deleteComment={deleteComment}
                         />
                     ))
                 )}
@@ -214,6 +217,7 @@ HotspotMessage.propTypes = {
     edit: PropTypes.func,
     fetchMessageComments: PropTypes.func.isRequired,
     deleteMessage: PropTypes.func.isRequired,
+    deleteComment: PropTypes.func.isRequired,
     fetchingComments: PropTypes.bool.isRequired,
 };
 
@@ -234,6 +238,9 @@ const mapDispatchToProps = dispatch => ({
     },
     deleteMessage: (hotspotId, messageId) => {
         dispatch(actions.deleteHotspotMessage(hotspotId, messageId));
+    },
+    deleteComment: (hotspotId, messageId) => {
+        dispatch(actions.deleteMessageComment(hotspotId, messageId));
     },
 });
 

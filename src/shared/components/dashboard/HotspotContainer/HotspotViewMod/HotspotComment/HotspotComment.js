@@ -8,12 +8,16 @@ import ComboIcon from './../../../../lib/comboIcon/ComboIcon';
 
 import './HotspotComment.scss';
 
-const HotspotComment = ({ comment }) => {
+const HotspotComment = ({ comment, deleteComment, hotspotId }) => {
     const noop = () => {};
 
+    const removeComment = () => {
+        deleteComment(hotspotId, comment.id);
+    };
+
     const content = [
-        { label: 'Editer', action: noop },
-        { label: 'Supprimer', action: () => {} },
+        { label: 'Supprimer', action: removeComment },
+        { label: 'Signaler', noop },
     ].map(item => (
         <Typography
             tag="div"
@@ -82,6 +86,8 @@ HotspotComment.propTypes = {
         }),
         body: PropTypes.string.isRequired,
     }).isRequired,
+    hotspotId: PropTypes.string.isRequired,
+    deleteComment: PropTypes.func.isRequired,
 };
 
 export default HotspotComment;

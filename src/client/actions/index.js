@@ -166,6 +166,14 @@ const deleteHotspotMessage = (hotspotId, messageId) => ({
     },
 });
 
+const deleteMessageComment = (hotspotId, messageId) => ({
+    type: actionTypes.DELETE_MESSAGE_COMMENT,
+    payload: {
+        hotspotId,
+        messageId,
+    },
+});
+
 const fetchMessageComments = (hotspotId, messageId) => ({
     type: actionTypes.FETCH_MESSAGE_COMMENTS,
     payload: {
@@ -377,6 +385,7 @@ export default {
     postSettingUpHotspotFormData,
     postEditionMessageFormData,
     deleteHotspotMessage,
+    deleteMessageComment,
     editMessageHotspot,
     editEventHotspot,
     clearHotspotMessageEdition,

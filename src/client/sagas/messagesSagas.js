@@ -45,7 +45,9 @@ export function* deleteMessage(action) {
         const { messageId, hotspotId } = action.payload;
         const accessToken = yield select(getCityzenAccessToken);
         yield call([cityzensApi, cityzensApi.deleteMessage], accessToken, hotspotId, messageId);
-        yield put({ type: actionTypes.HOTSPOT_MESSAGE_DELETED, payload: { messageId } });
+        if (action.type === actionTypes.DELETE_HOTSPOT_MESSAGE)
+            yield put({ type: actionTypes.HOTSPOT_MESSAGE_DELETED, payload: { messageId } });
+        else yield put({ type: actionTypes.HOTSPOT_COMMENT_DELETED, payload: { messageId } });
     } catch (error) {
         yield put(
             actions.displayMessageToScreen(
@@ -106,5 +108,6 @@ export default function* messagesSagas() {
     yield [
         takeLatest(actionTypes.POST_EDITION_MESSAGE_FORM_DATA, persistMessage),
         takeLatest(actionTypes.DELETE_HOTSPOT_MESSAGE, deleteMessage),
+        takeLatest(actionTypes.DELETE_MESSAGE_COMMENT, deleteMessage),
     ];
 }
