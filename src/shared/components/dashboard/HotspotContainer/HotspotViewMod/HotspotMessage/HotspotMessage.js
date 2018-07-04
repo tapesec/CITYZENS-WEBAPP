@@ -85,7 +85,7 @@ class HotspotMessage extends React.Component {
                             hotspotId={hotspotId}
                             key={comment.id}
                             comment={comment}
-                            cityzenIsAuthor={cityzenIsAuthor}
+                            cityzenIsAuthor={cityzen.id === comment.author.id}
                             deleteComment={deleteComment}
                         />
                     ))

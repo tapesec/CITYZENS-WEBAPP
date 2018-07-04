@@ -42,9 +42,10 @@ export function* persistComment(action) {
             const { hotspotId } = action.payload;
             const commentPayload = yield call(buildCommentPayload, action.payload.formData);
             const response = yield call(
-                [cityzensApi, cityzensApi.postMessages],
+                [cityzensApi, cityzensApi.postComments],
                 accessToken,
                 hotspotId,
+                commentPayload.parentId,
                 JSON.stringify(commentPayload),
             );
             const newComment = yield response.json();

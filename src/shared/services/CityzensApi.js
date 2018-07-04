@@ -144,6 +144,22 @@ class CityzenApi {
         );
     }
 
+    postComments(accessToken, hotspotId, messageId, payload) {
+        return this.http.request(
+            `${
+                this.url
+            }${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}/${messageId}${COMMENTS_ENDPOINTS}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${accessToken}`,
+                },
+                body: payload,
+            },
+        );
+    }
+
     postPertinence(accessToken, hotspotId, pertinence) {
         return this.http.request(
             `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}${PERTINENCE_ENDPOINTS}`,

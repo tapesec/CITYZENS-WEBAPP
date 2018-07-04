@@ -8,27 +8,30 @@ import ComboIcon from './../../../../lib/comboIcon/ComboIcon';
 
 import './HotspotComment.scss';
 
-const HotspotComment = ({ comment, deleteComment, hotspotId }) => {
+const HotspotComment = ({ comment, deleteComment, hotspotId, cityzenIsAuthor }) => {
     const noop = () => {};
 
     const removeComment = () => {
         deleteComment(hotspotId, comment.id);
     };
 
-    const content = [
-        { label: 'Supprimer', action: removeComment },
-        { label: 'Signaler', noop },
-    ].map(item => (
-        <Typography
-            tag="div"
-            use="body2"
-            className="combo-item"
-            key={item.label}
-            role="button"
-            onClick={() => item.action(item)}>
-            {item.label}
-        </Typography>
-    ));
+    const getComboContent = () => {
+        const content = [{ label: 'Signaler', noop }];
+        if (cityzenIsAuthor) {
+            content.push({ label: 'Supprimer', action: removeComment });
+        }
+        return content.map(item => (
+            <Typography
+                tag="div"
+                use="body2"
+                className="combo-item"
+                key={item.label}
+                role="button"
+                onClick={() => item.action(item)}>
+                {item.label}
+            </Typography>
+        ));
+    };
     return (
         <article className="HotspotComment">
             <div className="message-section">
@@ -67,11 +70,12 @@ const HotspotComment = ({ comment, deleteComment, hotspotId }) => {
                         theme="text-primary-on-background"
                     />
                 </div>
+                {}
                 <div className="actions-menu">
                     <ComboIcon
                         actionComponent={() => <Icon strategy="ligature">more_vert</Icon>}
                         className="contextual-action"
-                        content={content}
+                        content={getComboContent()}
                     />
                 </div>
             </div>
@@ -86,6 +90,7 @@ HotspotComment.propTypes = {
         }),
         body: PropTypes.string.isRequired,
     }).isRequired,
+    cityzenIsAuthor: PropTypes.bool.isRequired,
     hotspotId: PropTypes.string.isRequired,
     deleteComment: PropTypes.func.isRequired,
 };
