@@ -23,5 +23,11 @@ article.HotspotMessage {
         p {
             margin: 0;
         }
+        span.comment-link {
+            color: $mdc-theme--text-on-secondary-background;
+            &:hover {
+                color: $mdc-theme-secondary;
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Typography from 'rmwc/Typography';
 import Icon from 'rmwc/Icon';
+import Loader from 'react-loader-spinner';
 import { getMessageComments } from '../../../../../reducers/comments';
 import HotspotComment from '../HotspotComment/HotspotComment';
 import DateFormater from '../../../../lib/DateFormater';
@@ -78,7 +79,9 @@ class HotspotMessage extends React.Component {
                     onSubmit={() => {}}
                 />{' '}
                 {fetchingComments ? (
-                    <p>Chargement ...</p>
+                    <div style={{ margin: 'auto', display: 'block', width: '50px' }}>
+                        <Loader type="Circles" color="#018786" height="50" width="50" />
+                    </div>
                 ) : (
                     messageComments.map(comment => (
                         <HotspotComment
@@ -146,9 +149,9 @@ class HotspotMessage extends React.Component {
                                         });
                                         fetchMessageComments(hotspotId, message.id);
                                     }}
+                                    className="comment-link"
                                     tag="span"
                                     use="caption"
-                                    theme="text-secondary-on-background"
                                     style={{ cursor: 'pointer' }}>
                                     <Icon
                                         style={{
