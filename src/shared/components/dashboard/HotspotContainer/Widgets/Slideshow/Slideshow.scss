@@ -1,10 +1,24 @@
 div.Slideshow {
+    width: 100%;
+    display: inline-block;
+    position: relative;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     position: relative;
     box-shadow: 0px 3px 5px darkgrey;
     border-radius: 5px;
+    div.Slideshow:after {
+        padding-top: 41.8%;
+        /* 2.39:1 ratio */
+        display: block;
+        content: '';
+    }
+    .slideshow-loading-area {
+        background-color: blue;
+        width: 100%;
+        height: 100%;
+    }
     i.action-left, i.action-right {
         background-color: white;
         border-radius: 12px;

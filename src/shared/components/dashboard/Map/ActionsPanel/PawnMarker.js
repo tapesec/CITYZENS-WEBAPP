@@ -18,6 +18,8 @@ class PawnMarker extends React.Component {
                 data-icon-type={iconType}
                 data-hotspot-type={type}>
                 <ImageCDN
+                    process
+                    processParam="output=format:png/resize=w:60,fit:clip/compress"
                     id={id}
                     style={{ width: '50px' }}
                     filename={filename.split('/')[3]}

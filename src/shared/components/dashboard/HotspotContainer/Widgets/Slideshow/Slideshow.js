@@ -35,52 +35,54 @@ class Slideshow extends React.Component {
     render() {
         return (
             <div className="Slideshow">
-                <ReactSwipe
-                    ref={reactSwipe => {
-                        this.reactSwipe = reactSwipe;
-                    }}
-                    style={{
-                        container: {
-                            overflow: 'hidden',
-                            visibility: 'hidden',
-                            position: 'relative',
-                        },
+                <div className="slideshow-loading-area">
+                    <ReactSwipe
+                        ref={reactSwipe => {
+                            this.reactSwipe = reactSwipe;
+                        }}
+                        style={{
+                            container: {
+                                overflow: 'hidden',
+                                visibility: 'hidden',
+                                position: 'relative',
+                            },
 
-                        wrapper: {
-                            display: 'flex',
-                            flexDirection: 'row',
-                            overflow: 'hidden',
-                            position: 'relative',
-                        },
+                            wrapper: {
+                                display: 'flex',
+                                flexDirection: 'row',
+                                overflow: 'hidden',
+                                position: 'relative',
+                            },
 
-                        child: {
-                            float: 'left',
-                            width: '100%',
-                            position: 'relative',
-                            transitionProperty: 'transform',
-                            borderRadius: '5px',
-                        },
-                    }}
-                    swipeOptions={{
-                        continuous: true,
-                        startSlide: 0,
-                        speed: 300,
-                        auto: 3000,
-                        disableScroll: false,
-                        callback() {},
-                        transitionEnd() {},
-                    }}
-                    key={this.state.refreshToken}>
-                    {this.props.imageIds.map(imageId => (
-                        <ImageCDN
-                            process
-                            processParam="resize=w:900,fit:clip/compress"
-                            filename={imageId}
-                            key={imageId}
-                            alt="galerie photo"
-                        />
-                    ))}
-                </ReactSwipe>
+                            child: {
+                                float: 'left',
+                                width: '100%',
+                                position: 'relative',
+                                transitionProperty: 'transform',
+                                borderRadius: '5px',
+                            },
+                        }}
+                        swipeOptions={{
+                            continuous: true,
+                            startSlide: 0,
+                            speed: 300,
+                            auto: 3000,
+                            disableScroll: false,
+                            callback() {},
+                            transitionEnd() {},
+                        }}
+                        key={this.state.refreshToken}>
+                        {this.props.imageIds.map(imageId => (
+                            <ImageCDN
+                                process
+                                processParam="resize=w:650,fit:clip/compress"
+                                filename={imageId}
+                                key={imageId}
+                                alt="galerie photo"
+                            />
+                        ))}
+                    </ReactSwipe>
+                </div>
 
                 <Icon onClick={this.prev} className="action-left" strategy="ligature">
                     keyboard_arrow_left

@@ -100,14 +100,14 @@ const SearchResult = props => {
                             <ListItem style={{ cursor: 'pointer' }} onClick={listItemOnClick(hit)}>
                                 <ListItemGraphic>
                                     <ImageCDN
+                                        process
+                                        processParam="output=format:png/resize=w:44,fit:clip/circle"
                                         filename={hit.avatarIconUrl}
                                         style={{
                                             display: 'block',
                                             borderRadius: '50%',
                                         }}
                                         alt="avatar"
-                                        process
-                                        processParam="compress"
                                     />
                                 </ListItemGraphic>
                                 <ListItemText

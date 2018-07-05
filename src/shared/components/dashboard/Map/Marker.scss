@@ -2,11 +2,11 @@
 div.Marker {
         width: 52px;
         height: 83px;
-        background-image: url('https://cdn.filestackcontent.com/5lkJTLUSCGxTZL3X3Bgw?policy=eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RhdCIsIndyaXRlIiwid3JpdGVVcmwiLCJzdG9yZSIsImNvbnZlcnQiLCJyZW1vdmUiLCJleGlmIl0sImV4cGlyeSI6MTU4NTY5MjAwMH0=&signature=af896330fabdb11a110c33849b74a936f0c1782989c6230644785f995365f5c1');
+        background-image: url('https://process.filestackapi.com/output=format:png/resize=w:52,h:83,fit:clip/security=policy:eyJjYWxsIjpbInBpY2siLCJyZWFkIiwic3RhdCIsIndyaXRlIiwid3JpdGVVcmwiLCJzdG9yZSIsImNvbnZlcnQiLCJyZW1vdmUiLCJleGlmIl0sImV4cGlyeSI6MTU4NTY5MjAwMH0=,signature:af896330fabdb11a110c33849b74a936f0c1782989c6230644785f995365f5c1/5lkJTLUSCGxTZL3X3Bgw');
         background-size: contain;
         background-repeat: no-repeat;
     .ImageCDN {
-        width: 44px;
+        width: 45px;
         margin-left: 4px;
         margin-top: 3px;
     }
@@ -46,7 +46,7 @@ div.Marker {
             border-width: 10px 5px 0 5px;
             border-color: #ffffff transparent transparent transparent;
         }
-        
+
     }
     &:hover {
         cursor: pointer;

@@ -84,6 +84,8 @@ const SlideshowAdmin = ({
                                 <GridCell span="4" key={imageId}>
                                     <ImageCDN
                                         filename={imageId}
+                                        process
+                                        processParam="resize=w:200,fit:clip/compress"
                                         style={{ width: '100%' }}
                                         alt="Image du diaporama"
                                         iconAction="delete_forever"
