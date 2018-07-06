@@ -308,6 +308,8 @@ export const hotspotAddressModalState = {
     geocodingFailed,
 };
 
+export const leftSideMenuIsOpen = state => state.componentsState.leftSideMenu.open;
+
 const getSettingUpHotspotModalState = state => state.componentsState.settingUpHotspotModal;
 const isOpenSettingUpHotspotModal = state => getSettingUpHotspotModalState(state).open;
 

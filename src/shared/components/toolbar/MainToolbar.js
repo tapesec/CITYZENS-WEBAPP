@@ -7,6 +7,8 @@ import { Menu, MenuItem, MenuAnchor } from 'rmwc/Menu';
 import Typography from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 import Fab from 'rmwc/Fab';
+import { leftSideMenuIsOpen } from '../../reducers/componentsState';
+import { visitorComeFromMobile } from '../../reducers/visitor';
 import actions from './../../../client/actions';
 
 class MainToolbar extends React.Component {
@@ -15,6 +17,21 @@ class MainToolbar extends React.Component {
         this.state = {
             menuIsOpen: false,
         };
+        this.displayIcon = this.displayIcon.bind(this);
+        this.getFabStyle = this.getFabStyle.bind(this);
+    }
+
+    getFabStyle() {
+        if (this.props.isMobile) {
+            return { left: '10px', backgroundColor: '#a71212' };
+        }
+        return { left: '10px', backgroundColor: 'white' };
+    }
+    displayIcon() {
+        if (this.props.isMobile) {
+            return this.props.leftMenuIsOpen ? 'explore' : 'search';
+        }
+        return 'menu';
     }
 
     render() {
@@ -23,13 +40,17 @@ class MainToolbar extends React.Component {
                 <ToolbarRow theme="background">
                     <ToolbarSection alignStart>
                         <Fab
-                            style={{ left: '10px', backgroundColor: '#a71212' }}
-                            theme="text-primary-on-dark"
+                            style={this.getFabStyle()}
+                            theme={
+                                this.props.isMobile
+                                    ? 'text-primary-on-dark'
+                                    : 'text-icon-on-background'
+                            }
                             onClick={() => {
                                 this.props.actions.toggleLeftSideMenuVisibility();
                             }}
                             mini>
-                            search
+                            {this.displayIcon()}
                         </Fab>
                     </ToolbarSection>
                     <ToolbarSection alignEnd>
@@ -103,17 +124,24 @@ MainToolbar.propTypes = {
     }).isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     authenticatedCityzenName: PropTypes.string,
+    leftMenuIsOpen: PropTypes.bool.isRequired,
+    isMobile: PropTypes.bool.isRequired,
 };
 
 MainToolbar.defaultProps = {
     authenticatedCityzenName: undefined,
 };
 
+const mapStateToProps = state => ({
+    leftMenuIsOpen: leftSideMenuIsOpen(state),
+    isMobile: visitorComeFromMobile(state),
+});
+
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(actions, dispatch),
 });
 
 export default connect(
-    () => ({}),
+    mapStateToProps,
     mapDispatchToProps,
 )(MainToolbar);

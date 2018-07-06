@@ -85,6 +85,7 @@ class InitialState {
     async defaultState(req, res, next) {
         const dataTree = { ...InitialState.dataTree() };
         dataTree.visitor.fromMobile = req.useragent.isMobile;
+        dataTree.componentsState.leftSideMenu.open = !req.useragent.isMobile; // leftSideMenu must be open default when desktop user agent
         if (req.params && req.params.citySlug) {
             try {
                 const response = await this.citiesService.getCity(req.params.citySlug);
