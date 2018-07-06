@@ -101,7 +101,7 @@ const SearchResult = props => {
                                 <ListItemGraphic>
                                     <ImageCDN
                                         process
-                                        processParam="output=format:png/resize=w:44,fit:clip/circle"
+                                        processParam="output=format:png/resize=w:100,fit:clip/compress/circle"
                                         filename={hit.avatarIconUrl}
                                         style={{
                                             display: 'block',

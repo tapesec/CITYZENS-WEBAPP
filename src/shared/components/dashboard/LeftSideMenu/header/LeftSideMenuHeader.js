@@ -23,7 +23,7 @@ const LeftSideMenuHeader = ({ dense }) => (
                     alt="logo de Cityzens"
                     style={styleCDN}
                     process
-                    processParam="output=format:jpg/resize=w:123,fit:clip/compress"
+                    processParam="output=format:jpg/resize=w:250,fit:clip/compress"
                     filename="TlFeYNnVSSOsm4TT6h6v"
                 />
             </Link>

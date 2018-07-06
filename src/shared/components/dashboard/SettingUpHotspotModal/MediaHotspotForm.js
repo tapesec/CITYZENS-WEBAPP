@@ -95,79 +95,79 @@ const listFieldsAndValidators = [
 
 const listIcons = [
     {
-        handle: 'AaGzo1a0ShmmL9r8vAhj',
+        handle: '8K3llAoSlSOKR9swDGLA',
         title: 'Icône information',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'AaGzo1a0ShmmL9r8vAhj',
+        handle: '8K3llAoSlSOKR9swDGLA',
         title: 'Icône information',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'AaGzo1a0ShmmL9r8vAhj',
+        handle: '8K3llAoSlSOKR9swDGLA',
         title: 'Icône information',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'AaGzo1a0ShmmL9r8vAhj',
+        handle: '8K3llAoSlSOKR9swDGLA',
         title: 'Icône information',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'AaGzo1a0ShmmL9r8vAhj',
+        handle: '8K3llAoSlSOKR9swDGLA',
         title: 'Icône information',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'AaGzo1a0ShmmL9r8vAhj',
+        handle: '8K3llAoSlSOKR9swDGLA',
         title: 'Icône information',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
     {
-        handle: 'AaGzo1a0ShmmL9r8vAhj',
+        handle: '8K3llAoSlSOKR9swDGLA',
         title: 'Icône information',
     },
     {
-        handle: 'QXg7dCRhQbiEi4iRGSDz',
+        handle: 'z1GGWGZsTsKvg2fLjgGy',
         title: 'Mur de message',
     },
 ];
@@ -265,7 +265,7 @@ class MediaHotspotForm extends React.Component {
                     <ImageCDN
                         filename={this.state.previewIcon}
                         process
-                        processParam="output=format:png/resize=w:50,fit:clip/circle"
+                        processParam="output=format:png/resize=w:100,fit:clip/compress/circle"
                         alt="Icone choisi"
                         style={{ width: '50px' }}
                     />

@@ -32,6 +32,8 @@ export default class Tile extends React.Component {
                 onClick={this.props.onIconSelectedConnector(icon.handle, index)}>
                 <ImageCDN
                     style={{ width: '50px' }}
+                    process
+                    processParam="output=format:png/resize=w:100,fit:clip/compress"
                     filename={icon.handle}
                     title={icon.title}
                     key={icon.handle}

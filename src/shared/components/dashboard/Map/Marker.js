@@ -82,7 +82,7 @@ class Marker extends React.Component {
                 <ImageCDN
                     onClick={this.openHotspot}
                     process
-                    processParam="output=format:png/resize=w:55,fit:clip/circle"
+                    processParam="output=format:png/resize=w:100,fit:clip/compress/circle"
                     filename={this.props.avatarIconUrl}
                     dataType="map-marker"
                     alt="point GPS"
