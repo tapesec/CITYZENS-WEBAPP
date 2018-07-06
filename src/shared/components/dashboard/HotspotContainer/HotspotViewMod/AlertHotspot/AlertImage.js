@@ -12,7 +12,7 @@ const imageStyle = {
 const AlertImage = ({ imageLocation }) => (
     <ImageCDN
         process
-        processParam="resize=height:200,w:600,fit:crop,align:center/compress"
+        processParam="output=format:jpg/resize=height:200,w:600,fit:crop,align:center/compress"
         filename={imageLocation}
         style={imageStyle}
         alt="lieu du hotspot"

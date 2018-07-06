@@ -15,6 +15,8 @@ const HotspotHeader = ({ title, address, views, hotspotIcon }) => (
             alignItems: 'center',
         }}>
         <ImageCDN
+            process
+            processParam="output=format:png/resize=w:60,fit:clip/circle"
             style={{ width: '60px' }}
             alt="icone d'un point d'information"
             filename={hotspotIcon}

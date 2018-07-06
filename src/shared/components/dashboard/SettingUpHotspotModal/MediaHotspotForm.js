@@ -264,6 +264,8 @@ class MediaHotspotForm extends React.Component {
                 <header style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
                     <ImageCDN
                         filename={this.state.previewIcon}
+                        process
+                        processParam="output=format:png/resize=w:50,fit:clip/circle"
                         alt="Icone choisi"
                         style={{ width: '50px' }}
                     />

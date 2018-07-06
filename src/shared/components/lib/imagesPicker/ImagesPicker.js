@@ -14,11 +14,12 @@ const fileStackOptions = {
     minFiles: 1,
     lang: 'fr',
     transformations: {
-        circle: true,
+        // circle: true,
         rotate: true,
-        crop: {
+        /* crop: {
             force: true,
-        },
+            aspectRatio: 1 / 1,
+        }, */
     },
 };
 
