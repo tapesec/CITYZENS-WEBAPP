@@ -18,7 +18,7 @@ class InitialState {
             },
             componentsState: {
                 leftSideMenu: {
-                    open: true,
+                    open: false,
                 },
                 map: {
                     markerTooltip: {},

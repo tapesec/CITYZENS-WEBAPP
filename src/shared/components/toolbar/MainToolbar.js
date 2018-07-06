@@ -23,13 +23,13 @@ class MainToolbar extends React.Component {
                 <ToolbarRow theme="background">
                     <ToolbarSection alignStart>
                         <Fab
-                            style={{ left: '10px', backgroundColor: 'white' }}
-                            theme="background text-icon-on-background"
+                            style={{ left: '10px', backgroundColor: '#a71212' }}
+                            theme="text-primary-on-dark"
                             onClick={() => {
                                 this.props.actions.toggleLeftSideMenuVisibility();
                             }}
                             mini>
-                            menu
+                            search
                         </Fab>
                     </ToolbarSection>
                     <ToolbarSection alignEnd>
@@ -113,4 +113,7 @@ const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(actions, dispatch),
 });
 
-export default connect(() => ({}), mapDispatchToProps)(MainToolbar);
+export default connect(
+    () => ({}),
+    mapDispatchToProps,
+)(MainToolbar);
