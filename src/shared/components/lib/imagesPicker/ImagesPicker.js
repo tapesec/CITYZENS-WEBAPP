@@ -16,10 +16,10 @@ const fileStackOptions = {
     transformations: {
         // circle: true,
         rotate: true,
-        /* crop: {
+        crop: {
             force: true,
             aspectRatio: 1 / 1,
-        }, */
+        },
     },
 };
 
