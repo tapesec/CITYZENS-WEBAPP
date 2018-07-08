@@ -101,7 +101,11 @@ class HotspotMessage extends React.Component {
                     <div className="message-section" style={{ display: 'flex' }}>
                         <ImageCDN
                             style={{ width: '50px', marginRight: '16px', marginTop: '40px' }}
-                            filename={message.author.pictureCityzen || message.author.pictureExtern}
+                            filename={
+                                this.props.defaultAvatar ||
+                                message.author.pictureCityzen ||
+                                message.author.pictureExtern
+                            }
                             alt="avatar de l'auteur"
                         />
                         <div className="message-content">
@@ -141,39 +145,41 @@ class HotspotMessage extends React.Component {
                                     date={message.updatedAt}
                                 />
                             </Typography>
-                            <footer>
-                                <Typography
-                                    onClick={() => {
-                                        this.setState({
-                                            commentsAreVisible: !this.state.commentsAreVisible,
-                                        });
-                                        fetchMessageComments(hotspotId, message.id);
-                                    }}
-                                    className="comment-link"
-                                    tag="span"
-                                    use="caption"
-                                    style={{ cursor: 'pointer' }}>
-                                    <Icon
-                                        style={{
-                                            fontSize: '1rem',
-                                            verticalAlign: 'middle',
+                            {!this.props.defaultAvatar ? (
+                                <footer>
+                                    <Typography
+                                        onClick={() => {
+                                            this.setState({
+                                                commentsAreVisible: !this.state.commentsAreVisible,
+                                            });
+                                            fetchMessageComments(hotspotId, message.id);
                                         }}
-                                        strategy="ligature">
-                                        add_comment
-                                    </Icon>{' '}
-                                    Commentez{' '}
-                                    {this.state.commentsAreVisible ? (
+                                        className="comment-link"
+                                        tag="span"
+                                        use="caption"
+                                        style={{ cursor: 'pointer' }}>
                                         <Icon
                                             style={{
                                                 fontSize: '1rem',
                                                 verticalAlign: 'middle',
                                             }}
                                             strategy="ligature">
-                                            keyboard_arrow_down
-                                        </Icon>
-                                    ) : null}
-                                </Typography>
-                            </footer>
+                                            add_comment
+                                        </Icon>{' '}
+                                        Commentez{' '}
+                                        {this.state.commentsAreVisible ? (
+                                            <Icon
+                                                style={{
+                                                    fontSize: '1rem',
+                                                    verticalAlign: 'middle',
+                                                }}
+                                                strategy="ligature">
+                                                keyboard_arrow_down
+                                            </Icon>
+                                        ) : null}
+                                    </Typography>
+                                </footer>
+                            ) : null}
                         </div>
                     </div>
                     {cityzenIsAuthenticated && this.state.commentsAreVisible
@@ -222,11 +228,13 @@ HotspotMessage.propTypes = {
     deleteMessage: PropTypes.func.isRequired,
     deleteComment: PropTypes.func.isRequired,
     fetchingComments: PropTypes.bool.isRequired,
+    defaultAvatar: PropTypes.string,
 };
 
 HotspotMessage.defaultProps = {
     cityzenIsAuthor: false,
     cityzen: undefined,
+    defaultAvatar: undefined,
     edit: () => {},
 };
 

@@ -85,7 +85,7 @@ const SlideshowAdmin = ({
                                     <ImageCDN
                                         filename={imageId}
                                         process
-                                        processParam="resize=w:200,fit:clip/compress"
+                                        processParam="resize=w:100,fit:clip/compress"
                                         style={{ width: '100%' }}
                                         alt="Image du diaporama"
                                         iconAction="delete_forever"

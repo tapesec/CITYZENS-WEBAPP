@@ -85,7 +85,13 @@ const WallHotspot = ({
 
     const displayContent = () => {
         if (hotspot.messages.length === 0) {
-            return <HotspotMessage message={EMPTY_MESSAGE_WORDING} key={EMPTY_MESSAGE_KEY} />;
+            return (
+                <HotspotMessage
+                    defaultAvatar="KI9EVeOiS3KbqA5G7es1"
+                    message={EMPTY_MESSAGE_WORDING}
+                    key={EMPTY_MESSAGE_KEY}
+                />
+            );
         }
         return hotspot.messages.map(message => {
             if (messageEditionData.id === message.id)
