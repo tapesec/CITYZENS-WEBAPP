@@ -201,7 +201,12 @@ class AlertHotspotForm extends React.Component {
                         )}
                     />
                 ) : (
-                    <ImageCDN filename={this.state.imagePickedHandle} style={{ width: '100%' }} />
+                    <ImageCDN
+                        process
+                        processParam="output=format:jpg/resize=height:200,w:600,fit:crop,align:center/compress"
+                        filename={this.state.imagePickedHandle}
+                        style={{ width: '100%' }}
+                    />
                 )}
                 <TextField
                     className="cyz-text-field"

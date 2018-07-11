@@ -1,6 +1,6 @@
 const path = require('path');
-const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+
 const DIST = path.resolve(__dirname, 'dist');
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const ENTRY_PATH = path.resolve(__dirname, 'src', 'client', 'index.js');
