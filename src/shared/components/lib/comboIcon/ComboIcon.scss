@@ -2,10 +2,13 @@
 
 .ComboIcon {
     position: relative;
+    div.action-component {
+        cursor: pointer;
+    }
     .dropdown-caret {
         position: absolute;
-        top: 20px;
-        left: 2px;
+        top: 25px;
+        left: 5px;
         width: 18px;
         height: 10px;
         float: left;
@@ -42,6 +45,7 @@
         border-radius: 2px;
         border: 1px solid lightgray;
         padding: 3px 0 3px 0;
+        top: 34px;
         z-index: 1;
         .combo-item {
             color: gray;

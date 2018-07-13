@@ -2,9 +2,9 @@ import React from 'react';
 import ReactFilestack from 'filestack-react';
 import PropTypes from 'prop-types';
 import { Button } from 'rmwc/Button';
-import { TextField } from 'rmwc/TextField';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
+import CustomTextArea from './../../lib/form/CustomTextArea';
 import ImageCDN from '../../lib/ImageCDN';
 import config from '../../../config';
 import formHelpers from '../../../helpers/form';
@@ -208,13 +208,12 @@ class AlertHotspotForm extends React.Component {
                         style={{ width: '100%' }}
                     />
                 )}
-                <TextField
-                    className="cyz-text-field"
-                    label="Que constatez vous ?"
-                    textarea
-                    value={this.state.formValues.address}
+                <CustomTextArea
+                    value={this.state.formValues.messageBody}
                     onChange={this.fieldConnector('messageBody', validateMessageBody)}
                     onBlur={this.initValidationField('messageBody', validateMessageBody)}
+                    placeholder="Que constatez vous ?"
+                    minRows={3}
                     invalid={
                         this.state.validate.messageBody && !this.state.validate.messageBody.isValid
                     }

@@ -63,12 +63,9 @@ const HotspotComment = ({ comment, deleteComment, hotspotId, cityzenIsAuthor }) 
                             <DateFormater duration date={comment.createdAt} />
                         </Typography>
                     </header>
-                    <Typography
-                        tag="p"
-                        use="body2"
-                        dangerouslySetInnerHTML={{ __html: comment.body }}
-                        theme="text-primary-on-background"
-                    />
+                    <Typography tag="p" use="body2" theme="text-primary-on-background">
+                        {comment.body}
+                    </Typography>
                 </div>
                 {}
                 <div className="actions-menu">

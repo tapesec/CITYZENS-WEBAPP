@@ -7,7 +7,7 @@ import { Switch } from 'rmwc/Switch';
 import VALIDATION from './../../../constants/dataValidation';
 import formHelpers from '../../../helpers/form';
 import TextFieldValidationMessages from '../../lib/form/ValidationMessage';
-import RenderWysiwygComponent from './../../lib/form/WysiwygTextArea';
+import CustomTextArea from './../../lib/form/CustomTextArea';
 import ImagesPicker from './../../lib/imagesPicker/ImagesPicker';
 import config from '../../../config';
 
@@ -344,11 +344,23 @@ class MediaHotspotForm extends React.Component {
                             messages={this.state.validate.messageTitle.messages}
                         />
                     ) : null}
-                    <RenderWysiwygComponent
+                    <CustomTextArea
                         value={this.state.formValues.messageBody}
                         onChange={this.fieldConnector('messageBody', validateMessageBody)}
-                        placeholder="Exprimez vous..."
+                        onBlur={this.initValidationField('messageBody', validateMessageBody)}
+                        placeholder="Exprimez vous…"
+                        minRows={3}
+                        invalid={
+                            this.state.validate.messageBody &&
+                            !this.state.validate.messageBody.isValid
+                        }
                     />
+                    {this.state.validate.messageBody &&
+                    this.state.validate.messageBody.isValid === false ? (
+                        <TextFieldValidationMessages
+                            messages={this.state.validate.messageBody.messages}
+                        />
+                    ) : null}
                 </fieldset>
                 <div className="submitArea">
                     <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">

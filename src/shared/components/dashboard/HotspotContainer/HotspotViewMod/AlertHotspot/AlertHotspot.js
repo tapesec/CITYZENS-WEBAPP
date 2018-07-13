@@ -155,7 +155,11 @@ const AlertHotspot = props => (
                             date={props.hotspot.message.updatedAt}
                         />
                     </Typography>
-                    <Typography tag="p" use="body2" theme="text-primary-on-background">
+                    <Typography
+                        className="alert-message"
+                        tag="p"
+                        use="body2"
+                        theme="text-primary-on-background">
                         {props.hotspot.message.content}
                     </Typography>
                     <Typography tag="em" use="body2" theme="text-secondary-on-background">

@@ -4,6 +4,9 @@
         display: flex;
         .content {
             flex-grow: 1;
+            p {
+                white-space: pre-line;
+            }
         }
         .actions-menu {
             i {

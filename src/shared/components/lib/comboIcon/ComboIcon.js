@@ -36,6 +36,7 @@ class ComboIcon extends React.Component {
                 <div
                     role="button"
                     tabIndex={0}
+                    className="action-component"
                     onKeyDown={this.onClickHandler}
                     onClick={this.onClickHandler}>
                     {ActionComponent()}

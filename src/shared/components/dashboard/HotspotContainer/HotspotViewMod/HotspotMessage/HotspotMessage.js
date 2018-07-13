@@ -133,11 +133,9 @@ class HotspotMessage extends React.Component {
                                     <DateFormater duration date={message.createdAt} />
                                 </Typography>
                             </header>
-                            <Typography
-                                tag="p"
-                                use="body2"
-                                dangerouslySetInnerHTML={{ __html: message.body }}
-                            />
+                            <Typography tag="p" use="body2">
+                                {message.body}
+                            </Typography>
                             <Typography tag="em" use="body2" theme="text-secondary-on-background">
                                 <DateFormater
                                     labelPrefix="Dernière mise à jour "

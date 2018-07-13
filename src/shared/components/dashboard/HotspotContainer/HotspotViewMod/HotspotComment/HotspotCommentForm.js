@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { Button } from 'rmwc/Button';
 import actions from '../../../../../../client/actions';
 import constants from '../../../../../constants';
-import RenderWysiwygComponent from './../../../../lib/form/WysiwygTextArea';
+import CustomTextArea from './../../../../lib/form/CustomTextArea';
+import TextFieldValidationMessages from '../../../../lib/form/ValidationMessage';
 import formHelpers from '../../../../../helpers/form';
 import ImageCDN from '../../../../lib/ImageCDN';
 import VALIDATION from './../../../../../constants/dataValidation';
@@ -103,12 +104,17 @@ class HotspotCommentForm extends React.Component {
                     />
                 </aside>
                 <div className="form-content">
-                    <RenderWysiwygComponent
+                    <CustomTextArea
                         value={this.state.formValues.body}
                         onChange={this.fieldConnector('body', validateBody)}
+                        onBlur={this.initValidationField('body', validateBody)}
                         placeholder="Laissez un commentaire …"
-                        editorContentStyle={{ minHeight: '35px' }}
+                        minRows={3}
+                        invalid={this.state.validate.body && !this.state.validate.body.isValid}
                     />
+                    {this.state.validate.body && this.state.validate.body.isValid === false ? (
+                        <TextFieldValidationMessages messages={this.state.validate.body.messages} />
+                    ) : null}
                     <Button
                         style={{ marginTop: '5px' }}
                         type="submit"

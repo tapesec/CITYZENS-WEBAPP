@@ -36,6 +36,9 @@
             text-align: center;
         }
     }
+    p.alert-message {
+        white-space: pre-line;
+    }
     div.loged-out-alert-dropzone {
         display: flex;
         border: 4px dashed gray;

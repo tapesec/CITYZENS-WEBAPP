@@ -4,7 +4,8 @@ import { Button } from 'rmwc/Button';
 import { TextField } from 'rmwc/TextField';
 import Typography from 'rmwc/Typography';
 import { Switch } from 'rmwc/Switch';
-import RenderWysiwygComponent from './../../../../lib/form/WysiwygTextArea';
+import CustomTextArea from './../../../../lib/form/CustomTextArea';
+import TextFieldValidationMessages from '../../../../lib/form/ValidationMessage';
 import formHelpers from '../../../../../helpers/form';
 import { MESSAGE_FORM } from './../../../../../wording';
 import VALIDATION from './../../../../../constants/dataValidation';
@@ -32,9 +33,9 @@ const validateBody = values => {
         isValid: true,
         messages: [],
     };
-    if (values.messageBody && values.messageBody.length > VALIDATION.MESSAGE.BODY.MAX_LENGTH) {
+    if (values.body && values.body.length > VALIDATION.MESSAGE.BODY.MAX_LENGTH) {
         errors.isValid = false;
-        errors.messages.push(VALIDATION.MESSAGE.TITLE.LABEL.ERROR);
+        errors.messages.push(VALIDATION.MESSAGE.BODY.LABEL.ERROR);
     }
     return errors;
 };
@@ -148,11 +149,19 @@ class MessageForm extends React.Component {
                             {MESSAGE_FORM.EDITION.PINNED.LABEL.ON}
                         </Typography>
                     </Switch>
-                    <RenderWysiwygComponent
+                    <CustomTextArea
+                        className="cyz-text-field"
+                        theme="text-on-primary-background"
                         value={this.state.formValues.body}
+                        placeholder="Quoi de neuf ?"
                         onChange={this.fieldConnector('body', validateBody)}
-                        placeholder="Exprimez vous..."
+                        onBlur={this.initValidationField('body', validateBody)}
+                        minRows={3}
+                        invalid={this.state.validate.body && !this.state.validate.body.isValid}
                     />
+                    {this.state.validate.body && this.state.validate.body.isValid === false ? (
+                        <TextFieldValidationMessages messages={this.state.validate.body.messages} />
+                    ) : null}
                     <div className="submitArea">
                         <Button type="submit" raised theme="secondary-bg text-primary-on-secondary">
                             {editionMode === EDITION_MODE.SETTING_UP

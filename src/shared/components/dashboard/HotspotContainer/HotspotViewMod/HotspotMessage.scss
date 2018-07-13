@@ -6,6 +6,11 @@ article.HotspotMessage {
     background-color: white;
     position: relative;
     border-radius: 5px;
+    div.message-content {
+        p {
+            white-space: pre-line;
+        }
+    }
     p {
         margin-bottom: 20px;
     }
