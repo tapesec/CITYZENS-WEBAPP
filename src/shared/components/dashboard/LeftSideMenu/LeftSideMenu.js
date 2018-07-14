@@ -54,7 +54,7 @@ class LeftSideMenu extends React.Component {
             <Drawer in={this.props.open}>
                 {state => (
                     <Fragment>
-                        <MarkerToolbar />
+                        <MarkerToolbar state={state} />
                         <LeftSideMenuContainer state={state}>
                             <LeftSideMenuHeader dense={this.state.dense} />
                             <section className="SearchBox">

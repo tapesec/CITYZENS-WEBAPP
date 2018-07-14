@@ -13,7 +13,15 @@ import './MarkerToolbar.scss';
 
 const { HOTSPOT, PAWN_MARKER } = constant;
 
+const transitionClasses = {
+    entered: { className: 'entered', style: {} },
+    entering: { className: 'entering', style: { boxSizing: 'border-box' } },
+    exited: { className: 'exited', style: { boxSizing: 'border-box' } },
+    exiting: { className: 'exiting', style: {} },
+};
+
 const MarkerToolbar = ({
+    state,
     openHotspotTypeDescription,
     isVisibleMapOverlay,
     turnOffMapOverlayVisibility,
@@ -41,7 +49,10 @@ const MarkerToolbar = ({
     };
 
     return (
-        <aside id="markerToolbar" className="MarkerToolbar">
+        <aside
+            style={{ ...transitionClasses[state].style }}
+            id="markerToolbar"
+            className={`MarkerToolbar ${transitionClasses[state].className}`}>
             <div className="MarkerContent">
                 <Icon style={{ color: '#666666' }} strategy="ligature">
                     add_location
@@ -67,6 +78,7 @@ const MarkerToolbar = ({
 };
 
 MarkerToolbar.propTypes = {
+    state: PropTypes.string.isRequired,
     openHotspotTypeDescription: PropTypes.func.isRequired,
     isVisibleMapOverlay: PropTypes.bool.isRequired,
     turnOffMapOverlayVisibility: PropTypes.func.isRequired,

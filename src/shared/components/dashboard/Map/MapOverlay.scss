@@ -19,7 +19,7 @@
         background-color: rgba(0, 0, 0, 0.24);
         padding: 1rem;
         position: absolute;
-        bottom: 0;
+        top: 0;
         right: 0;
     }
 
@@ -47,16 +47,16 @@
 }
 
 .MapOverlay.entered { 
-    width: calc(100% - 476px);
+    width: calc(100% - 396px);
 }
 .MapOverlay.entering { 
-    width: calc(100% - 80px);
+    width: 100%;
 }
 .MapOverlay.exited { 
-    width: calc(100% - 80px);
+    width: 100%;
 }
 .MapOverlay.exiting { 
-    width: calc(100% - 476px);
+    width: calc(100% - 396px);
 }
 
 @keyframes lightning {
