@@ -54,7 +54,7 @@ class LeftSideMenu extends React.Component {
             <Drawer in={this.props.open}>
                 {state => (
                     <Fragment>
-                        <MarkerToolbar state={state} />
+                        <MarkerToolbar />
                         <LeftSideMenuContainer state={state}>
                             <LeftSideMenuHeader dense={this.state.dense} />
                             <section className="SearchBox">
@@ -145,4 +145,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftSideMenu);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(LeftSideMenu);

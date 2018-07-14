@@ -16,12 +16,13 @@ class PawnMarker extends React.Component {
                 className="PawnMarker"
                 data-type="pawnMarker"
                 data-icon-type={iconType}
+                style={this.props.style}
                 data-hotspot-type={type}>
                 <ImageCDN
                     process
                     processParam="output=format:png/resize=w:60,fit:clip/compress"
                     id={id}
-                    style={{ width: '50px' }}
+                    style={{ width: '40px' }}
                     filename={filename.split('/')[3]}
                     dataType="pawnMarker"
                     data-icon-type={iconType}
@@ -41,6 +42,7 @@ PawnMarker.propTypes = {
     iconType: PropTypes.string,
     clickAction: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    style: PropTypes.string.isRequired,
 };
 
 PawnMarker.defaultProps = {

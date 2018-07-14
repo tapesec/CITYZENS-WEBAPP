@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Icon } from 'rmwc/Icon';
 import PawnMarker from './../Map/ActionsPanel/PawnMarker';
 import actions from '../../../../client/actions';
 import { hotspotEdition } from '../../../reducers/edition';
@@ -12,15 +13,7 @@ import './MarkerToolbar.scss';
 
 const { HOTSPOT, PAWN_MARKER } = constant;
 
-const transitionClasses = {
-    entered: { className: 'entered', style: {} },
-    entering: { className: 'entering', style: { paddingTop: '70px', boxSizing: 'border-box' } },
-    exited: { className: 'exited', style: { paddingTop: '70px', boxSizing: 'border-box' } },
-    exiting: { className: 'exiting', style: {} },
-};
-
 const MarkerToolbar = ({
-    state,
     openHotspotTypeDescription,
     isVisibleMapOverlay,
     turnOffMapOverlayVisibility,
@@ -48,17 +41,18 @@ const MarkerToolbar = ({
     };
 
     return (
-        <aside
-            id="markerToolbar"
-            style={{ ...transitionClasses[state].style }}
-            className={`MarkerToolbar ${transitionClasses[state].className}`}>
+        <aside id="markerToolbar" className="MarkerToolbar">
             <div className="MarkerContent">
+                <Icon style={{ color: '#666666' }} strategy="ligature">
+                    add_location
+                </Icon>
                 <PawnMarker
                     id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.MEDIA}`}
                     title="Mur de message"
                     filename={HOTSPOT.MEDIA.AVATAR_ICON.DEFAULT}
                     type={HOTSPOT.TYPE.MEDIA}
                     clickAction={openWallHotspotDescription}
+                    style={{ marginRight: '5px' }}
                 />
                 <PawnMarker
                     id={`${PAWN_MARKER.ID_PREFIX}${HOTSPOT.TYPE.ALERT}`}
@@ -73,7 +67,6 @@ const MarkerToolbar = ({
 };
 
 MarkerToolbar.propTypes = {
-    state: PropTypes.string.isRequired,
     openHotspotTypeDescription: PropTypes.func.isRequired,
     isVisibleMapOverlay: PropTypes.bool.isRequired,
     turnOffMapOverlayVisibility: PropTypes.func.isRequired,
@@ -100,4 +93,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MarkerToolbar);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(MarkerToolbar);

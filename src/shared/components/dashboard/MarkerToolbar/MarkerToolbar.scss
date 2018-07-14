@@ -1,41 +1,25 @@
 .MarkerToolbar {
     background-color: white;
-    width: 5rem;
-    height: 100%;
+    border-radius: 30px;
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    bottom: 10px;
+    left: 10px;
+    z-index: 0;
     will-change: transform;
     border-right: 1px solid lightgray;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
-    transition: transform 300ms ease-in-out;
 
     .MarkerContent {
         padding: 5px;
         display: flex;
-        flex-flow: column;
         align-items: center;
+        i {
+            font-size: 33px;
+        }
         .PawnMarker {
-            margin-bottom: 10px;
+            &:first-child {
+                margin-right: 5px;
+            }
         }
     }
 }
-
-.MarkerToolbar.entered { 
-    transform: translate(397px, 0);
-    z-index: 1;
-}
-.MarkerToolbar.entering { 
-    transform: translate(0, 0);
-    z-index: 0;
-}
-.MarkerToolbar.exited { 
-    transform: translate(0, 0);
-    z-index: 0;
-}
-.MarkerToolbar.exiting { 
-    transform: translate(397px, 0);
-    z-index: 1;
-}
-
