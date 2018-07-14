@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'rmwc/Button';
 import actions from '../../../../../../client/actions';
 import constants from '../../../../../constants';
-import CustomTextArea from './../../../../lib/form/CustomTextArea';
+import CustomTextArea from '../../../../lib/form/CustomTextArea';
 import TextFieldValidationMessages from '../../../../lib/form/ValidationMessage';
 import formHelpers from '../../../../../helpers/form';
 import ImageCDN from '../../../../lib/ImageCDN';
