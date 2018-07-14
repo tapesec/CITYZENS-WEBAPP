@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { TextField } from 'rmwc/TextField';
 import { Icon } from 'rmwc/Icon';
 import Typography from 'rmwc/Typography';
 import Textarea from 'react-textarea-autosize';

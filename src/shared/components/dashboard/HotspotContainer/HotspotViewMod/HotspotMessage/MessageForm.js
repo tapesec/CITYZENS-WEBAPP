@@ -4,7 +4,7 @@ import { Button } from 'rmwc/Button';
 import { TextField } from 'rmwc/TextField';
 import Typography from 'rmwc/Typography';
 import { Switch } from 'rmwc/Switch';
-import CustomTextArea from './../../../../lib/form/CustomTextArea';
+import CustomTextArea from '../../../../lib/form/CustomTextArea';
 import TextFieldValidationMessages from '../../../../lib/form/ValidationMessage';
 import formHelpers from '../../../../../helpers/form';
 import { MESSAGE_FORM } from './../../../../../wording';
