@@ -46,6 +46,12 @@
     }
 }
 
+@media all and (max-width: 959px) {
+    .MapOverlay {
+        height: calc(100% - 48px);
+    }
+}
+
 .MapOverlay.entered { 
     width: calc(100% - 396px);
 }

@@ -6,6 +6,7 @@ export default function renderFullPage(html, preloadedState) {
 			<meta http-equiv="X-UA-Compatible" content="IE=9; IE=edge">
 			<title>Cityzens Martignas sur Jalle</title>
 			<meta name="viewport" content="width=device-width">
+			<meta name="mobile-web-app-capable" content="yes">
 			<link href="/assets/styles.css" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 			<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet">

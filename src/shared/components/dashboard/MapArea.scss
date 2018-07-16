@@ -4,3 +4,9 @@
     width: 100%;
     z-index: -1;
 }
+
+@media all and (max-width: 959px) {
+    .MapArea {
+        height: calc(100% - 48px);
+    }
+}
