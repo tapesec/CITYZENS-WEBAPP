@@ -116,7 +116,7 @@ export function* persistMediaHotspot(edition, accessToken) {
             body: edition.messageBody,
         },
     };
-    yield call(persistMessage, persistMessageParams);
+    yield call(persistMessage, persistMessageParams, { initial: true });
     return newHotspot;
 }
 
@@ -154,7 +154,7 @@ export function* persistHotspot(action) {
             actions.displayMessageToScreen(
                 settingUpMode === SETTING_UP
                     ? SNACKBAR.INFO.HOTSPOT_SAVED_SUCCESSFULLY
-                    : SNACKBAR.INFO.HOTSPOT_UPDATED_SUCCESSFULLY,
+                    : SNACKBAR.INFO.UPDATE_SUCCESS,
                 NOTIFICATION_MESSAGE.LEVEL.INFO,
             ),
         );
@@ -162,7 +162,7 @@ export function* persistHotspot(action) {
         yield put(actions.clearHotspotEdition());
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.SAVING_HOTSPOT_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );
@@ -196,14 +196,14 @@ export function* postAlertExist(action) {
         });
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.INFO.ALERT_POLL_RECEIVED,
+                SNACKBAR.INFO.CONTRIBUTION_THANKS,
                 NOTIFICATION_MESSAGE.LEVEL.INFO,
             ),
         );
     } catch (error) {
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.ALERT_POLL_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );
@@ -227,14 +227,14 @@ function* uploadHotspotAvatarIcon(action) {
         });
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.INFO.HOTSPOT_UPDATED_SUCCESSFULLY,
+                SNACKBAR.INFO.UPDATE_SUCCESS,
                 NOTIFICATION_MESSAGE.LEVEL.INFO,
             ),
         );
     } catch (error) {
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.UPDATING_HOTSPOT_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );
@@ -258,14 +258,14 @@ function* uploadAlertHotspotImg(action) {
         });
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.INFO.ALERT_HOTSPOT_IMG_UPDATED_SUCCESSFULLY,
+                SNACKBAR.INFO.UPDATE_SUCCESS,
                 NOTIFICATION_MESSAGE.LEVEL.INFO,
             ),
         );
     } catch (error) {
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.UPDATING_HOTSPOT_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );

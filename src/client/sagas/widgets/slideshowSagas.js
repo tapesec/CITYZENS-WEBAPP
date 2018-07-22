@@ -29,7 +29,7 @@ export function* saveSlideshowWidget(action) {
         });
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.INFO.HOTSPOT_UPDATED_SUCCESSFULLY,
+                SNACKBAR.INFO.UPDATE_SUCCESS,
                 NOTIFICATION_MESSAGE.LEVEL.INFO,
             ),
         );

@@ -8,34 +8,50 @@ import actions from './../../../client/actions';
 
 import './SnackbarMessage.scss';
 
-const SnackbarMessage = ({ visible, onDisapear, snackbarMessage: { message, level } }) => {
-    const displayIcon = () =>
-        level === 'error' ? (
-            <Icon strategy="ligature">report_problem</Icon>
-        ) : (
-            <Icon strategy="ligature">info_outline</Icon>
-        );
+class SnackbarMessage extends React.Component {
+    shouldComponentUpdate(nextProps) {
+        return nextProps.visible !== this.props.visible;
+    }
 
-    const messageContent = () => (
-        <div>
-            {displayIcon()}
-            <span className="message-content">{message}</span>
-        </div>
-    );
-    return (
-        <Snackbar
-            show={visible}
-            onHide={onDisapear}
-            message={messageContent()}
-            multiline
-            actionText="Action"
-            style={
-                level === 'error' ? { backgroundColor: '#a71212' } : { backgroundColor: '#009688' }
-            }
-            className="SnackbarMessage"
-        />
-    );
-};
+    render() {
+        const {
+            visible,
+            onDisapear,
+            snackbarMessage: { message, level },
+        } = this.props;
+
+        const displayIcon = () =>
+            level === 'error' ? (
+                <Icon strategy="ligature">report_problem</Icon>
+            ) : (
+                <Icon strategy="ligature">info_outline</Icon>
+            );
+
+        const messageContent = () => (
+            <div>
+                {displayIcon()}
+                <span className="message-content">{message}</span>
+            </div>
+        );
+        return (
+            <Snackbar
+                show={visible}
+                onHide={onDisapear}
+                message={messageContent()}
+                multiline
+                timeout={2000}
+                alignStart
+                actionText="Action"
+                style={
+                    level === 'error'
+                        ? { backgroundColor: '#a71212' }
+                        : { backgroundColor: '#009688' }
+                }
+                className="SnackbarMessage"
+            />
+        );
+    }
+}
 
 SnackbarMessage.propTypes = {
     visible: PropTypes.bool.isRequired,
@@ -57,4 +73,7 @@ const dispatchToScreen = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, dispatchToScreen)(SnackbarMessage);
+export default connect(
+    mapStateToProps,
+    dispatchToScreen,
+)(SnackbarMessage);

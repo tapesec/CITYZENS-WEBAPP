@@ -100,11 +100,14 @@ const mapDispatchToProps = dispatch => ({
     displayMessageToScreen: () => {
         dispatch(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.UPDATING_HOTSPOT_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );
     },
 });
 
-export default connect(() => ({}), mapDispatchToProps)(HotspotTitle);
+export default connect(
+    () => ({}),
+    mapDispatchToProps,
+)(HotspotTitle);

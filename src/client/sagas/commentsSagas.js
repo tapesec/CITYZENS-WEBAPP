@@ -52,7 +52,7 @@ export function* persistComment(action) {
             yield put({ type: actionTypes.NEW_COMMENT_SAVED, payload: { comment: newComment } });
             yield put(
                 actions.displayMessageToScreen(
-                    SNACKBAR.INFO.MESSAGE_SAVED_SUCCESSFULLY,
+                    SNACKBAR.INFO.CONTRIBUTION_THANKS,
                     NOTIFICATION_MESSAGE.LEVEL.INFO,
                 ),
             );
@@ -60,7 +60,7 @@ export function* persistComment(action) {
     } catch (err) {
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.SAVING_MESSAGE_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );

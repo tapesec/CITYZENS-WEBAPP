@@ -42,11 +42,12 @@ PawnMarker.propTypes = {
     iconType: PropTypes.string,
     clickAction: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
-    style: PropTypes.string.isRequired,
+    style: PropTypes.shape({}),
 };
 
 PawnMarker.defaultProps = {
     iconType: '',
+    style: {},
 };
 
 export default PawnMarker;

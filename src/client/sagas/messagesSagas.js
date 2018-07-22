@@ -48,17 +48,23 @@ export function* deleteMessage(action) {
         if (action.type === actionTypes.DELETE_HOTSPOT_MESSAGE)
             yield put({ type: actionTypes.HOTSPOT_MESSAGE_DELETED, payload: { messageId } });
         else yield put({ type: actionTypes.HOTSPOT_COMMENT_DELETED, payload: { messageId } });
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.INFO.DELETE_SUCCESS,
+                NOTIFICATION_MESSAGE.LEVEL.INFO,
+            ),
+        );
     } catch (error) {
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.DELETING_MESSAGE_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );
     }
 }
 
-export function* persistMessage(action) {
+export function* persistMessage(action, options = { initial: false }) {
     const { settingUpMode } = action.payload;
     try {
         const accessToken = yield select(getCityzenAccessToken);
@@ -87,16 +93,18 @@ export function* persistMessage(action) {
         const newMessage = yield response.json();
         yield put(actions.clearHotspotMessageEdition());
         yield put({ type: actionTypes.NEW_MESSAGE_SAVED, payload: { message: newMessage } });
-        yield put(
-            actions.displayMessageToScreen(
-                SNACKBAR.INFO.MESSAGE_SAVED_SUCCESSFULLY,
-                NOTIFICATION_MESSAGE.LEVEL.INFO,
-            ),
-        );
+        if (!options.initial) {
+            yield put(
+                actions.displayMessageToScreen(
+                    SNACKBAR.INFO.CONTRIBUTION_THANKS,
+                    NOTIFICATION_MESSAGE.LEVEL.INFO,
+                ),
+            );
+        }
     } catch (err) {
         yield put(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.SAVING_MESSAGE_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );

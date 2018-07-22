@@ -113,7 +113,7 @@ const mapDispatchToProps = dispatch => ({
     displayMessageToScreen: () => {
         dispatch(
             actions.displayMessageToScreen(
-                SNACKBAR.ERROR.UPDATING_HOTSPOT_FAILED,
+                SNACKBAR.ERROR.GENERIC_FAIL,
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );
@@ -122,4 +122,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(actions.removeImageWithHandle(handle));
     },
 });
-export default connect(mapStateToProps, mapDispatchToProps)(SettingUpHotspotModal);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(SettingUpHotspotModal);
