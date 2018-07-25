@@ -8,6 +8,7 @@ import map from './map';
 import city from './city';
 import messages from './messages';
 import comments from './comments';
+import commentsCount from './commentsCount';
 import edition from './edition';
 
 export default combineReducers({
@@ -21,4 +22,5 @@ export default combineReducers({
     edition,
     visitor,
     comments,
+    commentsCount,
 });

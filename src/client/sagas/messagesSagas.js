@@ -10,6 +10,21 @@ import sharedConstant from './../../shared/constants';
 
 const { EDITION, SETTING_UP } = sharedConstant.EDITION_MODE;
 
+export function* fetchCountComments(hotspotId, messages) {
+    try {
+        const messagesIds = messages.map(message => message.id).join(',');
+        const response = yield call(
+            [cityzensApi, cityzensApi.countComments],
+            hotspotId,
+            messagesIds,
+        );
+        const countedMessages = yield response.json();
+        yield put({ type: actionTypes.COMMENTS_COUNT_FETCHED, payload: { countedMessages } });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export function* fetchMessages(params) {
     if (params && params.payload && params.payload.hotspotId) {
         try {
@@ -17,8 +32,9 @@ export function* fetchMessages(params) {
                 [cityzensApi, cityzensApi.getMessages],
                 params.payload.hotspotId,
             );
-            const syncedHotspot = yield response.json();
-            yield put(actions.fetchMessagesSucceded(syncedHotspot));
+            const messages = yield response.json();
+            yield put(actions.fetchMessagesSucceded(messages));
+            yield call(fetchCountComments, params.payload.hotspotId, messages);
         } catch (err) {
             let errorPayload;
             if (err.message) errorPayload = err.message;
@@ -42,12 +58,16 @@ export const buildMessagePayload = messageData => {
 
 export function* deleteMessage(action) {
     try {
-        const { messageId, hotspotId } = action.payload;
+        const { messageId, hotspotId, parentId } = action.payload;
         const accessToken = yield select(getCityzenAccessToken);
         yield call([cityzensApi, cityzensApi.deleteMessage], accessToken, hotspotId, messageId);
         if (action.type === actionTypes.DELETE_HOTSPOT_MESSAGE)
             yield put({ type: actionTypes.HOTSPOT_MESSAGE_DELETED, payload: { messageId } });
-        else yield put({ type: actionTypes.HOTSPOT_COMMENT_DELETED, payload: { messageId } });
+        else
+            yield put({
+                type: actionTypes.HOTSPOT_COMMENT_DELETED,
+                payload: { messageId, parentId },
+            });
         yield put(
             actions.displayMessageToScreen(
                 SNACKBAR.INFO.DELETE_SUCCESS,

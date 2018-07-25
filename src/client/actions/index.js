@@ -166,11 +166,12 @@ const deleteHotspotMessage = (hotspotId, messageId) => ({
     },
 });
 
-const deleteMessageComment = (hotspotId, messageId) => ({
+const deleteMessageComment = (hotspotId, messageId, parentId) => ({
     type: actionTypes.DELETE_MESSAGE_COMMENT,
     payload: {
         hotspotId,
         messageId,
+        parentId,
     },
 });
 

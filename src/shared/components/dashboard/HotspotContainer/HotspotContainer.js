@@ -13,6 +13,7 @@ import SlideshowAdmin from './Widgets/Slideshow/SlideshowAdmin';
 import Modal from './../../lib/Modal';
 import constant from './../../../constants';
 import selectors from '../../../../client/selectors';
+import { getReadableHotspot } from '../../../reducers/hotspots';
 
 import './HotspotContainer.scss';
 
@@ -32,7 +33,7 @@ class HotspotContainer extends React.Component {
         const { readableHotspot, contentIsLoading, clearHotspotMessageEdition } = this.props;
         const { HOTSPOT } = constant;
         if (!readableHotspot) {
-            return <p>Loading …</p>;
+            return <p>Chargement …</p>;
         }
         if (readableHotspot.type === HOTSPOT.TYPE.MEDIA) {
             return (
@@ -145,7 +146,7 @@ HotspotContainer.defaultProps = {
 
 const mapStateToProps = state => ({
     citySlug: selectors.getCitySlug(state),
-    readableHotspot: selectors.getReadableHotspot(state),
+    readableHotspot: getReadableHotspot(state),
     hotspotMessageEditionIsInProgress: messageEdition.isInProgress(state),
     widgetCurrentlyEdited: selectWidgetCurrentlyEdited(state),
     isEditingWidget: widgetIsBeingEdited(state),

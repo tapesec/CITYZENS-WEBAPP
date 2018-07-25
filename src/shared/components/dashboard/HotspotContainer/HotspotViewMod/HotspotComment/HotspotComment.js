@@ -12,7 +12,7 @@ const HotspotComment = ({ comment, deleteComment, hotspotId, cityzenIsAuthor }) 
     const noop = () => {};
 
     const removeComment = () => {
-        deleteComment(hotspotId, comment.id);
+        deleteComment(hotspotId, comment.id, comment.parentId);
     };
 
     const getComboContent = () => {

@@ -160,6 +160,20 @@ class CityzenApi {
         );
     }
 
+    countComments(hotspotId, messagesIds) {
+        return this.http.request(
+            `${
+                this.url
+            }${HOTSPOTS_ENDPOINTS}/${hotspotId}${MESSAGES_ENDPOINTS}?count&messages=${messagesIds}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            },
+        );
+    }
+
     postPertinence(accessToken, hotspotId, pertinence) {
         return this.http.request(
             `${this.url}${HOTSPOTS_ENDPOINTS}/${hotspotId}${PERTINENCE_ENDPOINTS}`,

@@ -165,6 +165,9 @@ class HotspotMessage extends React.Component {
                                             add_comment
                                         </Icon>{' '}
                                         Commentez{' '}
+                                        {message.commentsCount
+                                            ? `(${message.commentsCount})`
+                                            : '(0)'}{' '}
                                         {this.state.commentsAreVisible ? (
                                             <Icon
                                                 style={{
@@ -248,8 +251,8 @@ const mapDispatchToProps = dispatch => ({
     deleteMessage: (hotspotId, messageId) => {
         dispatch(actions.deleteHotspotMessage(hotspotId, messageId));
     },
-    deleteComment: (hotspotId, messageId) => {
-        dispatch(actions.deleteMessageComment(hotspotId, messageId));
+    deleteComment: (hotspotId, messageId, parentId) => {
+        dispatch(actions.deleteMessageComment(hotspotId, messageId, parentId));
     },
 });
 
