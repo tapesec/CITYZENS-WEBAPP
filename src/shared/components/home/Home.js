@@ -17,20 +17,15 @@ const Home = ({ isFromMobile }) => (
                 <div className="logo-map">
                     <ImageCDN
                         className="logo"
-                        filename="TlFeYNnVSSOsm4TT6h6v"
+                        filename="LEcgoqx5RieLXUxo6qup"
                         alt="Logo de Cityzens"
-                    />
-                    <ImageCDN
-                        className="blazon"
-                        filename="q1EgV7WYS8aD2L1DYXbk"
-                        alt="Blazon de la ville de Martignas"
                     />
                 </div>
             </GridCell>
             <GridCell span="5">
                 <section className="punchline">
                     <Typography tag="h1" theme="text-primary-on-background">
-                        CITYZENS
+                        Moncoeurde<span style={{ color: '#009688' }}>Ville</span>
                     </Typography>
                     <Typography tag="span" use="headline5" theme="text-primary-on-background">
                         Le réseau social de votre ville

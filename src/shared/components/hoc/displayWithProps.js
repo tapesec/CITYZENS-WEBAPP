@@ -4,7 +4,7 @@ import actions from './../../../client/actions';
 import selectors from './../../../client/selectors';
 
 const mapStateToProps = state => ({
-    isOpen: selectors.modalIsOpen(state)
+    isOpen: selectors.modalIsOpen(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -14,8 +14,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const displayWithProps = ComponentToWrap =>
-    connect(mapStateToProps, mapDispatchToProps)(
-        props => (props.isOpen ? <ComponentToWrap {...props} /> : null),
-    );
+    connect(
+        mapStateToProps,
+        mapDispatchToProps,
+    )(props => (props.isOpen ? <ComponentToWrap {...props} /> : null));
 
 export default displayWithProps;

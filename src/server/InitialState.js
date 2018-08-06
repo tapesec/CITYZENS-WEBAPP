@@ -1,13 +1,16 @@
+import { LOGIN_ENDPOINT } from './constants';
+
 const getHotspotBySlug = (state, slug) =>
     Object.values(state.hotspots)
         .filter(hotspot => hotspot.slug === slug)
         .pop();
 
 class InitialState {
-    constructor(hotspotsService, citiesService, messagesService) {
+    constructor(hotspotsService, messagesService, citiesService, cityzensService) {
         this.hotspotsService = hotspotsService;
-        this.citiesService = citiesService;
         this.messagesService = messagesService;
+        this.citiesService = citiesService;
+        this.cityzensService = cityzensService;
     }
 
     static dataTree() {
@@ -79,6 +82,7 @@ class InitialState {
                 hotspot: {},
                 message: {},
             },
+            cityzens: {},
         };
     }
 
@@ -86,6 +90,29 @@ class InitialState {
         const dataTree = { ...InitialState.dataTree() };
         dataTree.visitor.fromMobile = req.useragent.isMobile;
         dataTree.componentsState.leftSideMenu.open = !req.useragent.isMobile; // leftSideMenu must be open default when desktop user agent
+        if (req.user) {
+            dataTree.authenticatedCityzen = req.user;
+            try {
+                const response = await this.cityzensService.getCityzen(
+                    req.user.accessToken,
+                    req.user.profile.id,
+                );
+                if (response.status >= 400) {
+                    return next({ statusCode: response.status });
+                }
+                dataTree.authenticatedCityzen.profileFromApi = await response.json();
+            } catch (error) {
+                return next(
+                    `defaultState, error: ${error && error.message ? error.message : error}`,
+                );
+            }
+        }
+        req.initialState = dataTree;
+        return next();
+    }
+
+    async getDashboard(req, res, next) {
+        req.initialState.componentsState.leftSideMenu.open = !req.useragent.isMobile; // leftSideMenu must be open default when desktop user agent
         if (req.params && req.params.citySlug) {
             try {
                 const response = await this.citiesService.getCity(req.params.citySlug);
@@ -97,23 +124,19 @@ class InitialState {
                 const hotspots = await this.hotspotsService.getHotspots(accessToken, {
                     insee: city.insee,
                 });
-                if (req.user) {
-                    dataTree.authenticatedCityzen = req.user;
-                }
-                dataTree.city = city;
-                dataTree.map.center = {
+
+                req.initialState.city = city;
+                req.initialState.map.center = {
                     lat: city.position2D.latitude,
                     lng: city.position2D.longitude,
                 };
-                dataTree.hotspots = hotspots;
-                req.initialState = dataTree;
+                req.initialState.hotspots = hotspots;
                 next();
                 return Promise.resolve();
             } catch (error) {
                 return next(error);
             }
         } else {
-            req.initialState = dataTree;
             next();
             return Promise.resolve();
         }
@@ -134,10 +157,43 @@ class InitialState {
                     req.params.hotspotSlug;
                 return next();
             } catch (error) {
-                return next(error);
+                return next(
+                    `/${req.params.citySlug}/${req.params.hotspotSlug}, error: ${
+                        error && error.message ? error.message : error
+                    }`,
+                );
             }
         } else {
             return next('Invalid request parameter');
+        }
+    }
+
+    async getProfile(req, res, next) {
+        if (req.params && req.params.userId) {
+            const accessToken = req.user ? req.user.accessToken : undefined;
+            if (!accessToken) {
+                return res.redirect(LOGIN_ENDPOINT);
+            }
+            try {
+                const response = await this.cityzensService.getCityzen(
+                    req.user.accessToken,
+                    req.params.userId,
+                );
+                if (response.status >= 400) {
+                    return next({ statusCode: response.status });
+                }
+                const cityzen = await response.json();
+                req.initialState.cityzens[cityzen.id] = cityzen;
+                return next();
+            } catch (error) {
+                return next(
+                    `/profile/${req.params.userId}, error: ${
+                        error && error.message ? error.message : error
+                    }`,
+                );
+            }
+        } else {
+            return next(`Invalid request parameter for /profile/${req.params.userId}`);
         }
     }
 }

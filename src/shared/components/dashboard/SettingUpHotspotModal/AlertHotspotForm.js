@@ -118,13 +118,13 @@ class AlertHotspotForm extends React.Component {
             maxFiles: 1,
             minFiles: 1,
             lang: 'fr',
-            transformations: {
-                rotate: true,
-                crop: {
-                    force: true,
-                    aspectRatio: 2.39 / 1,
-                },
-            },
+            // transformations: {
+            //     rotate: true,
+            //     crop: {
+            //         force: true,
+            //         aspectRatio: 2.39 / 1,
+            //     },
+            // },
         };
         return (
             <form className="HotspotForm cityzen-form" onSubmit={this.formSubmit}>

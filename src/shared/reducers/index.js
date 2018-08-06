@@ -10,6 +10,7 @@ import messages from './messages';
 import comments from './comments';
 import commentsCount from './commentsCount';
 import edition from './edition';
+import cityzens from './cityzens';
 
 export default combineReducers({
     authenticatedCityzen,
@@ -23,4 +24,5 @@ export default combineReducers({
     visitor,
     comments,
     commentsCount,
+    cityzens,
 });

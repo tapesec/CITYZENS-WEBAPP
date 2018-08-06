@@ -21,6 +21,7 @@ import './../../client/main.scss';
 import authConnector from './hoc/authConnector';
 import MainContainer from './MainContainer';
 import Home from './home/Home';
+import Profile from './profile/Profile';
 import Dashboard from './dashboard/Dashboard';
 import MainToolbar from './toolbar/MainToolbar';
 
@@ -37,6 +38,7 @@ class App extends React.Component {
                         <Nav />
                         <Switch>
                             <Route exact path="/" component={Home} />
+                            <Route exact path="/profile/:userId" component={Profile} />
                             <Route path="/:citySlug" component={Dashboard} />
                         </Switch>
                     </MainContainer>

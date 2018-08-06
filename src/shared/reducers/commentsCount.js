@@ -1,4 +1,4 @@
-import actionTypes from './../../client/actions/actionTypes';
+import actionTypes from '../../client/actions/actionTypes';
 
 const initialState = {};
 const ZERO_COMMENTS = 0;

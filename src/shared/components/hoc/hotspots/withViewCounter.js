@@ -25,7 +25,10 @@ const withViewCounter = WrappedComponent => {
             dispatch(actions.hotspotViewUp(hotspotId));
         },
     });
-    return connect(() => ({}), mapDispatchToProps)(ViewCounter);
+    return connect(
+        () => ({}),
+        mapDispatchToProps,
+    )(ViewCounter);
 };
 
 export default withViewCounter;

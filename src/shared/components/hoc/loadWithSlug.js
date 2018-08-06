@@ -9,7 +9,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const loadWithSlug = ComponentToWrap =>
-    connect(null, mapDispatchToProps)(props => {
+    connect(
+        null,
+        mapDispatchToProps,
+    )(props => {
         const loadHotspot = () => {
             props.openHotspotInUniversalModal(props.match.params.hotspotSlug);
         };

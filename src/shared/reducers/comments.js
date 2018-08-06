@@ -1,6 +1,6 @@
 import keyby from 'lodash.keyby';
 import { createSelector } from 'reselect';
-import actionTypes from './../../client/actions/actionTypes';
+import actionTypes from '../../client/actions/actionTypes';
 
 const initialState = {};
 

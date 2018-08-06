@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Typography from 'rmwc/Typography';
 import Icon from 'rmwc/Icon';
 import Loader from 'react-loader-spinner';
+import { Link } from 'react-router-dom';
 import { getMessageComments } from '../../../../../reducers/comments';
 import HotspotComment from '../HotspotComment/HotspotComment';
 import DateFormater from '../../../../lib/DateFormater';
@@ -123,7 +124,9 @@ class HotspotMessage extends React.Component {
                                     tag="strong"
                                     use="body2"
                                     theme="text-primary-on-background">
-                                    {message.author.pseudo}
+                                    <Link to={`/profile/${message.author.id}`}>
+                                        {message.author.pseudo}
+                                    </Link>
                                 </Typography>{' '}
                                 <Typography
                                     tag="span"

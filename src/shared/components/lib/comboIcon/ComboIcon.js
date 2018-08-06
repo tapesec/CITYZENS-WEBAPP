@@ -47,6 +47,7 @@ class ComboIcon extends React.Component {
                             <div className="caret-outer" />
                             <div className="caret-inner" />
                         </div>
+                        {/* eslint-disable-next-line */}
                         <div className="content">{this.props.content}</div>
                     </Fragment>
                 ) : null}
@@ -57,7 +58,6 @@ class ComboIcon extends React.Component {
 
 ComboIcon.propTypes = {
     className: PropTypes.string.isRequired,
-    content: PropTypes.func.isRequired,
     actionComponent: PropTypes.func.isRequired,
 };
 

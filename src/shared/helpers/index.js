@@ -1,4 +1,4 @@
-import constants from './../constants';
+import constants from '../constants';
 
 const generateTitleForMarker = hotspot => {
     const { HOTSPOT } = constants;

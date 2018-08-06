@@ -127,4 +127,7 @@ const mapActionToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapActionToProps)(AddressModal);
+export default connect(
+    mapStateToProps,
+    mapActionToProps,
+)(AddressModal);

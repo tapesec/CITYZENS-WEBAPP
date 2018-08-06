@@ -4,7 +4,7 @@ import { isAuthenticated, getCityzenName } from '../../../shared/reducers/authen
 
 const mapStateToProps = state => ({
     isAuthenticated: isAuthenticated(state),
-    authenticatedCityzenName: getCityzenName(state)
+    authenticatedCityzenName: getCityzenName(state),
 });
 
 const authConnector = ComponentToWrap =>

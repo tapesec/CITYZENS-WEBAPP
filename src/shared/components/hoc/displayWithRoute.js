@@ -14,7 +14,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const displayWithRoutes = ComponentToWrap =>
-    connect(mapStateToProps, mapDispatchToProps)(props => {
+    connect(
+        mapStateToProps,
+        mapDispatchToProps,
+    )(props => {
         const closeModal = () => {
             props.history.push(`/${props.citySlug}`);
             props.closeModalInUniversalModal();

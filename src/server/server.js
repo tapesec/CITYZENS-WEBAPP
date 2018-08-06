@@ -13,14 +13,18 @@ import render404 from './views/templates/error-404';
 
 import Hotspots from './services/Hotspots';
 import Cities from './services/Cities';
+import Cityzens from './services/Cityzens';
 import Messages from './services/Messages';
 import cityzenApi from './../shared/services/CityzensApi';
 import InitialState from './InitialState';
 
+import { LOGIN_ENDPOINT } from './constants';
+
 const hotspots = new Hotspots(cityzenApi);
 const messages = new Messages(cityzenApi);
+const cityzens = new Cityzens(cityzenApi);
 const cities = new Cities(fetch, config.http.apiUrl);
-const initialState = new InitialState(hotspots, cities, messages);
+const initialState = new InitialState(hotspots, messages, cities, cityzens);
 const slackWebhook = new SlackWebhook(fetch, config.slack.slackWebhookErrorUrl);
 
 const app = express();
@@ -71,7 +75,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.get(
-    '/login',
+    LOGIN_ENDPOINT,
     passport.authenticate('auth0', {
         clientID: config.auth0.clientId,
         domain: config.auth0.domain,
@@ -98,11 +102,24 @@ app.get('/favicon.ico', (req, res) => {
     res.send('nada');
 });
 
-app.get(['/', '/:citySlug'], initialState.defaultState.bind(initialState), router);
+app.get(
+    '/profile/:userId',
+    initialState.defaultState.bind(initialState),
+    initialState.getProfile.bind(initialState),
+    router,
+);
+
+app.get(
+    ['/', '/:citySlug'],
+    initialState.defaultState.bind(initialState),
+    initialState.getDashboard.bind(initialState),
+    router,
+);
 
 app.get(
     '/:citySlug/:hotspotSlug',
     initialState.defaultState.bind(initialState),
+    initialState.getDashboard.bind(initialState),
     initialState.readHotspot.bind(initialState),
     router,
 );

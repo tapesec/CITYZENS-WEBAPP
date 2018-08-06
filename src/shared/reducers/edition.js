@@ -1,4 +1,4 @@
-import actionTypes from './../../client/actions/actionTypes';
+import actionTypes from '../../client/actions/actionTypes';
 
 const SETTING_UP = 'SETTING_UP';
 const EDITION = 'EDITION';

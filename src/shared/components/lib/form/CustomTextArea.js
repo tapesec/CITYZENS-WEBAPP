@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Icon } from 'rmwc/Icon';
 import Typography from 'rmwc/Typography';
 import Textarea from 'react-textarea-autosize';
-import ComboIcon from '../../lib/comboIcon/ComboIcon';
+import ComboIcon from '../comboIcon/ComboIcon';
 
 import './customTextArea.scss';
 

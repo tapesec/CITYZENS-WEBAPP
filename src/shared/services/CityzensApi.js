@@ -1,11 +1,12 @@
 import fetchWrapper from './FetchWrapper';
-import config from './../config';
+import config from '../config';
 
 const HOTSPOTS_ENDPOINTS = '/hotspots';
 const HOTSPOTS_VIEWS_ENDPOINTS = '/views';
 const MESSAGES_ENDPOINTS = '/messages';
 const COMMENTS_ENDPOINTS = '/comments';
 const PERTINENCE_ENDPOINTS = '/pertinence';
+const CITYZENS_ENDPOINTS = '/cityzens';
 
 class CityzenApi {
     constructor(requestService, url = 'http://localhost:3001') {
@@ -184,6 +185,20 @@ class CityzenApi {
                     Authorization: `bearer ${accessToken}`,
                 },
                 body: pertinence,
+            },
+        );
+    }
+
+    getCityzen(accessToken, userId) {
+        const params = userId.split('|'); // provider|uuid
+        return this.http.request(
+            `${this.url}${CITYZENS_ENDPOINTS}/${params[1]}?provider=${params[0]}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${accessToken}`,
+                },
             },
         );
     }

@@ -195,4 +195,7 @@ const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HotspotDescriptionModal);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(HotspotDescriptionModal);
