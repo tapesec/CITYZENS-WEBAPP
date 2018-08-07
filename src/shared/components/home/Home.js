@@ -9,17 +9,15 @@ import ImageCDN from './../lib/ImageCDN';
 
 import './Home.scss';
 
+const logoFilenameId = 'LEcgoqx5RieLXUxo6qup';
+
 const Home = ({ isFromMobile }) => (
     <section className="layout">
         <Grid className="first-view-line">
             {!isFromMobile ? <GridCell span="1" /> : null}
             <GridCell phone="12" span="5">
                 <div className="logo-map">
-                    <ImageCDN
-                        className="logo"
-                        filename="LEcgoqx5RieLXUxo6qup"
-                        alt="Logo de Cityzens"
-                    />
+                    <ImageCDN className="logo" filename={logoFilenameId} alt="Logo de Cityzens" />
                 </div>
             </GridCell>
             <GridCell span="5">
@@ -31,11 +29,11 @@ const Home = ({ isFromMobile }) => (
                         Le réseau social de votre ville
                     </Typography>
                     <Typography tag="p" use="body1" theme="tex-primary-on-background">
-                        Cityzens est un réseau social intéractif vous permettant de suivre toutes
-                        les informations de votre ville.
+                        <em>MoncoeurdeVille</em> est un réseau social intéractif vous permettant de
+                        suivre toutes les informations de votre ville.
                     </Typography>
                     <Typography tag="p" use="body1" theme="tex-primary-on-background">
-                        Connectez-vous à Martignas et ne manquez aucun évenements
+                        Connectez-vous à Martignas-sur-Jalle et ne manquez aucun évenements
                     </Typography>
                     <div className="signin-call-to-action">
                         <Ripple primary>
@@ -45,7 +43,7 @@ const Home = ({ isFromMobile }) => (
                                 href="/login"
                                 use={isFromMobile ? 'caption' : 'body1'}
                                 theme="text-primary-on-secondary">
-                                DEVENEZ UN CITYZEN
+                                INSCRIPTION
                             </Typography>
                         </Ripple>
                         <Ripple primary>

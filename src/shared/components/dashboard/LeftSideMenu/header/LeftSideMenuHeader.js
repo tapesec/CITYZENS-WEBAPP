@@ -13,6 +13,8 @@ const styleCDN = {
     marginTop: '0',
 };
 
+const logoFilenameId = 'LEcgoqx5RieLXUxo6qup';
+
 const LeftSideMenuHeader = ({ dense }) => (
     <DrawerHeader className={`LeftSideMenuHeader ${dense ? 'dense' : ''}`}>
         {dense ? (
@@ -24,7 +26,7 @@ const LeftSideMenuHeader = ({ dense }) => (
                     style={styleCDN}
                     process
                     processParam="output=format:jpg/resize=w:250,fit:clip/compress"
-                    filename="TlFeYNnVSSOsm4TT6h6v"
+                    filename={logoFilenameId}
                 />
             </Link>
         )}
