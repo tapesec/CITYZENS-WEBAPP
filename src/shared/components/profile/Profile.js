@@ -14,7 +14,7 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEditMode: false,
+            // isEditMode: false,
         };
         this.displaySettingsAction = this.displaySettingsAction.bind(this);
         this.turnOnEditMode = this.turnOnEditMode.bind(this);
@@ -22,7 +22,7 @@ class Profile extends React.Component {
 
     turnOnEditMode() {
         this.setState({
-            isEditMode: true,
+            // isEditMode: true,
         });
     }
 
@@ -50,7 +50,7 @@ class Profile extends React.Component {
     }
 
     render() {
-        const { isFromMobile } = this.props;
+        // const { isFromMobile } = this.props;
         console.log(this.props, 'props');
         return (
             <section className="Profile">
@@ -78,8 +78,9 @@ class Profile extends React.Component {
                         Lionnel DUPOUY
                     </Typography>
                     <Typography className="description" use="body2" tag="h1" theme="text-primary">
-                        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-                        consectetur, adipisci velit"
+                        {
+                            'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit'
+                        }
                     </Typography>
                 </section>
             </section>
@@ -88,7 +89,7 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-    isFromMobile: PropTypes.bool.isRequired,
+    // isFromMobile: PropTypes.bool.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     authenticatedCityzen: PropTypes.shape({}).isRequired,
 };
