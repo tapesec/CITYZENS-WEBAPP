@@ -23,19 +23,38 @@ const Home = ({ isFromMobile }) => (
             <GridCell span="5">
                 <section className="punchline">
                     <Typography tag="h1" theme="text-primary-on-background">
-                        Moncoeurde<span style={{ color: '#009688' }}>Ville</span>
+                        Moncoeurde<span style={{ color: '#009688' }}>Ville.fr</span>
                     </Typography>
-                    <Typography tag="span" use="headline5" theme="text-primary-on-background">
+                    <Typography
+                        tag="span"
+                        className="subtitle"
+                        use="headline5"
+                        theme="text-primary-on-background">
                         Le réseau social de votre ville
                     </Typography>
                     <Typography tag="p" use="body1" theme="tex-primary-on-background">
-                        <em>MoncoeurdeVille</em> est un réseau social intéractif vous permettant de
-                        suivre toutes les informations de votre ville.
-                    </Typography>
-                    <Typography tag="p" use="body1" theme="tex-primary-on-background">
-                        Connectez-vous à Martignas-sur-Jalle et ne manquez aucun évenements
+                        <span className="organization-title">MoncoeurdeVille.fr</span> est un réseau
+                        social intéractif vous permettant de suivre toutes les informations de votre
+                        ville.
                     </Typography>
                     <div className="signin-call-to-action">
+                        <Ripple primary>
+                            <Typography
+                                tag="a"
+                                className="signin"
+                                target="_blank"
+                                href="https://medium.com/moncoeurdeville/a-la-d%C3%A9couverte-de-monc%C5%93urdeville-fr-ff7211b9b98d"
+                                use={isFromMobile ? 'caption' : 'body1'}
+                                theme="text-primary-on-secondary">
+                                EN SAVOIR PLUS
+                            </Typography>
+                        </Ripple>
+                    </div>
+                    {/* <Typography tag="p" use="body1" theme="tex-primary-on-background">
+                        Connectez-vous à Martignas-sur-Jalle et ne manquez aucun évenements
+                        </Typography> 
+                    */}
+                    {/* <div className="signin-call-to-action">
                         <Ripple primary>
                             <Typography
                                 tag="a"
@@ -56,7 +75,7 @@ const Home = ({ isFromMobile }) => (
                                 DECOUVREZ MARTIGNAS
                             </Typography>
                         </Ripple>
-                    </div>
+                    </div> */}
                 </section>
             </GridCell>
             {!isFromMobile ? <GridCell span="1" /> : null}
@@ -137,6 +156,30 @@ const Home = ({ isFromMobile }) => (
                     {`Signalez sur la carte des points d'interets, créer un espace de communication
                     avec les habitants de votre ville et ne manquez plus aucun évenements.`}
                 </Typography>
+            </GridCell>
+        </Grid>
+        <Grid className="fourth-view-line">
+            <GridCell span="1" />
+            <GridCell span="4">
+                <section>
+                    <ImageCDN filename="V0dsh7ZRSr2IIdhICY1T" alt="Blazon-Martignas" />
+                </section>
+            </GridCell>
+            <GridCell span="1" />
+            <GridCell span="5">
+                <Typography tag="h2" use="headline5" theme="text-primary-on-background">
+                    Un homme avertit en vaut deux
+                </Typography>
+                <Typography tag="p" use="body1" theme="text-primary-on-background">
+                    <span className="organization-title">MoncoeurdeVille.fr</span>{' '}
+                    {"ouvrira d'abord à "}
+                    <span className="organization-title">Martignas-sur-Jalle</span>
+                    {', vous serez prévenu en avant première.'}
+                </Typography>
+                <form className="lead-form">
+                    <input type="email" placeholder="Email" />
+                    <button type="submit">Envoyer</button>
+                </form>
             </GridCell>
         </Grid>
     </section>

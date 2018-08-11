@@ -35,7 +35,7 @@ class App extends React.Component {
             <GatewayProvider>
                 <Fragment>
                     <MainContainer>
-                        <Nav />
+                        <Nav {...this.props} />
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/profile/:userId" component={Profile} />

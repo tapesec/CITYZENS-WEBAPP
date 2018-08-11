@@ -2,6 +2,10 @@
 
 .layout {
     background-color: #F9F9F9;
+    .organization-title {
+        font-style: italic;
+        color: $mdc-theme-secondary;
+    }
     .logo-map {
         display: flex;
         .logo {
@@ -19,6 +23,10 @@
             margin-bottom: 20px;
             font-size: 42px;
             font-family: 'Source Serif Pro', serif;
+        }
+        .subtitle {
+            display:block;
+            margin-bottom: 10px;
         }
         margin-bottom: 60px;
         .signin-call-to-action {
@@ -38,9 +46,6 @@
             margin-left: 20px;
             background-color: lightgray;
         }
-    }
-    .face-view-line {
-        
     }
     .second-view-line {
         border-top: 1px solid lightgray;
@@ -68,6 +73,41 @@
         }
         h2 {
             margin-bottom: 20px;
+        }
+    }
+
+    .fourth-view-line {
+        border-top: 1px solid lightgray;
+        padding-top: 70px;
+        padding-bottom: 70px;
+        background-color: white;
+        h2 {
+            margin-bottom: 20px;
+        }
+    }
+
+    .lead-form {
+        margin-top: 10px;
+        display: flex;
+        input {
+            height: 30px;
+            width: 100%;
+            padding-left: 10px;
+            border: 1px solid lightgray;
+            background-color: white;
+            font-family: Roboto,sans-serif;
+            font-size: 0.85rem;
+        }
+        button {
+            width: 100px;
+            background-color: orange;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-variant: all-small-caps;
+            font-family: Roboto,sans-serif;
+            font-size: 1rem;
         }
     }
 }

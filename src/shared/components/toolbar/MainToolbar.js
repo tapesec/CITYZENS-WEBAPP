@@ -19,6 +19,9 @@ class MainToolbar extends React.Component {
         };
         this.displayIcon = this.displayIcon.bind(this);
         this.getFabStyle = this.getFabStyle.bind(this);
+        this.renderFab = this.renderFab.bind(this);
+        this.renderLogin = this.renderLogin.bind(this);
+        this.isLandingPage = this.isLandingPage.bind(this);
     }
 
     getFabStyle() {
@@ -27,6 +30,9 @@ class MainToolbar extends React.Component {
         }
         return { left: '10px', backgroundColor: 'white' };
     }
+    isLandingPage() {
+        return this.props.location.pathname === '/';
+    }
     displayIcon() {
         if (this.props.isMobile) {
             return this.props.leftMenuIsOpen ? 'explore' : 'search';
@@ -34,84 +40,88 @@ class MainToolbar extends React.Component {
         return 'menu';
     }
 
+    renderFab() {
+        return !this.isLandingPage() ? (
+            <Fab
+                style={this.getFabStyle()}
+                theme={this.props.isMobile ? 'text-primary-on-dark' : 'text-icon-on-background'}
+                onClick={() => {
+                    this.props.actions.toggleLeftSideMenuVisibility();
+                }}
+                mini>
+                {this.displayIcon()}
+            </Fab>
+        ) : null;
+    }
+
+    renderLogin() {
+        if (!this.isLandingPage()) {
+            return !this.props.isAuthenticated ? (
+                <Fragment>
+                    <Typography
+                        role="button"
+                        className="user-disconnected"
+                        tag="a"
+                        theme="text-primary-on-background"
+                        href="/login"
+                        use="body2">
+                        Se connecter
+                    </Typography>
+                </Fragment>
+            ) : (
+                <MenuAnchor tag="div">
+                    <Menu
+                        open={this.state.menuIsOpen}
+                        onClose={() => this.setState({ menuIsOpen: false })}>
+                        <MenuItem className="username-in-menu">
+                            <Icon strategy="ligature">face</Icon>
+                            {` ${this.props.authenticatedCityzenName}`}
+                        </MenuItem>
+                        <MenuItem>
+                            <Icon strategy="ligature">power_settings_new</Icon> Se deconnecter
+                        </MenuItem>
+                    </Menu>
+
+                    <div
+                        role="button"
+                        tabIndex="0"
+                        tag="span"
+                        theme="text-primary-on-background"
+                        use="body2"
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            cursor: 'pointer',
+                        }}
+                        onKeyDown={() => {
+                            this.setState({ menuIsOpen: !this.state.menuIsOpen });
+                        }}
+                        onClick={() => {
+                            this.setState({ menuIsOpen: !this.state.menuIsOpen });
+                        }}>
+                        <Typography
+                            tag="span"
+                            className="username"
+                            theme="text-primary-on-background"
+                            use="body2">
+                            {this.props.authenticatedCityzenName}
+                        </Typography>
+                        <Icon strategy="ligature" theme="text-icon-on-background">
+                            more_vert
+                        </Icon>
+                    </div>
+                </MenuAnchor>
+            );
+        }
+        return null;
+    }
+
     render() {
         return (
             <Toolbar className="Toolbar">
                 <ToolbarRow theme="background">
-                    <ToolbarSection alignStart>
-                        <Fab
-                            style={this.getFabStyle()}
-                            theme={
-                                this.props.isMobile
-                                    ? 'text-primary-on-dark'
-                                    : 'text-icon-on-background'
-                            }
-                            onClick={() => {
-                                this.props.actions.toggleLeftSideMenuVisibility();
-                            }}
-                            mini>
-                            {this.displayIcon()}
-                        </Fab>
-                    </ToolbarSection>
-                    <ToolbarSection alignEnd>
-                        {!this.props.isAuthenticated ? (
-                            <Fragment>
-                                <Typography
-                                    role="button"
-                                    className="user-disconnected"
-                                    tag="a"
-                                    theme="text-primary-on-background"
-                                    href="/login"
-                                    use="body2">
-                                    Se connecter
-                                </Typography>
-                            </Fragment>
-                        ) : (
-                            <MenuAnchor tag="div">
-                                <Menu
-                                    open={this.state.menuIsOpen}
-                                    onClose={() => this.setState({ menuIsOpen: false })}>
-                                    <MenuItem className="username-in-menu">
-                                        <Icon strategy="ligature">face</Icon>
-                                        {` ${this.props.authenticatedCityzenName}`}
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <Icon strategy="ligature">power_settings_new</Icon> Se
-                                        deconnecter
-                                    </MenuItem>
-                                </Menu>
-
-                                <div
-                                    role="button"
-                                    tabIndex="0"
-                                    tag="span"
-                                    theme="text-primary-on-background"
-                                    use="body2"
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        cursor: 'pointer',
-                                    }}
-                                    onKeyDown={() => {
-                                        this.setState({ menuIsOpen: !this.state.menuIsOpen });
-                                    }}
-                                    onClick={() => {
-                                        this.setState({ menuIsOpen: !this.state.menuIsOpen });
-                                    }}>
-                                    <Typography
-                                        tag="span"
-                                        className="username"
-                                        theme="text-primary-on-background"
-                                        use="body2">
-                                        {this.props.authenticatedCityzenName}
-                                    </Typography>
-                                    <Icon strategy="ligature" theme="text-icon-on-background">
-                                        more_vert
-                                    </Icon>
-                                </div>
-                            </MenuAnchor>
-                        )}
-                    </ToolbarSection>
+                    <ToolbarSection alignStart>{this.renderFab()}</ToolbarSection>
+                    <ToolbarSection alignEnd>{this.renderLogin()}</ToolbarSection>
                 </ToolbarRow>
             </Toolbar>
         );
@@ -126,6 +136,9 @@ MainToolbar.propTypes = {
     authenticatedCityzenName: PropTypes.string,
     leftMenuIsOpen: PropTypes.bool.isRequired,
     isMobile: PropTypes.bool.isRequired,
+    location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired,
+    }).isRequired,
 };
 
 MainToolbar.defaultProps = {

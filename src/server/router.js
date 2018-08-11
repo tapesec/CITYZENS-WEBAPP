@@ -1,6 +1,6 @@
 import { renderToString } from 'react-dom/server';
 import React from 'react';
-import { matchPath, StaticRouter } from 'react-router-dom';
+import { matchPath, StaticRouter, Route } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './../shared/reducers';
@@ -27,7 +27,7 @@ export default (async function router(req, res) {
     const html = renderToString(
         <StaticRouter context={context} location={req.url}>
             <Provider store={store}>
-                <App />
+                <Route path="/" component={App} />
             </Provider>
         </StaticRouter>,
     );

@@ -4,7 +4,7 @@ export default function renderFullPage(html, preloadedState) {
 		<head>
 			<meta charset="utf-8" />
 			<meta http-equiv="X-UA-Compatible" content="IE=9; IE=edge">
-			<title>Cityzens Martignas sur Jalle</title>
+			<title>MoncoeurdeVille.fr Martignas sur Jalle</title>
 			<meta name="viewport" content="width=device-width">
 			<meta name="mobile-web-app-capable" content="yes">
 			<link href="/assets/styles.css" rel="stylesheet">
