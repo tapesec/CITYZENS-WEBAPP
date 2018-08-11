@@ -43,7 +43,7 @@ jobs:
       - store_test_results:
           path: reports/junit
 
-  deploy:
+  deploy-dev:
 
     docker:
       - image: circleci/node:8.9.4
@@ -59,6 +59,22 @@ jobs:
             git remote add clever https://$CLEVER_TOKEN:$CLEVER_SECRET@push-par-clevercloud-customers.services.clever-cloud.com/$APP_ID.git
             git push -u clever master
 
+  deploy-prod:
+
+    docker:
+      - image: circleci/node:8.9.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: clever deploy prod
+          command: |
+            git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_bf78b874-c49e-4032-8a2c-d3ce0c11ce6a.git
+            git push -u clever master
+
 
 workflows:
   version: 2
@@ -67,9 +83,16 @@ workflows:
     jobs:
       - build
 
-      - deploy:
+      - deploy-dev:
           requires:
             - build
+          filters:
+            branches:
+              only: master
+      
+      - deploy-prod:
+          requires:
+            - deploy-dev
           filters:
             branches:
               only: master

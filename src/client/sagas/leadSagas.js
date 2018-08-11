@@ -12,7 +12,7 @@ export function* submitLead(action) {
             body: JSON.stringify({ email: action.payload.email }),
         });
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 }
 
