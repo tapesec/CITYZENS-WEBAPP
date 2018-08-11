@@ -68,7 +68,9 @@ jobs:
 
     steps:
       - checkout
-
+      - add_ssh_keys: 
+          fingerprints: 
+            - "e4:5e:41:50:5b:d3:91:e2:9f:ad:37:eb:60:36:cc:f3"
       - run:
           name: clever deploy prod
           command: |
