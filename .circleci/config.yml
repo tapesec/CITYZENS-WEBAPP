@@ -72,6 +72,7 @@ jobs:
       - run:
           name: clever deploy prod
           command: |
+            echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCs/VZQiMoJXYMYDeRAPyB8x3E/qMXyLRyPvauJQAbMmMyOgSTNhpiL7t1y96yuN6qbYYTirn9ZkHZf/nHffVWRYZDLIkfg+ZAf/54YGuSlVVLrMBA6DjgSUl2boan9iqs+cGG1aL7H5rG8+JN4+Jsf3rltRQSL9Gg3i3zTjScEPuBAHfonP+OnMkuYthhDAkhUSla7igHJrxM2yVyuZ/3tOA07zGUwwisiAdtwtdDkXkHx57NngvqJsyMg657vFCza0q6D03FZ5NCw837+Cm1SVMNpHlCnKPQiKr8SHEdmcy0p0lBrRtvx4L/4pN2gWJnkqqbwwCciXB0MSzpKedU/ lionnel.dupouy@moncoeurdeville.fr' >> ~/.ssh/known_hosts
             git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_bf78b874-c49e-4032-8a2c-d3ce0c11ce6a.git
             git push -u clever master
 
