@@ -23,6 +23,7 @@ export default {
     cityzensApi: {
         baseUrl: cityzensApiBaseUrl,
     },
+
     fileStack: {
         apiKey: fileStackApiKey,
         baseContentUrl: fileStackBaseContentUrl,

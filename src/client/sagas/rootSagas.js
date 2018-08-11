@@ -8,6 +8,7 @@ import routingSagas from './routingSagas';
 import geolocalisationSagas from './geolocalisationSagas';
 import slideshowSagas from './widgets/slideshowSagas';
 import filestackSagas from './filestackSagas';
+import leadSagas from './leadSagas';
 
 export default function* init() {
     yield [
@@ -20,5 +21,6 @@ export default function* init() {
         fork(slideshowSagas),
         fork(filestackSagas),
         fork(commentsSagas),
+        fork(leadSagas),
     ];
 }

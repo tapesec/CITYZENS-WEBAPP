@@ -6,6 +6,7 @@ const secret = process.env.AUTH0_SECRET;
 const callback = process.env.AUTH0_CALLBACK;
 const audience = process.env.AUTH0_AUDIENCE;
 const slackWebhookErrorUrl = process.env.SLACK_API_ERROR_WEBHOOK;
+const slackLeadWebhook = process.env.SLACK_LEAD_WEBHOOK;
 
 module.exports = {
     http: {
@@ -21,5 +22,6 @@ module.exports = {
     },
     slack: {
         slackWebhookErrorUrl,
+        slackLeadWebhook,
     },
 };

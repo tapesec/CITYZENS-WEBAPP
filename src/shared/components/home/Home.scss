@@ -89,6 +89,10 @@
     .lead-form {
         margin-top: 10px;
         display: flex;
+        flex-direction: column;
+        div {
+            display: flex;
+        }
         input {
             height: 30px;
             width: 100%;

@@ -361,6 +361,13 @@ const removeImageWithHandle = imgHandle => ({
     },
 });
 
+const submitLead = email => ({
+    type: actionTypes.SUBMIT_LEAD,
+    payload: {
+        email,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -417,4 +424,5 @@ export default {
     removeImageWithHandle,
     persistMessageComment,
     fetchMessageComments,
+    submitLead,
 };

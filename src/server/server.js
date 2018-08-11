@@ -5,6 +5,7 @@ import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 import fetch from 'cross-fetch';
 import useragent from 'express-useragent';
+import bodyParser from 'body-parser';
 import config from './config';
 import router from './router';
 import SlackWebhook from './services/SlackWebhook';
@@ -25,11 +26,13 @@ const messages = new Messages(cityzenApi);
 const cityzens = new Cityzens(cityzenApi);
 const cities = new Cities(fetch, config.http.apiUrl);
 const initialState = new InitialState(hotspots, messages, cities, cityzens);
-const slackWebhook = new SlackWebhook(fetch, config.slack.slackWebhookErrorUrl);
+const slackWebhookError = new SlackWebhook(fetch, config.slack.slackWebhookErrorUrl);
+const slackLeadWebhook = new SlackWebhook(fetch, config.slack.slackLeadWebhook);
 
 const app = express();
 const FileStore = sessionFileStore(session);
 
+app.use(bodyParser.json());
 app.use(
     session({
         secret: 'keyboard cat',
@@ -124,12 +127,27 @@ app.get(
     router,
 );
 
+app.post('/lead', (req, res) => {
+    const EMAIL_MAX_SIZE = 200;
+    if (
+        /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/.test(
+            req.body.email,
+        ) &&
+        req.body.email.length < EMAIL_MAX_SIZE
+    ) {
+        slackLeadWebhook.alert(`[${process.env.NODE_ENV}] nouveau lead ! : ${req.body.email}`);
+        res.sendStatus(201);
+    } else {
+        res.sendStatus(400);
+    }
+});
+
 // eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
     if (error.statusCode === 404) {
         return res.send(render404(error.message));
     }
-    slackWebhook.alert(
+    slackWebhookError.alert(
         `[${process.env.NODE_ENV}] Erreur 500 renvoyé : ${error.message ||
             JSON.stringify(error)}\n\n
         remote ip: ${req.ip}, x-forwarded-for: ${req.ips}, user-agent: ${JSON.stringify({
