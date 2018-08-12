@@ -58,7 +58,7 @@ jobs:
       - checkout
       - run:
           name: Avoid prompt authentication check
-          command: echo -e "Host push-par-clevercloud-customers.services.clever-cloud.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config      
+          command: echo -e "Host push-par-clevercloud-customers.services.clever-cloud.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run:
           name: Git push to clever cloud
           command: |
@@ -71,14 +71,14 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      - deploy-dev:	
-          requires:	
-            - build	
-          filters:	
-            branches:	
+      - deploy-dev:
+          requires:
+            - build
+          filters:
+            branches:
               only: master
       - deploy-prod:
-          requires:	
+          requires:
             - deploy-dev
           filters:
             branches:
