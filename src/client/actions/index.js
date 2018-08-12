@@ -368,6 +368,13 @@ const submitLead = email => ({
     },
 });
 
+const trackEvent = params => ({
+    type: actionTypes.TRACK_EVENT,
+    payload: {
+        params,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -425,4 +432,5 @@ export default {
     persistMessageComment,
     fetchMessageComments,
     submitLead,
+    trackEvent,
 };

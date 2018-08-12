@@ -32,6 +32,11 @@ class Home extends React.Component {
             )
         ) {
             this.props.submitLead(this.state.email);
+            this.props.trackEvent({
+                action: 'submit',
+                category: 'lead',
+                label: 'email',
+            });
             this.setState({
                 email: '',
                 errorEmail: false,
@@ -67,7 +72,8 @@ class Home extends React.Component {
                     <GridCell span="5">
                         <section className="punchline">
                             <Typography tag="h1" theme="text-primary-on-background">
-                                Moncoeurde<span style={{ color: '#009688' }}>Ville.fr</span>
+                                Moncoeurde
+                                <span style={{ color: '#009688' }}>Ville.fr</span>
                             </Typography>
                             <Typography
                                 tag="span"
@@ -249,6 +255,7 @@ class Home extends React.Component {
 Home.propTypes = {
     isFromMobile: PropTypes.bool.isRequired,
     submitLead: PropTypes.func.isRequired,
+    trackEvent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -258,6 +265,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     submitLead: email => {
         dispatch(actions.submitLead(email));
+    },
+    trackEvent: params => {
+        dispatch(actions.trackEvent(params));
     },
 });
 

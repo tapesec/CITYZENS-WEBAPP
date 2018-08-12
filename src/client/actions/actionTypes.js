@@ -110,4 +110,6 @@ export default {
 
     /* SUBMIT LEADS */
     SUBMIT_LEAD: 'SUBMIT_LEAD',
+    /* ANALYTICS */
+    TRACK_EVENT: 'TRACK_EVENT',
 };
