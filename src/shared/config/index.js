@@ -10,10 +10,12 @@ const filestackPolicy = process.env.FILE_STACK_POLICY;
 const filestackSignature = process.env.FILE_STACK_SIGNATURE;
 const mediaDefaultIcon = process.env.MEDIA_HOTSPOT_DEFAULT_ICON;
 const infoDefaultIcon = process.env.INFO_HOTSPOT_DEFAULT_ICON;
+const trackingEnabled = process.env.TRACKING_ENABLED;
 
 export default {
     google: {
         mapApiKey,
+        trackingEnabled,
     },
     algolia: {
         algoliaApplicationId,
