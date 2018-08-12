@@ -85,16 +85,10 @@ workflows:
     jobs:
       - build
 
-      - deploy-dev:	
-          requires:	
-            - build	
-          filters:	
-            branches:	
-              only: master
+      
 
       - deploy-prod:
-          requires:	
-            - deploy-dev
+          
           filters:
             branches:
               only: master
