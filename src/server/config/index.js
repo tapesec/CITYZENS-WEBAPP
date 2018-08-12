@@ -7,11 +7,13 @@ const callback = process.env.AUTH0_CALLBACK;
 const audience = process.env.AUTH0_AUDIENCE;
 const slackWebhookErrorUrl = process.env.SLACK_API_ERROR_WEBHOOK;
 const slackLeadWebhook = process.env.SLACK_LEAD_WEBHOOK;
+const forceHttps = process.env.FORCE_HTTPS;
 
 module.exports = {
     http: {
         port,
         apiUrl,
+        forceHttps,
     },
     auth0: {
         domain,

@@ -6,6 +6,7 @@ import sessionFileStore from 'session-file-store';
 import fetch from 'cross-fetch';
 import useragent from 'express-useragent';
 import bodyParser from 'body-parser';
+import enforce from 'express-sslify';
 import config from './config';
 import router from './router';
 import SlackWebhook from './services/SlackWebhook';
@@ -32,6 +33,7 @@ const slackLeadWebhook = new SlackWebhook(fetch, config.slack.slackLeadWebhook);
 const app = express();
 const FileStore = sessionFileStore(session);
 
+if (config.http.forceHttps) app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(bodyParser.json());
 app.use(
     session({

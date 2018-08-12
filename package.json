@@ -36,6 +36,7 @@
     "dotenv-webpack": "^1.5.4",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "express-sslify": "^1.2.0",
     "express-useragent": "^1.0.12",
     "filestack-js": "^1.2.1",
     "filestack-react": "^2.0.0",
