@@ -74,7 +74,7 @@ jobs:
 
       - run:
           name: Avoid prompt authentication check
-          command: echo -e "Host 212.129.46.93\n\tStrictHostKeyChecking no\n" > ~/.ssh/config      
+          command: echo -e "Host push.clever-cloud.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config      
       - run:
           name: clever deploy prod
           command: |
