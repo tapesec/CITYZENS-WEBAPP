@@ -71,13 +71,13 @@ jobs:
       - add_ssh_keys: 
           fingerprints: 
             - "3b:6b:ba:c7:09:d0:f8:f8:12:88:f8:a1:5c:7c:24:20"
+
+      - run:
+          name: Avoid prompt authentication check
+          command: mkdir ~/.ssh/ && echo -e "Host 212.129.46.93\n\tStrictHostKeyChecking no\n" > ~/.ssh/config      
       - run:
           name: clever deploy prod
           command: |
-            echo "Host 212.129.46.93" >> ~/.ssh/config
-            echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-            echo "   CheckHostIP no" >> ~/.ssh/config
-            echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
             git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_bf78b874-c49e-4032-8a2c-d3ce0c11ce6a.git
             git push -u clever master
 
