@@ -21,6 +21,7 @@ export function* fetchCountComments(hotspotId, messages) {
         const countedMessages = yield response.json();
         yield put({ type: actionTypes.COMMENTS_COUNT_FETCHED, payload: { countedMessages } });
     } catch (error) {
+        // eslint-disable-next-line
         console.log(error);
     }
 }
