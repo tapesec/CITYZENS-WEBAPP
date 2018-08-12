@@ -74,7 +74,10 @@ jobs:
       - run:
           name: clever deploy prod
           command: |
-            echo 'e4:5e:41:50:5b:d3:91:e2:9f:ad:37:eb:60:36:cc:f3' >> ~/.ssh/known_hosts
+            echo "Host 212.129.46.93" >> ~/.ssh/config
+            echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+            echo "   CheckHostIP no" >> ~/.ssh/config
+            echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
             git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_bf78b874-c49e-4032-8a2c-d3ce0c11ce6a.git
             git push -u clever master
 
