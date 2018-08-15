@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Icon } from 'rmwc/Icon';
 import { Typography } from 'rmwc/Typography';
 import ReactFilestack from 'filestack-react';
@@ -142,7 +143,9 @@ const AlertHotspot = props => (
                         tag="strong"
                         use="body2"
                         theme="text-primary-on-background">
-                        {props.hotspot.author.pseudo}
+                        <Link to={`/profile/${props.hotspot.author.id}`}>
+                            {props.hotspot.author.pseudo}
+                        </Link>
                     </Typography>
                     <Typography
                         tag="span"
