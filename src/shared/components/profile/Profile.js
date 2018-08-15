@@ -9,6 +9,7 @@ import ImageCDN from './../lib/ImageCDN';
 import ComboIcon from './../lib/comboIcon/ComboIcon';
 import authConnector from './../hoc/authConnector';
 import MainToolbar from './../toolbar/MainToolbar';
+import DateFormater from './../lib/DateFormater';
 import './profile.scss';
 
 const Nav = authConnector(MainToolbar);
@@ -36,6 +37,7 @@ class Profile extends React.Component {
                     tag="div"
                     use="body2"
                     className="combo-item"
+                    style={{ width: '100px' }}
                     key={item.label}
                     role="button"
                     onClick={() => item.action(item)}>
@@ -45,7 +47,11 @@ class Profile extends React.Component {
         );
         return this.props.isAuthenticated && this.props.authenticatedCityzen ? (
             <ComboIcon
-                actionComponent={() => <Icon strategy="ligature">settings</Icon>}
+                actionComponent={() => (
+                    <Icon strategy="ligature" style={{ color: 'darkcyan' }}>
+                        settings
+                    </Icon>
+                )}
                 className="contextual-action"
                 content={content}
             />
@@ -53,7 +59,7 @@ class Profile extends React.Component {
     }
 
     render() {
-        // const { isFromMobile } = this.props;
+        const { authenticatedCityzen } = this.props;
         return (
             <Fragment>
                 <Nav {...this.props} />
@@ -61,6 +67,23 @@ class Profile extends React.Component {
                 <section className="Profile">
                     <section className="top-section">
                         <div className="settings">{this.displaySettingsAction()}</div>
+                        <Typography
+                            className="cityzen-place"
+                            tag="div"
+                            use="body2"
+                            theme="text-primary">
+                            Résidence
+                            <div className="city-line">
+                                <ImageCDN
+                                    process
+                                    processParam="output=format:png/resize=w:100,fit:clip/compress"
+                                    filename="V0dsh7ZRSr2IIdhICY1T"
+                                    style={{ width: '20px' }}
+                                    alt="blazon de Martignas-sur-Jalle"
+                                />{' '}
+                                Martignas-sur-Jalle
+                            </div>
+                        </Typography>
                         <div className="avatar-picture">
                             <ImageCDN
                                 process
@@ -73,7 +96,7 @@ class Profile extends React.Component {
                                     boxShadow: '0px 0px 2px 0px grey',
                                 }}
                                 filename="KI9EVeOiS3KbqA5G7es1"
-                                alt="avatar de MR X"
+                                alt={`avatar de ${authenticatedCityzen.pseudo}`}
                             />
                         </div>
                     </section>
@@ -84,16 +107,17 @@ class Profile extends React.Component {
                             use="subtitle1"
                             tag="h1"
                             theme="text-primary">
-                            Lionnel DUPOUY
+                            {authenticatedCityzen.pseudo}
+                        </Typography>
+                        <Typography className="signupDate" use="body2" tag="p" theme="text-primary">
+                            Inscrit depuis <DateFormater date={authenticatedCityzen.createdAt} />
                         </Typography>
                         <Typography
                             className="description"
                             use="body2"
                             tag="h1"
                             theme="text-primary">
-                            {
-                                'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit'
-                            }
+                            {authenticatedCityzen.description}
                         </Typography>
                     </section>
                 </section>

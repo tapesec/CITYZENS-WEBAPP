@@ -7,6 +7,7 @@
     z-index: -1;
     border: 1px solid lightblue;
     .top-section {
+        padding: 5px;
         height: 200px;
         background-color: lightblue;
         position: relative;
@@ -19,6 +20,16 @@
             position: absolute;
             bottom: -40px;
             left: calc(50% - 40px);
+        }
+        .cityzen-place {
+            margin-top: 5px;
+            .city-line {
+                display: flex;
+                margin-top: 5px;
+                .ImageCDN {
+                    margin-right: 5px;
+                }
+            }
         }
     }
     .content-section {
