@@ -18,24 +18,20 @@ import '../../../node_modules/@material/layout-grid/dist/mdc.layout-grid.min.css
 import '../../../node_modules/@material/ripple/dist/mdc.ripple.min.css';
 import './../../client/main.scss';
 
-import authConnector from './hoc/authConnector';
 import MainContainer from './MainContainer';
 import Home from './home/Home';
 import Profile from './profile/Profile';
 import Dashboard from './dashboard/Dashboard';
-import MainToolbar from './toolbar/MainToolbar';
 
 // import './../../../node_modules/material-components-web/dist/material-components-web.min.css';
 /* eslint-disable */
 
 class App extends React.Component {
     render() {
-        const Nav = authConnector(MainToolbar);
         return (
             <GatewayProvider>
                 <Fragment>
                     <MainContainer>
-                        <Nav {...this.props} />
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/profile/:userId" component={Profile} />

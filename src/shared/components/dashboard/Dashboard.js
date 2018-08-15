@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -20,6 +20,10 @@ import AddressModal from './AddressModal/AddressModal';
 import HotspotDescriptionModal from './HotspotDescriptionModal/Modal';
 import SettingUpHotspotModal from './SettingUpHotspotModal/SettingUpHotspot';
 import cancelHotspotCreationFlow from '../lib/cancelHotspotCreationFlow';
+import authConnector from './../hoc/authConnector';
+import MainToolbar from './../toolbar/MainToolbar';
+
+const Nav = authConnector(MainToolbar);
 
 const { PAWN_MARKER } = constants;
 class Dashboard extends React.Component {
@@ -50,22 +54,25 @@ class Dashboard extends React.Component {
         const { match, history } = this.props;
         const AlertHotspotContainer = displayWithProps(isLoading(HotspotContainer));
         return (
-            <div
-                ref={node => {
-                    this.dashboardElem = node;
-                }}>
-                <LeftSideMenu history={history} />
-                <MapArea history={history} />
-                <AlertHotspotContainer />
-                <AddressModal />
-                <HotspotDescriptionModal />
-                <SettingUpHotspotModal />
-                <Route
-                    path={`${match.url}/:hotspotSlug`}
-                    component={displayWithRoutes(loadWithSlug(isLoading(HotspotContainer)))}
-                />
-                <MarkerDraggablePreview />
-            </div>
+            <Fragment>
+                <Nav {...this.props} />
+                <div
+                    ref={node => {
+                        this.dashboardElem = node;
+                    }}>
+                    <LeftSideMenu history={history} />
+                    <MapArea history={history} />
+                    <AlertHotspotContainer />
+                    <AddressModal />
+                    <HotspotDescriptionModal />
+                    <SettingUpHotspotModal />
+                    <Route
+                        path={`${match.url}/:hotspotSlug`}
+                        component={displayWithRoutes(loadWithSlug(isLoading(HotspotContainer)))}
+                    />
+                    <MarkerDraggablePreview />
+                </div>
+            </Fragment>
         );
     }
 }

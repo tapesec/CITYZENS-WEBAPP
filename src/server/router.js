@@ -7,7 +7,7 @@ import reducer from './../shared/reducers';
 import App from './../shared/components/App';
 import renderFullPage from './renderFullPage';
 
-const ROUTES = ['/', '/register', '/:citySlug/:hotspotSlug'];
+const ROUTES = ['/', '/register', '/profile/:userId', '/:citySlug/:hotspotSlug'];
 
 export default (async function router(req, res) {
     const match = ROUTES.reduce(

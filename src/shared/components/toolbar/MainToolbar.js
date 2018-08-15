@@ -7,6 +7,7 @@ import { Menu, MenuItem, MenuAnchor } from 'rmwc/Menu';
 import Typography from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 import Fab from 'rmwc/Fab';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { leftSideMenuIsOpen } from '../../reducers/componentsState';
 import { visitorComeFromMobile } from '../../reducers/visitor';
 import actions from './../../../client/actions';
@@ -34,22 +35,39 @@ class MainToolbar extends React.Component {
         return this.props.location.pathname === '/';
     }
     displayIcon() {
-        if (this.props.isMobile) {
-            return this.props.leftMenuIsOpen ? 'explore' : 'search';
+        const { match } = this.props;
+        const iconParams = { isVisible: false };
+        if (match.params.citySlug) {
+            iconParams.isVisible = true;
+            iconParams.style = { left: '10px', backgroundColor: '#a71212' };
+            iconParams.theme = 'text-primary-on-dark';
+            iconParams.action = this.props.actions.toggleLeftSideMenuVisibility;
+            return this.props.leftMenuIsOpen
+                ? { ...iconParams, icon: 'explore' }
+                : { ...iconParams, icon: 'search' };
         }
+        if (match.path === '/profile/:userId') {
+            iconParams.isVisible = true;
+            iconParams.style = { left: '10px', backgroundColor: '#a71212' };
+            iconParams.theme = 'text-primary-on-dark';
+            iconParams.action = () => this.props.history.push('/Martignas-sur-Jalle');
+            return { ...iconParams, icon: 'explore' };
+        }
+
         return 'menu';
     }
 
     renderFab() {
-        return !this.isLandingPage() ? (
+        const iconParams = this.displayIcon();
+        return iconParams.isVisible ? (
             <Fab
-                style={this.getFabStyle()}
-                theme={this.props.isMobile ? 'text-primary-on-dark' : 'text-icon-on-background'}
+                style={iconParams.style}
+                theme={iconParams.theme}
                 onClick={() => {
-                    this.props.actions.toggleLeftSideMenuVisibility();
+                    iconParams.action();
                 }}
                 mini>
-                {this.displayIcon()}
+                {iconParams.icon}
             </Fab>
         ) : null;
     }
@@ -136,9 +154,9 @@ MainToolbar.propTypes = {
     authenticatedCityzenName: PropTypes.string,
     leftMenuIsOpen: PropTypes.bool.isRequired,
     isMobile: PropTypes.bool.isRequired,
-    location: PropTypes.shape({
-        pathname: PropTypes.string.isRequired,
-    }).isRequired,
+    location: ReactRouterPropTypes.location.isRequired,
+    match: ReactRouterPropTypes.match.isRequired,
+    history: ReactRouterPropTypes.history.isRequired,
 };
 
 MainToolbar.defaultProps = {

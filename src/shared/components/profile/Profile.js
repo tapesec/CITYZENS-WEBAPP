@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Typography } from 'rmwc/Typography';
@@ -7,8 +7,11 @@ import { visitorComeFromMobile } from '../../reducers/visitor';
 import { getCityzenProfileFromApi, isAuthenticated } from '../../reducers/authenticatedCityzen';
 import ImageCDN from './../lib/ImageCDN';
 import ComboIcon from './../lib/comboIcon/ComboIcon';
-
+import authConnector from './../hoc/authConnector';
+import MainToolbar from './../toolbar/MainToolbar';
 import './profile.scss';
+
+const Nav = authConnector(MainToolbar);
 
 class Profile extends React.Component {
     constructor(props) {
@@ -40,7 +43,7 @@ class Profile extends React.Component {
                 </Typography>
             ),
         );
-        return this.props.isAuthenticated && this.props.authenticatedCityzen === true ? (
+        return this.props.isAuthenticated && this.props.authenticatedCityzen ? (
             <ComboIcon
                 actionComponent={() => <Icon strategy="ligature">settings</Icon>}
                 className="contextual-action"
@@ -51,39 +54,50 @@ class Profile extends React.Component {
 
     render() {
         // const { isFromMobile } = this.props;
-        console.log(this.props, 'props');
         return (
-            <section className="Profile">
-                <section className="top-section">
-                    <div className="settings">{this.displaySettingsAction()}</div>
-                    <div className="avatar-picture">
-                        <ImageCDN
-                            process
-                            processParam="output=format:png/resize=w:140,fit:clip/compress"
-                            style={{
-                                width: '80px',
-                                borderRadius: '40px',
-                                border: '2px solid white',
-                                boxSizing: 'border-box',
-                                boxShadow: '0px 0px 2px 0px grey',
-                            }}
-                            filename="KI9EVeOiS3KbqA5G7es1"
-                            alt="avatar de MR X"
-                        />
-                    </div>
-                </section>
+            <Fragment>
+                <Nav {...this.props} />
 
-                <section className="content-section">
-                    <Typography className="pseudo" use="subtitle1" tag="h1" theme="text-primary">
-                        Lionnel DUPOUY
-                    </Typography>
-                    <Typography className="description" use="body2" tag="h1" theme="text-primary">
-                        {
-                            'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit'
-                        }
-                    </Typography>
+                <section className="Profile">
+                    <section className="top-section">
+                        <div className="settings">{this.displaySettingsAction()}</div>
+                        <div className="avatar-picture">
+                            <ImageCDN
+                                process
+                                processParam="output=format:png/resize=w:140,fit:clip/compress"
+                                style={{
+                                    width: '80px',
+                                    borderRadius: '40px',
+                                    border: '2px solid white',
+                                    boxSizing: 'border-box',
+                                    boxShadow: '0px 0px 2px 0px grey',
+                                }}
+                                filename="KI9EVeOiS3KbqA5G7es1"
+                                alt="avatar de MR X"
+                            />
+                        </div>
+                    </section>
+
+                    <section className="content-section">
+                        <Typography
+                            className="pseudo"
+                            use="subtitle1"
+                            tag="h1"
+                            theme="text-primary">
+                            Lionnel DUPOUY
+                        </Typography>
+                        <Typography
+                            className="description"
+                            use="body2"
+                            tag="h1"
+                            theme="text-primary">
+                            {
+                                'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit'
+                            }
+                        </Typography>
+                    </section>
                 </section>
-            </section>
+            </Fragment>
         );
     }
 }
