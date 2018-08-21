@@ -1,7 +1,14 @@
+import actionTypes from '../../client/actions/actionTypes';
+
 const initialState = {};
 
-export default function authenticatedCityzen(state = initialState) {
-    return state;
+export default function authenticatedCityzen(state = initialState, action) {
+    switch (action.type) {
+        case actionTypes.CITYZEN_FROM_API_UPDATED:
+            return { ...state, profileFromApi: action.payload.updatedCityzenFromApi };
+        default:
+            return state;
+    }
 }
 
 export const getCityzenProfileFromApi = state => state.authenticatedCityzen.profileFromApi;

@@ -46,6 +46,14 @@ const VALIDATION = {
             ERROR: `300 caractères max`,
         },
     },
+    CITYZEN: {
+        DESCRIPTION: {
+            MAX_LENGTH: 1000,
+            LABEL: {
+                ERROR: `1000 caractères max`,
+            },
+        },
+    },
 };
 
 export default VALIDATION;

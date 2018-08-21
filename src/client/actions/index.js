@@ -375,6 +375,14 @@ const trackEvent = params => ({
     },
 });
 
+const submitProfile = (userId, formValues) => ({
+    type: actionTypes.SUBMIT_CITYZEN_PROFILE,
+    payload: {
+        userId,
+        formValues,
+    },
+});
+
 export default {
     toggleLeftSideMenuVisibility,
     hotspotSearchKeyPress,
@@ -433,4 +441,5 @@ export default {
     fetchMessageComments,
     submitLead,
     trackEvent,
+    submitProfile,
 };

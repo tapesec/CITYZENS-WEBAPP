@@ -202,5 +202,20 @@ class CityzenApi {
             },
         );
     }
+
+    patchCityzen(accessToken, userId, payload) {
+        const params = userId.split('|'); // provider|uuid
+        return this.http.request(
+            `${this.url}${CITYZENS_ENDPOINTS}/${params[1]}?provider=${params[0]}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `bearer ${accessToken}`,
+                },
+                body: payload,
+            },
+        );
+    }
 }
 export default new CityzenApi(fetchWrapper, config.cityzensApi.baseUrl);

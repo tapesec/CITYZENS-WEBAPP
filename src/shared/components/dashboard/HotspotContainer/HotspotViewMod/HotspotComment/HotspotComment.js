@@ -43,6 +43,8 @@ const HotspotComment = ({ comment, deleteComment, hotspotId, cityzenIsAuthor }) 
                             'KI9EVeOiS3KbqA5G7es1'
                         }
                         style={{ width: '40px', marginRight: '16px' }}
+                        process
+                        processParam="output=format:png/resize=w:80,fit:clip/compress/circle"
                         alt="avatar de l'autheur"
                     />
                 </aside>

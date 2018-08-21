@@ -98,9 +98,11 @@ class HotspotCommentForm extends React.Component {
             <section className="HotspotCommentForm">
                 <aside className="cityzen-avatar-aside">
                     <ImageCDN
-                        filename="KI9EVeOiS3KbqA5G7es1"
+                        filename={this.props.cityzen.pictureCityzen}
                         alt="votre avatar"
                         style={{ width: '40px', marginRight: '16px' }}
+                        process
+                        processParam="output=format:png/resize=w:80,fit:clip/compress/circle"
                     />
                 </aside>
                 <div className="form-content">
@@ -133,10 +135,10 @@ HotspotCommentForm.propTypes = {
     parentId: PropTypes.string.isRequired,
     hotspotId: PropTypes.string.isRequired,
     persistMessageComment: PropTypes.func.isRequired,
-    /* cityzen: PropTypes.shape({
+    cityzen: PropTypes.shape({
         pictureCityzen: PropTypes.string,
-        pictureAuthor: PropTypes.string,
-    }).isRequired, */
+        // pictureAuthor: PropTypes.string,
+    }).isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

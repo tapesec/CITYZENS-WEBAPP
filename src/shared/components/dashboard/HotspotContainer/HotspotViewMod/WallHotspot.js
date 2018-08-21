@@ -10,7 +10,7 @@ import Slideshow from '../Widgets/Slideshow/Slideshow';
 import {
     getCityzenId,
     isAuthenticated,
-    getCityzenProfile,
+    getCityzenProfileFromApi,
 } from './../../../../reducers/authenticatedCityzen';
 import actions from './../../../../../client/actions';
 import constants from './../../../../constants';
@@ -183,7 +183,7 @@ WallHotspot.defaultProps = {
 const mapStateToProps = state => ({
     cityzenId: getCityzenId(state),
     cityzenIsAuthenticated: isAuthenticated(state),
-    cityzenProfile: getCityzenProfile(state),
+    cityzenProfile: getCityzenProfileFromApi(state),
     messageEditionData: messageEdition.getCurrentMessageEdition(state),
     settingUpMode: getSettingUpMode(state),
 });

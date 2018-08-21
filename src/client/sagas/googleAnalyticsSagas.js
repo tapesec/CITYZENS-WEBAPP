@@ -20,6 +20,6 @@ export function* track(action) {
     }
 }
 
-export default function* analytics() {
+export default function* googleAnalyticsSagas() {
     yield [takeLatest(actionTypes.TRACK_EVENT, track)];
 }

@@ -102,6 +102,8 @@ class HotspotMessage extends React.Component {
                     <div className="message-section" style={{ display: 'flex' }}>
                         <ImageCDN
                             style={{ width: '50px', marginRight: '16px', marginTop: '40px' }}
+                            process
+                            processParam="output=format:png/resize=w:100,fit:clip/compress/circle"
                             filename={
                                 this.props.defaultAvatar ||
                                 message.author.pictureCityzen ||
@@ -223,9 +225,9 @@ HotspotMessage.propTypes = {
         body: PropTypes.string,
     }).isRequired,
     messageComments: PropTypes.arrayOf(PropTypes.object).isRequired,
-    hotspotId: PropTypes.string.isRequired,
+    hotspotId: PropTypes.string,
     cityzenIsAuthor: PropTypes.bool,
-    cityzenIsAuthenticated: PropTypes.bool.isRequired,
+    cityzenIsAuthenticated: PropTypes.bool,
     cityzen: PropTypes.shape({}),
     edit: PropTypes.func,
     fetchMessageComments: PropTypes.func.isRequired,
@@ -240,6 +242,8 @@ HotspotMessage.defaultProps = {
     cityzen: undefined,
     defaultAvatar: undefined,
     edit: () => {},
+    hotspotId: undefined,
+    cityzenIsAuthenticated: false,
 };
 
 const mapStateToProps = (state, ownProps) => ({

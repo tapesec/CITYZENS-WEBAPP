@@ -11,7 +11,10 @@ const cli = client.init(config.fileStack.apiKey, {
 function* removeImageByHandle(action) {
     try {
         const { imgHandle } = action.payload;
-        yield call([cli, cli.remove], imgHandle);
+        yield call([cli, cli.remove], imgHandle, {
+            policy: config.fileStack.security.policy,
+            signature: config.fileStack.security.signature,
+        });
     } catch (error) {
         // eslint-disable-next-line no-console
         console.log(`Une erreur s'est produite lors de la suppresion de l'image ${error.message}`);

@@ -1,3 +1,5 @@
+@import './../../../client/variables.scss';
+
 .Profile {
     min-height: calc(100% - 64px);
     box-sizing: border-box;
@@ -19,10 +21,28 @@
         div.avatar-picture {
             position: absolute;
             bottom: -40px;
-            left: calc(50% - 40px);
+            left: calc(50% - 60px);
+        }
+        div.avatar-import-area {
+            width: 120px;
+            height: 120px;
+            background-color: lightgray;
+            border-radius: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            i {
+                font-size: 36px;
+            }
         }
         .cityzen-place {
             margin-top: 5px;
+            .cityzen-place-title {
+                display: flex;
+                align-items: center;
+            }
             .city-line {
                 display: flex;
                 margin-top: 5px;
@@ -35,14 +55,24 @@
     .content-section {
         display: flex;
         flex-direction: column;
-        padding-top: 50px;
+        padding: 50px 10px 10px 10px;
         display: flex;
         align-items: center;
         .pseudo {
-
+            display: flex;
         }
         .description {
-            margin: 10px 10px 0 10px;
+            margin: 30px 10px 0 10px;
+            white-space: pre-line;
+            font-style: italic;
+        }
+        .ProfileForm {
+            width: 100%;
+            .submitArea {
+                button {
+                    margin-right: 10px;
+                }
+            }
         }
     }
 }

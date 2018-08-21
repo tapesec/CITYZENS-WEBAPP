@@ -9,7 +9,8 @@ import geolocalisationSagas from './geolocalisationSagas';
 import slideshowSagas from './widgets/slideshowSagas';
 import filestackSagas from './filestackSagas';
 import leadSagas from './leadSagas';
-import googleAnalytics from './googleAnalytics';
+import googleAnalyticsSagas from './googleAnalyticsSagas';
+import profileSagas from './profileSagas';
 
 export default function* init() {
     yield [
@@ -23,6 +24,7 @@ export default function* init() {
         fork(filestackSagas),
         fork(commentsSagas),
         fork(leadSagas),
-        fork(googleAnalytics),
+        fork(googleAnalyticsSagas),
+        fork(profileSagas),
     ];
 }
