@@ -88,8 +88,8 @@ class Home extends React.Component {
                                 </Typography>
                                 <Typography tag="p" use="body1" theme="tex-primary-on-background">
                                     <span className="organization-title">MoncoeurdeVille.fr</span>{' '}
-                                    est un réseau social intéractif vous permettant de suivre toutes
-                                    les informations de votre ville.
+                                    est un réseau social interactif entre vos besoins de citadin et
+                                    les services existants dans votre ville.
                                 </Typography>
                                 <div className="signin-call-to-action">
                                     <Ripple primary>
@@ -181,12 +181,12 @@ class Home extends React.Component {
                         <GridCell span="1" />
                         <GridCell span="5">
                             <Typography tag="h2" use="headline5" theme="text-primary-on-background">
-                                Une carte intéractive
+                                Une carte interactive
                             </Typography>
                             <Typography tag="p" use="body1" theme="tex-primary-on-background">
                                 Un contenu simple et rapidement accessible. Vous serez surpris de
                                 voir tout ce qu’il se passe dans votre ville en naviguant au hasard
-                                sur la carte.
+                                sur la carte ou en ciblant votre recherche.
                             </Typography>
                         </GridCell>
                     </Grid>
@@ -194,22 +194,52 @@ class Home extends React.Component {
                         <GridCell span="1" />
                         <GridCell span="4">
                             <section>
-                                <ImageCDN filename="iMTfeaOyS0iReA0OLhGN" alt="Calendrier" />
-                                <ImageCDN filename="QXg7dCRhQbiEi4iRGSDz" alt="Mur" />
-                                <ImageCDN filename="a4e3l7JbSOOw05HNK5DN" alt="Travaux" />
-                                <ImageCDN filename="uNBPerZcTWORohX7wtyg" alt="Accident" />
-                                <ImageCDN filename="eiHWi2RQrmYiTR8zJhLO" alt="Handicapé" />
-                                <ImageCDN filename="mv3vE6K6T5qWiu3Syu7r" alt="Dégradation" />
+                                <ImageCDN
+                                    filename="iMTfeaOyS0iReA0OLhGN"
+                                    process
+                                    processParam="output=format:png/resize=w:300,fit:clip/compress"
+                                    alt="Calendrier"
+                                />
+                                <ImageCDN
+                                    filename="QXg7dCRhQbiEi4iRGSDz"
+                                    process
+                                    processParam="output=format:png/resize=w:300,fit:clip/compress"
+                                    alt="Mur"
+                                />
+                                <ImageCDN
+                                    filename="a4e3l7JbSOOw05HNK5DN"
+                                    process
+                                    processParam="output=format:png/resize=w:300,fit:clip/compress"
+                                    alt="Travaux"
+                                />
+                                <ImageCDN
+                                    filename="uNBPerZcTWORohX7wtyg"
+                                    process
+                                    processParam="output=format:png/resize=w:300,fit:clip/compress"
+                                    alt="Accident"
+                                />
+                                <ImageCDN
+                                    filename="eiHWi2RQrmYiTR8zJhLO"
+                                    process
+                                    processParam="output=format:png/resize=w:300,fit:clip/compress"
+                                    alt="Handicapé"
+                                />
+                                <ImageCDN
+                                    filename="mv3vE6K6T5qWiu3Syu7r"
+                                    process
+                                    processParam="output=format:png/resize=w:300,fit:clip/compress"
+                                    alt="Dégradation"
+                                />
                             </section>
                         </GridCell>
                         <GridCell span="1" />
                         <GridCell span="5">
                             <Typography tag="h2" use="headline5" theme="text-primary-on-background">
-                                {"Créez des points d'interets"}
+                                {"Créez des points d'intérêts"}
                             </Typography>
                             <Typography tag="p" use="body1" theme="tex-primary-on-background">
                                 {`Signalez sur la carte des points d'intérêts, créez un espace de communication
-                    avec les habitants de votre ville et ne manquez plus aucun évenements.`}
+                    avec les habitants de votre ville et ne manquez plus aucun évènement.`}
                             </Typography>
                         </GridCell>
                     </Grid>
