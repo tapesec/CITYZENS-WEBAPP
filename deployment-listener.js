@@ -32,6 +32,7 @@ client.on('connect', function(connection) {
                 parsedMessage.event === 'DEPLOYMENT_SUCCESS'
             ) {
                 console.log('Deployment finished successfully ! next step …');
+                connection.close();
             }
             if (
                 application &&
@@ -39,6 +40,7 @@ client.on('connect', function(connection) {
                 parsedMessage.event === 'DEPLOYMENT_FAIL'
             ) {
                 console.log('Deployment failed ! stop pipeline …');
+                connection.close();
                 process.exit(1);
             }
         }
