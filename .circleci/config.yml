@@ -45,10 +45,20 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install websocket lib
+          command: |
+              npm install websocket
+
+      - run:
           name: clever deploy
           command: |
             git remote add clever https://$CLEVER_TOKEN:$CLEVER_SECRET@push-par-clevercloud-customers.services.clever-cloud.com/$APP_ID.git
             git push -u clever master
+
+      - run:
+          name: listen deploy events
+          command: |
+              node deployment-listener.js --app CITYZENS-WEBAPP
 
   deploy-prod:
     docker:
@@ -57,6 +67,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install websocket lib
+          command: |
+              npm install websocket
+
+      - run:
           name: Avoid prompt authentication check
           command: echo -e "Host push-par-clevercloud-customers.services.clever-cloud.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run:
@@ -64,6 +79,11 @@ jobs:
           command: |
             git remote add clever git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_bf78b874-c49e-4032-8a2c-d3ce0c11ce6a.git
             git push -u clever master
+
+      - run:
+          name: listen deploy events
+          command: |
+              node deployment-listener.js --app CITYZENS-WEBAPP-PROD
 
 
 workflows:
