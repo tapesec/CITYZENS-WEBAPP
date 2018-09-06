@@ -375,6 +375,13 @@ const trackEvent = params => ({
     },
 });
 
+const fetchCityzenProfile = userId => ({
+    type: actionTypes.FETCH_CITYZEN_PROFILE,
+    payload: {
+        userId,
+    },
+});
+
 const submitProfile = (userId, formValues) => ({
     type: actionTypes.SUBMIT_CITYZEN_PROFILE,
     payload: {
@@ -441,5 +448,6 @@ export default {
     fetchMessageComments,
     submitLead,
     trackEvent,
+    fetchCityzenProfile,
     submitProfile,
 };

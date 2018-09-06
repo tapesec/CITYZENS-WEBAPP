@@ -37,6 +37,33 @@ export function* updateProfile(action) {
     }
 }
 
+export function* getCityzenProfile(action) {
+    try {
+        const accessToken = yield select(getCityzenAccessToken);
+        const { payload } = action;
+        const response = yield call(
+            [cityzensApi, cityzensApi.getCityzen],
+            accessToken,
+            payload.userId,
+        );
+        const cityzen = yield response.json();
+        yield put({
+            type: actionTypes.FETCH_CITYZEN_PROFILE_SUCCESS,
+            payload: { cityzen },
+        });
+    } catch (error) {
+        yield put(
+            actions.displayMessageToScreen(
+                SNACKBAR.ERROR.GENERIC_FAIL,
+                NOTIFICATION_MESSAGE.LEVEL.ERROR,
+            ),
+        );
+    }
+}
+
 export default function* profileSagas() {
-    yield [takeLatest(actionTypes.SUBMIT_CITYZEN_PROFILE, updateProfile)];
+    yield [
+        takeLatest(actionTypes.SUBMIT_CITYZEN_PROFILE, updateProfile),
+        takeLatest(actionTypes.FETCH_CITYZEN_PROFILE, getCityzenProfile),
+    ];
 }

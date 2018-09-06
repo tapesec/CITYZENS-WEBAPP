@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import { GatewayDest, GatewayProvider } from 'react-gateway';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { isAuthenticated } from '../reducers/authenticatedCityzen';
 import '../../../node_modules/@material/theme/dist/mdc.theme.min.css';
 import '../../../node_modules/@material/top-app-bar/dist/mdc.top-app-bar.min.css';
 import '../../../node_modules/@material/typography/dist/mdc.typography.min.css';
@@ -34,7 +36,17 @@ class App extends React.Component {
                     <MainContainer>
                         <Switch>
                             <Route exact path="/" component={Home} />
-                            <Route exact path="/profile/:userId" component={Profile} />
+                            <Route
+                                exact
+                                path="/profile/:userId"
+                                render={props =>
+                                    !props.isAuthenticated ? (
+                                        <Redirect push to="/login" />
+                                    ) : (
+                                        <Profile {...props} />
+                                    )
+                                }
+                            />
                             <Route path="/:citySlug" component={Dashboard} />
                         </Switch>
                     </MainContainer>
@@ -44,5 +56,9 @@ class App extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    isAuthenticated: isAuthenticated(state),
+});
 /* eslint-enable */
-export default App;
+export default connect(mapStateToProps)(App);

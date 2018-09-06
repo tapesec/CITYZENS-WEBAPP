@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { Typography } from 'rmwc/Typography';
 import { Icon } from 'rmwc/Icon';
 import { Button } from 'rmwc/Button';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { visitorComeFromMobile } from '../../reducers/visitor';
 import { getCityzenProfileFromApi, isAuthenticated } from '../../reducers/authenticatedCityzen';
+import { getCityzenProfile } from '../../reducers/cityzens';
 import ImageCDN from './../lib/ImageCDN';
 import ComboIcon from './../lib/comboIcon/ComboIcon';
 import authConnector from './../hoc/authConnector';
@@ -57,7 +59,7 @@ class Profile extends React.Component {
         this.state = {
             isEditMode: false,
             formValues: {
-                description: props.authenticatedCityzen.description,
+                description: props.cityzen ? props.cityzen.description : '',
             },
             validate: {},
         };
@@ -68,6 +70,10 @@ class Profile extends React.Component {
         this.initValidationField = this.initValidationField.bind(this);
         this.formSubmit = this.formSubmit.bind(this);
         this.onAvatarUploaded = this.onAvatarUploaded.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.getCityzenProfile(this.props.match.params.userId);
     }
 
     onAvatarUploaded(pictureHandle) {
@@ -122,7 +128,7 @@ class Profile extends React.Component {
             this.setState(formStatus.newStateToUpdate);
             return false;
         }
-        this.props.submitDescription(this.props.authenticatedCityzen.id, this.state.formValues);
+        this.props.submitDescription(this.props.cityzen.id, this.state.formValues);
         return true;
     }
 
@@ -141,7 +147,10 @@ class Profile extends React.Component {
                 </Typography>
             ),
         );
-        if (this.props.isAuthenticated && this.props.authenticatedCityzen) {
+        if (
+            this.props.isAuthenticated &&
+            this.props.authenticatedCityzen.id === this.props.cityzen.id
+        ) {
             return !this.state.isEditMode ? (
                 <ComboIcon
                     actionComponent={() => (
@@ -158,8 +167,8 @@ class Profile extends React.Component {
     }
 
     render() {
-        const { authenticatedCityzen, displayMessageToScreen } = this.props;
-        return (
+        const { cityzen, displayMessageToScreen } = this.props;
+        return cityzen ? (
             <Fragment>
                 <Nav {...this.props} />
 
@@ -197,8 +206,8 @@ class Profile extends React.Component {
                                         boxSizing: 'border-box',
                                         boxShadow: '0px 0px 2px 0px grey',
                                     }}
-                                    filename={authenticatedCityzen.pictureCityzen}
-                                    alt={`avatar de ${authenticatedCityzen.pseudo}`}
+                                    filename={cityzen.pictureCityzen}
+                                    alt={`avatar de ${cityzen.pseudo}`}
                                 />
                             ) : (
                                 <AvatarUploader
@@ -218,11 +227,11 @@ class Profile extends React.Component {
                             <Icon theme="secondary" strategy="ligature">
                                 bookmark
                             </Icon>{' '}
-                            {authenticatedCityzen.pseudo}
+                            {cityzen.pseudo}
                         </Typography>
                         <Typography className="signupDate" use="body2" tag="p" theme="text-primary">
                             <Icon strategy="event">event</Icon>
-                            Inscrit depuis <DateFormater date={authenticatedCityzen.createdAt} />
+                            Inscrit depuis <DateFormater date={cityzen.createdAt} />
                         </Typography>
                         {!this.state.isEditMode ? (
                             <Typography
@@ -231,10 +240,7 @@ class Profile extends React.Component {
                                 tag="h1"
                                 theme="text-primary">
                                 <Icon strategy="ligature">record_voice_over</Icon>{' '}
-                                {Profile.displayDescription(
-                                    authenticatedCityzen.pseudo,
-                                    authenticatedCityzen.description,
-                                )}
+                                {Profile.displayDescription(cityzen.pseudo, cityzen.description)}
                             </Typography>
                         ) : (
                             <form className="ProfileForm">
@@ -282,6 +288,8 @@ class Profile extends React.Component {
                     </section>
                 </section>
             </Fragment>
+        ) : (
+            'chargement ...'
         );
     }
 }
@@ -291,17 +299,26 @@ Profile.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     authenticatedCityzen: PropTypes.shape({
         id: PropTypes.string,
-        description: PropTypes.string,
     }).isRequired,
+    cityzen: PropTypes.shape({
+        id: PropTypes.string,
+        description: PropTypes.string,
+    }),
+    getCityzenProfile: PropTypes.func.isRequired,
     submitDescription: PropTypes.func.isRequired,
     removeUploadedAvatar: PropTypes.func.isRequired,
     displayMessageToScreen: PropTypes.func.isRequired,
+    match: ReactRouterPropTypes.match.isRequired,
+};
+Profile.defaultProps = {
+    cityzen: {},
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
     isFromMobile: visitorComeFromMobile(state),
     authenticatedCityzen: getCityzenProfileFromApi(state),
     isAuthenticated: isAuthenticated(state),
+    cityzen: getCityzenProfile(state, props.match.params.userId),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -318,6 +335,9 @@ const mapDispatchToProps = dispatch => ({
                 NOTIFICATION_MESSAGE.LEVEL.ERROR,
             ),
         );
+    },
+    getCityzenProfile: userId => {
+        dispatch(actions.fetchCityzenProfile(userId));
     },
 });
 

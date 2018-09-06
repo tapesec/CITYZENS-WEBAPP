@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable */
 if (process.argv.length !== 4) throw new Error('Bad cmd parameter !');
 const APP_NAME = process.argv[3];
 const CLEVER_OAUTH_CONSUMER_KEY = process.env.CLEVER_OAUTH_CONSUMER_KEY;
@@ -31,7 +32,6 @@ client.on('connect', function(connection) {
                 parsedMessage.event === 'DEPLOYMENT_SUCCESS'
             ) {
                 console.log('Deployment finished successfully ! next step …');
-                process.exit(0);
             }
             if (
                 application &&
@@ -62,3 +62,5 @@ client.on('connect', function(connection) {
 });
 
 client.connect('wss://api.clever-cloud.com/v2/events/event-socket');
+
+/* eslint-enable */
